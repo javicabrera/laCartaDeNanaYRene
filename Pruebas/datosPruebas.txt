@@ -14,6 +14,7 @@ Pruebas de registrar pedido:
         porcentaje de descuento: 0%
 
     2.- Cliente registrado
+        pedro Arturo
 
         datos del pedido
         tipo producto: pie de limon
