@@ -13,6 +13,8 @@ Pruebas de registrar pedido:
         precio cancelado: 0
         porcentaje de descuento: 0%
 
+        EXITO
+
     2.- Cliente registrado
         pedro Arturo
 
@@ -24,3 +26,21 @@ Pruebas de registrar pedido:
         estado: pendiente
         precio cancelado: 0
         porcentaje de descuento: 5%
+
+        EXITO
+
+    3.- Cliente sin registro:
+        Nombre: 
+        correo: parturo@gmail.com
+        telefono: +56972783384
+
+        datos del pedido
+        tipo producto: pastel
+        cantidad: 1
+        fecha solicitud: 
+        fecha retiro:
+        estado: pendiente
+        precio cancelado: 0
+        porcentaje de descuento: 0%
+
+        FALLO, faltan campos
