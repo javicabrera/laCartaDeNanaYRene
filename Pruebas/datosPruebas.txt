@@ -1,0 +1,25 @@
+Pruebas de registrar pedido:
+    1.- Cliente sin registro 
+        Nombre: Pedro Arturo
+        correo: parturo@gmail.com
+        telefono: +56972783384
+
+        datos del pedido
+        tipo producto: pastel
+        cantidad: 1
+        fecha solicitud: 
+        fecha retiro:
+        estado: pendiente
+        precio cancelado: 0
+        porcentaje de descuento: 0%
+
+    2.- Cliente registrado
+
+        datos del pedido
+        tipo producto: pie de limon
+        cantidad: 3
+        fecha solicitud: 
+        fecha retiro:
+        estado: pendiente
+        precio cancelado: 0
+        porcentaje de descuento: 5%
