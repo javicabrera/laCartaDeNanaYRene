@@ -66,16 +66,16 @@ public class NuevoPedido extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtProducto.setText("Producto:");
-        getContentPane().add(txtProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+        getContentPane().add(txtProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, 40));
 
         txtFechaSolicitud.setText("Fecha Solicitud:");
-        getContentPane().add(txtFechaSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
+        getContentPane().add(txtFechaSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
         txtPrecioTotal.setText("Precio Total:");
-        getContentPane().add(txtPrecioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 196, -1, 20));
+        getContentPane().add(txtPrecioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 20));
 
         txtDescuento.setText("Descuento:");
-        getContentPane().add(txtDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, 30));
+        getContentPane().add(txtDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 80, 20));
 
         txtCliente.setText("Cliente:");
         getContentPane().add(txtCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 356, -1, 30));
@@ -86,14 +86,14 @@ public class NuevoPedido extends javax.swing.JFrame {
         txtNumero.setText("Numero: ");
         getContentPane().add(txtNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 456, -1, 20));
 
-        txtCantidad.setText("Cantidad:");
-        getContentPane().add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, -1, 30));
+        txtCantidad.setText("Cantidad");
+        getContentPane().add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, -1, 20));
 
         txtFechaRetiro.setText("Fecha Retiro:");
-        getContentPane().add(txtFechaRetiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 316, -1, 30));
+        getContentPane().add(txtFechaRetiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, 30));
 
         txtPrecioAbonado.setText("Precio Abonado:");
-        getContentPane().add(txtPrecioAbonado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 216, -1, 40));
+        getContentPane().add(txtPrecioAbonado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, 40));
 
         txtCorreo.setText("Correo:");
         getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 450, -1, 30));
@@ -103,14 +103,14 @@ public class NuevoPedido extends javax.swing.JFrame {
                 fSolicitudActionPerformed(evt);
             }
         });
-        getContentPane().add(fSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 190, -1));
-        getContentPane().add(precioAbonado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 190, -1));
-        getContentPane().add(precioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 190, -1));
+        getContentPane().add(fSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 190, -1));
+        getContentPane().add(precioAbonado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 190, -1));
+        getContentPane().add(precioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 190, -1));
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, 320, -1));
         getContentPane().add(numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 450, 170, -1));
-        getContentPane().add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 190, -1));
-        getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 190, -1));
-        getContentPane().add(fRetiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, 190, -1));
+        getContentPane().add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 190, -1));
+        getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 80, -1));
+        getContentPane().add(fRetiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 190, -1));
 
         boxProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         boxProductos.addActionListener(new java.awt.event.ActionListener() {
@@ -118,7 +118,7 @@ public class NuevoPedido extends javax.swing.JFrame {
                 boxProductosActionPerformed(evt);
             }
         });
-        getContentPane().add(boxProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 190, -1));
+        getContentPane().add(boxProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 110, -1));
         getContentPane().add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 450, 240, -1));
 
         boxCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));

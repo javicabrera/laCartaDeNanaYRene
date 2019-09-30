@@ -90,7 +90,7 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         btnOtros.setText("Otras Opciones...");
         getContentPane().add(btnOtros, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 470, 160, 100));
 
-        jList1.setBackground(new java.awt.Color(222, 222, 222));
+        jList1.setBackground(new java.awt.Color(242, 242, 242));
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
