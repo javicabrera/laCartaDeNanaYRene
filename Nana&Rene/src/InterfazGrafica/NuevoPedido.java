@@ -57,6 +57,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         txtResumenPedido = new javax.swing.JLabel();
         bVolver = new javax.swing.JButton();
         bGuardar = new javax.swing.JButton();
+        btnAgregarProducto = new javax.swing.JButton();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -153,6 +154,14 @@ public class NuevoPedido extends javax.swing.JFrame {
         bGuardar.setText("Guardar");
         getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 520, 100, 50));
 
+        btnAgregarProducto.setText("+");
+        btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarProductoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAgregarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 50, 30));
+
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
 
         icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/logo64x64.png"))); // NOI18N
@@ -203,6 +212,10 @@ public class NuevoPedido extends javax.swing.JFrame {
     private void boxProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxProductosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_boxProductosActionPerformed
+
+    private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -261,6 +274,7 @@ public class NuevoPedido extends javax.swing.JFrame {
     private javax.swing.JLabel background;
     private javax.swing.JComboBox<String> boxCliente;
     private javax.swing.JComboBox<String> boxProductos;
+    private javax.swing.JButton btnAgregarProducto;
     private javax.swing.JTextField cantidad;
     private javax.swing.JTextField correo;
     private javax.swing.JTextField descuento;
