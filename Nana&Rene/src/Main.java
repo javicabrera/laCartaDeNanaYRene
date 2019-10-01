@@ -1,4 +1,7 @@
 
+import logica.ControladorInterfaces;
+
+
 
 
 /*
@@ -12,14 +15,13 @@
  * @author elias
  */
 public class Main {
-
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        ControladorInterfaces control = new ControladorInterfaces();
-        control.iniciarInterfaz();
+        ControladorInterfaces controlador = new ControladorInterfaces();
+        ControladorInterfaces.iniciarInterfaz();
     }
     
 }
