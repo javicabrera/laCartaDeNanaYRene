@@ -6,6 +6,7 @@
 package InterfazGrafica;
 
 import javax.swing.JPanel;
+import logica.Pedido;
 import logica.ControladorInterfaces;
 import logica.controladorPedido;
 
@@ -38,7 +39,7 @@ public class GestionaPedido extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnSiguiente = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaPedidos = new javax.swing.JTable();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -80,7 +81,7 @@ public class GestionaPedido extends javax.swing.JFrame {
         });
         getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, 30, 30));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -91,15 +92,22 @@ public class GestionaPedido extends javax.swing.JFrame {
                 "Cliente", "Fecha Retiro", "Precio Total", "Estado", "Modificar"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane.setViewportView(jTable1);
+        jScrollPane.setViewportView(tablaPedidos);
 
         getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 430, 550));
 
@@ -155,12 +163,33 @@ public class GestionaPedido extends javax.swing.JFrame {
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         // TODO add your handling code here:
-        System.out.println("Estado Cambiado a Siguiente Estado Posible");
+        controladorPedido cp = new controladorPedido();
+        Pedido pedido = new Pedido(null,null,null,0,0,null,null,null,0);
+        String estado = pedido.getEstado();
+        String nuevo = "";
+        switch (estado){
+            case "Pendiente":
+                nuevo = "En proceso";
+                //cp.verificarAbono(pedido);
+                //cp.verificarDisponibilidadMateriasPrimas(pedido);
+                break;
+            case "En proceso":
+                nuevo = "Finalizado";
+                break;
+            case "Finalizado":
+                nuevo = "Retirado";
+                break;
+        }
+        pedido.setEstado(nuevo);
+        System.out.println("Estado Cambiado a " + nuevo);
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        controladorPedido cp = new controladorPedido();
+        //cp.cancelarPedido(new Pedido(null,null,null,0,0,null,null,null,0));
         System.out.println("Pedido Cancelado");
+        
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
@@ -214,8 +243,8 @@ public class GestionaPedido extends javax.swing.JFrame {
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel icon;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel panelSuperior;
+    private javax.swing.JTable tablaPedidos;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }
