@@ -140,11 +140,14 @@ public class PaginaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
-        // TODO add your handling code here:
+        GestionaPedido gp = new GestionaPedido();
+        this.setVisible(false);
+        gp.setVisible(true);
+        
     }//GEN-LAST:event_btnPedidosActionPerformed
 
     private void btnMateriasPrimasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMateriasPrimasActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnMateriasPrimasActionPerformed
 
     private void btnElaborarReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElaborarReportesActionPerformed

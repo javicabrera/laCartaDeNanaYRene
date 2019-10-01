@@ -32,6 +32,7 @@ public class GestionaPedido extends javax.swing.JFrame {
     private void initComponents() {
 
         btnCrear = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         panelSuperior = new javax.swing.JPanel();
@@ -40,6 +41,7 @@ public class GestionaPedido extends javax.swing.JFrame {
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(0, 0));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCrear.setText("+ Crear");
@@ -49,6 +51,14 @@ public class GestionaPedido extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, 120, 70));
+
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 580, 130, 60));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -89,7 +99,7 @@ public class GestionaPedido extends javax.swing.JFrame {
             .addGroup(panelSuperiorLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(icon)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(titulo)
@@ -99,14 +109,22 @@ public class GestionaPedido extends javax.swing.JFrame {
         getContentPane().add(panelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 70));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/fondo600x600.jpg"))); // NOI18N
-        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, -1, -1));
+        background.setText("Volver");
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 600, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        // TODO add your handling code here:
+        NuevoPedido np = new NuevoPedido();
+        this.setVisible(false);
+        np.setVisible(true);
     }//GEN-LAST:event_btnCrearActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        new PaginaPrincipal().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,6 +172,7 @@ public class GestionaPedido extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
     private javax.swing.JButton btnCrear;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel icon;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTable jTable1;
