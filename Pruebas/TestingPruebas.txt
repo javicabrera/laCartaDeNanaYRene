@@ -1,15 +1,23 @@
 prueba registrar pedido:
-1.Resultado esperado :Exito
-  Resltado final obtenido: Exitoso
+ 1.Resultado esperado :Exito
+  Resltado final obtenido: Exito
 
-2.Resultado esperado :Exito
-  Resltado final obtenido: 
+ 2.Resultado esperado :Exito
+  Resltado final obtenido: Exito, se llenan todos los campos fundamentales
 
-3.Resultado esperado : FALLO
-  Resltado final obtenido: 
+ 3.Resultado esperado : FALLO
+  Resltado final obtenido: FALLO, debe ingresar una fecha valida,
+  faltan campos por completar, cliente no tiene nombre
+ 
+ 4.Resultado esperado : FALLO , precio abonado no corresponde al 50%
+  Resltado final obtenido: Exitoso, no esta considerando el 50% para el registro 
+  de pedido
 
-4.Resultado esperado : FALLO
-  Resltado final obtenido: 
-
-5.Resultado esperado :Exito
-  Resltado final obtenido: 
+ 5.Resultado esperado :Exito
+  Resltado final obtenido: Exito, se llenan todos los campos fundamentales
+Elaborar pedido:
+ -no esta implementado la elaboracion de pedido. envia mensaje
+ "Estado Cambiado a Siguiente Estado Posible"
+Cancelar pedido:
+ - el programa muestra un mensaje por consola: "pedido cancelado", este no esta 
+asociado a ningun pedido

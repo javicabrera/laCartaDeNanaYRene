@@ -31,17 +31,21 @@ public class ControladorInterfaces {
     public static void iniciarInterfaz(){
         ControladorInterfaces.principal.setLocationRelativeTo(null);
         ControladorInterfaces.principal.setVisible(true);
+        ControladorInterfaces.principal.repaint();
     }
     
     public static void mostrarPrincipal(boolean b){
         ControladorInterfaces.principal.setVisible(b);
+        ControladorInterfaces.principal.repaint();
     }
     
     public static void mostrarNuevoPedido(boolean b){
         ControladorInterfaces.nuevoPedido.setVisible(b);
+        ControladorInterfaces.nuevoPedido.repaint();
     }
     
     public static void mostrarGestionaPedido(boolean b){
         ControladorInterfaces.gestionaPedido.setVisible(b);
+        ControladorInterfaces.gestionaPedido.repaint();
     }
 }

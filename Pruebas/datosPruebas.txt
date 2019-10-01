@@ -22,18 +22,18 @@ Pruebas de registrar pedido:
         datos del pedido
         tipo producto: pie de limon
         cantidad: 3
-        fecha solicitud: 
-        fecha retiro:
+        fecha solicitud: 1/10/2019
+        fecha retiro: 2/10/2019
         estado: pendiente
 	precio total: 10000
         precio abonado: 5000
         porcentaje de descuento: 50%
 
-        Fracaso
+        Exito
 
     3.- Cliente sin registro:
         Nombre: 
-        correo: parturo@gmail.com
+        correo: pedreros@gmail.com
         telefono: +56972783384
 
         datos del pedido
@@ -56,8 +56,8 @@ Pruebas de registrar pedido:
         datos del pedido
         tipo producto: pastel
         cantidad: 2
-        fecha solicitud: 
-        fecha retiro:
+        fecha solicitud: 3/10/2019
+        fecha retiro: 4/10/2019
         estado: pendiente
 	precio total: 20000
         precio abonado: 5000
@@ -73,8 +73,8 @@ Pruebas de registrar pedido:
         datos del pedido
         tipo producto: queque
         cantidad: 1
-        fecha solicitud: 
-        fecha retiro:
+        fecha solicitud: 1/10/2019
+        fecha retiro: 2/10/2019
         estado: pendiente
 	precio total: 10000
         precio abonado: 5000

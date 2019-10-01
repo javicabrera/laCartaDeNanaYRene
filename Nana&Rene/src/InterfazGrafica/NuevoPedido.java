@@ -315,6 +315,7 @@ public class NuevoPedido extends javax.swing.JFrame {
                 System.out.println("Nombre cliente: " + nombre.getText());
                 System.out.println("Correo: " + correo.getText());
                 System.out.println("Numero: " + numero.getText());
+                PaginaPrincipal.agregarPedido(nombre.getText());
                 ControladorInterfaces.mostrarNuevoPedido(false);
                 ControladorInterfaces.mostrarGestionaPedido(true);
             }
