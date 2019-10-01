@@ -86,7 +86,7 @@ public class GestionaPedido extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Cliente", "Fecha Retiro", "Precio Total", "Estado", "Modificar Estado"
+                "Cliente", "Fecha Retiro", "Precio Total", "Estado", "Modificar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
