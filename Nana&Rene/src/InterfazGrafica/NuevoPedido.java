@@ -5,6 +5,7 @@
  */
 package InterfazGrafica;
 
+import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import logica.Pedido;
@@ -24,6 +25,7 @@ public class NuevoPedido extends javax.swing.JFrame {
     public NuevoPedido() {
         initComponents();
         productos = new HashMap<>();
+        
         
         
     }
@@ -111,6 +113,12 @@ public class NuevoPedido extends javax.swing.JFrame {
             }
         });
         getContentPane().add(fSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 190, -1));
+
+        precioAbonado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                precioAbonadoActionPerformed(evt);
+            }
+        });
         getContentPane().add(precioAbonado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 190, -1));
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, 320, -1));
         getContentPane().add(numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 450, 170, -1));
@@ -199,7 +207,7 @@ public class NuevoPedido extends javax.swing.JFrame {
             .addGroup(panelSuperiorLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(icon)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(titulo)
@@ -219,7 +227,8 @@ public class NuevoPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_fSolicitudActionPerformed
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
-        // TODO add your handling code here:
+        new GestionaPedido().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void boxProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxProductosActionPerformed
@@ -266,11 +275,17 @@ public class NuevoPedido extends javax.swing.JFrame {
         }
         
         if (flag){
-//            Pedido p = new Pedido(productos, fSolicitud.getText(), fRetiro.getText(), 
-//                    precioTotal.getText(),dcto,nombre.getText(), correo.getText(), 
-//                    numero.getText(), abono);
+            Pedido p = new Pedido(productos,  null, null, 
+                    Integer.parseInt(precioTotal.getText()),dcto,nombre.getText(), correo.getText(), 
+                    numero.getText(), abono);
         }
+        
+        this.dispose();
     }//GEN-LAST:event_bGuardarActionPerformed
+
+    private void precioAbonadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioAbonadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_precioAbonadoActionPerformed
 
     /**
      * @param args the command line arguments
