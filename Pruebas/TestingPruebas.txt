@@ -1,0 +1,15 @@
+prueba registrar pedido:
+1.Resultado esperado :Exito
+  Resltado final obtenido: Exitoso
+
+2.Resultado esperado :Exito
+  Resltado final obtenido: 
+
+3.Resultado esperado : FALLO
+  Resltado final obtenido: 
+
+4.Resultado esperado : FALLO
+  Resltado final obtenido: 
+
+5.Resultado esperado :Exito
+  Resltado final obtenido: 
