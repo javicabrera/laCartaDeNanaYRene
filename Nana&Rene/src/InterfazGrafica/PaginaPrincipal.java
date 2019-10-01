@@ -143,6 +143,7 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         GestionaPedido gp = new GestionaPedido();
         this.setVisible(false);
         gp.setVisible(true);
+        this.dispose();
         
     }//GEN-LAST:event_btnPedidosActionPerformed
 
