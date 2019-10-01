@@ -164,11 +164,33 @@ public class GestionaPedido extends javax.swing.JFrame {
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         // TODO add your handling code here:
+        controladorPedido cp = new controladorPedido();
+        Pedido pedido = new Pedido(null,null,null,0,0,null,null,null,0);
+        String estado = pedido.getEstado();
+        String nuevo = "";
+        switch (estado){
+            case "Pendiente":
+                nuevo = "En proceso";
+                //cp.verificarAbono(pedido);
+                //cp.verificarDisponibilidadMateriasPrimas(pedido);
+                break;
+            case "En proceso":
+                nuevo = "Finalizado";
+                break;
+            case "Finalizado":
+                nuevo = "Retirado";
+                break;
+        }
+        pedido.setEstado(nuevo);
+        System.out.println("Estado Cambiado a " + nuevo);
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        controladorPedido cp = new controladorPedido();
+        //cp.cancelarPedido(new Pedido(null,null,null,0,0,null,null,null,0));
         System.out.println("Pedido Cancelado");
+        
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
