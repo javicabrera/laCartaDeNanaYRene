@@ -6,13 +6,24 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
  * @author Javiera Méndez
  */
-public class elaborarPedido
+public class controladorPedido
 {
+    public boolean cancelarPedido(Pedido p)
+    { 
+        Date fechaActual = new Date();
+        if(fechaActual.after(p.getFechaSolicitud()))
+        {
+            return true;
+        }
+        return false;
+    }
+    
     public void cambiarEstadoProceso(Pedido p)
     {
         p.setEstado("En Proceso");
