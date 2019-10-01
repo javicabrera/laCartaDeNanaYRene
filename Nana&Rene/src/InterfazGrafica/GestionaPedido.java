@@ -6,13 +6,15 @@
 package InterfazGrafica;
 
 import javax.swing.JPanel;
+import logica.ControladorInterfaces;
+import logica.controladorPedido;
 
 /**
  *
  * @author elias
  */
 public class GestionaPedido extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form PaginaPrincipalFX
      */
@@ -142,14 +144,14 @@ public class GestionaPedido extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        NuevoPedido np = new NuevoPedido();
-        this.setVisible(false);
-        np.setVisible(true);
+        ControladorInterfaces.mostrarNuevoPedido(true);
+        ControladorInterfaces.mostrarGestionaPedido(false);
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        new PaginaPrincipal().setVisible(true);
-        this.dispose();
+        ControladorInterfaces.mostrarGestionaPedido(false);
+        ControladorInterfaces.mostrarPrincipal(true);
+        
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
