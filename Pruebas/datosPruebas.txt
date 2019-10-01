@@ -10,22 +10,24 @@ Pruebas de registrar pedido:
         fecha solicitud: 
         fecha retiro:
         estado: pendiente
-        precio cancelado: 0
+	precio total: 10000
+        precio abonado: 5000
         porcentaje de descuento: 0%
 
         EXITO
 
     2.- Cliente registrado
         pedro Arturo
-
+	
         datos del pedido
         tipo producto: pie de limon
         cantidad: 3
         fecha solicitud: 
         fecha retiro:
         estado: pendiente
-        precio cancelado: 0
-        porcentaje de descuento: 5%
+	precio total: 10000
+        precio abonado: 5000
+        porcentaje de descuento: 50%
 
         EXITO
 
@@ -40,11 +42,30 @@ Pruebas de registrar pedido:
         fecha solicitud: 
         fecha retiro:
         estado: pendiente
-        precio cancelado: 0
+	precio total: 10000
+        precio abonado: 5000
         porcentaje de descuento: 0%
 
         FALLO, faltan campos
-    4.- Cliente sin registro 
+
+    4.- Cliente sin registro:
+        Nombre: patricio carlos
+        correo: patocarlos@gmail.com
+        telefono: +56934259403
+
+        datos del pedido
+        tipo producto: pastel
+        cantidad: 2
+        fecha solicitud: 
+        fecha retiro:
+        estado: pendiente
+	precio total: 20000
+        precio abonado: 5000
+        porcentaje de descuento: 0%
+
+        FALLO, precio abonado no corresponde al 50%
+
+    5.- Cliente sin registro 
         Nombre: Marcelo Avendaño
         correo: marceaven@gmail.com
         telefono: +56912215445
@@ -55,7 +76,8 @@ Pruebas de registrar pedido:
         fecha solicitud: 
         fecha retiro:
         estado: pendiente
-        precio cancelado: 0
+	precio total: 10000
+        precio abonado: 5000
         porcentaje de descuento: 0%
 
         EXITO
