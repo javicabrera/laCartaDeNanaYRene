@@ -6,13 +6,15 @@
 package InterfazGrafica;
 
 import javax.swing.JPanel;
+import logica.ControladorInterfaces;
+import logica.controladorPedido;
 
 /**
  *
  * @author elias
  */
 public class GestionaPedido extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form PaginaPrincipalFX
      */
@@ -33,6 +35,8 @@ public class GestionaPedido extends javax.swing.JFrame {
 
         btnCrear = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         panelSuperior = new javax.swing.JPanel();
@@ -60,17 +64,41 @@ public class GestionaPedido extends javax.swing.JFrame {
         });
         getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 580, 130, 60));
 
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/cancel16.png"))); // NOI18N
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 30, 30));
+
+        btnSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/next16.png"))); // NOI18N
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, 30, 30));
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Cliente", "Fecha Retiro", "Precio Total", "Estado"
+                "Cliente", "Fecha Retiro", "Precio Total", "Estado", "Modificar"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 430, 550));
@@ -116,15 +144,25 @@ public class GestionaPedido extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        NuevoPedido np = new NuevoPedido();
-        this.setVisible(false);
-        np.setVisible(true);
+        ControladorInterfaces.mostrarNuevoPedido(true);
+        ControladorInterfaces.mostrarGestionaPedido(false);
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        new PaginaPrincipal().setVisible(true);
-        this.dispose();
+        ControladorInterfaces.mostrarGestionaPedido(false);
+        ControladorInterfaces.mostrarPrincipal(true);
+        
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Estado Cambiado a Siguiente Estado Posible");
+    }//GEN-LAST:event_btnSiguienteActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Pedido Cancelado");
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,7 +209,9 @@ public class GestionaPedido extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCrear;
+    private javax.swing.JButton btnSiguiente;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel icon;
     private javax.swing.JScrollPane jScrollPane;

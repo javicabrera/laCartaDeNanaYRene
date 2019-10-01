@@ -6,6 +6,7 @@
 package InterfazGrafica;
 
 import javax.swing.JPanel;
+import logica.ControladorInterfaces;
 
 /**
  *
@@ -140,9 +141,9 @@ public class PaginaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
-        GestionaPedido gp = new GestionaPedido();
-        this.setVisible(false);
-        gp.setVisible(true);
+
+        ControladorInterfaces.mostrarPrincipal(false);
+        ControladorInterfaces.mostrarGestionaPedido(true);
         
     }//GEN-LAST:event_btnPedidosActionPerformed
 

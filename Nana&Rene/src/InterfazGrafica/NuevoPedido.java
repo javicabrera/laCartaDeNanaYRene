@@ -9,9 +9,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import logica.ControladorInterfaces;
 import logica.Pedido;
 import logica.Producto;
 
@@ -21,7 +23,7 @@ import logica.Producto;
  * @author elias
  */
 public class NuevoPedido extends javax.swing.JFrame {
-    private HashMap<Producto,Integer> productos;
+    private HashMap<String,Integer> productos;
 
     /**
      * Creates new form PaginaPrincipalFX
@@ -29,7 +31,10 @@ public class NuevoPedido extends javax.swing.JFrame {
     public NuevoPedido() {
         initComponents();
         productos = new HashMap<>();
-        
+        Producto p1 = new Producto("Torta", 2500, 3000);
+        Producto p2 = new Producto("Pie de limon", 3000, 5000);
+        boxProductos.addItem(p1.getNombre());
+        boxProductos.addItem(p2.getNombre());
         
         
     }
@@ -134,7 +139,6 @@ public class NuevoPedido extends javax.swing.JFrame {
         fRetiro.setText("dd/MM/aaaa");
         getContentPane().add(fRetiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 190, -1));
 
-        boxProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         boxProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boxProductosActionPerformed(evt);
@@ -235,8 +239,10 @@ public class NuevoPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_fSolicitudActionPerformed
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
-        new GestionaPedido().setVisible(true);
-        this.dispose();
+
+        ControladorInterfaces.mostrarNuevoPedido(false);
+        ControladorInterfaces.mostrarGestionaPedido(true);
+        
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void boxProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxProductosActionPerformed
@@ -244,10 +250,8 @@ public class NuevoPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_boxProductosActionPerformed
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
-        // TODO add your handling code here:
-        
-        //Buscar producto seleccionado
-        Producto producto = null; //cambiar cuando este producto
+        String producto = (String) boxProductos.getSelectedItem();
+        //buscar producto que coincide con nombre
         
         try{
             int cant = Integer.parseInt(cantidad.getText());
@@ -270,6 +274,9 @@ public class NuevoPedido extends javax.swing.JFrame {
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
         // TODO add your handling code here:
         boolean flag = false;
+        boolean flag2 = false;
+        Date DateSolicitud = null;
+        Date DateRetiro = null;
         int abono = 0;
         int dcto = 0;
         
@@ -278,24 +285,43 @@ public class NuevoPedido extends javax.swing.JFrame {
             dcto = Integer.parseInt(descuento.getText());
             flag = true;
         } catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(this, "Debe ingresar un abono válido",
+            JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        if (flag){
+     
             try {
-                Date DateSolicitud =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fSolicitud.getText());
-                Date DateRetiro =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fRetiro.getText());
-                
-                Pedido p = new Pedido(productos, DateSolicitud, DateRetiro,
-                        Integer.parseInt(precioTotal.getText()),dcto,nombre.getText(), correo.getText(),
-                        numero.getText(), abono);
+                DateSolicitud =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fSolicitud.getText());
+                DateRetiro =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fRetiro.getText());
+                flag2 = true;
             } catch (ParseException ex) {
                 Logger.getLogger(NuevoPedido.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Debe ingresar una fecha válida",
+                    "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }
+            
+            if (flag && flag2){
+                                
+//                Pedido p = new Pedido(productos, DateSolicitud, DateRetiro,
+//                        Integer.parseInt(precioTotal.getText()),dcto,nombre.getText(), correo.getText(),
+//                        numero.getText(), abono);
+                System.out.println("Productos: ");
+                for (Entry entry: productos.entrySet()) {
+                    System.out.println(entry.getKey() + " - Cantidad: "+ entry.getValue());
+                }
+                System.out.println("Fecha solicitud: " + DateSolicitud);
+                System.out.println("Precio abonado: " + abono);
+                System.out.println("Descuento: " + dcto);
+                System.out.println("Fecha retiro: " + DateRetiro);
+                System.out.println("Nombre cliente: " + nombre.getText());
+                System.out.println("Correo: " + correo.getText());
+                System.out.println("Numero: " + numero.getText());
+                ControladorInterfaces.mostrarNuevoPedido(false);
+                ControladorInterfaces.mostrarGestionaPedido(true);
+            }
         
-        this.dispose();
+        
+        
+        
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void precioAbonadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioAbonadoActionPerformed
