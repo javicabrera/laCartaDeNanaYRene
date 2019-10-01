@@ -5,20 +5,32 @@
  */
 package InterfazGrafica;
 
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
+import logica.ControladorInterfaces;
 
 /**
  *
  * @author elias
  */
 public class PaginaPrincipal extends javax.swing.JFrame {
-
+    private static DefaultListModel model;
     /**
      * Creates new form PaginaPrincipalFX
      */
     public PaginaPrincipal() {
+        //pedidos = new ArrayList<>();
         initComponents();
+        this.model = new DefaultListModel();
+        //this.model.addElement("one");
+        //model.addElement("two");
+        listaPedidos.setModel(this.model);
         
+    }
+    
+    public static void agregarPedido(String s){
+        PaginaPrincipal.model.addElement(s);
         
     }
 
@@ -40,7 +52,7 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         btnElaborarReportes = new javax.swing.JButton();
         btnOtros = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listaPedidos = new javax.swing.JList<>();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -90,13 +102,15 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         btnOtros.setText("Otras Opciones...");
         getContentPane().add(btnOtros, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 470, 160, 100));
 
-        jList1.setBackground(new java.awt.Color(242, 242, 242));
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        listaPedidos.setBackground(new java.awt.Color(242, 242, 242));
+        listaPedidos.setModel(new javax.swing.AbstractListModel<String>() {
+
+            String[] strings = {"item 1"};
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
+
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listaPedidos);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 170, 540));
 
@@ -124,7 +138,7 @@ public class PaginaPrincipal extends javax.swing.JFrame {
             .addGroup(panelSuperiorLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(icon)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(titulo)
@@ -140,9 +154,9 @@ public class PaginaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
-        GestionaPedido gp = new GestionaPedido();
-        this.setVisible(false);
-        gp.setVisible(true);
+
+        ControladorInterfaces.mostrarPrincipal(false);
+        ControladorInterfaces.mostrarGestionaPedido(true);
         
     }//GEN-LAST:event_btnPedidosActionPerformed
 
@@ -202,8 +216,8 @@ public class PaginaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnPedidos;
     private javax.swing.JButton btnProductos;
     private javax.swing.JLabel icon;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> listaPedidos;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel txtSeleccioneOpcion;

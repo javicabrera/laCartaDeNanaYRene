@@ -34,11 +34,6 @@ public class Pedido {
         this.numeroCliente = numeroCliente;
     }
 
-    
-    public boolean abono50(){
-        return (precioAbonado>=(precioTotal/2));
-    }
-
     public HashMap<Producto, Integer> getProductos() {
         return productos;
     }
@@ -118,9 +113,5 @@ public class Pedido {
     public void setNumeroCliente(String numeroCliente) {
         this.numeroCliente = numeroCliente;
     }
-    
-    
-    
-    
     
 }
