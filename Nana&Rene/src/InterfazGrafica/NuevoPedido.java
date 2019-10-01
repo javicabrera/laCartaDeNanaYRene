@@ -13,6 +13,7 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import logica.ControladorInterfaces;
 import logica.Pedido;
 import logica.Producto;
 
@@ -183,7 +184,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         });
         getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 520, 100, 50));
 
-        precioTotal.setText("$3500");
+        precioTotal.setText("3500");
         getContentPane().add(precioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, -1, -1));
 
         btnAgregarProducto.setText("+");
@@ -238,8 +239,10 @@ public class NuevoPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_fSolicitudActionPerformed
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
-        new GestionaPedido().setVisible(true);
-        this.dispose();
+
+        ControladorInterfaces.mostrarNuevoPedido(false);
+        ControladorInterfaces.mostrarGestionaPedido(true);
+        
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void boxProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxProductosActionPerformed
@@ -312,7 +315,8 @@ public class NuevoPedido extends javax.swing.JFrame {
                 System.out.println("Nombre cliente: " + nombre.getText());
                 System.out.println("Correo: " + correo.getText());
                 System.out.println("Numero: " + numero.getText());
-                this.dispose();
+                ControladorInterfaces.mostrarNuevoPedido(false);
+                ControladorInterfaces.mostrarGestionaPedido(true);
             }
         
         
