@@ -15,37 +15,25 @@ public class Pedido {
     private int precioTotal;
     private int precioAbonado;
     private int descuento;
-    private Cliente cliente;
-    private int nombreCliente;
+    private String nombreCliente;
     private String correoCliente;
     private String numeroCliente;
 
     public Pedido(HashMap<Producto, Integer> productos, Date fechaSolicitud, 
-            Date fechaRetiro, int precioTotal, int descuento, int nombreCliente, 
-            String correoCliente, String numeroCliente) {
+            Date fechaRetiro, int precioTotal, int descuento, String nombreCliente, 
+            String correoCliente, String numeroCliente, int precioAbonado) {
         this.productos = productos;
         this.fechaSolicitud = fechaSolicitud;
         this.fechaRetiro = fechaRetiro;
         this.estado = "Pendiente";
         this.precioTotal = precioTotal;
-        this.precioAbonado = 0;
+        this.precioAbonado = precioAbonado;
         this.descuento = descuento;
         this.nombreCliente = nombreCliente;
         this.correoCliente = correoCliente;
         this.numeroCliente = numeroCliente;
     }
 
-    public Pedido(HashMap<Producto, Integer> productos, Date fechaSolicitud, 
-            Date fechaRetiro, int precioTotal, int descuento, Cliente cliente) {
-        this.productos = productos;
-        this.fechaSolicitud = fechaSolicitud;
-        this.fechaRetiro = fechaRetiro;
-        this.precioTotal = precioTotal;
-        this.precioAbonado = 0;
-        this.descuento = descuento;
-        this.cliente = cliente;
-        this.estado = "Pendiente";
-    }
     
     public boolean abono50(){
         return (precioAbonado>=(precioTotal/2));
@@ -107,19 +95,11 @@ public class Pedido {
         this.descuento = descuento;
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public int getNombreCliente() {
+    public String getNombreCliente() {
         return nombreCliente;
     }
 
-    public void setNombreCliente(int nombreCliente) {
+    public void setNombreCliente(String nombreCliente) {
         this.nombreCliente = nombreCliente;
     }
 

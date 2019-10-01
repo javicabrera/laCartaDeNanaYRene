@@ -7,6 +7,7 @@ package InterfazGrafica;
 
 import java.util.HashMap;
 import javax.swing.JOptionPane;
+import logica.Pedido;
 import logica.Producto;
 
 
@@ -61,12 +62,12 @@ public class NuevoPedido extends javax.swing.JFrame {
         txtResumenPedido = new javax.swing.JLabel();
         bVolver = new javax.swing.JButton();
         bGuardar = new javax.swing.JButton();
+        precioTotal = new javax.swing.JLabel();
         btnAgregarProducto = new javax.swing.JButton();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -163,6 +164,9 @@ public class NuevoPedido extends javax.swing.JFrame {
         });
         getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 520, 100, 50));
 
+        precioTotal.setText("$3500");
+        getContentPane().add(precioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, -1, -1));
+
         btnAgregarProducto.setText("+");
         btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,9 +210,6 @@ public class NuevoPedido extends javax.swing.JFrame {
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/fondo600x600.jpg"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 600, 520));
-
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -254,6 +255,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         boolean flag = false;
         int abono = 0;
         int dcto = 0;
+        
         try{
             abono = Integer.parseInt(precioAbonado.getText());
             dcto = Integer.parseInt(descuento.getText());
@@ -261,6 +263,12 @@ public class NuevoPedido extends javax.swing.JFrame {
         } catch(NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Debe ingresar un abono válido",
                     "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        if (flag){
+//            Pedido p = new Pedido(productos, fSolicitud.getText(), fRetiro.getText(), 
+//                    precioTotal.getText(),dcto,nombre.getText(), correo.getText(), 
+//                    numero.getText(), abono);
         }
     }//GEN-LAST:event_bGuardarActionPerformed
 
@@ -328,12 +336,12 @@ public class NuevoPedido extends javax.swing.JFrame {
     private javax.swing.JTextField fRetiro;
     private javax.swing.JTextField fSolicitud;
     private javax.swing.JLabel icon;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField nombre;
     private javax.swing.JTextField numero;
     private javax.swing.JPanel panelResumen;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JTextField precioAbonado;
+    private javax.swing.JLabel precioTotal;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel txtCantidad;
     private javax.swing.JLabel txtCliente;
