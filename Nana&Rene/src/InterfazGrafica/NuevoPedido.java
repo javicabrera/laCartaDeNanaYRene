@@ -5,19 +5,25 @@
  */
 package InterfazGrafica;
 
-import javax.swing.JPanel;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
+import logica.Pedido;
+import logica.Producto;
+
 
 /**
  *
  * @author elias
  */
 public class NuevoPedido extends javax.swing.JFrame {
+    private HashMap<Producto,Integer> productos;
 
     /**
      * Creates new form PaginaPrincipalFX
      */
     public NuevoPedido() {
         initComponents();
+        productos = new HashMap<>();
         
         
     }
@@ -44,7 +50,6 @@ public class NuevoPedido extends javax.swing.JFrame {
         txtCorreo = new javax.swing.JLabel();
         fSolicitud = new javax.swing.JTextField();
         precioAbonado = new javax.swing.JTextField();
-        precioTotal = new javax.swing.JTextField();
         nombre = new javax.swing.JTextField();
         numero = new javax.swing.JTextField();
         descuento = new javax.swing.JTextField();
@@ -57,6 +62,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         txtResumenPedido = new javax.swing.JLabel();
         bVolver = new javax.swing.JButton();
         bGuardar = new javax.swing.JButton();
+        precioTotal = new javax.swing.JLabel();
         btnAgregarProducto = new javax.swing.JButton();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
@@ -106,7 +112,6 @@ public class NuevoPedido extends javax.swing.JFrame {
         });
         getContentPane().add(fSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 190, -1));
         getContentPane().add(precioAbonado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 190, -1));
-        getContentPane().add(precioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 190, -1));
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, 320, -1));
         getContentPane().add(numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 450, 170, -1));
         getContentPane().add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 190, -1));
@@ -152,7 +157,15 @@ public class NuevoPedido extends javax.swing.JFrame {
         getContentPane().add(bVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 100, 50));
 
         bGuardar.setText("Guardar");
+        bGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bGuardarActionPerformed(evt);
+            }
+        });
         getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 520, 100, 50));
+
+        precioTotal.setText("$3500");
+        getContentPane().add(precioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, -1, -1));
 
         btnAgregarProducto.setText("+");
         btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -215,7 +228,49 @@ public class NuevoPedido extends javax.swing.JFrame {
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
         // TODO add your handling code here:
+        
+        //Buscar producto seleccionado
+        Producto producto = null; //cambiar cuando este producto
+        
+        try{
+            int cant = Integer.parseInt(cantidad.getText());
+            productos.put(producto, cant);
+        } catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+//        }
+//        int total = 0;
+//        for(Producto prod: productos.keySet()){
+//            total+=prod.getPrecio();
+//        }
+//        precioTotal.setText(String.valueOf(total);
+        
+        
+        
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
+
+    private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
+        // TODO add your handling code here:
+        boolean flag = false;
+        int abono = 0;
+        int dcto = 0;
+        
+        try{
+            abono = Integer.parseInt(precioAbonado.getText());
+            dcto = Integer.parseInt(descuento.getText());
+            flag = true;
+        } catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un abono válido",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        if (flag){
+//            Pedido p = new Pedido(productos, fSolicitud.getText(), fRetiro.getText(), 
+//                    precioTotal.getText(),dcto,nombre.getText(), correo.getText(), 
+//                    numero.getText(), abono);
+        }
+    }//GEN-LAST:event_bGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,7 +341,7 @@ public class NuevoPedido extends javax.swing.JFrame {
     private javax.swing.JPanel panelResumen;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JTextField precioAbonado;
-    private javax.swing.JTextField precioTotal;
+    private javax.swing.JLabel precioTotal;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel txtCantidad;
     private javax.swing.JLabel txtCliente;
