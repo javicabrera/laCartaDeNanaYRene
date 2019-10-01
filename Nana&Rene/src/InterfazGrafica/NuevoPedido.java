@@ -5,8 +5,14 @@
  */
 package InterfazGrafica;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import logica.Pedido;
 import logica.Producto;
 
 
@@ -23,6 +29,7 @@ public class NuevoPedido extends javax.swing.JFrame {
     public NuevoPedido() {
         initComponents();
         productos = new HashMap<>();
+        
         
         
     }
@@ -61,12 +68,12 @@ public class NuevoPedido extends javax.swing.JFrame {
         txtResumenPedido = new javax.swing.JLabel();
         bVolver = new javax.swing.JButton();
         bGuardar = new javax.swing.JButton();
+        precioTotal = new javax.swing.JLabel();
         btnAgregarProducto = new javax.swing.JButton();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -104,17 +111,27 @@ public class NuevoPedido extends javax.swing.JFrame {
         txtCorreo.setText("Correo:");
         getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 450, -1, 30));
 
+        fSolicitud.setText("dd/MM/aaaa");
+        fSolicitud.setToolTipText("");
         fSolicitud.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fSolicitudActionPerformed(evt);
             }
         });
         getContentPane().add(fSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 190, -1));
+
+        precioAbonado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                precioAbonadoActionPerformed(evt);
+            }
+        });
         getContentPane().add(precioAbonado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 190, -1));
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, 320, -1));
         getContentPane().add(numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 450, 170, -1));
         getContentPane().add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 190, -1));
         getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 80, -1));
+
+        fRetiro.setText("dd/MM/aaaa");
         getContentPane().add(fRetiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 190, -1));
 
         boxProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -163,6 +180,9 @@ public class NuevoPedido extends javax.swing.JFrame {
         });
         getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 520, 100, 50));
 
+        precioTotal.setText("$3500");
+        getContentPane().add(precioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, -1, -1));
+
         btnAgregarProducto.setText("+");
         btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,7 +215,7 @@ public class NuevoPedido extends javax.swing.JFrame {
             .addGroup(panelSuperiorLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(icon)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(titulo)
@@ -207,9 +227,6 @@ public class NuevoPedido extends javax.swing.JFrame {
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/fondo600x600.jpg"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 600, 520));
 
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, -1, -1));
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -218,7 +235,8 @@ public class NuevoPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_fSolicitudActionPerformed
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
-        // TODO add your handling code here:
+        new GestionaPedido().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void boxProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxProductosActionPerformed
@@ -254,6 +272,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         boolean flag = false;
         int abono = 0;
         int dcto = 0;
+        
         try{
             abono = Integer.parseInt(precioAbonado.getText());
             dcto = Integer.parseInt(descuento.getText());
@@ -262,7 +281,26 @@ public class NuevoPedido extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe ingresar un abono válido",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
+        
+        if (flag){
+            try {
+                Date DateSolicitud =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fSolicitud.getText());
+                Date DateRetiro =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fRetiro.getText());
+                
+                Pedido p = new Pedido(productos, DateSolicitud, DateRetiro,
+                        Integer.parseInt(precioTotal.getText()),dcto,nombre.getText(), correo.getText(),
+                        numero.getText(), abono);
+            } catch (ParseException ex) {
+                Logger.getLogger(NuevoPedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        this.dispose();
     }//GEN-LAST:event_bGuardarActionPerformed
+
+    private void precioAbonadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioAbonadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_precioAbonadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -328,12 +366,12 @@ public class NuevoPedido extends javax.swing.JFrame {
     private javax.swing.JTextField fRetiro;
     private javax.swing.JTextField fSolicitud;
     private javax.swing.JLabel icon;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField nombre;
     private javax.swing.JTextField numero;
     private javax.swing.JPanel panelResumen;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JTextField precioAbonado;
+    private javax.swing.JLabel precioTotal;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel txtCantidad;
     private javax.swing.JLabel txtCliente;
