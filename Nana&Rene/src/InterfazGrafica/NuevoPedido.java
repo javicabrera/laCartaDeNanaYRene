@@ -5,8 +5,12 @@
  */
 package InterfazGrafica;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import logica.Pedido;
 import logica.Producto;
@@ -107,6 +111,8 @@ public class NuevoPedido extends javax.swing.JFrame {
         txtCorreo.setText("Correo:");
         getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 450, -1, 30));
 
+        fSolicitud.setText("dd/MM/aaaa");
+        fSolicitud.setToolTipText("");
         fSolicitud.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fSolicitudActionPerformed(evt);
@@ -124,6 +130,8 @@ public class NuevoPedido extends javax.swing.JFrame {
         getContentPane().add(numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 450, 170, -1));
         getContentPane().add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 190, -1));
         getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 80, -1));
+
+        fRetiro.setText("dd/MM/aaaa");
         getContentPane().add(fRetiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 190, -1));
 
         boxProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -275,9 +283,16 @@ public class NuevoPedido extends javax.swing.JFrame {
         }
         
         if (flag){
-            Pedido p = new Pedido(productos,  null, null, 
-                    Integer.parseInt(precioTotal.getText()),dcto,nombre.getText(), correo.getText(), 
-                    numero.getText(), abono);
+            try {
+                Date DateSolicitud =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fSolicitud.getText());
+                Date DateRetiro =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fRetiro.getText());
+                
+                Pedido p = new Pedido(productos, DateSolicitud, DateRetiro,
+                        Integer.parseInt(precioTotal.getText()),dcto,nombre.getText(), correo.getText(),
+                        numero.getText(), abono);
+            } catch (ParseException ex) {
+                Logger.getLogger(NuevoPedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         this.dispose();
