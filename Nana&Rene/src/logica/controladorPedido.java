@@ -19,6 +19,7 @@ public class controladorPedido
         Date fechaActual = new Date();
         if(fechaActual.after(p.getFechaSolicitud()))
         {
+            p.setEstado("Cancelado");
             return true;
         }
         return false;
