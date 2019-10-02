@@ -20,6 +20,7 @@ public class PaginaPrincipal extends javax.swing.JFrame {
      * Creates new form PaginaPrincipalFX
      */
     public PaginaPrincipal() {
+        this.setLocationRelativeTo(null);
         //pedidos = new ArrayList<>();
         initComponents();
         this.model = new DefaultListModel();
