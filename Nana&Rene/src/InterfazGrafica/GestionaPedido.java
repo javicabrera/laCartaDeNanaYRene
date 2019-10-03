@@ -21,6 +21,7 @@ public class GestionaPedido extends javax.swing.JFrame {
      */
     public GestionaPedido() {
         initComponents();
+        this.setLocationRelativeTo(null);
         
         
     }

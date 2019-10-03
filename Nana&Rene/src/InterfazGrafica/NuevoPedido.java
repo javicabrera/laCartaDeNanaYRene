@@ -30,6 +30,7 @@ public class NuevoPedido extends javax.swing.JFrame {
      */
     public NuevoPedido() {
         initComponents();
+        this.setLocationRelativeTo(null);
         productos = new HashMap<>();
         Producto p1 = new Producto("Torta", 2500, 3000);
         Producto p2 = new Producto("Pie de limon", 3000, 5000);
