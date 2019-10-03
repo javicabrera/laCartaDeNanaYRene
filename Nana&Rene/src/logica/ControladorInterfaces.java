@@ -1,7 +1,7 @@
 package logica;
 
 
-import InterfazGrafica.GestionaPedido;
+import InterfazGrafica.Pedidos;
 import InterfazGrafica.NuevoPedido;
 import InterfazGrafica.PaginaPrincipal;
 import javax.swing.JPanel;
@@ -19,12 +19,12 @@ import javax.swing.JPanel;
 public class ControladorInterfaces {
     private static PaginaPrincipal principal;
     private static NuevoPedido nuevoPedido;
-    private static GestionaPedido gestionaPedido;
+    private static Pedidos gestionaPedido;
         
     public ControladorInterfaces(){
         this.principal = new PaginaPrincipal();
         this.nuevoPedido = new NuevoPedido();
-        this.gestionaPedido = new GestionaPedido();
+        this.gestionaPedido = new Pedidos();
         
     }
     
