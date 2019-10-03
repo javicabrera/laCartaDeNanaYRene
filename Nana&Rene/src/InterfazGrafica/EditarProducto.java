@@ -53,7 +53,7 @@ public class EditarProducto extends javax.swing.JFrame {
         tiempoElab = new javax.swing.JTextField();
         cantidad = new javax.swing.JTextField();
         boxMateriaPrima = new javax.swing.JComboBox<>();
-        panelResumen = new javax.swing.JPanel();
+        txtMateriasPrimas = new javax.swing.JPanel();
         resumenProducto = new javax.swing.JLabel();
         bVolver = new javax.swing.JButton();
         bGuardar = new javax.swing.JButton();
@@ -67,54 +67,64 @@ public class EditarProducto extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txtNombre.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         txtNombre.setText("Nombre:");
-        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, 40));
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, 20));
 
+        txtPrecioVenta.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         txtPrecioVenta.setText("Precio de Venta:");
         getContentPane().add(txtPrecioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, 20));
 
+        txtTiempoElab.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         txtTiempoElab.setText("Tiempo de Elaboración:");
-        getContentPane().add(txtTiempoElab, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, 30));
+        getContentPane().add(txtTiempoElab, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, 20));
 
-        txtCantidad.setText("Cantidad");
-        getContentPane().add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, -1, 20));
+        txtCantidad.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        txtCantidad.setText("Cantidad:");
+        getContentPane().add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 250, -1, 20));
 
+        txtMateriaPrima.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         txtMateriaPrima.setText("Materia Prima:");
-        getContentPane().add(txtMateriaPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, 40));
+        getContentPane().add(txtMateriaPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, 20));
 
         precioVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 precioVentaActionPerformed(evt);
             }
         });
-        getContentPane().add(precioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 180, -1));
-        getContentPane().add(tiempoElab, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 180, -1));
-        getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 280, 80, -1));
+        getContentPane().add(precioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 350, -1));
+        getContentPane().add(tiempoElab, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 350, -1));
+        getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 80, -1));
 
         boxMateriaPrima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boxMateriaPrimaActionPerformed(evt);
             }
         });
-        getContentPane().add(boxMateriaPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 150, -1));
+        getContentPane().add(boxMateriaPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 190, -1));
 
-        panelResumen.setBackground(new java.awt.Color(255, 255, 255));
+        txtMateriasPrimas.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout panelResumenLayout = new javax.swing.GroupLayout(panelResumen);
-        panelResumen.setLayout(panelResumenLayout);
-        panelResumenLayout.setHorizontalGroup(
-            panelResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
+        resumenProducto.setText("Materias Primas");
+
+        javax.swing.GroupLayout txtMateriasPrimasLayout = new javax.swing.GroupLayout(txtMateriasPrimas);
+        txtMateriasPrimas.setLayout(txtMateriasPrimasLayout);
+        txtMateriasPrimasLayout.setHorizontalGroup(
+            txtMateriasPrimasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtMateriasPrimasLayout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addComponent(resumenProducto)
+                .addGap(39, 39, 39))
         );
-        panelResumenLayout.setVerticalGroup(
-            panelResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 240, Short.MAX_VALUE)
+        txtMateriasPrimasLayout.setVerticalGroup(
+            txtMateriasPrimasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(txtMateriasPrimasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(resumenProducto)
+                .addContainerGap(228, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panelResumen, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 180, 240));
-
-        resumenProducto.setText("Resumen Producto");
-        getContentPane().add(resumenProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, -1, -1));
+        getContentPane().add(txtMateriasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, 180, 250));
 
         bVolver.setText("Volver");
         bVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +140,7 @@ public class EditarProducto extends javax.swing.JFrame {
                 bGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, 100, 50));
+        getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 370, 100, 50));
 
         btnAgregarMPrima.setText("+");
         btnAgregarMPrima.addActionListener(new java.awt.event.ActionListener() {
@@ -138,8 +148,8 @@ public class EditarProducto extends javax.swing.JFrame {
                 btnAgregarMPrimaActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAgregarMPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 280, 50, 30));
-        getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 180, -1));
+        getContentPane().add(btnAgregarMPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 250, 40, 30));
+        getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 350, -1));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
 
@@ -147,7 +157,7 @@ public class EditarProducto extends javax.swing.JFrame {
 
         titulo.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         titulo.setForeground(new java.awt.Color(255, 255, 255));
-        titulo.setText("EDITAR PRDUCTO");
+        titulo.setText("MODIFICAR PRODUCTO");
 
         javax.swing.GroupLayout panelSuperiorLayout = new javax.swing.GroupLayout(panelSuperior);
         panelSuperior.setLayout(panelSuperiorLayout);
@@ -158,7 +168,7 @@ public class EditarProducto extends javax.swing.JFrame {
                 .addComponent(icon)
                 .addGap(18, 18, 18)
                 .addComponent(titulo)
-                .addContainerGap(263, Short.MAX_VALUE))
+                .addContainerGap(373, Short.MAX_VALUE))
         );
         panelSuperiorLayout.setVerticalGroup(
             panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,10 +182,10 @@ public class EditarProducto extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
-        getContentPane().add(panelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 70));
+        getContentPane().add(panelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 70));
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/fondo600x600.jpg"))); // NOI18N
-        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 590, 360));
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/fondoLargo.jpg"))); // NOI18N
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 780, 360));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -311,7 +321,6 @@ public class EditarProducto extends javax.swing.JFrame {
     private javax.swing.JTextField cantidad;
     private javax.swing.JLabel icon;
     private javax.swing.JTextField nombre;
-    private javax.swing.JPanel panelResumen;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JTextField precioVenta;
     private javax.swing.JLabel resumenProducto;
@@ -319,6 +328,7 @@ public class EditarProducto extends javax.swing.JFrame {
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel txtCantidad;
     private javax.swing.JLabel txtMateriaPrima;
+    private javax.swing.JPanel txtMateriasPrimas;
     private javax.swing.JLabel txtNombre;
     private javax.swing.JLabel txtPrecioVenta;
     private javax.swing.JLabel txtTiempoElab;
