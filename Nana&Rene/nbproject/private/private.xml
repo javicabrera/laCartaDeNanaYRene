@@ -1,37 +1,19 @@
-<<<<<<< HEAD
-<<<<<<< Updated upstream
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/elias/Documents/Construccion/laCartaDeNanaYRene/Nana&amp;Rene/src/Main.java</file>
+            <file>file:/Users/elias/Documents/Construccion/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/NuevaMateriaPrima.java</file>
+            <file>file:/Users/elias/Documents/Construccion/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/EditarProducto.java</file>
+            <file>file:/Users/elias/Documents/Construccion/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/NuevoProducto.java</file>
             <file>file:/Users/elias/Documents/Construccion/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/PaginaPrincipal.java</file>
             <file>file:/Users/elias/Documents/Construccion/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/GestionaPedido.java</file>
+            <file>file:/Users/elias/Documents/Construccion/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/GestionaProductos.java</file>
             <file>file:/Users/elias/Documents/Construccion/laCartaDeNanaYRene/Nana&amp;Rene/src/logica/controladorPedido.java</file>
+            <file>file:/Users/elias/Documents/Construccion/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/GestionaMateriasPrimas.java</file>
             <file>file:/Users/elias/Documents/Construccion/laCartaDeNanaYRene/Nana&amp;Rene/src/logica/Pedido.java</file>
             <file>file:/Users/elias/Documents/Construccion/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/NuevoPedido.java</file>
         </group>
     </open-files>
 </project-private>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/GestionaPedido.java</file>
-            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/PaginaPrincipal.java</file>
-            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/NuevoPedido.java</file>
-        </group>
-    </open-files>
-</project-private>
->>>>>>> Stashed changes
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
-    </open-files>
-</project-private>
->>>>>>> isavo
