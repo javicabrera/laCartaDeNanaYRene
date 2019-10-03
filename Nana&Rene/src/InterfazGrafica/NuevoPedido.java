@@ -183,7 +183,7 @@ public class NuevoPedido extends javax.swing.JFrame {
                 bGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 520, 100, 50));
+        getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 520, 100, 50));
 
         precioTotal.setText("3500");
         getContentPane().add(precioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, -1, -1));
