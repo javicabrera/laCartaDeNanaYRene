@@ -14,12 +14,12 @@ import logica.controladorPedido;
  *
  * @author elias
  */
-public class GestionaPedido extends javax.swing.JFrame {
+public class GestionaProductos extends javax.swing.JFrame {
     
     /**
      * Creates new form PaginaPrincipalFX
      */
-    public GestionaPedido() {
+    public GestionaProductos() {
         initComponents();
         this.setLocationRelativeTo(null);
         
@@ -37,10 +37,10 @@ public class GestionaPedido extends javax.swing.JFrame {
 
         btnCrear = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        btnSiguiente = new javax.swing.JButton();
+        btnBorrar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
-        tablaPedidos = new javax.swing.JTable();
+        tablaProductos = new javax.swing.JTable();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -66,23 +66,23 @@ public class GestionaPedido extends javax.swing.JFrame {
         });
         getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 580, 130, 60));
 
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/cancel16.png"))); // NOI18N
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/trash16.png"))); // NOI18N
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
+                btnBorrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 30, 30));
+        getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 30, 30));
 
-        btnSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/next16.png"))); // NOI18N
-        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/edit16.png"))); // NOI18N
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSiguienteActionPerformed(evt);
+                btnEditarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, 30, 30));
+        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 30, 30));
 
-        tablaPedidos.setModel(new javax.swing.table.DefaultTableModel(
+        tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -90,7 +90,7 @@ public class GestionaPedido extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Cliente", "Fecha Retiro", "Precio Total", "Estado", "Modificar"
+                "Nombre", "Precio Venta", "Tiempo Elaboración", "Materias Primas", ""
             }
         ) {
             Class[] types = new Class [] {
@@ -108,7 +108,7 @@ public class GestionaPedido extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane.setViewportView(tablaPedidos);
+        jScrollPane.setViewportView(tablaProductos);
 
         getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 430, 550));
 
@@ -118,7 +118,7 @@ public class GestionaPedido extends javax.swing.JFrame {
 
         titulo.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         titulo.setForeground(new java.awt.Color(255, 255, 255));
-        titulo.setText("PEDIDOS");
+        titulo.setText("PRODUCTOS");
 
         javax.swing.GroupLayout panelSuperiorLayout = new javax.swing.GroupLayout(panelSuperior);
         panelSuperior.setLayout(panelSuperiorLayout);
@@ -129,7 +129,7 @@ public class GestionaPedido extends javax.swing.JFrame {
                 .addComponent(icon)
                 .addGap(18, 18, 18)
                 .addComponent(titulo)
-                .addContainerGap(378, Short.MAX_VALUE))
+                .addContainerGap(330, Short.MAX_VALUE))
         );
         panelSuperiorLayout.setVerticalGroup(
             panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,7 +162,7 @@ public class GestionaPedido extends javax.swing.JFrame {
         ControladorInterfaces.mostrarPrincipal(true);      
     }//GEN-LAST:event_btnVolverActionPerformed
 
-    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         controladorPedido cp = new controladorPedido();
         Pedido pedido = new Pedido(null,null,null,0,0,null,null,null,0);
@@ -183,15 +183,15 @@ public class GestionaPedido extends javax.swing.JFrame {
         }
         pedido.setEstado(nuevo);
         System.out.println("Estado Cambiado a " + nuevo);
-    }//GEN-LAST:event_btnSiguienteActionPerformed
+    }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
         controladorPedido cp = new controladorPedido();
         //cp.cancelarPedido(new Pedido(null,null,null,0,0,null,null,null,0));
         System.out.println("Pedido Cancelado");
         
-    }//GEN-LAST:event_btnCancelarActionPerformed
+    }//GEN-LAST:event_btnBorrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,14 +210,22 @@ public class GestionaPedido extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GestionaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionaProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GestionaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionaProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GestionaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionaProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GestionaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionaProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -230,7 +238,7 @@ public class GestionaPedido extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GestionaPedido().setVisible(true);
+                new GestionaProductos().setVisible(true);
             }
         });
     }
@@ -238,14 +246,14 @@ public class GestionaPedido extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
-    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnCrear;
-    private javax.swing.JButton btnSiguiente;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel icon;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JPanel panelSuperior;
-    private javax.swing.JTable tablaPedidos;
+    private javax.swing.JTable tablaProductos;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }

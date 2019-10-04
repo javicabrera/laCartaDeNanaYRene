@@ -30,6 +30,7 @@ public class NuevoPedido extends javax.swing.JFrame {
      */
     public NuevoPedido() {
         initComponents();
+        this.setLocationRelativeTo(null);
         productos = new HashMap<>();
         Producto p1 = new Producto("Torta", 2500, 3000);
         Producto p2 = new Producto("Pie de limon", 3000, 5000);
@@ -182,7 +183,7 @@ public class NuevoPedido extends javax.swing.JFrame {
                 bGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 520, 100, 50));
+        getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 520, 100, 50));
 
         precioTotal.setText("3500");
         getContentPane().add(precioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, -1, -1));
@@ -315,6 +316,7 @@ public class NuevoPedido extends javax.swing.JFrame {
                 System.out.println("Nombre cliente: " + nombre.getText());
                 System.out.println("Correo: " + correo.getText());
                 System.out.println("Numero: " + numero.getText());
+                PaginaPrincipal.agregarPedido(nombre.getText());
                 ControladorInterfaces.mostrarNuevoPedido(false);
                 ControladorInterfaces.mostrarGestionaPedido(true);
             }
