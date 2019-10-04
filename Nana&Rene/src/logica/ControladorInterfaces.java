@@ -1,7 +1,7 @@
 package logica;
 
 
-import InterfazGrafica.GestionaPedido;
+import InterfazGrafica.Pedidos;
 import InterfazGrafica.NuevoPedido;
 import InterfazGrafica.PaginaPrincipal;
 import javax.swing.JPanel;
@@ -19,29 +19,33 @@ import javax.swing.JPanel;
 public class ControladorInterfaces {
     private static PaginaPrincipal principal;
     private static NuevoPedido nuevoPedido;
-    private static GestionaPedido gestionaPedido;
+    private static Pedidos gestionaPedido;
         
     public ControladorInterfaces(){
         this.principal = new PaginaPrincipal();
         this.nuevoPedido = new NuevoPedido();
-        this.gestionaPedido = new GestionaPedido();
+        this.gestionaPedido = new Pedidos();
         
     }
     
     public static void iniciarInterfaz(){
         ControladorInterfaces.principal.setLocationRelativeTo(null);
         ControladorInterfaces.principal.setVisible(true);
+        ControladorInterfaces.principal.repaint();
     }
     
     public static void mostrarPrincipal(boolean b){
         ControladorInterfaces.principal.setVisible(b);
+        ControladorInterfaces.principal.repaint();
     }
     
     public static void mostrarNuevoPedido(boolean b){
         ControladorInterfaces.nuevoPedido.setVisible(b);
+        ControladorInterfaces.nuevoPedido.repaint();
     }
     
     public static void mostrarGestionaPedido(boolean b){
         ControladorInterfaces.gestionaPedido.setVisible(b);
+        ControladorInterfaces.gestionaPedido.repaint();
     }
 }
