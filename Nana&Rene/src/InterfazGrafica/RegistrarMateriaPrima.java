@@ -130,9 +130,8 @@ public class RegistrarMateriaPrima extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
-
-
-        
+        ControladorInterfaces.mostrarMateriasPrimas(false);
+        ControladorInterfaces.mostrarPrincipal(true);
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
