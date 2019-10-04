@@ -1,0 +1,42 @@
+pruebas crear producto:
+	1.-nombre: torta
+	   precioVenta:30000
+	   tiempoRequerido:3
+	   materiasPrimas: crema,harina,huevo,manjar
+	ÉXITO
+
+	2.-nombre: ---
+	   precioVenta:300
+	   tiempoRequerido:0.5
+	   materiasPrimas: ---
+	FALLO, Faltan campos por completar,Tiempo
+	requerido no es int
+
+	3.-nombre: empolvado
+	   precioVenta:--
+	   tiempoRequerido:0
+	   materiasPrimas: 
+	FALLO,faltan campos por completar, no hay
+	materias primas
+
+Pruebas modificar producto
+
+	1.-nombre: empolvado
+	   precioVenta:--- ->300
+	   tiempoRequerido:0
+	   materiasPrimas:--- -> harina,huevo,aceite,
+	   azucar
+  	ÉXITO, campos llenados completamente
+	
+	2.-nombre: torta
+	   precioVenta:30000 --> 23000
+	   tiempoRequerido:1
+	   materiasPrimas: crema,harina,huevo,manjar
+	ÉXITO, modificacion aceptada
+	
+	3.-nombre: ---  -> chileno
+	   precioVenta:300
+	   tiempoRequerido:0.5
+	   materiasPrimas: ---
+	FALLO, faltan las materias primas que componen
+	el producto a vender

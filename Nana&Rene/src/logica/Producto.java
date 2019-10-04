@@ -15,14 +15,14 @@ public class Producto
 {
     private String nombre;
     private int precioVenta;
-    private int tiempoRequerido; //En horas
+    private int tiempoElaboracion; //En horas
     private ArrayList<materiaPrima> materiasPrimas;
     
     public Producto(String nombre, int precioVenta, int tiempoRequerido)
     {
         this.nombre = nombre;
         this.precioVenta = precioVenta;
-        this.tiempoRequerido = tiempoRequerido;
+        this.tiempoElaboracion = tiempoRequerido;
         this.materiasPrimas = new ArrayList<materiaPrima>();
     }
 
@@ -45,13 +45,13 @@ public class Producto
         this.precioVenta = precioVenta;
     }
 
-    public int getTiempoRequerido() {
-        return tiempoRequerido;
+    public int getTiempoElaboracion() {
+        return tiempoElaboracion;
     }
 
-    public void setTiempoRequerido(int tiempoRequerido) 
+    public void setTiempoElaboracion(int tiempoElaboracion) 
     {
-        this.tiempoRequerido = tiempoRequerido;
+        this.tiempoElaboracion = tiempoElaboracion;
     }
 
     public ArrayList<materiaPrima> getMateriasPrimas()

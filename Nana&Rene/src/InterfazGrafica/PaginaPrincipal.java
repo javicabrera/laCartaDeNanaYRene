@@ -20,6 +20,7 @@ public class PaginaPrincipal extends javax.swing.JFrame {
      * Creates new form PaginaPrincipalFX
      */
     public PaginaPrincipal() {
+        this.setLocationRelativeTo(null);
         //pedidos = new ArrayList<>();
         initComponents();
         this.model = new DefaultListModel();
@@ -43,7 +44,6 @@ public class PaginaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtSeleccioneOpcion = new javax.swing.JLabel();
         txtUPedidos = new javax.swing.JLabel();
         btnProductos = new javax.swing.JButton();
         btnPedidos = new javax.swing.JButton();
@@ -61,16 +61,18 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtSeleccioneOpcion.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
-        txtSeleccioneOpcion.setText("Seleccione una Opción");
-        getContentPane().add(txtSeleccioneOpcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, -1, -1));
-
-        txtUPedidos.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        txtUPedidos.setText("Últimos Pedidos");
-        getContentPane().add(txtUPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+        txtUPedidos.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        txtUPedidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtUPedidos.setText("Resumen Últimos Pedidos:");
+        getContentPane().add(txtUPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 220, -1));
 
         btnProductos.setText("Productos");
-        getContentPane().add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 190, 160, 100));
+        btnProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 130, 200, 50));
 
         btnPedidos.setText("Pedidos");
         btnPedidos.addActionListener(new java.awt.event.ActionListener() {
@@ -78,7 +80,7 @@ public class PaginaPrincipal extends javax.swing.JFrame {
                 btnPedidosActionPerformed(evt);
             }
         });
-        getContentPane().add(btnPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 160, 100));
+        getContentPane().add(btnPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 200, 50));
 
         btnMateriasPrimas.setText("Materias Primas");
         btnMateriasPrimas.addActionListener(new java.awt.event.ActionListener() {
@@ -86,10 +88,10 @@ public class PaginaPrincipal extends javax.swing.JFrame {
                 btnMateriasPrimasActionPerformed(evt);
             }
         });
-        getContentPane().add(btnMateriasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 330, 160, 100));
+        getContentPane().add(btnMateriasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 220, 200, 50));
 
         btnClientesHabituales.setText("Clientes Habituales");
-        getContentPane().add(btnClientesHabituales, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, 160, 100));
+        getContentPane().add(btnClientesHabituales, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 200, 50));
 
         btnElaborarReportes.setText("Elaborar Reportes");
         btnElaborarReportes.addActionListener(new java.awt.event.ActionListener() {
@@ -97,10 +99,10 @@ public class PaginaPrincipal extends javax.swing.JFrame {
                 btnElaborarReportesActionPerformed(evt);
             }
         });
-        getContentPane().add(btnElaborarReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 470, 160, 100));
+        getContentPane().add(btnElaborarReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, 200, 50));
 
         btnOtros.setText("Otras Opciones...");
-        getContentPane().add(btnOtros, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 470, 160, 100));
+        getContentPane().add(btnOtros, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 320, 200, 50));
 
         listaPedidos.setBackground(new java.awt.Color(242, 242, 242));
         listaPedidos.setModel(new javax.swing.AbstractListModel<String>() {
@@ -112,7 +114,7 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(listaPedidos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 170, 540));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 220, 360));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
 
@@ -131,7 +133,7 @@ public class PaginaPrincipal extends javax.swing.JFrame {
                 .addComponent(icon)
                 .addGap(18, 18, 18)
                 .addComponent(titulo)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(324, Short.MAX_VALUE))
         );
         panelSuperiorLayout.setVerticalGroup(
             panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,10 +147,10 @@ public class PaginaPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
-        getContentPane().add(panelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 70));
+        getContentPane().add(panelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 70));
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/fondo600x600.jpg"))); // NOI18N
-        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, -1, -1));
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/fondoLargo.jpg"))); // NOI18N
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 780, 360));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -161,12 +163,18 @@ public class PaginaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPedidosActionPerformed
 
     private void btnMateriasPrimasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMateriasPrimasActionPerformed
-        
+        ControladorInterfaces.mostrarPrincipal(false);
+        ControladorInterfaces.mostrarMateriasPrimas(true);
     }//GEN-LAST:event_btnMateriasPrimasActionPerformed
 
     private void btnElaborarReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElaborarReportesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnElaborarReportesActionPerformed
+
+    private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
+        ControladorInterfaces.mostrarPrincipal(false);
+        ControladorInterfaces.mostrarProductos(true);
+    }//GEN-LAST:event_btnProductosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,7 +228,6 @@ public class PaginaPrincipal extends javax.swing.JFrame {
     private javax.swing.JList<String> listaPedidos;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JLabel titulo;
-    private javax.swing.JLabel txtSeleccioneOpcion;
     private javax.swing.JLabel txtUPedidos;
     // End of variables declaration//GEN-END:variables
 }
