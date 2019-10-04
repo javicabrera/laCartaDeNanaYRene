@@ -47,7 +47,7 @@ public class materiaPrima
         return cantidad;
     }
 
-    public void setCantidad(double cantidad) 
+    public void modificarCantidad(double cantidad) 
     {
         this.cantidad = cantidad;
     }
