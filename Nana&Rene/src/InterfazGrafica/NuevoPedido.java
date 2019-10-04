@@ -339,6 +339,7 @@ public class NuevoPedido extends javax.swing.JFrame {
                 PaginaPrincipal.agregarPedido(nombre.getText());
                 ControladorInterfaces.mostrarNuevoPedido(false);
                 ControladorInterfaces.mostrarGestionaPedido(true);
+                
             }
         
         

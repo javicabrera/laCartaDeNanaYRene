@@ -153,12 +153,12 @@ public class MateriasPrimas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        ControladorInterfaces.mostrarNuevoPedido(true);
-        ControladorInterfaces.mostrarGestionaPedido(false);
+        ControladorInterfaces.mostrarRegistrarMateriaPrima(true);
+        ControladorInterfaces.mostrarMateriasPrimas(false);
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        ControladorInterfaces.mostrarGestionaPedido(false);
+        ControladorInterfaces.mostrarMateriasPrimas(false);
         ControladorInterfaces.mostrarPrincipal(true);      
     }//GEN-LAST:event_btnVolverActionPerformed
 
