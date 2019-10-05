@@ -9,12 +9,12 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import logica.Almacen;
 import logica.ControladorInterfaces;
 import logica.Pedido;
 import logica.Producto;
@@ -25,8 +25,10 @@ import logica.Producto;
  * @author elias
  */
 public class NuevoPedido extends javax.swing.JFrame {
-    private HashMap<String,Integer> productos;
+    private ArrayList<Producto> productos;
     private InfoPanel infoPanel;
+    private int total;
+    private Almacen almacen;
 
     /**
      * Creates new form PaginaPrincipalFX
@@ -34,12 +36,11 @@ public class NuevoPedido extends javax.swing.JFrame {
     public NuevoPedido() {
         initComponents();
         this.setLocationRelativeTo(null);
-        productos = new HashMap<>();
-        Producto p1 = new Producto("Torta", 2500, 3000);
-        Producto p2 = new Producto("Pie de limon", 3000, 5000);
-        boxProductos.addItem(p1.getNombre());
-        boxProductos.addItem(p2.getNombre());
-        
+        productos = new ArrayList<>();
+//        for(Producto p: almacen.getProductos()){
+//            boxProductos.addItem(p.getNombre());
+//        }
+        total = 0;
         
         infoPanel = new InfoPanel();
         panelResumenPedido.setLayout(new GridLayout(0,1));
@@ -189,7 +190,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         });
         getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 370, 100, 50));
 
-        precioTotal.setText("3500");
+        precioTotal.setText("0");
         getContentPane().add(precioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, -1, 20));
 
         btnAgregarProducto.setText("+");
@@ -296,37 +297,42 @@ public class NuevoPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_boxProductosActionPerformed
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
-        String producto = (String) boxProductos.getSelectedItem();
-        //buscar producto que coincide con nombre
-        
+        String nombreProducto = (String) boxProductos.getSelectedItem();
+        Producto producto = null;
+        for(Producto p: almacen.getProductos()){
+            if (p.getNombre().equals(nombreProducto)){
+                producto = p;
+                break;
+            }
+        }
         try{
             int cant = Integer.parseInt(cantidad.getText());
-            productos.put(producto, cant);
-            
-            infoPanel.agregaProductoOrMatPrima(producto, cant);
-            
+            for (int i = 0; i < cant; i++) {
+                productos.add(producto);
+            }
+            total += producto.getPrecioVenta();
+            precioTotal.setText(String.valueOf(total));
+            infoPanel.agregaProductoOrMatPrima(nombreProducto, cant);
             super.paintComponents(this.getGraphics());
-            
-            
         } catch(NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-//        }
-//        int total = 0;
-//        for(Producto prod: productos.keySet()){
-//            total+=prod.getPrecio();
-//        }
-//        precioTotal.setText(String.valueOf(total);
+        
         
         
         
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
+    /**
+     * Falta verificar lo del cliente.
+     * @param evt 
+     */
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
         // TODO add your handling code here:
         boolean flag = false;
         boolean flag2 = false;
+        boolean flag3 = true;
         Date DateSolicitud = null;
         Date DateRetiro = null;
         int abono = 0;
@@ -340,38 +346,34 @@ public class NuevoPedido extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-     
-            try {
-                DateSolicitud =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fSolicitud.getText());
-                DateRetiro =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fRetiro.getText());
-                flag2 = true;
-            } catch (ParseException ex) {
-                Logger.getLogger(NuevoPedido.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Debe ingresar una fecha válida",
+        try {
+            DateSolicitud =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fSolicitud.getText());
+            DateRetiro =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fRetiro.getText());
+            flag2 = true;
+        } catch (ParseException ex) {
+            Logger.getLogger(NuevoPedido.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Debe ingresar una fecha válida",
+                "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        if (productos.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Debe ingresar al menos 1 producto",
                     "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            flag3=false;
+        }
+
+        if (flag && flag2 && flag3){
+            Pedido p = new Pedido(productos, DateSolicitud, DateRetiro,
+                    Integer.parseInt(precioTotal.getText()),dcto,nombre.getText(), 
+                    correo.getText(), numero.getText(), abono);
+            ArrayList<Pedido> aux = almacen.getPedidos();
+            aux.add(p);
+            almacen.setPedidos(aux);
             
-            if (flag && flag2){
-                                
-//                Pedido p = new Pedido(productos, DateSolicitud, DateRetiro,
-//                        Integer.parseInt(precioTotal.getText()),dcto,nombre.getText(), correo.getText(),
-//                        numero.getText(), abono);
-                System.out.println("Productos: ");
-                for (Entry entry: productos.entrySet()) {
-                    System.out.println(entry.getKey() + " - Cantidad: "+ entry.getValue());
-                }
-                System.out.println("Fecha solicitud: " + DateSolicitud);
-                System.out.println("Precio abonado: " + abono);
-                System.out.println("Descuento: " + dcto);
-                System.out.println("Fecha retiro: " + DateRetiro);
-                System.out.println("Nombre cliente: " + nombre.getText());
-                System.out.println("Correo: " + correo.getText());
-                System.out.println("Numero: " + numero.getText());
-                PaginaPrincipal.agregarPedido(nombre.getText());
-                ControladorInterfaces.mostrarNuevoPedido(false);
-                ControladorInterfaces.mostrarGestionaPedido(true);
-                
-            }
+            PaginaPrincipal.agregarPedido(nombre.getText());
+            ControladorInterfaces.mostrarNuevoPedido(false);
+            ControladorInterfaces.mostrarGestionaPedido(true);
+
+        }
         
         
         

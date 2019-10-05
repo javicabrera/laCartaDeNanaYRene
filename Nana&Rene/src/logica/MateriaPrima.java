@@ -9,12 +9,12 @@ package logica;
  *
  * @author Javiera Méndez
  */
-public class materiaPrima 
+public class MateriaPrima 
 {
     private String nombre;
     private double cantidad;
     
-    public materiaPrima(String nombre, double cantidad)
+    public MateriaPrima(String nombre, double cantidad)
     {
         this.nombre = nombre;
         this.cantidad = cantidad;

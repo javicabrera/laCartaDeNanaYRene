@@ -8,7 +8,7 @@ package InterfazGrafica;
 import javax.swing.JPanel;
 import logica.Pedido;
 import logica.ControladorInterfaces;
-import logica.controladorPedido;
+import logica.ControladorPedido;
 
 /**
  *
@@ -164,7 +164,7 @@ public class Productos extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        controladorPedido cp = new controladorPedido();
+        ControladorPedido cp = new ControladorPedido();
         Pedido pedido = new Pedido(null,null,null,0,0,null,null,null,0);
         String estado = pedido.getEstado();
         String nuevo = "";
@@ -187,7 +187,7 @@ public class Productos extends javax.swing.JFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
-        controladorPedido cp = new controladorPedido();
+        ControladorPedido cp = new ControladorPedido();
         //cp.cancelarPedido(new Pedido(null,null,null,0,0,null,null,null,0));
         System.out.println("Pedido Cancelado");
         
