@@ -63,7 +63,7 @@ public class PaginaPrincipal extends javax.swing.JFrame {
 
         txtUPedidos.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         txtUPedidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtUPedidos.setText("Resumen Últimos Pedidos:");
+        txtUPedidos.setText("Resumen Pedidos:");
         getContentPane().add(txtUPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 220, -1));
 
         listaPedidos.setBackground(new java.awt.Color(242, 242, 242));
