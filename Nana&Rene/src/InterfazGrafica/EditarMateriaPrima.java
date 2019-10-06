@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 import logica.ControladorInterfaces;
 import logica.Pedido;
 import logica.Producto;
-import logica.materiaPrima;
+import logica.MateriaPrima;
 
 
 /**
@@ -25,6 +25,7 @@ import logica.materiaPrima;
  */
 public class EditarMateriaPrima extends javax.swing.JFrame {
     private HashMap<String,Integer> productos;
+    private MateriaPrima materia;
 
     /**
      * Creates new form PaginaPrincipalFX
@@ -33,8 +34,15 @@ public class EditarMateriaPrima extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
-        
+//        nombre.setText(materia.getNombre());
+//        cantidad.setText(String.valueOf(materia.getCantidad()));
     }
+
+    public void setMateria(MateriaPrima materia) {
+        this.materia = materia;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -136,7 +144,7 @@ public class EditarMateriaPrima extends javax.swing.JFrame {
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
-        materiaPrima mp = new materiaPrima(nombre.getText(), Double.parseDouble(cantidad.getText()));
+        MateriaPrima mp = new MateriaPrima(nombre.getText(), Double.parseDouble(cantidad.getText()));
         JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", JOptionPane.INFORMATION_MESSAGE);
         ControladorInterfaces.mostrarEditarMateriaPrima(false);
         ControladorInterfaces.mostrarMateriasPrimas(true);

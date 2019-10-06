@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -25,7 +26,8 @@ import logica.Producto;
  * @author elias
  */
 public class EditarProducto extends javax.swing.JFrame {
-    private HashMap<String,Integer> productos;
+    private Producto producto;
+    private ArrayList<Producto> productos;
     private InfoPanel infoPanel;
 
     /**
@@ -34,6 +36,10 @@ public class EditarProducto extends javax.swing.JFrame {
     public EditarProducto() {
         initComponents();
         this.setLocationRelativeTo(null);
+//        nombre.setText(producto.getNombre());
+//        precioVenta.setText(String.valueOf(producto.getPrecioVenta()));
+//        tiempoElab.setText(String.valueOf(producto.getTiempoElaboracion()));
+        
         
         infoPanel = new InfoPanel();
         panelMateriasPrimas.setLayout(new GridLayout(0,1));
@@ -42,6 +48,12 @@ public class EditarProducto extends javax.swing.JFrame {
         
         
     }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -233,7 +245,7 @@ public class EditarProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarMPrimaActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
-        Producto p = new Producto(nombre.getText(), Integer.parseInt(precioVenta.getText()), Integer.parseInt(tiempoElab.getText()));
+        //Producto p = new Producto(nombre.getText(), Integer.parseInt(precioVenta.getText()), Integer.parseInt(tiempoElab.getText()));
         JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", JOptionPane.INFORMATION_MESSAGE);
         ControladorInterfaces.mostrarEditarProducto(false);
         ControladorInterfaces.mostrarProductos(true);
