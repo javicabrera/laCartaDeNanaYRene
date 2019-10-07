@@ -178,7 +178,7 @@ public class GestionExcel{
                 }
                //********************* REVISAR
                //Pedido p = new Pedido(tipoProducto, cantidad, fechaSolicitud, fechaRetiro, descuento, nombreCliente, correoCliente, numeroCliente, precioAbonado);
-                pedidos.add(p);
+               // pedidos.add(p);
                 indiceFila++;
             }
         } catch (Exception e){
