@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.text.BadLocationException;
 import logica.ControladorInterfaces;
 import logica.MateriaPrima;
+import logica.Almacen;
 
 
 /**
