@@ -1,7 +1,7 @@
 package logica;
 
 import java.text.ParseException;
-import java.util.ArrayList;
+import java.HashMap;
 import java.util.Date;
 
 /**
@@ -23,7 +23,6 @@ public class Pedido {
     public Pedido(HashMap<Producto, Integer> productos, Date fechaSolicitud, 
             Date fechaRetiro, int precioTotal, int descuento, String nombreCliente, 
             String correoCliente, String numeroCliente, int precioAbonado) {
-        this.tipoProducto = tipoProducto;
         this.fechaSolicitud = fechaSolicitud;
         this.fechaRetiro = fechaRetiro;
         this.estado = "Pendiente";
@@ -34,10 +33,6 @@ public class Pedido {
         this.correoCliente = correoCliente;
         this.numeroCliente = numeroCliente;
     }
-    
-    public Pedido(String tipoProducto, int cantidad, Date fechaSolicitud, 
-            Date fechaRetiro, int descuento, String nombreCliente, 
-            String correoCliente, String numeroCliente, int precioAbonado){
 
     public HashMap<Producto, Integer> getProductos() {
         return productos;
