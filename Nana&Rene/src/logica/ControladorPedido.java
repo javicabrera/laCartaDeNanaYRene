@@ -41,6 +41,7 @@ public class ControladorPedido {
     /* Un pedido va a tener un listado de productos, esos productos un listado 
     de materias primas*/
     public boolean verificarDisponibilidadMateriasPrimas(Pedido p){
+        /*
         for(Producto producto: p.getProductos()){
             for(MateriaPrima materia: producto.getMateriasPrimas().keySet()){
                 MateriaPrima mAux = null;
@@ -54,7 +55,7 @@ public class ControladorPedido {
                     return false;
                 }
             }
-        }
+        }*/
         return true;
     }
     
