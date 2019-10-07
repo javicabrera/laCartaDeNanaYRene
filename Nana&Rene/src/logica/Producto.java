@@ -5,7 +5,6 @@
  */
 package logica;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -19,8 +18,7 @@ public class Producto
     private int tiempoElaboracion; //En horas
     private HashMap<MateriaPrima,Integer> materiasPrimas;
     
-    public Producto(String nombre, int precioVenta, int tiempoRequerido, 
-           HashMap<MateriaPrima,Integer> materiasPrimas)
+    public Producto(String nombre, int precioVenta, int tiempoRequerido, HashMap<MateriaPrima,Integer> materiasPrimas)
     {
         this.nombre = nombre;
         this.precioVenta = precioVenta;
@@ -38,7 +36,8 @@ public class Producto
         this.nombre = nombre;
     }
 
-    public int getPrecioVenta() {
+    public int getPrecioVenta()
+    {
         return precioVenta;
     }
 
@@ -47,7 +46,8 @@ public class Producto
         this.precioVenta = precioVenta;
     }
 
-    public int getTiempoElaboracion() {
+    public int getTiempoElaboracion()
+    {
         return tiempoElaboracion;
     }
 
@@ -56,11 +56,13 @@ public class Producto
         this.tiempoElaboracion = tiempoElaboracion;
     }
 
-    public HashMap<MateriaPrima,Integer> getMateriasPrimas() {
+    public HashMap<MateriaPrima,Integer> getMateriasPrimas() 
+    {
         return materiasPrimas;
     }
 
-    public void setMateriasPrimas(HashMap<MateriaPrima,Integer> materiasPrimas) {
+    public void setMateriasPrimas(HashMap<MateriaPrima,Integer> materiasPrimas)
+    {
         this.materiasPrimas = materiasPrimas;
     }
 

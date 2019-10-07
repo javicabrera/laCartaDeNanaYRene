@@ -136,7 +136,7 @@ public class NuevaMateriaPrima extends javax.swing.JFrame {
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
-        MateriaPrima mp = new MateriaPrima(nombre.getText(), Double.parseDouble(cantidad.getText()));
+        //MateriaPrima mp = new MateriaPrima(nombre.getText(), Double.parseDouble(cantidad.getText()));
         JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", JOptionPane.INFORMATION_MESSAGE);
         ControladorInterfaces.mostrarRegistrarMateriaPrima(false);
         ControladorInterfaces.mostrarMateriasPrimas(true);
