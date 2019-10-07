@@ -32,22 +32,22 @@ public class Main
     public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
         
-//        try {
-//        UIManager.setLookAndFeel(
-//        "javax.swing.plaf.nimbus.NimbusLookAndFeel");
-//        } 
-//        catch (UnsupportedLookAndFeelException e) {
-//           // handle exception
-//        }
-//        catch (ClassNotFoundException e) {
-//           // handle exception
-//        }
-//        catch (InstantiationException e) {
-//           // handle exception
-//        }
-//        catch (IllegalAccessException e) {
-//           // handle exception
-//        }
+        try {
+        UIManager.setLookAndFeel(
+        "javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } 
+        catch (UnsupportedLookAndFeelException e) {
+           // handle exception
+        }
+        catch (ClassNotFoundException e) {
+           // handle exception
+        }
+        catch (InstantiationException e) {
+           // handle exception
+        }
+        catch (IllegalAccessException e) {
+           // handle exception
+        }
 
         productos = new ArrayList<Producto>();
         pedidos = new ArrayList<Pedido>();
