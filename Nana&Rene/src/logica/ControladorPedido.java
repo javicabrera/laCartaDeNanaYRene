@@ -23,8 +23,11 @@ public class ControladorPedido {
     public boolean elaborarPedido(Pedido p){
         if(verificarAbono(p) && verificarDisponibilidadMateriasPrimas(p)){
             p.setEstado("En Proceso");
-            for(Producto prod: p.getProductos()){
-                descontarMateriasPrimas(prod.getMateriasPrimas());
+            for(Producto prod: p.getProductos().keySet()){
+                for (int i = 0; i < p.getProductos().get(prod); i++) {
+                    descontarMateriasPrimas(prod.getMateriasPrimas());
+                }
+                
             }
             return true;
         }
@@ -41,17 +44,19 @@ public class ControladorPedido {
     /* Un pedido va a tener un listado de productos, esos productos un listado 
     de materias primas*/
     public boolean verificarDisponibilidadMateriasPrimas(Pedido p){
-        for(Producto producto: p.getProductos()){
-            for(MateriaPrima materia: producto.getMateriasPrimas().keySet()){
-                MateriaPrima mAux = null;
-                for(MateriaPrima mDatos: almacen.getMateriasPrimas()){
-                    if(mDatos.getNombre().equals(materia.getNombre())){
-                        mAux = mDatos;
-                        break;
+        for(Producto producto: p.getProductos().keySet()){
+            for (int i = 0; i < p.getProductos().get(producto); i++) {
+                for(MateriaPrima materia: producto.getMateriasPrimas().keySet()){
+                    MateriaPrima mAux = null;
+                    for(MateriaPrima mDatos: almacen.getMateriasPrimas()){
+                        if(mDatos.getNombre().equals(materia.getNombre())){
+                            mAux = mDatos;
+                            break;
+                        }
                     }
-                }
-                if(mAux.getCantidad()<producto.getMateriasPrimas().get(materia)){
-                    return false;
+                    if(mAux.getCantidad()<producto.getMateriasPrimas().get(materia)){
+                        return false;
+                    }
                 }
             }
         }

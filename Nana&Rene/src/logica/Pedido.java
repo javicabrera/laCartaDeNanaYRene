@@ -1,6 +1,6 @@
 package logica;
 
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.HashMap;
 
@@ -9,7 +9,7 @@ import java.util.HashMap;
  * @author Isavo Castro
  */
 public class Pedido {
-    private ArrayList<Producto> productos;
+    private HashMap<Producto, Integer> productos;
     private Date fechaSolicitud;
     private Date fechaRetiro;
     private String estado;
@@ -20,7 +20,7 @@ public class Pedido {
     private String correoCliente;
     private String numeroCliente;
 
-    public Pedido(ArrayList<Producto> productos, Date fechaSolicitud, 
+    public Pedido(HashMap<Producto, Integer> productos, Date fechaSolicitud, 
             Date fechaRetiro, int precioTotal, int descuento, String nombreCliente, 
             String correoCliente, String numeroCliente, int precioAbonado) {
         this.productos = productos;
@@ -35,11 +35,11 @@ public class Pedido {
         this.numeroCliente = numeroCliente;
     }
 
-    public ArrayList<Producto> getProductos() {
+    public HashMap<Producto, Integer> getProductos() {
         return productos;
     }
 
-    public void setProductos(ArrayList<Producto> productos) {
+    public void setProductos(HashMap<Producto, Integer> productos) {
         this.productos = productos;
     }
 
