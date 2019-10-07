@@ -6,6 +6,8 @@
 package InterfazGrafica;
 
 import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 import logica.Pedido;
 import logica.ControladorInterfaces;
 import logica.ControladorPedido;
@@ -23,6 +25,11 @@ public class Pedidos extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
+        //Sólo permite seleccionar un elemento de la tabla
+        tablaPedidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        anadirFila("Juanito De Prueba 1", "21/12/2032", 21000, "Pendiente");
+        anadirFila("Juanito De Prueba 2", "21/12/2032", 21000, "Pendiente");
         
     }
 
@@ -84,20 +91,17 @@ public class Pedidos extends javax.swing.JFrame {
 
         tablaPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Cliente", "Fecha Retiro", "Precio Total", "Estado", "Modificar"
+                "Cliente", "Fecha Retiro", "Precio Total", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -164,6 +168,9 @@ public class Pedidos extends javax.swing.JFrame {
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         // TODO add your handling code here:
+        
+        aumentarEstadoPedido();
+        
         ControladorPedido cp = new ControladorPedido();
         Pedido pedido = new Pedido(null,null,null,0,0,null,null,null,0);
         String estado = pedido.getEstado();
@@ -189,6 +196,7 @@ public class Pedidos extends javax.swing.JFrame {
         // TODO add your handling code here:
         ControladorPedido cp = new ControladorPedido();
         //cp.cancelarPedido(new Pedido(null,null,null,0,0,null,null,null,0));
+        cancelarPedido();
         System.out.println("Pedido Cancelado");
         
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -243,7 +251,52 @@ public class Pedidos extends javax.swing.JFrame {
         });
     }
 
+    private void anadirFila(String cliente, String fechaRetiro, int precio, String estado) {
+        
+        Object[] row = {cliente, fechaRetiro, "$"+precio, estado};
+        DefaultTableModel modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
+        
+        modeloTabla.addRow(row);
+    }
+    
+    private int obtieneFilaSeleccionada(){
+        
+        return tablaPedidos.getSelectedRow();
+    }
+    
+    private void aumentarEstadoPedido(){
+        DefaultTableModel modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
+        
+        int fila = tablaPedidos.getSelectedRow();
+        
+        if (fila==-1) {
+            //Añadir cuadro de error, no se ha seleccionado nada
+            return;
+        }
+        
+        if (modeloTabla.getValueAt(fila, 3).equals("Pendiente")) {
+            modeloTabla.setValueAt("En Proceso", fila, 3);
+        }
+        
+        else if (modeloTabla.getValueAt(fila, 3).equals("En Proceso")) {
+            modeloTabla.setValueAt("Completado", fila, 3);
+        }
+    }
+    
+    private void cancelarPedido(){
+        DefaultTableModel modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
+        
+        int fila = tablaPedidos.getSelectedRow();
+        
+        if (fila==-1) {
+            //Añadir cuadro de error, no se ha seleccionado nada
+            return;
+        }
 
+        modeloTabla.setValueAt("Cancelado", fila, 3);
+    }
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
     private javax.swing.JButton btnCancelar;
