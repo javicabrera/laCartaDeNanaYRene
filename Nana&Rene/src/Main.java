@@ -53,18 +53,19 @@ public class Main
         pedidos = new ArrayList<Pedido>();
         materiasPrimas = new ArrayList<MateriaPrima>();
         GestionExcel gestionExcel = new GestionExcel();
+        File rutaMateriasPrimas = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\MateriasPrimas.xlsx");
         File rutaProductos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\Productos.xlsx");
         File rutaPedidos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\Pedidos.xlsx");
-        File rutaMateriasPrimas = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\MateriasPrimas.xlsx");
+        
+        materiasPrimas  = gestionExcel.importarMateriasPrimas(rutaMateriasPrimas);
         productos = gestionExcel.importarProductos(rutaProductos);
         pedidos = gestionExcel.importarPedidos(rutaPedidos);
-        materiasPrimas  = gestionExcel.importarMateriasPrimas(rutaMateriasPrimas);
-
+        
+        File tMateriasPrimas = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\testMateriasPrimas.xlsx");
+        gestionExcel.exportarMateriasPrimas(tMateriasPrimas);
         File tProductos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\testProductos.xlsx");
         gestionExcel.exportarProductos(tProductos);
         File tPedidos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\testPedidos.xlsx");
         gestionExcel.exportarPedido(tPedidos);
-        File tMateriasPrimas = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\testMateriasPrimas.xlsx");
-        gestionExcel.exportarMateriasPrimas(tMateriasPrimas);
     }  
 }
