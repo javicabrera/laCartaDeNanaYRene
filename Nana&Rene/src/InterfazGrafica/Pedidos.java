@@ -341,6 +341,14 @@ public class Pedidos extends javax.swing.JFrame {
         modeloTabla.setValueAt("Cancelado", fila, 3);
     }
 
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        this.almacen = almacen;
+    }
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
@@ -354,4 +362,5 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JTable tablaPedidos;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
+
 }

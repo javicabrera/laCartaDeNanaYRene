@@ -283,6 +283,14 @@ public class Productos extends javax.swing.JFrame {
         return tablaProductos.getSelectedRow();
     }
 
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        this.almacen = almacen;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
@@ -296,4 +304,6 @@ public class Productos extends javax.swing.JFrame {
     private javax.swing.JTable tablaProductos;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
+
+
 }
