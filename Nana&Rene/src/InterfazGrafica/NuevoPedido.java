@@ -373,10 +373,6 @@ public class NuevoPedido extends javax.swing.JFrame {
             ControladorInterfaces.mostrarGestionaPedido(true);
 
         }
-        
-        
-        
-        
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void precioAbonadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioAbonadoActionPerformed

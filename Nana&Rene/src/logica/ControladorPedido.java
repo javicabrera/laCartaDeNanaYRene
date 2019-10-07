@@ -20,7 +20,16 @@ public class ControladorPedido {
         return diferencia<=24;
     }
     
-    public boolean elaborarPedido(Pedido p){
+    public int elaborarPedido(Pedido p){
+        if(!verificarAbono(p)){
+            return 1;
+        }
+        if (!verificarDisponibilidadMateriasPrimas(p)){
+            return 2;
+        }
+        if (!verificarAbono(p) && !verificarDisponibilidadMateriasPrimas(p)){
+            return 3;
+        }
         if(verificarAbono(p) && verificarDisponibilidadMateriasPrimas(p)){
             p.setEstado("En Proceso");
             for(Producto prod: p.getProductos().keySet()){
@@ -29,12 +38,9 @@ public class ControladorPedido {
                 }
                 
             }
-            return true;
+            return 0;
         }
-        else{
-            return false;
-        }
-        
+        return -1;
     }
         
     public boolean verificarAbono(Pedido p){

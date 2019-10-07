@@ -5,18 +5,21 @@
  */
 package InterfazGrafica;
 
-import javax.swing.JPanel;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
-import logica.Pedido;
+import logica.Almacen;
 import logica.ControladorInterfaces;
-import logica.ControladorPedido;
+import logica.MateriaPrima;
+import logica.Producto;
 
 /**
  *
  * @author elias
  */
 public class Productos extends javax.swing.JFrame {
+    private Almacen almacen;
     
     /**
      * Creates new form PaginaPrincipalFX
@@ -24,6 +27,7 @@ public class Productos extends javax.swing.JFrame {
     public Productos() {
         initComponents();
         this.setLocationRelativeTo(null);
+        //almacen = new Almacen();
         
         //Sólo permite seleccionar un elemento de la tabla
         tablaProductos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -75,6 +79,7 @@ public class Productos extends javax.swing.JFrame {
         getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, 120, 70));
 
         btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/trash16.png"))); // NOI18N
+        btnBorrar.setToolTipText("Eliminar");
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
@@ -83,6 +88,7 @@ public class Productos extends javax.swing.JFrame {
         getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 30, 30));
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/edit16.png"))); // NOI18N
+        btnEditar.setToolTipText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -169,16 +175,21 @@ public class Productos extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
+        Producto producto = almacen.getProductos().get(obtieneFilaSeleccionada());
+        ControladorInterfaces.mostrarProductos(false);
+        ControladorInterfaces.mostrarEditarProducto(true, producto);
         
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
-        borrarFila();
-        
-        //Añadir código para borrar elemento en Arryalist y en Excel, usar. Hint: Usar obtieneFilaSeleccionada
-        
-        
+        if(JOptionPane.showConfirmDialog(this, "¿Desea eliminar el producto?", 
+                "Eliminar Producto", 0)==0){
+            borrarFila();
+            ArrayList<Producto> aux = almacen.getProductos();
+            aux.remove(obtieneFilaSeleccionada());
+            almacen.setProductos(aux);
+        }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     /**
@@ -259,6 +270,8 @@ public class Productos extends javax.swing.JFrame {
         int fila = tablaProductos.getSelectedRow();
          DefaultTableModel modeloTabla = (DefaultTableModel) tablaProductos.getModel();
          if (fila==-1) {
+             JOptionPane.showMessageDialog(this, "Debe seleccionar un producto",
+                    "Error", JOptionPane.ERROR_MESSAGE);
              return;
          }
          
