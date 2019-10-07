@@ -20,18 +20,27 @@ public class ControladorPedido {
         return diferencia<=24;
     }
     
-    public boolean elaborarPedido(Pedido p){
+    public int elaborarPedido(Pedido p){
+        if(!verificarAbono(p)){
+            return 1;
+        }
+        if (!verificarDisponibilidadMateriasPrimas(p)){
+            return 2;
+        }
+        if (!verificarAbono(p) && !verificarDisponibilidadMateriasPrimas(p)){
+            return 3;
+        }
         if(verificarAbono(p) && verificarDisponibilidadMateriasPrimas(p)){
             p.setEstado("En Proceso");
-            for(Producto prod: p.getProductos()){
-                descontarMateriasPrimas(prod.getMateriasPrimas());
+            for(Producto prod: p.getProductos().keySet()){
+                for (int i = 0; i < p.getProductos().get(prod); i++) {
+                    descontarMateriasPrimas(prod.getMateriasPrimas());
+                }
+                
             }
-            return true;
+            return 0;
         }
-        else{
-            return false;
-        }
-        
+        return -1;
     }
         
     public boolean verificarAbono(Pedido p){
@@ -41,17 +50,19 @@ public class ControladorPedido {
     /* Un pedido va a tener un listado de productos, esos productos un listado 
     de materias primas*/
     public boolean verificarDisponibilidadMateriasPrimas(Pedido p){
-        for(Producto producto: p.getProductos()){
-            for(MateriaPrima materia: producto.getMateriasPrimas().keySet()){
-                MateriaPrima mAux = null;
-                for(MateriaPrima mDatos: almacen.getMateriasPrimas()){
-                    if(mDatos.getNombre().equals(materia.getNombre())){
-                        mAux = mDatos;
-                        break;
+        for(Producto producto: p.getProductos().keySet()){
+            for (int i = 0; i < p.getProductos().get(producto); i++) {
+                for(MateriaPrima materia: producto.getMateriasPrimas().keySet()){
+                    MateriaPrima mAux = null;
+                    for(MateriaPrima mDatos: almacen.getMateriasPrimas()){
+                        if(mDatos.getNombre().equals(materia.getNombre())){
+                            mAux = mDatos;
+                            break;
+                        }
                     }
-                }
-                if(mAux.getCantidad()<producto.getMateriasPrimas().get(materia)){
-                    return false;
+                    if(mAux.getCantidad()<producto.getMateriasPrimas().get(materia)){
+                        return false;
+                    }
                 }
             }
         }

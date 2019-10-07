@@ -5,17 +5,9 @@
  */
 package InterfazGrafica;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import logica.ControladorInterfaces;
-import logica.Pedido;
-import logica.Producto;
 import logica.MateriaPrima;
 
 
@@ -24,7 +16,6 @@ import logica.MateriaPrima;
  * @author elias
  */
 public class EditarMateriaPrima extends javax.swing.JFrame {
-    private HashMap<String,Integer> productos;
     private MateriaPrima materia;
 
     /**
@@ -33,16 +24,14 @@ public class EditarMateriaPrima extends javax.swing.JFrame {
     public EditarMateriaPrima() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
-//        nombre.setText(materia.getNombre());
-//        cantidad.setText(String.valueOf(materia.getCantidad()));
+       // almacen = new Almacen();
     }
-
-    public void setMateria(MateriaPrima materia) {
+    
+    public void setMateria(MateriaPrima materia){
         this.materia = materia;
+        nombre.setText(this.materia.getNombre());
+        cantidad.setText(String.valueOf(this.materia.getCantidad()));
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -139,16 +128,35 @@ public class EditarMateriaPrima extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
-        ControladorInterfaces.mostrarEditarMateriaPrima(false);
+        ControladorInterfaces.mostrarEditarMateriaPrima(false, materia);
         ControladorInterfaces.mostrarMateriasPrimas(true);
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
-        MateriaPrima mp = new MateriaPrima(nombre.getText(), Double.parseDouble(cantidad.getText()));
-        JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", JOptionPane.INFORMATION_MESSAGE);
-        ControladorInterfaces.mostrarEditarMateriaPrima(false);
-        ControladorInterfaces.mostrarMateriasPrimas(true);
-
+        boolean flag = true;
+        if(nombre.getText().equals("") || nombre.getText()==null){
+            flag = false;
+            JOptionPane.showMessageDialog(this, "Debe ingresar un nombre.","Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+        if (flag){
+            try{
+                String nombreMateria = nombre.getText();
+                double cantMateria = Double.parseDouble(cantidad.getText());
+                materia.setNombre(nombreMateria);
+                materia.modificarCantidad(cantMateria);
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", 
+                JOptionPane.INFORMATION_MESSAGE);
+                ControladorInterfaces.mostrarEditarMateriaPrima(false, materia);
+                ControladorInterfaces.mostrarMateriasPrimas(true);
+                nombre.setText("");
+                cantidad.setText("");
+            } catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(this, "Debe ingresar un número "
+                        + "válido","Error",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+            
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed

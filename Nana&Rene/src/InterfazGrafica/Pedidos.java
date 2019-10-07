@@ -5,9 +5,12 @@
  */
 package InterfazGrafica;
 
-import javax.swing.JPanel;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import logica.Almacen;
 import logica.Pedido;
 import logica.ControladorInterfaces;
 import logica.ControladorPedido;
@@ -17,6 +20,8 @@ import logica.ControladorPedido;
  * @author elias
  */
 public class Pedidos extends javax.swing.JFrame {
+    private Almacen almacen;
+    private ControladorPedido cp;
     
     /**
      * Creates new form PaginaPrincipalFX
@@ -24,6 +29,8 @@ public class Pedidos extends javax.swing.JFrame {
     public Pedidos() {
         initComponents();
         this.setLocationRelativeTo(null);
+        //almacen = new Almacen();
+        cp = new ControladorPedido();
         
         //Sólo permite seleccionar un elemento de la tabla
         tablaPedidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -74,6 +81,7 @@ public class Pedidos extends javax.swing.JFrame {
         getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, 120, 70));
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/cancel16.png"))); // NOI18N
+        btnCancelar.setToolTipText("Cancelar Pedido");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -82,6 +90,7 @@ public class Pedidos extends javax.swing.JFrame {
         getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 30, 30));
 
         btnSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/next16.png"))); // NOI18N
+        btnSiguiente.setToolTipText("Cambiar Estado");
         btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSiguienteActionPerformed(evt);
@@ -167,38 +176,69 @@ public class Pedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
-        // TODO add your handling code here:
+
+        cp = new ControladorPedido();
+        Pedido pedido = almacen.getPedidos().get(obtieneFilaSeleccionada());
         
-        aumentarEstadoPedido();
-        
-        ControladorPedido cp = new ControladorPedido();
-        Pedido pedido = new Pedido(null,null,null,0,0,null,null,null,0);
         String estado = pedido.getEstado();
         String nuevo = "";
         switch (estado){
             case "Pendiente":
                 nuevo = "En proceso";
-                //cp.verificarAbono(pedido);
-                //cp.verificarDisponibilidadMateriasPrimas(pedido);
+                int caso = cp.elaborarPedido(pedido);
+                if(caso == 0){
+                    aumentarEstadoPedido();
+                }
+                else if (caso == 1){
+                    JOptionPane.showMessageDialog(this, "No se puede realizar "
+                            + "el pedido, no se ha abonado el 50%.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else if (caso == 2){
+                    JOptionPane.showMessageDialog(this, "No se puede realizar "
+                            + "el pedido, no hay suficiente materia prima.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else if (caso == 3){
+                    JOptionPane.showMessageDialog(this, "No se puede realizar "
+                            + "el pedido, no se ha abonado el 50% ni hay suficiente"
+                            + "materia prima.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+                }
                 break;
             case "En proceso":
                 nuevo = "Finalizado";
+                aumentarEstadoPedido();
+                pedido.setEstado(nuevo);
                 break;
             case "Finalizado":
                 nuevo = "Retirado";
+                aumentarEstadoPedido();
+                pedido.setEstado(nuevo);
                 break;
         }
-        pedido.setEstado(nuevo);
-        System.out.println("Estado Cambiado a " + nuevo);
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
-        ControladorPedido cp = new ControladorPedido();
-        //cp.cancelarPedido(new Pedido(null,null,null,0,0,null,null,null,0));
-        cancelarPedido();
-        System.out.println("Pedido Cancelado");
-        
+        if(JOptionPane.showConfirmDialog(this, "¿Desea cancelar el pedido?", 
+                "Cancelar Pedido", 0)==0){
+            cancelarPedido();
+            cp = new ControladorPedido();
+            Pedido pedido = almacen.getPedidos().get(obtieneFilaSeleccionada());
+            boolean abono = cp.cancelarPedido(pedido);
+            int abonado = pedido.getPrecioAbonado();
+            if (abono){
+                JOptionPane.showMessageDialog(this,"Se debe devolver el abono de: $"
+                        + abonado + ".", "Cancelar Pedido", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else{
+                JOptionPane.showMessageDialog(this,"No se devuelve abono.",""
+                        + "Cancelar Pedido", JOptionPane.INFORMATION_MESSAGE);
+            }
+            ArrayList<Pedido> aux = almacen.getPedidos();
+            aux.remove(pedido);
+            almacen.setPedidos(aux);
+        }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
@@ -270,7 +310,8 @@ public class Pedidos extends javax.swing.JFrame {
         int fila = tablaPedidos.getSelectedRow();
         
         if (fila==-1) {
-            //Añadir cuadro de error, no se ha seleccionado nada
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido",
+                    "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -279,7 +320,10 @@ public class Pedidos extends javax.swing.JFrame {
         }
         
         else if (modeloTabla.getValueAt(fila, 3).equals("En Proceso")) {
-            modeloTabla.setValueAt("Completado", fila, 3);
+            modeloTabla.setValueAt("Finalizado", fila, 3);
+        }
+        else if (modeloTabla.getValueAt(fila, 3).equals("Finalizado")) {
+            modeloTabla.setValueAt("Retirado", fila, 3);
         }
     }
     
@@ -289,7 +333,8 @@ public class Pedidos extends javax.swing.JFrame {
         int fila = tablaPedidos.getSelectedRow();
         
         if (fila==-1) {
-            //Añadir cuadro de error, no se ha seleccionado nada
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido",
+                    "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 

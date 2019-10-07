@@ -75,8 +75,9 @@ public class ControladorInterfaces {
         ControladorInterfaces.nuevoProducto.repaint();
     }
     
-    public static void mostrarEditarProducto(boolean b){
+    public static void mostrarEditarProducto(boolean b, Producto producto){
         ControladorInterfaces.editarProducto.setVisible(b);
+        ControladorInterfaces.editarProducto.setProducto(producto);
         ControladorInterfaces.editarProducto.repaint();
     }
     
@@ -85,8 +86,9 @@ public class ControladorInterfaces {
         ControladorInterfaces.materiasPrimas.repaint();
     }
     
-    public static void mostrarEditarMateriaPrima(boolean b){
+    public static void mostrarEditarMateriaPrima(boolean b, MateriaPrima materia){
         ControladorInterfaces.editarMateriaPrima.setVisible(b);
+        ControladorInterfaces.editarMateriaPrima.setMateria(materia);
         ControladorInterfaces.editarMateriaPrima.repaint();
     }
     
