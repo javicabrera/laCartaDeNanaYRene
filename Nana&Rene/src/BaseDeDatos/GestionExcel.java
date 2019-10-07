@@ -15,8 +15,7 @@ import logica.*;
  *
  * @author Javiera Méndez
  */
-public class GestionExcel
-{
+public class GestionExcel{
     Workbook wb;
     private ArrayList<Producto> productos;
     private ArrayList<Pedido> pedidos;
@@ -68,7 +67,7 @@ public class GestionExcel
                             String[] mp = listado.split(",");
                             for(int i = 0; i < mp.length; i++)
                             {
-                                MateriaPrima objMP = new MateriaPrima(mp[i], 0.0, " ");
+                                MateriaPrima objMP = new MateriaPrima(mp[i], 0.0);
                                 materiasPrimas.put(objMP, 0);
                             }   break;
                         case 3:
@@ -177,7 +176,8 @@ public class GestionExcel
                     }
                     indiceColumna++;
                 }
-                Pedido p = new Pedido(tipoProducto, cantidad, fechaSolicitud, fechaRetiro, descuento, nombreCliente, correoCliente, numeroCliente, precioAbonado);
+               //********************* REVISAR
+               //Pedido p = new Pedido(tipoProducto, cantidad, fechaSolicitud, fechaRetiro, descuento, nombreCliente, correoCliente, numeroCliente, precioAbonado);
                 pedidos.add(p);
                 indiceFila++;
             }
@@ -233,7 +233,7 @@ public class GestionExcel
                     }
                     indiceColumna++;
                 }
-                MateriaPrima mp = new MateriaPrima(nombre, cantidad, unidad);
+                MateriaPrima mp = new MateriaPrima(nombre, cantidad);
                 materiasPrimas.add(mp);
                 indiceFila++;
             }
@@ -326,8 +326,11 @@ public class GestionExcel
                 }
                 else
                 {
-                    tipo.setCellValue(pedidos.get(i).getTipoProducto());
-                    cantidad.setCellValue(pedidos.get(i).getCantidad());
+                    /***
+                     * REVISAR
+                     */
+                    //tipo.setCellValue(pedidos.get(i).getTipoProducto());
+                    //cantidad.setCellValue(pedidos.get(i).getCantidad());
                     //PROBLEMAS AL PARSEAR FECHAA NI CON SIMPLEDATEFORMAT SIRVE
                     fechaSolicitud.setCellValue((Date) pedidos.get(i).getFechaSolicitud());
                     fechaRetiro.setCellValue((Date) pedidos.get(i).getFechaRetiro());
@@ -374,7 +377,8 @@ public class GestionExcel
                 {
                     nombre.setCellValue(materiasPrimas.get(i).getNombre());
                     cantidad.setCellValue(materiasPrimas.get(i).getCantidad());
-                    unidad.setCellValue(materiasPrimas.get(i).getUnidad());
+                    // REVISAR
+                    //unidad.setCellValue(materiasPrimas.get(i).getUnidad());
                 }
                 wb.write(new FileOutputStream(archivo));
             }

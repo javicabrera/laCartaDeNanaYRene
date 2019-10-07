@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -25,7 +26,7 @@ import logica.Producto;
  * @author elias
  */
 public class NuevoPedido extends javax.swing.JFrame {
-    private ArrayList<Producto> productos;
+    private HashMap<Producto, Integer> productos;
     private InfoPanel infoPanel;
     private int total;
     private Almacen almacen;
@@ -36,7 +37,7 @@ public class NuevoPedido extends javax.swing.JFrame {
     public NuevoPedido() {
         initComponents();
         this.setLocationRelativeTo(null);
-        productos = new ArrayList<>();
+        productos = new HashMap<>();
 //        for(Producto p: almacen.getProductos()){
 //            boxProductos.addItem(p.getNombre());
 //        }
@@ -307,9 +308,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         }
         try{
             int cant = Integer.parseInt(cantidad.getText());
-            for (int i = 0; i < cant; i++) {
-                productos.add(producto);
-            }
+            productos.put(producto,cant);
             total += producto.getPrecioVenta();
             precioTotal.setText(String.valueOf(total));
             infoPanel.agregaProductoOrMatPrima(nombreProducto, cant);
@@ -374,10 +373,6 @@ public class NuevoPedido extends javax.swing.JFrame {
             ControladorInterfaces.mostrarGestionaPedido(true);
 
         }
-        
-        
-        
-        
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void precioAbonadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioAbonadoActionPerformed

@@ -1,7 +1,7 @@
 package logica;
 
 import java.text.ParseException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Date;
 
 /**
@@ -9,9 +9,7 @@ import java.util.Date;
  * @author Isavo Castro
  */
 public class Pedido {
-    private ArrayList<Producto> productos;
-    private String tipoProducto;
-    private int cantidad;
+    private HashMap<Producto, Integer> productos;
     private Date fechaSolicitud;
     private Date fechaRetiro;
     private String estado;
@@ -22,27 +20,9 @@ public class Pedido {
     private String correoCliente;
     private String numeroCliente;
 
-    public Pedido(ArrayList<Producto> productos, Date fechaSolicitud, 
+    public Pedido(HashMap<Producto, Integer> productos, Date fechaSolicitud, 
             Date fechaRetiro, int precioTotal, int descuento, String nombreCliente, 
             String correoCliente, String numeroCliente, int precioAbonado) {
-        this.tipoProducto = tipoProducto;
-        this.fechaSolicitud = fechaSolicitud;
-        this.fechaRetiro = fechaRetiro;
-        this.estado = "Pendiente";
-        this.precioTotal = precioTotal;
-        this.precioAbonado = precioAbonado;
-        this.descuento = descuento;
-        this.nombreCliente = nombreCliente;
-        this.correoCliente = correoCliente;
-        this.numeroCliente = numeroCliente;
-    }
-    
-    public Pedido(String tipoProducto, int cantidad, Date fechaSolicitud, 
-            Date fechaRetiro, int descuento, String nombreCliente, 
-            String correoCliente, String numeroCliente, int precioAbonado){
-
-        this.tipoProducto = tipoProducto;
-        this.cantidad = cantidad;
         this.fechaSolicitud = fechaSolicitud;
         this.fechaRetiro = fechaRetiro;
         this.estado = "Pendiente";
@@ -54,23 +34,11 @@ public class Pedido {
         this.numeroCliente = numeroCliente;
     }
 
-    public String getTipoProducto() 
-    {
-        return tipoProducto;
-    }
-
-    public int getCantidad() 
-    {
-        return cantidad;
-    }
-    
-    public ArrayList<Producto> getProductos() 
-    {
+    public HashMap<Producto, Integer> getProductos() {
         return productos;
     }
 
-    public void setProductos(ArrayList<Producto> productos) 
-    {
+    public void setProductos(HashMap<Producto, Integer> productos) {
         this.productos = productos;
     }
 

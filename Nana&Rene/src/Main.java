@@ -53,7 +53,7 @@ public class Main
         pedidos = new ArrayList<Pedido>();
         materiasPrimas = new ArrayList<MateriaPrima>();
         GestionExcel gestionExcel = new GestionExcel();
-        File rutaProductos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\productos.xlsx");
+        File rutaProductos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\Productos.xlsx");
         File rutaPedidos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\Pedidos.xlsx");
         File rutaMateriasPrimas = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\MateriasPrimas.xlsx");
         productos = gestionExcel.importarProductos(rutaProductos);
