@@ -13,13 +13,12 @@ public class MateriaPrima
 {
     private String nombre;
     private double cantidad;
-    private String unidad;
     
-    public MateriaPrima(String nombre, double cantidad, String unidad)
+    public MateriaPrima(String nombre, double cantidad)
     {
         this.nombre = nombre;
         this.cantidad = cantidad;
-        this.unidad = unidad;
+
     }
 
     public String getNombre()
@@ -40,15 +39,5 @@ public class MateriaPrima
     public void modificarCantidad(double cantidad) 
     {
         this.cantidad = cantidad;
-    }
-
-    public String getUnidad()
-    {
-        return unidad;
-    }
-
-    public void setUnidad(String unidad)
-    {
-        this.unidad = unidad;
     }
 }

@@ -1,7 +1,7 @@
 package logica;
 
 import java.text.ParseException;
-import java.HashMap;
+import java.util.HashMap;
 import java.util.Date;
 
 /**

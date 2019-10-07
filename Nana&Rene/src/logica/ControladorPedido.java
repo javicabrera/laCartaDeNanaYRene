@@ -65,7 +65,7 @@ public class ControladorPedido {
                     }
                 }
             }
-        }*/
+        }
         return true;
     }
     
