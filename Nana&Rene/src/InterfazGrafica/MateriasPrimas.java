@@ -169,12 +169,13 @@ public class MateriasPrimas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+
         MateriaPrima mp = almacen.getMateriasPrimas().get(obtieneFilaSeleccionada());
         ControladorInterfaces.mostrarMateriasPrimas(false);
         ControladorInterfaces.mostrarEditarMateriaPrima(true, mp);
         
         
-    }//GEN-LAST:event_btnEditarActionPerformed
+    //GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         if(JOptionPane.showConfirmDialog(this, "¿Desea eliminar la materia prima?", 
