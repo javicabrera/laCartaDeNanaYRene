@@ -168,7 +168,8 @@ public class Productos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+       ControladorInterfaces.mostrarEditarProducto(true);
+       ControladorInterfaces.mostrarProductos(false);
         
     }//GEN-LAST:event_btnEditarActionPerformed
 

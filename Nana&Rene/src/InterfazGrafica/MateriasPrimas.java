@@ -171,6 +171,8 @@ public class MateriasPrimas extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
+        ControladorInterfaces.mostrarEditarMateriaPrima(true);
+        ControladorInterfaces.mostrarMateriasPrimas(false);
         ControladorPedido cp = new ControladorPedido();
         Pedido pedido = new Pedido(null,null,null,0,0,null,null,null,0);
         String estado = pedido.getEstado();
