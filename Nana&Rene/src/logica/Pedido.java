@@ -1,8 +1,8 @@
 package logica;
 
-
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 /**
  *
@@ -23,7 +23,7 @@ public class Pedido {
     public Pedido(HashMap<Producto, Integer> productos, Date fechaSolicitud, 
             Date fechaRetiro, int precioTotal, int descuento, String nombreCliente, 
             String correoCliente, String numeroCliente, int precioAbonado) {
-        this.productos = productos;
+        this.tipoProducto = tipoProducto;
         this.fechaSolicitud = fechaSolicitud;
         this.fechaRetiro = fechaRetiro;
         this.estado = "Pendiente";
@@ -34,6 +34,10 @@ public class Pedido {
         this.correoCliente = correoCliente;
         this.numeroCliente = numeroCliente;
     }
+    
+    public Pedido(String tipoProducto, int cantidad, Date fechaSolicitud, 
+            Date fechaRetiro, int descuento, String nombreCliente, 
+            String correoCliente, String numeroCliente, int precioAbonado){
 
     public HashMap<Producto, Integer> getProductos() {
         return productos;
@@ -43,75 +47,93 @@ public class Pedido {
         this.productos = productos;
     }
 
-    public Date getFechaSolicitud() {
+    public Date getFechaSolicitud()
+    {
         return fechaSolicitud;
     }
 
-    public void setFechaSolicitud(Date fechaSolicitud) {
+    public void setFechaSolicitud(Date fechaSolicitud) 
+    {
         this.fechaSolicitud = fechaSolicitud;
     }
 
-    public Date getFechaRetiro() {
+    public Date getFechaRetiro() 
+    {
         return fechaRetiro;
     }
 
-    public void setFechaRetiro(Date fechaRetiro) {
+    public void setFechaRetiro(Date fechaRetiro)
+    {
         this.fechaRetiro = fechaRetiro;
     }
 
-    public String getEstado() {
+    public String getEstado()
+    {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(String estado) 
+    {
         this.estado = estado;
     }
 
-    public int getPrecioTotal() {
+    public int getPrecioTotal() 
+    {
         return precioTotal;
     }
 
-    public void setPrecioTotal(int precioTotal) {
+    public void setPrecioTotal(int precioTotal)
+    {
         this.precioTotal = precioTotal;
     }
 
-    public int getPrecioAbonado() {
+    public int getPrecioAbonado() 
+    {
         return precioAbonado;
     }
 
-    public void setPrecioAbonado(int precioAbonado) {
+    public void setPrecioAbonado(int precioAbonado)
+    {
         this.precioAbonado = precioAbonado;
     }
 
-    public int getDescuento() {
+    public int getDescuento()
+    {
         return descuento;
     }
 
-    public void setDescuento(int descuento) {
+    public void setDescuento(int descuento) 
+    {
         this.descuento = descuento;
     }
 
-    public String getNombreCliente() {
+    public String getNombreCliente()
+    {
         return nombreCliente;
     }
 
-    public void setNombreCliente(String nombreCliente) {
+    public void setNombreCliente(String nombreCliente)
+    {
         this.nombreCliente = nombreCliente;
     }
 
-    public String getCorreoCliente() {
+    public String getCorreoCliente() 
+    {
         return correoCliente;
     }
 
-    public void setCorreoCliente(String correoCliente) {
+    public void setCorreoCliente(String correoCliente)
+    {
         this.correoCliente = correoCliente;
     }
 
-    public String getNumeroCliente() {
+    public String getNumeroCliente()
+    {
         return numeroCliente;
     }
 
-    public void setNumeroCliente(String numeroCliente) {
+    public void setNumeroCliente(String numeroCliente)
+    {
         this.numeroCliente = numeroCliente;
     }
     
