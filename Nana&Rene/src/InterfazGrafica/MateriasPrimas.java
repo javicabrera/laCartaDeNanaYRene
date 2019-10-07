@@ -5,18 +5,21 @@
  */
 package InterfazGrafica;
 
-import javax.swing.JPanel;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
-import logica.Pedido;
+import logica.Almacen;
 import logica.ControladorInterfaces;
 import logica.ControladorPedido;
+import logica.MateriaPrima;
 
 /**
  *
  * @author elias
  */
 public class MateriasPrimas extends javax.swing.JFrame {
+    private Almacen almacen;
     
     /**
      * Creates new form PaginaPrincipalFX
@@ -24,16 +27,12 @@ public class MateriasPrimas extends javax.swing.JFrame {
     public MateriasPrimas() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+        //almacen = new Almacen();
         //Sólo permite seleccionar un elemento de la tabla
         tablaMateriasPrimas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         anadirFila("Durazno", 13);
         anadirFila("Melocotón", 31231);
-        
-        
-        
-        
     }
 
     /**
@@ -170,37 +169,21 @@ public class MateriasPrimas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-        ControladorPedido cp = new ControladorPedido();
-        Pedido pedido = new Pedido(null,null,null,0,0,null,null,null,0);
-        String estado = pedido.getEstado();
-        String nuevo = "";
-        switch (estado){
-            case "Pendiente":
-                nuevo = "En proceso";
-                //cp.verificarAbono(pedido);
-                //cp.verificarDisponibilidadMateriasPrimas(pedido);
-                break;
-            case "En proceso":
-                nuevo = "Finalizado";
-                break;
-            case "Finalizado":
-                nuevo = "Retirado";
-                break;
-        }
-        pedido.setEstado(nuevo);
-        System.out.println("Estado Cambiado a " + nuevo);
+        MateriaPrima mp = almacen.getMateriasPrimas().get(obtieneFilaSeleccionada());
+        ControladorInterfaces.mostrarMateriasPrimas(false);
+        ControladorInterfaces.mostrarEditarMateriaPrima(true, mp);
+        
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        // TODO add your handling code here:
-        ControladorPedido cp = new ControladorPedido();
-        //cp.cancelarPedido(new Pedido(null,null,null,0,0,null,null,null,0));
-        System.out.println("Pedido Cancelado");
-        
-        borrarFila();
-        
-        //Añadir código para borrar elemento en Arryalist y en Excel, usar. Hint: Usar obtieneFilaSeleccionada
+        if(JOptionPane.showConfirmDialog(this, "¿Desea eliminar la materia prima?", 
+                "Eliminar Materia Prima", 0)==0){
+            borrarFila();
+            ArrayList<MateriaPrima> aux = almacen.getMateriasPrimas();
+            aux.remove(obtieneFilaSeleccionada());
+            almacen.setMateriasPrimas(aux);
+        }
         
     }//GEN-LAST:event_btnBorrarActionPerformed
 
@@ -319,6 +302,8 @@ public class MateriasPrimas extends javax.swing.JFrame {
         int fila = tablaMateriasPrimas.getSelectedRow();
          DefaultTableModel modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();
          if (fila==-1) {
+             JOptionPane.showMessageDialog(this, "Debe seleccionar una materia prima",
+                    "Error", JOptionPane.ERROR_MESSAGE);
              return;
          }
          

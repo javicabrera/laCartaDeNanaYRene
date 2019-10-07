@@ -7,17 +7,11 @@ package InterfazGrafica;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import logica.Almacen;
 import logica.ControladorInterfaces;
-import logica.Pedido;
+import logica.MateriaPrima;
 import logica.Producto;
 
 
@@ -29,6 +23,7 @@ public class EditarProducto extends javax.swing.JFrame {
     private Producto producto;
     private ArrayList<Producto> productos;
     private InfoPanel infoPanel;
+    private Almacen almacen;
 
     /**
      * Creates new form PaginaPrincipalFX
@@ -36,11 +31,7 @@ public class EditarProducto extends javax.swing.JFrame {
     public EditarProducto() {
         initComponents();
         this.setLocationRelativeTo(null);
-//        nombre.setText(producto.getNombre());
-//        precioVenta.setText(String.valueOf(producto.getPrecioVenta()));
-//        tiempoElab.setText(String.valueOf(producto.getTiempoElaboracion()));
-        
-        
+        //almacen = new Almacen();
         infoPanel = new InfoPanel();
         panelMateriasPrimas.setLayout(new GridLayout(0,1));
         panelMateriasPrimas.setPreferredSize(new Dimension(180,250));
@@ -51,6 +42,10 @@ public class EditarProducto extends javax.swing.JFrame {
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+        nombre.setText(producto.getNombre());
+        precioVenta.setText(String.valueOf(producto.getPrecioVenta()));
+        tiempoElab.setText(String.valueOf(producto.getTiempoElaboracion()));
+        //agregar al panel las materias primas que hay
     }
     
     
@@ -227,10 +222,8 @@ public class EditarProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
-            ControladorInterfaces.mostrarEditarProducto(false);
-            ControladorInterfaces.mostrarProductos(true);
-
-        
+        ControladorInterfaces.mostrarEditarProducto(false, producto);
+        ControladorInterfaces.mostrarProductos(true);
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void boxMateriaPrimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxMateriaPrimaActionPerformed
@@ -238,19 +231,57 @@ public class EditarProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_boxMateriaPrimaActionPerformed
 
     private void btnAgregarMPrimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMPrimaActionPerformed
-        String producto = (String) boxMateriaPrima.getSelectedItem();
-        
+        String nombreMateria = (String) boxMateriaPrima.getSelectedItem();
+        MateriaPrima materia = null;
+        for(MateriaPrima m : almacen.getMateriasPrimas()){
+            if(m.getNombre().equals(nombreMateria)){
+                materia = m;
+                break;
+            }
+        }
+        try{
+            int cant = Integer.parseInt(cantidad.getText());
+            producto.getMateriasPrimas().put(materia, cant);
+            infoPanel.agregaProductoOrMatPrima(nombreMateria, cant);
+        } catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
         infoPanel.agregaProductoOrMatPrima("PapayasDePrueba", 90);
         super.paintComponents(this.getGraphics());
     }//GEN-LAST:event_btnAgregarMPrimaActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
-        //Producto p = new Producto(nombre.getText(), Integer.parseInt(precioVenta.getText()), Integer.parseInt(tiempoElab.getText()));
-        JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", JOptionPane.INFORMATION_MESSAGE);
-        ControladorInterfaces.mostrarEditarProducto(false);
-        ControladorInterfaces.mostrarProductos(true);
 
-
+        String nombreProd = nombre.getText();
+        boolean flag1 = true;
+        boolean flag2 = true;
+        if (nombreProd.equals("") || nombreProd == null){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un nombre.","Error", 
+                    JOptionPane.ERROR_MESSAGE);
+            flag1 = false;
+        }
+        if(producto.getMateriasPrimas().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Debe ingresar al menos una materia"
+                    + "prima.","Error", JOptionPane.ERROR_MESSAGE);
+            flag2 = false;
+        }
+        if (flag1 && flag2){
+            try{
+                int precio = Integer.parseInt(precioVenta.getText());
+                int tiempo = Integer.parseInt(tiempoElab.getText());
+                producto.setNombre(nombreProd);
+                producto.setPrecioVenta(precio);
+                producto.setTiempoElaboracion(tiempo);
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente",
+                        "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                ControladorInterfaces.mostrarEditarProducto(false, producto);
+                ControladorInterfaces.mostrarProductos(true);
+            } catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void precioVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioVentaActionPerformed

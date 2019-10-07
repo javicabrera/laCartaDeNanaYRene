@@ -5,17 +5,10 @@
  */
 package InterfazGrafica;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import logica.Almacen;
 import logica.ControladorInterfaces;
-import logica.Pedido;
-import logica.Producto;
 import logica.MateriaPrima;
 
 
@@ -24,7 +17,7 @@ import logica.MateriaPrima;
  * @author elias
  */
 public class NuevaMateriaPrima extends javax.swing.JFrame {
-    private HashMap<String,Integer> productos;
+    private Almacen almacen;
 
     /**
      * Creates new form PaginaPrincipalFX
@@ -32,7 +25,7 @@ public class NuevaMateriaPrima extends javax.swing.JFrame {
     public NuevaMateriaPrima() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+        //almacen = new Almacen();
         
     }
 
@@ -136,8 +129,28 @@ public class NuevaMateriaPrima extends javax.swing.JFrame {
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
-        MateriaPrima mp = new MateriaPrima(nombre.getText(), Double.parseDouble(cantidad.getText()));
-        JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", JOptionPane.INFORMATION_MESSAGE);
+        boolean flag = true;
+        if(nombre.getText().equals("") || nombre.getText()==null){
+            flag = false;
+            JOptionPane.showMessageDialog(this, "Debe ingresar un nombre.","Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+        if (flag){
+            try{
+                String nombreMateria = nombre.getText();
+                double cantMateria = Double.parseDouble(cantidad.getText());
+                MateriaPrima mp = new MateriaPrima(nombreMateria, cantMateria);
+                ArrayList<MateriaPrima> aux = almacen.getMateriasPrimas();
+                aux.add(mp);
+                almacen.setMateriasPrimas(aux);
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", 
+                JOptionPane.INFORMATION_MESSAGE);
+            } catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(this, "Debe ingresar un número "
+                        + "válido","Error",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
         ControladorInterfaces.mostrarRegistrarMateriaPrima(false);
         ControladorInterfaces.mostrarMateriasPrimas(true);
     }//GEN-LAST:event_bGuardarActionPerformed
