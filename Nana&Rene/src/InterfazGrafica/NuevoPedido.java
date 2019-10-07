@@ -5,14 +5,16 @@
  */
 package InterfazGrafica;
 
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import logica.Almacen;
 import logica.ControladorInterfaces;
 import logica.Pedido;
 import logica.Producto;
@@ -23,7 +25,10 @@ import logica.Producto;
  * @author elias
  */
 public class NuevoPedido extends javax.swing.JFrame {
-    private HashMap<String,Integer> productos;
+    private ArrayList<Producto> productos;
+    private InfoPanel infoPanel;
+    private int total;
+    private Almacen almacen;
 
     /**
      * Creates new form PaginaPrincipalFX
@@ -31,11 +36,16 @@ public class NuevoPedido extends javax.swing.JFrame {
     public NuevoPedido() {
         initComponents();
         this.setLocationRelativeTo(null);
-        productos = new HashMap<>();
-        Producto p1 = new Producto("Torta", 2500, 3000);
-        Producto p2 = new Producto("Pie de limon", 3000, 5000);
-        boxProductos.addItem(p1.getNombre());
-        boxProductos.addItem(p2.getNombre());
+        productos = new ArrayList<>();
+//        for(Producto p: almacen.getProductos()){
+//            boxProductos.addItem(p.getNombre());
+//        }
+        total = 0;
+        
+        infoPanel = new InfoPanel();
+        panelResumenPedido.setLayout(new GridLayout(0,1));
+        panelResumenPedido.setPreferredSize(new Dimension(180,210));
+        panelResumenPedido.add(infoPanel.getPanelDatos());
         
         
     }
@@ -70,13 +80,14 @@ public class NuevoPedido extends javax.swing.JFrame {
         boxProductos = new javax.swing.JComboBox<>();
         correo = new javax.swing.JTextField();
         boxCliente = new javax.swing.JComboBox<>();
-        panelResumen = new javax.swing.JPanel();
-        txtResumenPedido = new javax.swing.JLabel();
         bVolver = new javax.swing.JButton();
         bGuardar = new javax.swing.JButton();
         precioTotal = new javax.swing.JLabel();
         btnAgregarProducto = new javax.swing.JButton();
         txt$ = new javax.swing.JLabel();
+        panelResumenPedido = new javax.swing.JPanel();
+        txtResumenPedido = new javax.swing.JPanel();
+        resumenPedido = new javax.swing.JLabel();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -163,29 +174,6 @@ public class NuevoPedido extends javax.swing.JFrame {
         boxCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         getContentPane().add(boxCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 130, -1));
 
-        panelResumen.setBackground(new java.awt.Color(255, 255, 255));
-
-        txtResumenPedido.setText("Resumen Pedido");
-
-        javax.swing.GroupLayout panelResumenLayout = new javax.swing.GroupLayout(panelResumen);
-        panelResumen.setLayout(panelResumenLayout);
-        panelResumenLayout.setHorizontalGroup(
-            panelResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelResumenLayout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
-                .addComponent(txtResumenPedido)
-                .addGap(37, 37, 37))
-        );
-        panelResumenLayout.setVerticalGroup(
-            panelResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelResumenLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtResumenPedido)
-                .addContainerGap(218, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(panelResumen, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 100, 180, 240));
-
         bVolver.setText("Volver");
         bVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,7 +190,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         });
         getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 370, 100, 50));
 
-        precioTotal.setText("3500");
+        precioTotal.setText("0");
         getContentPane().add(precioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, -1, 20));
 
         btnAgregarProducto.setText("+");
@@ -215,6 +203,44 @@ public class NuevoPedido extends javax.swing.JFrame {
 
         txt$.setText("$");
         getContentPane().add(txt$, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, -1, 20));
+
+        panelResumenPedido.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelResumenPedidoLayout = new javax.swing.GroupLayout(panelResumenPedido);
+        panelResumenPedido.setLayout(panelResumenPedidoLayout);
+        panelResumenPedidoLayout.setHorizontalGroup(
+            panelResumenPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelResumenPedidoLayout.setVerticalGroup(
+            panelResumenPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(panelResumenPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 180, 210));
+
+        txtResumenPedido.setBackground(new java.awt.Color(255, 255, 255));
+
+        resumenPedido.setText("Resumen Pedido");
+
+        javax.swing.GroupLayout txtResumenPedidoLayout = new javax.swing.GroupLayout(txtResumenPedido);
+        txtResumenPedido.setLayout(txtResumenPedidoLayout);
+        txtResumenPedidoLayout.setHorizontalGroup(
+            txtResumenPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtResumenPedidoLayout.createSequentialGroup()
+                .addContainerGap(38, Short.MAX_VALUE)
+                .addComponent(resumenPedido)
+                .addGap(39, 39, 39))
+        );
+        txtResumenPedidoLayout.setVerticalGroup(
+            txtResumenPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(txtResumenPedidoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(resumenPedido)
+                .addContainerGap(8, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(txtResumenPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, 180, 30));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
 
@@ -240,7 +266,7 @@ public class NuevoPedido extends javax.swing.JFrame {
             .addGroup(panelSuperiorLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(icon)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(titulo)
@@ -271,31 +297,42 @@ public class NuevoPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_boxProductosActionPerformed
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
-        String producto = (String) boxProductos.getSelectedItem();
-        //buscar producto que coincide con nombre
-        
+        String nombreProducto = (String) boxProductos.getSelectedItem();
+        Producto producto = null;
+        for(Producto p: almacen.getProductos()){
+            if (p.getNombre().equals(nombreProducto)){
+                producto = p;
+                break;
+            }
+        }
         try{
             int cant = Integer.parseInt(cantidad.getText());
-            productos.put(producto, cant);
+            for (int i = 0; i < cant; i++) {
+                productos.add(producto);
+            }
+            total += producto.getPrecioVenta();
+            precioTotal.setText(String.valueOf(total));
+            infoPanel.agregaProductoOrMatPrima(nombreProducto, cant);
+            super.paintComponents(this.getGraphics());
         } catch(NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-//        }
-//        int total = 0;
-//        for(Producto prod: productos.keySet()){
-//            total+=prod.getPrecio();
-//        }
-//        precioTotal.setText(String.valueOf(total);
+        
         
         
         
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
+    /**
+     * Falta verificar lo del cliente.
+     * @param evt 
+     */
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
         // TODO add your handling code here:
         boolean flag = false;
         boolean flag2 = false;
+        boolean flag3 = true;
         Date DateSolicitud = null;
         Date DateRetiro = null;
         int abono = 0;
@@ -309,38 +346,34 @@ public class NuevoPedido extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-     
-            try {
-                DateSolicitud =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fSolicitud.getText());
-                DateRetiro =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fRetiro.getText());
-                flag2 = true;
-            } catch (ParseException ex) {
-                Logger.getLogger(NuevoPedido.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Debe ingresar una fecha válida",
+        try {
+            DateSolicitud =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fSolicitud.getText());
+            DateRetiro =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fRetiro.getText());
+            flag2 = true;
+        } catch (ParseException ex) {
+            Logger.getLogger(NuevoPedido.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Debe ingresar una fecha válida",
+                "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        if (productos.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Debe ingresar al menos 1 producto",
                     "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            flag3=false;
+        }
+
+        if (flag && flag2 && flag3){
+            Pedido p = new Pedido(productos, DateSolicitud, DateRetiro,
+                    Integer.parseInt(precioTotal.getText()),dcto,nombre.getText(), 
+                    correo.getText(), numero.getText(), abono);
+            ArrayList<Pedido> aux = almacen.getPedidos();
+            aux.add(p);
+            almacen.setPedidos(aux);
             
-            if (flag && flag2){
-                                
-//                Pedido p = new Pedido(productos, DateSolicitud, DateRetiro,
-//                        Integer.parseInt(precioTotal.getText()),dcto,nombre.getText(), correo.getText(),
-//                        numero.getText(), abono);
-                System.out.println("Productos: ");
-                for (Entry entry: productos.entrySet()) {
-                    System.out.println(entry.getKey() + " - Cantidad: "+ entry.getValue());
-                }
-                System.out.println("Fecha solicitud: " + DateSolicitud);
-                System.out.println("Precio abonado: " + abono);
-                System.out.println("Descuento: " + dcto);
-                System.out.println("Fecha retiro: " + DateRetiro);
-                System.out.println("Nombre cliente: " + nombre.getText());
-                System.out.println("Correo: " + correo.getText());
-                System.out.println("Numero: " + numero.getText());
-                PaginaPrincipal.agregarPedido(nombre.getText());
-                ControladorInterfaces.mostrarNuevoPedido(false);
-                ControladorInterfaces.mostrarGestionaPedido(true);
-                
-            }
+            PaginaPrincipal.agregarPedido(nombre.getText());
+            ControladorInterfaces.mostrarNuevoPedido(false);
+            ControladorInterfaces.mostrarGestionaPedido(true);
+
+        }
         
         
         
@@ -417,10 +450,11 @@ public class NuevoPedido extends javax.swing.JFrame {
     private javax.swing.JLabel icon;
     private javax.swing.JTextField nombre;
     private javax.swing.JTextField numero;
-    private javax.swing.JPanel panelResumen;
+    private javax.swing.JPanel panelResumenPedido;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JTextField precioAbonado;
     private javax.swing.JLabel precioTotal;
+    private javax.swing.JLabel resumenPedido;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel txt$;
     private javax.swing.JLabel txtCantidad;
@@ -434,6 +468,6 @@ public class NuevoPedido extends javax.swing.JFrame {
     private javax.swing.JLabel txtPrecioAbonado;
     private javax.swing.JLabel txtPrecioTotal;
     private javax.swing.JLabel txtProducto;
-    private javax.swing.JLabel txtResumenPedido;
+    private javax.swing.JPanel txtResumenPedido;
     // End of variables declaration//GEN-END:variables
 }

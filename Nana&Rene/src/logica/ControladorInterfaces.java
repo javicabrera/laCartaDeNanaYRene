@@ -9,8 +9,7 @@ import InterfazGrafica.NuevoPedido;
 import InterfazGrafica.NuevoProducto;
 import InterfazGrafica.PaginaPrincipal;
 import InterfazGrafica.Productos;
-import InterfazGrafica.RegistrarMateriaPrima;
-import javax.swing.JPanel;
+import InterfazGrafica.NuevaMateriaPrima;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -31,7 +30,7 @@ public class ControladorInterfaces {
     private static EditarProducto editarProducto;
     private static MateriasPrimas materiasPrimas;
     private static EditarMateriaPrima editarMateriaPrima;
-    private static RegistrarMateriaPrima registarMateriaPrima;
+    private static NuevaMateriaPrima registarMateriaPrima;
         
     public ControladorInterfaces(){
         this.principal = new PaginaPrincipal();
@@ -42,7 +41,7 @@ public class ControladorInterfaces {
         this.editarProducto = new EditarProducto();
         this.materiasPrimas = new MateriasPrimas();
         this.editarMateriaPrima = new EditarMateriaPrima();
-        this.registarMateriaPrima = new RegistrarMateriaPrima();
+        this.registarMateriaPrima = new NuevaMateriaPrima();
     }
     
     public static void iniciarInterfaz(){

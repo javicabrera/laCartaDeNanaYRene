@@ -6,9 +6,11 @@
 package InterfazGrafica;
 
 import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 import logica.Pedido;
 import logica.ControladorInterfaces;
-import logica.controladorPedido;
+import logica.ControladorPedido;
 
 /**
  *
@@ -22,6 +24,12 @@ public class Productos extends javax.swing.JFrame {
     public Productos() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        //Sólo permite seleccionar un elemento de la tabla
+        tablaProductos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        anadirFila("Pastel de Prueba", 5000, "4 años", "cosas");
+        anadirFila("Completo de Prueba", 8000, "1 día", "cosas");
         
         
     }
@@ -84,17 +92,14 @@ public class Productos extends javax.swing.JFrame {
 
         tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Nombre", "Precio Venta", "Tiempo Elaboración", "Materias Primas"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -136,7 +141,7 @@ public class Productos extends javax.swing.JFrame {
             .addGroup(panelSuperiorLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(icon)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(titulo)
@@ -164,32 +169,15 @@ public class Productos extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        controladorPedido cp = new controladorPedido();
-        Pedido pedido = new Pedido(null,null,null,0,0,null,null,null,0);
-        String estado = pedido.getEstado();
-        String nuevo = "";
-        switch (estado){
-            case "Pendiente":
-                nuevo = "En proceso";
-                //cp.verificarAbono(pedido);
-                //cp.verificarDisponibilidadMateriasPrimas(pedido);
-                break;
-            case "En proceso":
-                nuevo = "Finalizado";
-                break;
-            case "Finalizado":
-                nuevo = "Retirado";
-                break;
-        }
-        pedido.setEstado(nuevo);
-        System.out.println("Estado Cambiado a " + nuevo);
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
-        controladorPedido cp = new controladorPedido();
-        //cp.cancelarPedido(new Pedido(null,null,null,0,0,null,null,null,0));
-        System.out.println("Pedido Cancelado");
+        borrarFila();
+        
+        //Añadir código para borrar elemento en Arryalist y en Excel, usar. Hint: Usar obtieneFilaSeleccionada
+        
         
     }//GEN-LAST:event_btnBorrarActionPerformed
 
@@ -257,6 +245,29 @@ public class Productos extends javax.swing.JFrame {
                 new Productos().setVisible(true);
             }
         });
+    }
+    
+    private void anadirFila(String nombre, int precioVenta, String tiempoElab, String materiasPrimas) {
+        
+        Object[] row = {nombre, "$"+precioVenta, tiempoElab, materiasPrimas};
+        DefaultTableModel modeloTabla = (DefaultTableModel) tablaProductos.getModel();
+        
+        modeloTabla.addRow(row);
+    }
+    
+    private void borrarFila(){
+        int fila = tablaProductos.getSelectedRow();
+         DefaultTableModel modeloTabla = (DefaultTableModel) tablaProductos.getModel();
+         if (fila==-1) {
+             return;
+         }
+         
+         modeloTabla.removeRow(fila);
+    }
+    
+    private int obtieneFilaSeleccionada(){
+        
+        return tablaProductos.getSelectedRow();
     }
 
 

@@ -6,9 +6,11 @@
 package InterfazGrafica;
 
 import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 import logica.Pedido;
 import logica.ControladorInterfaces;
-import logica.controladorPedido;
+import logica.ControladorPedido;
 
 /**
  *
@@ -22,6 +24,14 @@ public class MateriasPrimas extends javax.swing.JFrame {
     public MateriasPrimas() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        //Sólo permite seleccionar un elemento de la tabla
+        tablaMateriasPrimas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        anadirFila("Durazno", 13);
+        anadirFila("Melocotón", 31231);
+        
+        
         
         
     }
@@ -40,7 +50,7 @@ public class MateriasPrimas extends javax.swing.JFrame {
         btnBorrar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
-        tablaProductos = new javax.swing.JTable();
+        tablaMateriasPrimas = new javax.swing.JTable();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -82,12 +92,9 @@ public class MateriasPrimas extends javax.swing.JFrame {
         });
         getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, 30, 30));
 
-        tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
+        tablaMateriasPrimas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Nombre", "Cantidad"
@@ -108,7 +115,7 @@ public class MateriasPrimas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane.setViewportView(tablaProductos);
+        jScrollPane.setViewportView(tablaMateriasPrimas);
 
         getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 550, 300));
 
@@ -136,7 +143,7 @@ public class MateriasPrimas extends javax.swing.JFrame {
             .addGroup(panelSuperiorLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(icon)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(titulo)
@@ -164,7 +171,7 @@ public class MateriasPrimas extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        controladorPedido cp = new controladorPedido();
+        ControladorPedido cp = new ControladorPedido();
         Pedido pedido = new Pedido(null,null,null,0,0,null,null,null,0);
         String estado = pedido.getEstado();
         String nuevo = "";
@@ -187,9 +194,13 @@ public class MateriasPrimas extends javax.swing.JFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
-        controladorPedido cp = new controladorPedido();
+        ControladorPedido cp = new ControladorPedido();
         //cp.cancelarPedido(new Pedido(null,null,null,0,0,null,null,null,0));
         System.out.println("Pedido Cancelado");
+        
+        borrarFila();
+        
+        //Añadir código para borrar elemento en Arryalist y en Excel, usar. Hint: Usar obtieneFilaSeleccionada
         
     }//GEN-LAST:event_btnBorrarActionPerformed
 
@@ -290,6 +301,29 @@ public class MateriasPrimas extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void anadirFila(String nombre, int cantidad) {
+        
+        Object[] row = {nombre, cantidad};
+        DefaultTableModel modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();
+        
+        modeloTabla.addRow(row);
+    }
+    
+    private int obtieneFilaSeleccionada(){
+        
+        return tablaMateriasPrimas.getSelectedRow();
+    }
+    
+    private void borrarFila(){
+        int fila = tablaMateriasPrimas.getSelectedRow();
+         DefaultTableModel modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();
+         if (fila==-1) {
+             return;
+         }
+         
+         modeloTabla.removeRow(fila);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -301,7 +335,7 @@ public class MateriasPrimas extends javax.swing.JFrame {
     private javax.swing.JLabel icon;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JPanel panelSuperior;
-    private javax.swing.JTable tablaProductos;
+    private javax.swing.JTable tablaMateriasPrimas;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }

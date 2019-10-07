@@ -11,14 +11,15 @@ import java.util.ArrayList;
  *
  * @author MarceloPablo
  */
-public class Almacén {
+public class Almacen {
     private ArrayList<Pedido> pedidos;
     private ArrayList<Producto> productos;
-    private ArrayList<materiaPrima> materiasPrimas;
+    private ArrayList<MateriaPrima> materiasPrimas;
     private ArrayList<Cliente> clientes;
     //private ArrayList<Pedido> reportes;
     
-    public Almacén(ArrayList<Pedido> pedidos, ArrayList<Producto> productos, ArrayList<materiaPrima> materiasPrimas, ArrayList<Cliente> clientes) {
+    public Almacen(ArrayList<Pedido> pedidos, ArrayList<Producto> productos, 
+            ArrayList<MateriaPrima> materiasPrimas, ArrayList<Cliente> clientes) {
         this.pedidos = pedidos;
         this.productos = productos;
         this.materiasPrimas = materiasPrimas;
@@ -41,11 +42,11 @@ public class Almacén {
         this.productos = productos;
     }
 
-    public ArrayList<materiaPrima> getMateriasPrimas() {
+    public ArrayList<MateriaPrima> getMateriasPrimas() {
         return materiasPrimas;
     }
 
-    public void setMateriasPrimas(ArrayList<materiaPrima> materiasPrimas) {
+    public void setMateriasPrimas(ArrayList<MateriaPrima> materiasPrimas) {
         this.materiasPrimas = materiasPrimas;
     }
 

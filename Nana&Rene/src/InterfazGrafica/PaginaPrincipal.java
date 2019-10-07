@@ -45,14 +45,14 @@ public class PaginaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         txtUPedidos = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaPedidos = new javax.swing.JList<>();
         btnProductos = new javax.swing.JButton();
         btnPedidos = new javax.swing.JButton();
         btnMateriasPrimas = new javax.swing.JButton();
         btnClientesHabituales = new javax.swing.JButton();
         btnElaborarReportes = new javax.swing.JButton();
         btnOtros = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listaPedidos = new javax.swing.JList<>();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -63,8 +63,20 @@ public class PaginaPrincipal extends javax.swing.JFrame {
 
         txtUPedidos.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         txtUPedidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtUPedidos.setText("Resumen Últimos Pedidos:");
+        txtUPedidos.setText("Resumen Pedidos:");
         getContentPane().add(txtUPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 220, -1));
+
+        listaPedidos.setBackground(new java.awt.Color(242, 242, 242));
+        listaPedidos.setModel(new javax.swing.AbstractListModel<String>() {
+
+            String[] strings = {"item 1"};
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+
+        });
+        jScrollPane1.setViewportView(listaPedidos);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 220, 330));
 
         btnProductos.setText("Productos");
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
@@ -103,18 +115,6 @@ public class PaginaPrincipal extends javax.swing.JFrame {
 
         btnOtros.setText("Otras Opciones...");
         getContentPane().add(btnOtros, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 320, 200, 50));
-
-        listaPedidos.setBackground(new java.awt.Color(242, 242, 242));
-        listaPedidos.setModel(new javax.swing.AbstractListModel<String>() {
-
-            String[] strings = {"item 1"};
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-
-        });
-        jScrollPane1.setViewportView(listaPedidos);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 220, 360));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
 
