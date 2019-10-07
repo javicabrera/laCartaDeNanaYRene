@@ -6,22 +6,30 @@
 package InterfazGrafica;
 
 import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 import logica.Pedido;
 import logica.ControladorInterfaces;
-import logica.controladorPedido;
+import logica.ControladorPedido;
 
 /**
  *
  * @author elias
  */
-public class GestionaProductos extends javax.swing.JFrame {
+public class Productos extends javax.swing.JFrame {
     
     /**
      * Creates new form PaginaPrincipalFX
      */
-    public GestionaProductos() {
+    public Productos() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        //Sólo permite seleccionar un elemento de la tabla
+        tablaProductos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        anadirFila("Pastel de Prueba", 5000, "4 años", "cosas");
+        anadirFila("Completo de Prueba", 8000, "1 día", "cosas");
         
         
     }
@@ -56,7 +64,7 @@ public class GestionaProductos extends javax.swing.JFrame {
                 btnCrearActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, 120, 70));
+        getContentPane().add(btnCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 80, 120, 70));
 
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -64,7 +72,7 @@ public class GestionaProductos extends javax.swing.JFrame {
                 btnVolverActionPerformed(evt);
             }
         });
-        getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 580, 130, 60));
+        getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, 120, 70));
 
         btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/trash16.png"))); // NOI18N
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -72,7 +80,7 @@ public class GestionaProductos extends javax.swing.JFrame {
                 btnBorrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 30, 30));
+        getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 30, 30));
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/edit16.png"))); // NOI18N
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -80,24 +88,21 @@ public class GestionaProductos extends javax.swing.JFrame {
                 btnEditarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 30, 30));
+        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, 30, 30));
 
         tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Nombre", "Precio Venta", "Tiempo Elaboración", "Materias Primas", ""
+                "Nombre", "Precio Venta", "Tiempo Elaboración", "Materias Primas"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -110,7 +115,7 @@ public class GestionaProductos extends javax.swing.JFrame {
         });
         jScrollPane.setViewportView(tablaProductos);
 
-        getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 430, 550));
+        getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 550, 300));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
 
@@ -129,7 +134,7 @@ public class GestionaProductos extends javax.swing.JFrame {
                 .addComponent(icon)
                 .addGap(18, 18, 18)
                 .addComponent(titulo)
-                .addContainerGap(330, Short.MAX_VALUE))
+                .addContainerGap(510, Short.MAX_VALUE))
         );
         panelSuperiorLayout.setVerticalGroup(
             panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,53 +148,36 @@ public class GestionaProductos extends javax.swing.JFrame {
                 .addGap(17, 17, 17))
         );
 
-        getContentPane().add(panelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 70));
+        getContentPane().add(panelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 70));
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/fondo600x600.jpg"))); // NOI18N
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/fondoLargo.jpg"))); // NOI18N
         background.setText("Volver");
-        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 600, -1));
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 780, 360));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        ControladorInterfaces.mostrarNuevoPedido(true);
-        ControladorInterfaces.mostrarGestionaPedido(false);
+        ControladorInterfaces.mostrarProductos(false);
+        ControladorInterfaces.mostrarNuevoProducto(true);
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        ControladorInterfaces.mostrarGestionaPedido(false);
+        ControladorInterfaces.mostrarProductos(false);
         ControladorInterfaces.mostrarPrincipal(true);      
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        controladorPedido cp = new controladorPedido();
-        Pedido pedido = new Pedido(null,null,null,0,0,null,null,null,0);
-        String estado = pedido.getEstado();
-        String nuevo = "";
-        switch (estado){
-            case "Pendiente":
-                nuevo = "En proceso";
-                //cp.verificarAbono(pedido);
-                //cp.verificarDisponibilidadMateriasPrimas(pedido);
-                break;
-            case "En proceso":
-                nuevo = "Finalizado";
-                break;
-            case "Finalizado":
-                nuevo = "Retirado";
-                break;
-        }
-        pedido.setEstado(nuevo);
-        System.out.println("Estado Cambiado a " + nuevo);
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
-        controladorPedido cp = new controladorPedido();
-        //cp.cancelarPedido(new Pedido(null,null,null,0,0,null,null,null,0));
-        System.out.println("Pedido Cancelado");
+        borrarFila();
+        
+        //Añadir código para borrar elemento en Arryalist y en Excel, usar. Hint: Usar obtieneFilaSeleccionada
+        
         
     }//GEN-LAST:event_btnBorrarActionPerformed
 
@@ -210,14 +198,30 @@ public class GestionaProductos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GestionaProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GestionaProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GestionaProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GestionaProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -238,9 +242,32 @@ public class GestionaProductos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GestionaProductos().setVisible(true);
+                new Productos().setVisible(true);
             }
         });
+    }
+    
+    private void anadirFila(String nombre, int precioVenta, String tiempoElab, String materiasPrimas) {
+        
+        Object[] row = {nombre, "$"+precioVenta, tiempoElab, materiasPrimas};
+        DefaultTableModel modeloTabla = (DefaultTableModel) tablaProductos.getModel();
+        
+        modeloTabla.addRow(row);
+    }
+    
+    private void borrarFila(){
+        int fila = tablaProductos.getSelectedRow();
+         DefaultTableModel modeloTabla = (DefaultTableModel) tablaProductos.getModel();
+         if (fila==-1) {
+             return;
+         }
+         
+         modeloTabla.removeRow(fila);
+    }
+    
+    private int obtieneFilaSeleccionada(){
+        
+        return tablaProductos.getSelectedRow();
     }
 
 

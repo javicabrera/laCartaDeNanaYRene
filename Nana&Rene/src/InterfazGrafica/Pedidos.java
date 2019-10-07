@@ -6,23 +6,30 @@
 package InterfazGrafica;
 
 import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 import logica.Pedido;
 import logica.ControladorInterfaces;
-import logica.controladorPedido;
+import logica.ControladorPedido;
 
 /**
  *
  * @author elias
  */
-public class GestionaMateriasPrimas extends javax.swing.JFrame {
+public class Pedidos extends javax.swing.JFrame {
     
     /**
      * Creates new form PaginaPrincipalFX
      */
-    public GestionaMateriasPrimas() {
+    public Pedidos() {
         initComponents();
         this.setLocationRelativeTo(null);
         
+        //Sólo permite seleccionar un elemento de la tabla
+        tablaPedidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        anadirFila("Juanito De Prueba 1", "21/12/2032", 21000, "Pendiente");
+        anadirFila("Juanito De Prueba 2", "21/12/2032", 21000, "Pendiente");
         
     }
 
@@ -37,10 +44,10 @@ public class GestionaMateriasPrimas extends javax.swing.JFrame {
 
         btnCrear = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
-        btnBorrar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
-        tablaProductos = new javax.swing.JTable();
+        tablaPedidos = new javax.swing.JTable();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -56,7 +63,7 @@ public class GestionaMateriasPrimas extends javax.swing.JFrame {
                 btnCrearActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, 120, 70));
+        getContentPane().add(btnCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 80, 120, 70));
 
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -64,40 +71,37 @@ public class GestionaMateriasPrimas extends javax.swing.JFrame {
                 btnVolverActionPerformed(evt);
             }
         });
-        getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 580, 130, 60));
+        getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, 120, 70));
 
-        btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/trash16.png"))); // NOI18N
-        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/cancel16.png"))); // NOI18N
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBorrarActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, 30, 30));
+        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 30, 30));
 
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/edit16.png"))); // NOI18N
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+        btnSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/next16.png"))); // NOI18N
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
+                btnSiguienteActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, 30, 30));
+        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, 30, 30));
 
-        tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
+        tablaPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Nombre", "Cantidad", ""
+                "Cliente", "Fecha Retiro", "Precio Total", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -108,9 +112,9 @@ public class GestionaMateriasPrimas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane.setViewportView(tablaProductos);
+        jScrollPane.setViewportView(tablaPedidos);
 
-        getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 430, 550));
+        getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 550, 300));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
 
@@ -118,7 +122,7 @@ public class GestionaMateriasPrimas extends javax.swing.JFrame {
 
         titulo.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         titulo.setForeground(new java.awt.Color(255, 255, 255));
-        titulo.setText("MATERIAS PRIMAS");
+        titulo.setText("PEDIDOS");
 
         javax.swing.GroupLayout panelSuperiorLayout = new javax.swing.GroupLayout(panelSuperior);
         panelSuperior.setLayout(panelSuperiorLayout);
@@ -129,25 +133,25 @@ public class GestionaMateriasPrimas extends javax.swing.JFrame {
                 .addComponent(icon)
                 .addGap(18, 18, 18)
                 .addComponent(titulo)
-                .addContainerGap(257, Short.MAX_VALUE))
+                .addContainerGap(558, Short.MAX_VALUE))
         );
         panelSuperiorLayout.setVerticalGroup(
             panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSuperiorLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(icon)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(titulo)
                 .addGap(17, 17, 17))
         );
 
-        getContentPane().add(panelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 70));
+        getContentPane().add(panelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 70));
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/fondo600x600.jpg"))); // NOI18N
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/fondoLargo.jpg"))); // NOI18N
         background.setText("Volver");
-        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 600, -1));
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 780, 360));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -162,9 +166,12 @@ public class GestionaMateriasPrimas extends javax.swing.JFrame {
         ControladorInterfaces.mostrarPrincipal(true);      
     }//GEN-LAST:event_btnVolverActionPerformed
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         // TODO add your handling code here:
-        controladorPedido cp = new controladorPedido();
+        
+        aumentarEstadoPedido();
+        
+        ControladorPedido cp = new ControladorPedido();
         Pedido pedido = new Pedido(null,null,null,0,0,null,null,null,0);
         String estado = pedido.getEstado();
         String nuevo = "";
@@ -183,15 +190,16 @@ public class GestionaMateriasPrimas extends javax.swing.JFrame {
         }
         pedido.setEstado(nuevo);
         System.out.println("Estado Cambiado a " + nuevo);
-    }//GEN-LAST:event_btnEditarActionPerformed
+    }//GEN-LAST:event_btnSiguienteActionPerformed
 
-    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        controladorPedido cp = new controladorPedido();
+        ControladorPedido cp = new ControladorPedido();
         //cp.cancelarPedido(new Pedido(null,null,null,0,0,null,null,null,0));
+        cancelarPedido();
         System.out.println("Pedido Cancelado");
         
-    }//GEN-LAST:event_btnBorrarActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,30 +218,14 @@ public class GestionaMateriasPrimas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GestionaMateriasPrimas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GestionaMateriasPrimas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GestionaMateriasPrimas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GestionaMateriasPrimas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -254,22 +246,67 @@ public class GestionaMateriasPrimas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GestionaMateriasPrimas().setVisible(true);
+                new Pedidos().setVisible(true);
             }
         });
     }
 
+    private void anadirFila(String cliente, String fechaRetiro, int precio, String estado) {
+        
+        Object[] row = {cliente, fechaRetiro, "$"+precio, estado};
+        DefaultTableModel modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
+        
+        modeloTabla.addRow(row);
+    }
+    
+    private int obtieneFilaSeleccionada(){
+        
+        return tablaPedidos.getSelectedRow();
+    }
+    
+    private void aumentarEstadoPedido(){
+        DefaultTableModel modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
+        
+        int fila = tablaPedidos.getSelectedRow();
+        
+        if (fila==-1) {
+            //Añadir cuadro de error, no se ha seleccionado nada
+            return;
+        }
+        
+        if (modeloTabla.getValueAt(fila, 3).equals("Pendiente")) {
+            modeloTabla.setValueAt("En Proceso", fila, 3);
+        }
+        
+        else if (modeloTabla.getValueAt(fila, 3).equals("En Proceso")) {
+            modeloTabla.setValueAt("Completado", fila, 3);
+        }
+    }
+    
+    private void cancelarPedido(){
+        DefaultTableModel modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
+        
+        int fila = tablaPedidos.getSelectedRow();
+        
+        if (fila==-1) {
+            //Añadir cuadro de error, no se ha seleccionado nada
+            return;
+        }
 
+        modeloTabla.setValueAt("Cancelado", fila, 3);
+    }
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
-    private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCrear;
-    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnSiguiente;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel icon;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JPanel panelSuperior;
-    private javax.swing.JTable tablaProductos;
+    private javax.swing.JTable tablaPedidos;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,7 +17,7 @@ import org.apache.poi.xssf.usermodel.*;
  *
  * @author Javiera Méndez
  */
-public class gestionExcel
+public class GestionExcel
 {
     Workbook wb;
     

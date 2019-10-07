@@ -9,27 +9,15 @@ package logica;
  *
  * @author Javiera Méndez
  */
-public class materiaPrima 
+public class MateriaPrima 
 {
-    private int codigo;
     private String nombre;
     private double cantidad;
     
-    public materiaPrima(int codigo, String nombre, double cantidad)
+    public MateriaPrima(String nombre, double cantidad)
     {
-        this.codigo = codigo;
         this.nombre = nombre;
         this.cantidad = cantidad;
-    }
-
-    public int getCodigo() 
-    {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo)
-    {
-        this.codigo = codigo;
     }
 
     public String getNombre()
