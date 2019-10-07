@@ -5,6 +5,9 @@
  */
 package BaseDeDatos;
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.hssf.usermodel.*;
@@ -107,30 +110,31 @@ public class GestionExcel{
                 Row fila = (Row) filaIterator.next();
                 Iterator columnaIterator = fila.cellIterator();
 
-                String tipoProducto = "";
+                HashMap<Producto, Integer> productos = new HashMap<>();
                 int cantidad = 0;
                 Date fechaSolicitud = null;
                 Date fechaRetiro = null;
                 String nombreCliente = "", correoCliente = "", numeroCliente = "";
-                int precioAbonado = 0, descuento = 0;
+                int precioTotal = 0, precioAbonado = 0, descuento = 0;
 
+                LocalTime tiempodate;
                 int indiceColumna = 0;
                 while(columnaIterator.hasNext())
                 {
                     Cell celda = (Cell) columnaIterator.next();
-                    
+                    //System.out.println(celda);
                     switch (indiceColumna) {
                         case 0:
-                            tipoProducto = celda.getStringCellValue();
+                            String p = celda.getStringCellValue();
+                            String[] p2 = p.split(",");
+                            for(int j = 0; j < p2.length; j++)
+                            {
+                                String[] productoCantidad = p2[j].split("-");
+                                //System.out.println(Arrays.toString(productoCantidad));
+                                productos.put(new Producto(productoCantidad[1], 0, 0, null), Integer.parseInt(productoCantidad[0]));
+                            }
                             break;
                         case 1:
-                            switch(celda.getCellType())
-                            {
-                                case Cell.CELL_TYPE_NUMERIC:
-                                    cantidad = (int) Math.round(celda.getNumericCellValue());
-                                    break;
-                            }   break;
-                        case 2:
                             switch(celda.getCellType())
                             {
                                 case Cell.CELL_TYPE_NUMERIC:
@@ -138,30 +142,53 @@ public class GestionExcel{
                                     {
                                         fechaSolicitud = celda.getDateCellValue();
                                     }
-                            }   break;
-                        case 3:
+                                    break;
+                                case Cell.CELL_TYPE_STRING:
+                                    String f = celda.getStringCellValue();
+                                    String[] f2 = f.split("-");
+                                    //System.out.println(Arrays.toString(f2));
+                                    fechaSolicitud = new Date(Integer.parseInt(f2[2])-1900, Integer.parseInt(f2[1])-1, Integer.parseInt(f2[0]));
+                                    //System.out.println("FS: "+fechaSolicitud);
+                                    break;
+                            }       break;
+                        case 2:
                             switch(celda.getCellType())
                             {
                                 case Cell.CELL_TYPE_NUMERIC:
                                     if (DateUtil.isCellDateFormatted(celda))
                                     {
                                         fechaRetiro = celda.getDateCellValue();
-                                    }
+                                    }                                  
+                                    break;
+                                case Cell.CELL_TYPE_STRING:
+                                    String f = celda.getStringCellValue();
+                                    String[] f2 = f.split("-");
+                                    //System.out.println(Arrays.toString(f2));
+                                    fechaRetiro = new Date(Integer.parseInt(f2[2])-1900, Integer.parseInt(f2[1])-1, Integer.parseInt(f2[0]));
+                                    //System.out.println("FR: "+fechaRetiro);
+                                    break;
                             }   break;
-                        case 4:
+                        case 3:
                             nombreCliente = celda.getStringCellValue();
                             break;
-                        case 5:
+                        case 4:
                             correoCliente = celda.getStringCellValue();
                             break;
-                        case 6:
+                        case 5:
                             numeroCliente = celda.getStringCellValue();
                             break;
+                        case 7:
+                            switch(celda.getCellType())
+                            {
+                                case Cell.CELL_TYPE_NUMERIC:
+                                    precioTotal = (int) Math.round(celda.getNumericCellValue());
+                                    break;
+                            }   break;
                         case 8:
                             switch(celda.getCellType())
                             {
                                 case Cell.CELL_TYPE_NUMERIC:
-                                    precioAbonado = (int) Math.round(celda.getNumericCellValue());
+                                    descuento = (int) Math.round(celda.getNumericCellValue());
                                     break;
                             }   break;
                         case 9:
@@ -176,9 +203,8 @@ public class GestionExcel{
                     }
                     indiceColumna++;
                 }
-               //********************* REVISAR
-               //Pedido p = new Pedido(tipoProducto, cantidad, fechaSolicitud, fechaRetiro, descuento, nombreCliente, correoCliente, numeroCliente, precioAbonado);
-               // pedidos.add(p);
+                Pedido p = new Pedido(productos, fechaSolicitud, fechaRetiro, precioTotal, descuento, nombreCliente, correoCliente, numeroCliente, precioAbonado);
+                pedidos.add(p);
                 indiceFila++;
             }
         } catch (Exception e){
@@ -302,43 +328,57 @@ public class GestionExcel{
             {
                 Row fila = hoja.createRow(i+1);
                 Cell tipo = fila.createCell(0);
-                Cell cantidad = fila.createCell(1);
-                Cell fechaSolicitud = fila.createCell(2);
-                Cell fechaRetiro = fila.createCell(3);
-                Cell nombre = fila.createCell(4);
-                Cell correo = fila.createCell(5);
-                Cell numero = fila.createCell(6);
-                Cell estado = fila.createCell(7);
-                Cell precio = fila.createCell(8);
+                Cell fechaSolicitud = fila.createCell(1);
+                Cell fechaRetiro = fila.createCell(2);
+                Cell nombre = fila.createCell(3);
+                Cell correo = fila.createCell(4);
+                Cell numero = fila.createCell(5);
+                Cell estado = fila.createCell(6);
+                Cell precioTotal = fila.createCell(7);
+                Cell precioCancelado = fila.createCell(8);
                 Cell descuento = fila.createCell(9);
                 if(i == -1)
                 {
                     tipo.setCellValue("Tipo de producto");
-                    cantidad.setCellValue("Cantidad");
                     fechaSolicitud.setCellValue("Fecha de solicitud");
                     fechaRetiro.setCellValue("Fecha de retiro estimado");
                     nombre.setCellValue("Nombre");
                     correo.setCellValue("Correo electrónico");
                     numero.setCellValue("Número telefónico");
                     estado.setCellValue("Estado");
-                    precio.setCellValue("Precio cancelado");
+                    precioTotal.setCellValue("Precio total");
+                    precioCancelado.setCellValue("Precio cancelado");
                     descuento.setCellValue("Porcentaje descuento");
                 }
                 else
                 {
-                    /***
-                     * REVISAR
-                     */
-                    //tipo.setCellValue(pedidos.get(i).getTipoProducto());
-                    //cantidad.setCellValue(pedidos.get(i).getCantidad());
-                    //PROBLEMAS AL PARSEAR FECHAA NI CON SIMPLEDATEFORMAT SIRVE
-                    fechaSolicitud.setCellValue((Date) pedidos.get(i).getFechaSolicitud());
-                    fechaRetiro.setCellValue((Date) pedidos.get(i).getFechaRetiro());
+                    HashMap<Producto, Integer> prod = pedidos.get(i).getProductos();
+                    String listado = "";
+                    
+                    for (Map.Entry<Producto, Integer> entry : prod.entrySet())
+                    {
+                        int cantidad = entry.getValue();
+                        Producto producto = entry.getKey();
+                        listado += cantidad+"-"+producto.getNombre()+",";
+                    }
+                    tipo.setCellValue(listado);
+
+                    //DATE
+                    //System.out.println(pedidos.get(i).getFechaSolicitud());
+                    //System.out.println(pedidos.get(i).getFechaRetiro());
+                    String pattern = "dd-MM-yyyy";
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+                    String fSolicitud = simpleDateFormat.format(pedidos.get(i).getFechaSolicitud());
+                    String fRetiro = simpleDateFormat.format(pedidos.get(i).getFechaRetiro());
+                    
+                    fechaSolicitud.setCellValue(fSolicitud);
+                    fechaRetiro.setCellValue(fRetiro);
                     nombre.setCellValue(pedidos.get(i).getNombreCliente());
                     correo.setCellValue(pedidos.get(i).getCorreoCliente());
                     numero.setCellValue(pedidos.get(i).getNumeroCliente());
                     estado.setCellValue(pedidos.get(i).getEstado());
-                    precio.setCellValue(pedidos.get(i).getPrecioAbonado());
+                    precioTotal.setCellValue(pedidos.get(i).getPrecioTotal());
+                    precioCancelado.setCellValue(pedidos.get(i).getPrecioAbonado());
                     descuento.setCellValue(pedidos.get(i).getDescuento());
                 }
                 wb.write(new FileOutputStream(archivo));
@@ -365,13 +405,11 @@ public class GestionExcel{
                 Row fila = hoja.createRow(i+1);
                 Cell nombre = fila.createCell(0);
                 Cell cantidad = fila.createCell(1);
-                Cell unidad = fila.createCell(2);
 
                 if(i == -1)
                 {
                     nombre.setCellValue("Nombre");
                     cantidad.setCellValue("Cantidad");
-                    unidad.setCellValue("Unidad de medida");
                 }
                 else
                 {
