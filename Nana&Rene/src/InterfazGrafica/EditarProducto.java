@@ -246,10 +246,21 @@ public class EditarProducto extends javax.swing.JFrame {
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
         //Producto p = new Producto(nombre.getText(), Integer.parseInt(precioVenta.getText()), Integer.parseInt(tiempoElab.getText()));
-        JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", JOptionPane.INFORMATION_MESSAGE);
-        ControladorInterfaces.mostrarEditarProducto(false);
-        ControladorInterfaces.mostrarProductos(true);
+        if(precioVenta.getText().matches("[0-9]*") && tiempoElab.getText().matches("[0-9]*") && cantidad.getText().matches("[0-9]*")){
+            
+       
+            JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", JOptionPane.INFORMATION_MESSAGE);
+            ControladorInterfaces.mostrarEditarProducto(false);
+            ControladorInterfaces.mostrarProductos(true);
+            nombre.setText("");
+            precioVenta.setText("");
+            tiempoElab.setText("");
+            cantidad.setText("");
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Ingrese valores validos", "Error", JOptionPane.WARNING_MESSAGE);
 
+        }
 
     }//GEN-LAST:event_bGuardarActionPerformed
 

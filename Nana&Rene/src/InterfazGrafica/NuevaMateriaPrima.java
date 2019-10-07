@@ -13,6 +13,8 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.text.BadLocationException;
 import logica.ControladorInterfaces;
 import logica.Pedido;
 import logica.Producto;
@@ -70,6 +72,11 @@ public class NuevaMateriaPrima extends javax.swing.JFrame {
         cantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cantidadActionPerformed(evt);
+            }
+        });
+        cantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cantidadKeyPressed(evt);
             }
         });
         getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 510, -1));
@@ -136,15 +143,27 @@ public class NuevaMateriaPrima extends javax.swing.JFrame {
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
-        MateriaPrima mp = new MateriaPrima(nombre.getText(), Double.parseDouble(cantidad.getText()));
-        JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", JOptionPane.INFORMATION_MESSAGE);
-        ControladorInterfaces.mostrarRegistrarMateriaPrima(false);
-        ControladorInterfaces.mostrarMateriasPrimas(true);
+        if(!cantidad.getText().matches("[0-9]*")){
+            JOptionPane.showMessageDialog(this, "Ingrese cantidad valida", "Error", JOptionPane.WARNING_MESSAGE);
+
+        }
+        else{
+            MateriaPrima mp = new MateriaPrima(nombre.getText(), Double.parseDouble(cantidad.getText()));        
+            JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", JOptionPane.INFORMATION_MESSAGE);
+            ControladorInterfaces.mostrarRegistrarMateriaPrima(false);
+            ControladorInterfaces.mostrarMateriasPrimas(true);
+            nombre.setText("");
+            cantidad.setText("");
+        }
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cantidadActionPerformed
+
+    private void cantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyPressed
+        
+    }//GEN-LAST:event_cantidadKeyPressed
 
     /**
      * @param args the command line arguments
