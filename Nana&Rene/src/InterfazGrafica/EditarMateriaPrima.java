@@ -6,6 +6,7 @@
 package InterfazGrafica;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import logica.ControladorInterfaces;
 import logica.MateriaPrima;
 
@@ -132,6 +133,8 @@ public class EditarMateriaPrima extends javax.swing.JFrame {
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
+        //if(!cantidad.getText().matches("[0-9]*")){
+        //    JOptionPane.showMessageDialog(this, "Ingrese cantidad valida", "Error", JOptionPane.WARNING_MESSAGE);
 
         boolean flag = true;
         if(nombre.getText().equals("") || nombre.getText()==null){
@@ -149,11 +152,14 @@ public class EditarMateriaPrima extends javax.swing.JFrame {
                 JOptionPane.INFORMATION_MESSAGE);
                 ControladorInterfaces.mostrarEditarMateriaPrima(false, materia);
                 ControladorInterfaces.mostrarMateriasPrimas(true);
+                nombre.setText("");
+                cantidad.setText("");
             } catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(this, "Debe ingresar un número "
                         + "válido","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
+            
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed

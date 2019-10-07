@@ -7,7 +7,8 @@ package InterfazGrafica;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import logica.Almacen;
+import javax.swing.JTextField;
+import javax.swing.text.BadLocationException;
 import logica.ControladorInterfaces;
 import logica.MateriaPrima;
 
@@ -63,6 +64,11 @@ public class NuevaMateriaPrima extends javax.swing.JFrame {
         cantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cantidadActionPerformed(evt);
+            }
+        });
+        cantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cantidadKeyPressed(evt);
             }
         });
         getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 510, -1));
@@ -145,19 +151,25 @@ public class NuevaMateriaPrima extends javax.swing.JFrame {
                 almacen.setMateriasPrimas(aux);
                 JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", 
                 JOptionPane.INFORMATION_MESSAGE);
+                ControladorInterfaces.mostrarRegistrarMateriaPrima(false);
+                ControladorInterfaces.mostrarMateriasPrimas(true); 
+                nombre.setText("");
+                cantidad.setText("");
             } catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(this, "Debe ingresar un número "
                         + "válido","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
-        
-        ControladorInterfaces.mostrarRegistrarMateriaPrima(false);
-        ControladorInterfaces.mostrarMateriasPrimas(true);
+                                   
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cantidadActionPerformed
+
+    private void cantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyPressed
+        
+    }//GEN-LAST:event_cantidadKeyPressed
 
     /**
      * @param args the command line arguments

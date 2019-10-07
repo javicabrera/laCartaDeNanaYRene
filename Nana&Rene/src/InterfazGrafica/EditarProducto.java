@@ -252,6 +252,8 @@ public class EditarProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarMPrimaActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
+        //Producto p = new Producto(nombre.getText(), Integer.parseInt(precioVenta.getText()), Integer.parseInt(tiempoElab.getText()));
+            
 
         String nombreProd = nombre.getText();
         boolean flag1 = true;
@@ -277,6 +279,10 @@ public class EditarProducto extends javax.swing.JFrame {
                         "Guardado", JOptionPane.INFORMATION_MESSAGE);
                 ControladorInterfaces.mostrarEditarProducto(false, producto);
                 ControladorInterfaces.mostrarProductos(true);
+                nombre.setText("");
+                precioVenta.setText("");
+                tiempoElab.setText("");
+                cantidad.setText("");
             } catch (NumberFormatException e){
                 JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
                     "Error", JOptionPane.ERROR_MESSAGE);
