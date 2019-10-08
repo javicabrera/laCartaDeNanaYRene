@@ -1,41 +1,38 @@
 pruebas de registrar materia prima:
-	1.- codigo:12345
-	    nombre: manjar
+	1.- nombre: manjar
 	    cantidad:50
 	ÉXITO
 	
-	2.- codigo:12837
-	    nombre: crema
-	    cantidad:--
+	2.- nombre: crema
+	    cantidad:
 	FALLO
 	
-	3.- codigo:----
-	    nombre: 2390
+	3.- nombre: 2390
 	    cantidad:three
 	FALLO
 
-	4.- codigo:codigo
-	    nombre: ----
+	4.- nombre:
 	    cantidad:50
 	FALLO
 
-	5.- codigo:0000
-	    nombre: --
-	    cantidad:--
+	5.- nombre: 
+	    cantidad:
 	FALLO
 
 Pruebas Modificar materia prima:
 
-	1.- codigo:0000
-	    nombre: --  -> merengue
-	    cantidad:--
+	1.- nombre: (...)  -> merengue
+	    cantidad:
 	FALLO, no estan todos los campos llenos
-	2.- codigo:12345
-	    nombre: manjar  -> durazno
-	    cantidad:2
+
+	2.- nombre: (...)  -> durazno
+	    cantidad: 2
 	ÉXITO
-	3.- codigo:0000 -> asd
-	    nombre: -- -> crema 
-	    cantidad:-- -> 50
-	FALLO, ingreso de codigo no valido
+
+	3.- nombre: (...) -> crema 
+	    cantidad: (...) -> 50
+	ÉXITO
+
+
+(...) Para un valor anterior cualquiera
 	
