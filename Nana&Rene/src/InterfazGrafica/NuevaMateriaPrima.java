@@ -159,8 +159,10 @@ public class NuevaMateriaPrima extends javax.swing.JFrame {
                 almacen.setMateriasPrimas(aux);
                 JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", 
                 JOptionPane.INFORMATION_MESSAGE);
+                MateriasPrimas.anadirFila(nombreMateria, cantMateria);
                 ControladorInterfaces.mostrarRegistrarMateriaPrima(false);
                 ControladorInterfaces.mostrarMateriasPrimas(true); 
+                
                 nombre.setText("");
                 cantidad.setText("");
             } catch(NumberFormatException ex){
