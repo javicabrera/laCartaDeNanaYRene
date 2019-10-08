@@ -10,6 +10,7 @@ import java.io.File;
 import javax.swing.DefaultListModel;
 import logica.Almacen;
 import logica.ControladorInterfaces;
+import logica.Pedido;
 
 /**
  *
@@ -27,10 +28,8 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         //pedidos = new ArrayList<>();
         initComponents();
         this.model = new DefaultListModel();
-        //this.model.addElement("one");
-        //model.addElement("two");
         listaPedidos.setModel(this.model);
-        
+ 
     }
     
     public static void agregarPedido(String s){
@@ -40,6 +39,11 @@ public class PaginaPrincipal extends javax.swing.JFrame {
     
     public void setAlmacen(Almacen almacen){
         this.almacen = almacen;
+        for(Pedido p: almacen.getPedidos()){
+            String resPedido = p.getNombreCliente() + "\nEstado: " + p.getEstado() 
+                    + "\n";
+            PaginaPrincipal.agregarPedido(resPedido);
+        }
     }
 
     public void setGe(GestionExcel ge){
