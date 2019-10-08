@@ -360,6 +360,9 @@ public class NuevoPedido extends javax.swing.JFrame {
         boolean flag2 = false;
         boolean flag3 = true;
         boolean flag4 = true;
+        boolean flag5 = true;
+        boolean flag6 = true;
+        boolean flag7 = true;
         Date DateSolicitud = null;
         Date DateRetiro = null;
         int abono = 0;
@@ -392,11 +395,26 @@ public class NuevoPedido extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "El descuento debe estar entre 0 y 100",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+        int precioDescontado = (Integer.parseInt(precioTotal.getText()))*(1-(dcto/100));
+        if(abono>precioDescontado){
+            JOptionPane.showMessageDialog(this, "El abono no puede ser mayor al total",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            flag5 = false;
+        }
+        if(!(numero.getText().length() == 9 && numero.getText().charAt(0) == '9')){
+            JOptionPane.showMessageDialog(this, "Ingrese un numero de telefono valido",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            flag6 = false;
+        }
+        if(!correo.getText().matches("^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$")){
+            JOptionPane.showMessageDialog(this, "Ingrese un correo valido",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            flag7 =false;
+        }
 
-        if (flag && flag2 && flag3 && flag4){
+        if (flag && flag2 && flag3 && flag4 && flag5 && flag6 && flag7){
             Pedido p = new Pedido(productos, DateSolicitud, DateRetiro,
-                    Integer.parseInt(precioTotal.getText()),dcto,nombre.getText(), 
+                    precioDescontado,dcto,nombre.getText(), 
                     correo.getText(), numero.getText(), abono);
             ArrayList<Pedido> aux = almacen.getPedidos();
             aux.add(p);
@@ -411,7 +429,7 @@ public class NuevoPedido extends javax.swing.JFrame {
             String pattern = "dd-MM-yyyy";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             Pedidos.anadirFila(nombre.getText(), simpleDateFormat.format(DateRetiro), 
-                    Integer.parseInt(precioTotal.getText()), p.getEstado());
+                    precioDescontado, p.getEstado());
             cantidad.setText("");
             fSolicitud.setText("");
             fRetiro.setText("");
