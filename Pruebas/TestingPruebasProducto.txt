@@ -1,0 +1,18 @@
+Pruebas para Productos:
+
+Set de Pruebas para Crear Producto:
+
+ÉXITO: Se ha guradado correctamente el producto en el Sistema.
+FALLO: No se puede guardar el producto en el Sistema.
+
+Test 1:
+	Resultado Esperado: ÉXITO.
+	Resultado Final Obtenido: FALLO.
+
+	Razón de Fallo: No se ha definido la cantidad de materia prima.
+
+Test 2:
+	Resultado Esperado: FALLO
+	Resultado Final Obtenido: IMPOSIBLE DE REALIZAR
+
+	Razón: No es posible seleccionar ninguna materia prima.
