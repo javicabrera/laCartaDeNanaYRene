@@ -11,7 +11,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import logica.Almacen;
 import logica.ControladorInterfaces;
-import logica.ControladorPedido;
 import logica.MateriaPrima;
 
 /**
@@ -27,12 +26,9 @@ public class MateriasPrimas extends javax.swing.JFrame {
     public MateriasPrimas() {
         initComponents();
         this.setLocationRelativeTo(null);
-        //almacen = new Almacen();
         //Sólo permite seleccionar un elemento de la tabla
         tablaMateriasPrimas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
-        anadirFila("Durazno", 13);
-        anadirFila("Melocotón", 31231);
     }
 
     /**
@@ -55,8 +51,9 @@ public class MateriasPrimas extends javax.swing.JFrame {
         titulo = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setLocation(new java.awt.Point(0, 0));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCrear.setText("+ Crear");
@@ -188,6 +185,17 @@ public class MateriasPrimas extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnBorrarActionPerformed
 
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        this.almacen = almacen;
+        for(MateriaPrima m: almacen.getMateriasPrimas()){
+            anadirFila(m.getNombre(), m.getCantidad());
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -286,7 +294,7 @@ public class MateriasPrimas extends javax.swing.JFrame {
         });
     }
     
-    private void anadirFila(String nombre, int cantidad) {
+    private void anadirFila(String nombre, double cantidad) {
         
         Object[] row = {nombre, cantidad};
         DefaultTableModel modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();
@@ -324,4 +332,6 @@ public class MateriasPrimas extends javax.swing.JFrame {
     private javax.swing.JTable tablaMateriasPrimas;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
+
+  
 }

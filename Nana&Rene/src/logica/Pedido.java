@@ -23,6 +23,7 @@ public class Pedido {
     public Pedido(HashMap<Producto, Integer> productos, Date fechaSolicitud, 
             Date fechaRetiro, int precioTotal, int descuento, String nombreCliente, 
             String correoCliente, String numeroCliente, int precioAbonado) {
+        this.productos = productos;
         this.fechaSolicitud = fechaSolicitud;
         this.fechaRetiro = fechaRetiro;
         this.estado = "Pendiente";

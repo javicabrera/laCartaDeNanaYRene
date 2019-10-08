@@ -24,7 +24,6 @@ public class EditarMateriaPrima extends javax.swing.JFrame {
     public EditarMateriaPrima() {
         initComponents();
         this.setLocationRelativeTo(null);
-       // almacen = new Almacen();
     }
     
     public void setMateria(MateriaPrima materia){
@@ -53,7 +52,8 @@ public class EditarMateriaPrima extends javax.swing.JFrame {
         titulo = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtNombre.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -112,7 +112,7 @@ public class EditarMateriaPrima extends javax.swing.JFrame {
             .addGroup(panelSuperiorLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(icon)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(titulo)
@@ -128,6 +128,8 @@ public class EditarMateriaPrima extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
+        nombre.setText("");
+        cantidad.setText("");
         ControladorInterfaces.mostrarEditarMateriaPrima(false, materia);
         ControladorInterfaces.mostrarMateriasPrimas(true);
     }//GEN-LAST:event_bVolverActionPerformed

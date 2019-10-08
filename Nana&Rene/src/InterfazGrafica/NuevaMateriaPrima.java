@@ -7,8 +7,6 @@ package InterfazGrafica;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.text.BadLocationException;
 import logica.ControladorInterfaces;
 import logica.MateriaPrima;
 import logica.Almacen;
@@ -27,8 +25,14 @@ public class NuevaMateriaPrima extends javax.swing.JFrame {
     public NuevaMateriaPrima() {
         initComponents();
         this.setLocationRelativeTo(null);
-        //almacen = new Almacen();
-        
+    }
+    
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        this.almacen = almacen;
     }
 
     /**
@@ -51,7 +55,8 @@ public class NuevaMateriaPrima extends javax.swing.JFrame {
         titulo = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtNombre.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -131,6 +136,8 @@ public class NuevaMateriaPrima extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
+        nombre.setText("");
+        cantidad.setText("");
         ControladorInterfaces.mostrarMateriasPrimas(false);
         ControladorInterfaces.mostrarPrincipal(true);
     }//GEN-LAST:event_bVolverActionPerformed
