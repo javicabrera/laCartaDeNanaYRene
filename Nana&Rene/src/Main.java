@@ -78,11 +78,12 @@ public class Main
         controladorInterfaces = new ControladorInterfaces(almacen, gestionExcel);
         controladorInterfaces.iniciarInterfaz();
         
-//        File tMateriasPrimas = new File("/Users/isavo/Desktop/U/8º semestre/Construccion de Software/Repositorios/laCartaDeNanaYRene/testMateriasPrimas.xlsx");
-//        gestionExcel.exportarMateriasPrimas(tMateriasPrimas);
-//        File tProductos = new File("/Users/isavo/Desktop/U/8º semestre/Construccion de Software/Repositorios/laCartaDeNanaYRene/testProductos.xlsx");
-//        gestionExcel.exportarProductos(tProductos);
-//        File tPedidos = new File("/Users/isavo/Desktop/U/8º semestre/Construccion de Software/Repositorios/laCartaDeNanaYRene/testPedidos.xlsx");
-//        gestionExcel.exportarPedido(tPedidos);
+        
+        /*File tMateriasPrimas = new File("MateriasPrimasTest.xlsx");
+        gestionExcel.exportarMateriasPrimas(tMateriasPrimas);
+        File tProductos = new File("ProductosTest.xlsx");
+        gestionExcel.exportarProductos(tProductos);
+        File tPedidos = new File("PedidosTest.xlsx");
+        gestionExcel.exportarPedido(tPedidos);*/
     }  
 }

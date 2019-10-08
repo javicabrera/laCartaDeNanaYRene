@@ -22,7 +22,7 @@ import logica.Producto;
 public class EditarProducto extends javax.swing.JFrame {
     private Producto producto;
     private int fila;
-    private HashMap<MateriaPrima,Integer> materias;
+    private HashMap<MateriaPrima,Double> materias;
     private InfoPanel infoPanel;
     private Almacen almacen;
 
@@ -264,7 +264,7 @@ public class EditarProducto extends javax.swing.JFrame {
             }
         }
         try{
-            int cant = Integer.parseInt(cantidad.getText());
+            Double cant = Double.parseDouble(cantidad.getText());
             materias.put(materia, cant);
             infoPanel.agregaProductoOrMatPrima(nombreMateria, cant);
         } catch (NumberFormatException e){
@@ -304,7 +304,7 @@ public class EditarProducto extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Guardado exitosamente",
                             "Guardado", JOptionPane.INFORMATION_MESSAGE);
                     //Productos.anadirFila(nombreProd, precio, tiempo, producto.getMateriasString());
-                    //ControladorInterfaces.mostrarEditarProducto(false, producto);
+                    ControladorInterfaces.mostrarEditarProducto(false, producto, fila);
                     ControladorInterfaces.mostrarProductos(true);
                     nombre.setText("");
                     precioVenta.setText("");

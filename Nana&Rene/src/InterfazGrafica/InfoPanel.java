@@ -37,9 +37,9 @@ public class InfoPanel extends javax.swing.JPanel {
     }
     
     
-    public void agregaProductoOrMatPrima(String nombre, int cantidadInt){
+    public void agregaProductoOrMatPrima(String nombre, double cantidadInt){
         String producto=nombre;
-        String cantidad = "Cantidad: "+Integer.toString(cantidadInt);
+        String cantidad = "Cantidad: "+Double.toString(cantidadInt);
         
         JLabel labelProducto = new JLabel();
         JLabel labelCantidad = new JLabel();
