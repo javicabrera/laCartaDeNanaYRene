@@ -18,6 +18,7 @@ public class MateriaPrima
     {
         this.nombre = nombre;
         this.cantidad = cantidad;
+
     }
 
     public String getNombre()

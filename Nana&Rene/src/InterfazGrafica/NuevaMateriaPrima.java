@@ -5,18 +5,11 @@
  */
 package InterfazGrafica;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import logica.ControladorInterfaces;
-import logica.Pedido;
-import logica.Producto;
 import logica.MateriaPrima;
+import logica.Almacen;
 
 
 /**
@@ -24,7 +17,7 @@ import logica.MateriaPrima;
  * @author elias
  */
 public class NuevaMateriaPrima extends javax.swing.JFrame {
-    private HashMap<String,Integer> productos;
+    private Almacen almacen;
 
     /**
      * Creates new form PaginaPrincipalFX
@@ -32,8 +25,14 @@ public class NuevaMateriaPrima extends javax.swing.JFrame {
     public NuevaMateriaPrima() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
-        
+    }
+    
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        this.almacen = almacen;
     }
 
     /**
@@ -56,7 +55,8 @@ public class NuevaMateriaPrima extends javax.swing.JFrame {
         titulo = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtNombre.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -70,6 +70,11 @@ public class NuevaMateriaPrima extends javax.swing.JFrame {
         cantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cantidadActionPerformed(evt);
+            }
+        });
+        cantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cantidadKeyPressed(evt);
             }
         });
         getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 510, -1));
@@ -131,20 +136,48 @@ public class NuevaMateriaPrima extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
+        nombre.setText("");
+        cantidad.setText("");
         ControladorInterfaces.mostrarMateriasPrimas(false);
         ControladorInterfaces.mostrarPrincipal(true);
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
-        MateriaPrima mp = new MateriaPrima(nombre.getText(), Double.parseDouble(cantidad.getText()));
-        JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", JOptionPane.INFORMATION_MESSAGE);
-        ControladorInterfaces.mostrarRegistrarMateriaPrima(false);
-        ControladorInterfaces.mostrarMateriasPrimas(true);
+        boolean flag = true;
+        if(nombre.getText().equals("") || nombre.getText()==null){
+            flag = false;
+            JOptionPane.showMessageDialog(this, "Debe ingresar un nombre.","Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+        if (flag){
+            try{
+                String nombreMateria = nombre.getText();
+                double cantMateria = Double.parseDouble(cantidad.getText());
+                MateriaPrima mp = new MateriaPrima(nombreMateria, cantMateria);
+                ArrayList<MateriaPrima> aux = almacen.getMateriasPrimas();
+                aux.add(mp);
+                almacen.setMateriasPrimas(aux);
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", 
+                JOptionPane.INFORMATION_MESSAGE);
+                ControladorInterfaces.mostrarRegistrarMateriaPrima(false);
+                ControladorInterfaces.mostrarMateriasPrimas(true); 
+                nombre.setText("");
+                cantidad.setText("");
+            } catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(this, "Debe ingresar un número "
+                        + "válido","Error",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+                                   
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cantidadActionPerformed
+
+    private void cantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyPressed
+        
+    }//GEN-LAST:event_cantidadKeyPressed
 
     /**
      * @param args the command line arguments
