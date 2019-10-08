@@ -149,6 +149,7 @@ public class EditarMateriaPrima extends javax.swing.JFrame {
                 materia.modificarCantidad(cantMateria);
                 JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", 
                 JOptionPane.INFORMATION_MESSAGE);
+                MateriasPrimas.anadirFila(nombreMateria, cantMateria);
                 ControladorInterfaces.mostrarEditarMateriaPrima(false, materia);
                 ControladorInterfaces.mostrarMateriasPrimas(true);
                 nombre.setText("");
