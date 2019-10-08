@@ -1,0 +1,22 @@
+Error #001
+
+Reportado por: Elías Avendaño
+Fecha de Reporte: Martes 8 de Octubre, 2019
+
+Estado Actual: No solucionado.
+Fecha de Solución:
+Implementador que solucionó el problema:
+
+Error: Funcionalidad incorrecta al volver atrás luego de seleccionar nueva materia prima.
+
+Funcionamiento esperado:
+	Al seleccionar volver atrás, la interfaz debe volver al estado anterior, es decir, a la tabla de Materias Primas y ocultando la ventana de Nueva Materia Prima.
+
+Funcionalidad actual:
+	Al seleccionar volver atrás, se carga la interfaz principal y mantiene activa la ventana de Nueva Materia Prima, imposibilitando cerrarse.
+
+Pasos para reproducir el error:
+	Iniciar el programa
+	Seleccionar botón "Materias Primas"
+	Seleccionar botón "+Crear"
+	Seleccionar "Volver"

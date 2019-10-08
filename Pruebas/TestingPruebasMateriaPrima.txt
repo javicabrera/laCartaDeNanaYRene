@@ -1,3 +1,64 @@
-Pruebas de Registrar Materia Prima:
+Testing de Registrar Materia Prima:
+
+Testing Realizadas por: Elías Avendaño
+
+Testing Realizados con Fecha: 8 de Octubre 01:36 AM
+
+**Set de Pruebas Registrar Materia Prima**
+
+ÉXITO: Se ha guardado correctamente la Materia Prima en el Sistema.
+FALLO: No se puede guardar la Materia Prima en el Sistema.
 
 Test 1:
+	Resultado Esperado: Éxito
+	Resultado Final Obtenido: Éxito
+
+	Razón: En el sistema se guarda la Materia Prima y se muestra en la Tabla.
+
+Test 2:
+	Resultado Esperado: Fallo
+	Resultado Final Obtenido: Fallo
+
+	Razón: No se ha rellenado la información de cantidad, por lo tanto, el programa indica la falta de ese dato correctamente e impide que se guarde la Materia Prima.
+
+Test 3:
+	Resultado Esperado: Fallo
+	Resultado Final Obtenido: Fallo
+
+	Razón: No se ha ingresado un valor numérico válido, por lo tanto, el programa indica este problema e impide que se guarde la Materia Prima.
+
+Test 4:
+	Resultado Esperado: Fallo
+	Resultado Final Obtenido: Fallo
+
+	Razón: No se ha rellenado la información acerca del Nombre, por lo tanto, el programa indica la falta de ese dato correctamente e impide que se guarde la Materia Prima.
+
+Test 5:
+	Resultado Esperado: Fallo
+	Resultado Final Obtenido: Fallo
+
+	Razón: No se ha rellenado ni la información de Nombre ni de Cantidad, por tanto el programa indica la falta de nombre e impide que se guarde la Materia Prima.
+
+
+**Set de Pruebas Modificar Materia Prima**
+
+ÉXITO: Se ha modificado correctamente la Materia Prima en el Sistema.
+FALLO: No se ha podido modificar la Materia Prima en el Sistema
+
+Test 1:
+	Resultado Esperado: Fallo
+	Resultado Final Obtenido: Fallo
+
+	Razón: No se ha rellenado la información acerca del Nombre, por lo tanto, el programa indica la falta de ese dato correctamente e impide que se modifique la Materia Prima.
+
+Test 2:
+	Resultado Esperado: Éxito
+	Resultado Final Obtenido: Éxito
+
+	Razón: En el sistema se modifica la Materia Prima y se muestra en la tabla.
+
+Test 3:
+	Resultado Esperado: Éxito
+	Resultado Final Obtenido: Éxito
+
+	Razón: En el sistema se modifica la Materia Prima y se muestra en la tabla.
