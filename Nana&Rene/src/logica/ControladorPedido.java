@@ -78,7 +78,7 @@ public class ControladorPedido {
     - Obtener el ArrayList del stock de materias primas.
     - Una materia prima podría tener un nombre, código y cantidad.
     */
-    public void descontarMateriasPrimas(HashMap<MateriaPrima,Integer> 
+    public void descontarMateriasPrimas(HashMap<MateriaPrima,Double> 
             materiasPrimas){
         for(MateriaPrima a: materiasPrimas.keySet()){
             for (MateriaPrima b: almacen.getMateriasPrimas()) {
