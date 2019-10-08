@@ -39,6 +39,8 @@ public class ControladorInterfaces {
         this.almacen = almacen;
         this.ge = ge;
         this.principal = new PaginaPrincipal();
+        this.principal.setAlmacen(almacen);
+        this.principal.setGe(ge);
         this.nuevoPedido = new NuevoPedido();
         this.gestionaPedido = new Pedidos();
         this.productos = new Productos();
@@ -60,8 +62,7 @@ public class ControladorInterfaces {
     
     public static void mostrarPrincipal(boolean b){
         ControladorInterfaces.principal.setVisible(b);
-        ControladorInterfaces.principal.setAlmacen(almacen);
-        ControladorInterfaces.principal.setGe(ge);
+        
         ControladorInterfaces.principal.repaint();
     }
     
