@@ -1,0 +1,74 @@
+Testing para Productos:
+
+Testing Realizado por: Elías Avendaño
+Fecha: 8 de Octubre 2019, 2:15 AM
+
+***Set de Pruebas para Crear Producto***
+
+ÉXITO: Se ha guradado correctamente el producto en el Sistema.
+FALLO: No se puede guardar el producto en el Sistema.
+
+Test 1:
+	Resultado Esperado: Éxito
+	Resultado Final Obtenido: Intermedio
+
+	Razón: Se guarda el Producto pero no se refleja en la tabla.
+
+Test 2:
+	Resultado Esperado: Fallo
+	Resultado Final Obtenido: Fallo
+
+	Razón: Faltan campos por rellenar, tiempo no es un entero.
+
+Test 3:
+	Resultado Esperado: Fallo
+	Resultado Final Obtenido: Fallo
+
+	Razón: Faltan campos por completar, no hay materias primas ni precio de venta.
+
+Test 4:
+	Resultado Esperado: ÉXITO.
+	Resultado Final Obtenido: FALLO.
+
+	Razón de Fallo: No se ha definido la cantidad de materia prima.
+
+Test 5:
+	Resultado Esperado: FALLO
+	Resultado Final Obtenido: FALLO
+
+	Razón: Al faltar la materia prima, el programa muestra un mensaje de error, sin guardar dicho producto.
+
+***Set de Pruebas para Modificar Producto***
+
+ÉXITO: Se ha modificado correctamente el producto en el Sistema.
+FALLO: No se puede modificar el producto en el Sistema.
+
+Test 1:
+	Resultado Esperado: Éxito
+	Resultado Final Obtenido: Éxito
+
+	Razón: Se han modificado los datos en el Sistema y se ha visto reflejado en la Tabla.
+
+Test 2:
+	Resultado Esperado: Éxito
+	Resultado Final Obtenido: Éxito
+
+	Razón: Se han modificado los datos en el Sistema y se ha visto reflejado en la Tabla.
+
+Test 3:
+	Resultado Esperado: Fallo
+	Resultado Final Obtenido: Imposible de realizar
+
+	Razón: Aún no es posible quitar Materias Primas a un Producto ya creado.
+
+Test 4:
+	Resultado Esperado: Éxito
+	Resultado Final Obtenido: Éxito
+
+	Razón: Se han modificado los datos en el Sistema y se ha visto reflejado en la Tabla.
+
+Test 5:
+	Resultado Esperado: Éxito
+	Resultado Final Obtenido: Éxito
+
+	Razón: Se han modificado los datos en el Sistema y se ha visto reflejado en la Tabla.

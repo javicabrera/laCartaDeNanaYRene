@@ -38,17 +38,25 @@ public class NuevoPedido extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         productos = new HashMap<>();
-//        for(Producto p: almacen.getProductos()){
-//            boxProductos.addItem(p.getNombre());
-//        }
+        
         total = 0;
         
         infoPanel = new InfoPanel();
         panelResumenPedido.setLayout(new GridLayout(0,1));
         panelResumenPedido.setPreferredSize(new Dimension(180,210));
         panelResumenPedido.add(infoPanel.getPanelDatos());
-        
-        
+    }
+    
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        boxProductos.removeAllItems();
+        this.almacen = almacen;
+        for(Producto p: this.almacen.getProductos()){
+            boxProductos.addItem(p.getNombre());
+        }
     }
 
     /**
@@ -94,7 +102,8 @@ public class NuevoPedido extends javax.swing.JFrame {
         titulo = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtProducto.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -238,7 +247,7 @@ public class NuevoPedido extends javax.swing.JFrame {
             .addGroup(txtResumenPedidoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(resumenPedido)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(txtResumenPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, 180, 30));
@@ -287,7 +296,18 @@ public class NuevoPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_fSolicitudActionPerformed
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
-
+        cantidad.setText("");
+        fSolicitud.setText("");
+        fRetiro.setText("");
+        precioAbonado.setText("");
+        precioTotal.setText("0");
+        total = 0;
+        descuento.setText("");
+        nombre.setText("");
+        numero.setText("");
+        correo.setText("");
+        productos = new HashMap<>();
+        infoPanel = new InfoPanel();
         ControladorInterfaces.mostrarNuevoPedido(false);
         ControladorInterfaces.mostrarGestionaPedido(true);
         
@@ -308,11 +328,18 @@ public class NuevoPedido extends javax.swing.JFrame {
         }
         try{
             int cant = Integer.parseInt(cantidad.getText());
-            productos.put(producto,cant);
-            total += producto.getPrecioVenta();
-            precioTotal.setText(String.valueOf(total));
-            infoPanel.agregaProductoOrMatPrima(nombreProducto, cant);
-            super.paintComponents(this.getGraphics());
+            if(cant>0){
+                productos.put(producto,cant);
+                total += (producto.getPrecioVenta()*cant);
+                precioTotal.setText(String.valueOf(total));
+                infoPanel.agregaProductoOrMatPrima(nombreProducto, cant);
+                super.paintComponents(this.getGraphics());
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "La cantidad debe ser mayor"
+                        + "a cero.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } catch(NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
                     "Error", JOptionPane.ERROR_MESSAGE);
@@ -332,6 +359,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         boolean flag = false;
         boolean flag2 = false;
         boolean flag3 = true;
+        boolean flag4 = true;
         Date DateSolicitud = null;
         Date DateRetiro = null;
         int abono = 0;
@@ -359,16 +387,44 @@ public class NuevoPedido extends javax.swing.JFrame {
                     "Error", JOptionPane.ERROR_MESSAGE);
             flag3=false;
         }
+        if(dcto<0 || dcto>100){
+            flag4= false;
+            JOptionPane.showMessageDialog(this, "El descuento debe estar entre 0% y 100%",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
 
-        if (flag && flag2 && flag3){
+        if (flag && flag2 && flag3 && flag4){
             Pedido p = new Pedido(productos, DateSolicitud, DateRetiro,
                     Integer.parseInt(precioTotal.getText()),dcto,nombre.getText(), 
                     correo.getText(), numero.getText(), abono);
             ArrayList<Pedido> aux = almacen.getPedidos();
             aux.add(p);
             almacen.setPedidos(aux);
+            JOptionPane.showMessageDialog(this, "Guardado exitosamente",
+                        "Guardado", JOptionPane.INFORMATION_MESSAGE);
+            String cliente = p.getNombreCliente();
+            String estado = "Estado: " + p.getEstado();
+            PaginaPrincipal.agregarPedido(cliente);
+            PaginaPrincipal.agregarPedido(estado);
+            PaginaPrincipal.agregarPedido("___________");
+            String pattern = "dd-MM-yyyy";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            Pedidos.anadirFila(nombre.getText(), simpleDateFormat.format(DateRetiro), 
+                    Integer.parseInt(precioTotal.getText()), p.getEstado());
+            cantidad.setText("");
+            fSolicitud.setText("");
+            fRetiro.setText("");
+            precioAbonado.setText("");
+            total = 0;
+            precioTotal.setText("0");
+            descuento.setText("");
+            nombre.setText("");
+            numero.setText("");
+            correo.setText("");
             
-            PaginaPrincipal.agregarPedido(nombre.getText());
+            productos = new HashMap<>();
+            infoPanel = new InfoPanel();
             ControladorInterfaces.mostrarNuevoPedido(false);
             ControladorInterfaces.mostrarGestionaPedido(true);
 

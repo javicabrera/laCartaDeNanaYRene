@@ -7,7 +7,7 @@ package InterfazGrafica;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import logica.Almacen;
 import logica.ControladorInterfaces;
@@ -21,7 +21,8 @@ import logica.Producto;
  */
 public class EditarProducto extends javax.swing.JFrame {
     private Producto producto;
-    private ArrayList<Producto> productos;
+    private int fila;
+    private HashMap<MateriaPrima,Integer> materias;
     private InfoPanel infoPanel;
     private Almacen almacen;
 
@@ -31,12 +32,10 @@ public class EditarProducto extends javax.swing.JFrame {
     public EditarProducto() {
         initComponents();
         this.setLocationRelativeTo(null);
-        //almacen = new Almacen();
         infoPanel = new InfoPanel();
         panelMateriasPrimas.setLayout(new GridLayout(0,1));
         panelMateriasPrimas.setPreferredSize(new Dimension(180,250));
         panelMateriasPrimas.add(infoPanel.getPanelDatos());
-        
         
     }
 
@@ -45,7 +44,27 @@ public class EditarProducto extends javax.swing.JFrame {
         nombre.setText(producto.getNombre());
         precioVenta.setText(String.valueOf(producto.getPrecioVenta()));
         tiempoElab.setText(String.valueOf(producto.getTiempoElaboracion()));
-        //agregar al panel las materias primas que hay
+        for(MateriaPrima m: this.producto.getMateriasPrimas().keySet()){
+            infoPanel.agregaProductoOrMatPrima(m.getNombre(),this.producto.
+                    getMateriasPrimas().get(m));
+        }
+        materias = this.producto.getMateriasPrimas();
+    }
+
+    public void setFila(int fila) {
+        this.fila = fila;
+    }
+    
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        boxMateriaPrima.removeAllItems();
+        this.almacen = almacen;
+        for(MateriaPrima materia: this.almacen.getMateriasPrimas()){
+            boxMateriaPrima.addItem(materia.getNombre());
+        }
     }
     
     
@@ -80,7 +99,8 @@ public class EditarProducto extends javax.swing.JFrame {
         panelMateriasPrimas = new javax.swing.JPanel();
         background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtNombre.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -195,7 +215,7 @@ public class EditarProducto extends javax.swing.JFrame {
             .addGroup(txtMateriasPrimasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(materiasPrimas)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(txtMateriasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, 180, 30));
@@ -222,7 +242,11 @@ public class EditarProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
-        ControladorInterfaces.mostrarEditarProducto(false, producto);
+        nombre.setText("");
+        precioVenta.setText("");
+        tiempoElab.setText("");
+        cantidad.setText("");
+        ControladorInterfaces.mostrarEditarProducto(false, producto, fila);
         ControladorInterfaces.mostrarProductos(true);
     }//GEN-LAST:event_bVolverActionPerformed
 
@@ -241,7 +265,7 @@ public class EditarProducto extends javax.swing.JFrame {
         }
         try{
             int cant = Integer.parseInt(cantidad.getText());
-            producto.getMateriasPrimas().put(materia, cant);
+            materias.put(materia, cant);
             infoPanel.agregaProductoOrMatPrima(nombreMateria, cant);
         } catch (NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido.",
@@ -270,14 +294,38 @@ public class EditarProducto extends javax.swing.JFrame {
         }
         if (flag1 && flag2){
             try{
+                if(Double.parseDouble(cantidad.getText()) > 0.0){                                 
+                    int precio = Integer.parseInt(precioVenta.getText());
+                    int tiempo = Integer.parseInt(tiempoElab.getText());
+                    producto.setNombre(nombreProd);
+                    producto.setPrecioVenta(precio);
+                    producto.setTiempoElaboracion(tiempo);
+                    producto.setMateriasPrimas(materias);
+                    JOptionPane.showMessageDialog(this, "Guardado exitosamente",
+                            "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                    //Productos.anadirFila(nombreProd, precio, tiempo, producto.getMateriasString());
+                    ControladorInterfaces.mostrarEditarProducto(false, producto);
+                    ControladorInterfaces.mostrarProductos(true);
+                    nombre.setText("");
+                    precioVenta.setText("");
+                    tiempoElab.setText("");
+                    cantidad.setText("");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad mayor a 0 "
+                    ,"Error",JOptionPane.ERROR_MESSAGE);
+                }
                 int precio = Integer.parseInt(precioVenta.getText());
                 int tiempo = Integer.parseInt(tiempoElab.getText());
                 producto.setNombre(nombreProd);
                 producto.setPrecioVenta(precio);
                 producto.setTiempoElaboracion(tiempo);
+                producto.setMateriasPrimas(materias);
                 JOptionPane.showMessageDialog(this, "Guardado exitosamente",
                         "Guardado", JOptionPane.INFORMATION_MESSAGE);
-                ControladorInterfaces.mostrarEditarProducto(false, producto);
+                
+                //Productos.editarFila(fila, nombreProd, precio, tiempo, producto.getMateriasString());
+                ControladorInterfaces.mostrarEditarProducto(false, producto, fila);
                 ControladorInterfaces.mostrarProductos(true);
                 nombre.setText("");
                 precioVenta.setText("");

@@ -5,9 +5,7 @@ import logica.ControladorInterfaces;
 import BaseDeDatos.*;
 import logica.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 
@@ -23,49 +21,68 @@ import java.util.ArrayList;
  */
 public class Main 
 {
+    private static ControladorInterfaces controladorInterfaces;
     private static ArrayList<Producto> productos;
     private static ArrayList<Pedido> pedidos;
     private static ArrayList<MateriaPrima> materiasPrimas;
+    private static Almacen almacen;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
         
-//        try {
-//        UIManager.setLookAndFeel(
-//        "javax.swing.plaf.nimbus.NimbusLookAndFeel");
-//        } 
-//        catch (UnsupportedLookAndFeelException e) {
-//           // handle exception
-//        }
-//        catch (ClassNotFoundException e) {
-//           // handle exception
-//        }
-//        catch (InstantiationException e) {
-//           // handle exception
-//        }
-//        catch (IllegalAccessException e) {
-//           // handle exception
-//        }
-
-        productos = new ArrayList<Producto>();
-        pedidos = new ArrayList<Pedido>();
-        materiasPrimas = new ArrayList<MateriaPrima>();
+        try {
+        UIManager.setLookAndFeel(
+        "javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } 
+        catch (UnsupportedLookAndFeelException e) {
+           // handle exception
+        }
+        catch (ClassNotFoundException e) {
+           // handle exception
+        }
+        catch (InstantiationException e) {
+           // handle exception
+        }
+        catch (IllegalAccessException e) {
+           // handle exception
+        }
+        
+        productos = new ArrayList<>();
+        pedidos = new ArrayList<>();
+        materiasPrimas = new ArrayList<>();
+        
+        
         GestionExcel gestionExcel = new GestionExcel();
-        File rutaMateriasPrimas = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\MateriasPrimas.xlsx");
-        File rutaProductos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\Productos.xlsx");
-        File rutaPedidos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\Pedidos.xlsx");
+        File rutaMateriasPrimas = new File("MateriasPrimas.xlsx");
+        File rutaProductos = new File("Productos.xlsx");
+        File rutaPedidos = new File("Pedidos.xlsx");
+
+        /*File rutaMateriasPrimas = new File("C:\\Users\\56992\\Desktop\\Utal\\8vo semestre\\Construcción de Software\\Unidad 2\\Proyecto\\laCartaDeNanaYRene\\MateriasPrimas.xlsx");
+        File rutaProductos = new File("C:\\Users\\56992\\Desktop\\Utal\\8vo semestre\\Construcción de Software\\Unidad 2\\Proyecto\\laCartaDeNanaYRene\\Productos.xlsx");
+        File rutaPedidos = new File("C:\\Users\\56992\\Desktop\\Utal\\8vo semestre\\Construcción de Software\\Unidad 2\\Proyecto\\laCartaDeNanaYRene\\Pedidos.xlsx");
+
+//        File rutaMateriasPrimas = new File("/Users/elias/Documents/Construccion/laCartaDeNanaYRene/MateriasPrimas.xlsx");
+//        File rutaProductos = new File("/Users/elias/Documents/Construccion/laCartaDeNanaYRene/productos.xlsx");
+//        File rutaPedidos = new File("/Users/elias/Documents/Construccion/laCartaDeNanaYRene/laCartaDeNanaYRene/pedidos.xlsx");
+
         
         materiasPrimas  = gestionExcel.importarMateriasPrimas(rutaMateriasPrimas);
         productos = gestionExcel.importarProductos(rutaProductos);
         pedidos = gestionExcel.importarPedidos(rutaPedidos);
+        System.out.println("Se importaron los datos");
         
-        File tMateriasPrimas = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\testMateriasPrimas.xlsx");
-        gestionExcel.exportarMateriasPrimas(tMateriasPrimas);
-        File tProductos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\testProductos.xlsx");
-        gestionExcel.exportarProductos(tProductos);
-        File tPedidos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\testPedidos.xlsx");
-        gestionExcel.exportarPedido(tPedidos);
+        almacen = new Almacen(pedidos, productos, materiasPrimas, null);
+        ControladorPedido cp = new ControladorPedido(almacen);
+        controladorInterfaces = new ControladorInterfaces(almacen, gestionExcel);
+        controladorInterfaces.iniciarInterfaz();
+        
+//        File tMateriasPrimas = new File("/Users/isavo/Desktop/U/8º semestre/Construccion de Software/Repositorios/laCartaDeNanaYRene/testMateriasPrimas.xlsx");
+//        gestionExcel.exportarMateriasPrimas(tMateriasPrimas);
+//        File tProductos = new File("/Users/isavo/Desktop/U/8º semestre/Construccion de Software/Repositorios/laCartaDeNanaYRene/testProductos.xlsx");
+//        gestionExcel.exportarProductos(tProductos);
+//        File tPedidos = new File("/Users/isavo/Desktop/U/8º semestre/Construccion de Software/Repositorios/laCartaDeNanaYRene/testPedidos.xlsx");
+//        gestionExcel.exportarPedido(tPedidos);
     }  
 }

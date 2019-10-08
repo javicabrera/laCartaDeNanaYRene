@@ -11,7 +11,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import logica.Almacen;
 import logica.ControladorInterfaces;
-import logica.ControladorPedido;
 import logica.MateriaPrima;
 
 /**
@@ -20,6 +19,7 @@ import logica.MateriaPrima;
  */
 public class MateriasPrimas extends javax.swing.JFrame {
     private Almacen almacen;
+    private static DefaultTableModel modeloTabla; 
     
     /**
      * Creates new form PaginaPrincipalFX
@@ -27,12 +27,9 @@ public class MateriasPrimas extends javax.swing.JFrame {
     public MateriasPrimas() {
         initComponents();
         this.setLocationRelativeTo(null);
-        //almacen = new Almacen();
         //Sólo permite seleccionar un elemento de la tabla
         tablaMateriasPrimas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        anadirFila("Durazno", 13);
-        anadirFila("Melocotón", 31231);
+        modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();
     }
 
     /**
@@ -55,8 +52,9 @@ public class MateriasPrimas extends javax.swing.JFrame {
         titulo = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setLocation(new java.awt.Point(0, 0));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCrear.setText("+ Crear");
@@ -75,7 +73,7 @@ public class MateriasPrimas extends javax.swing.JFrame {
         });
         getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, 120, 70));
 
-        btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/trash16.png"))); // NOI18N
+        btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/basurero16.png"))); // NOI18N
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
@@ -169,24 +167,53 @@ public class MateriasPrimas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-
-        MateriaPrima mp = almacen.getMateriasPrimas().get(obtieneFilaSeleccionada());
-        ControladorInterfaces.mostrarMateriasPrimas(false);
-        ControladorInterfaces.mostrarEditarMateriaPrima(true, mp);
+        if(obtieneFilaSeleccionada()>=0){
+            MateriaPrima mp = almacen.getMateriasPrimas().get(obtieneFilaSeleccionada());
+            ControladorInterfaces.mostrarMateriasPrimas(false);
+            ControladorInterfaces.mostrarEditarMateriaPrima(true, mp, obtieneFilaSeleccionada());
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una materia prima",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }
         
 //GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        if(JOptionPane.showConfirmDialog(this, "¿Desea eliminar la materia prima?", 
-                "Eliminar Materia Prima", 0)==0){
-            borrarFila();
-            ArrayList<MateriaPrima> aux = almacen.getMateriasPrimas();
-            aux.remove(obtieneFilaSeleccionada());
-            almacen.setMateriasPrimas(aux);
+        if(obtieneFilaSeleccionada()>=0){
+            if(JOptionPane.showConfirmDialog(this, "¿Desea eliminar la materia prima?", 
+                    "Eliminar Materia Prima", 0)==0){
+
+                ArrayList<MateriaPrima> aux = almacen.getMateriasPrimas();
+                aux.remove(obtieneFilaSeleccionada());
+                almacen.setMateriasPrimas(aux);
+                borrarFila(obtieneFilaSeleccionada());
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una materia prima",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_btnBorrarActionPerformed
+
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+//        DefaultTableModel modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();
+//        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+//            modeloTabla.removeRow(0);
+//        }
+        modeloTabla.setRowCount(0);
+        this.almacen = almacen;
+        for(MateriaPrima m: this.almacen.getMateriasPrimas()){
+            anadirFila(m.getNombre(), m.getCantidad());
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -286,10 +313,10 @@ public class MateriasPrimas extends javax.swing.JFrame {
         });
     }
     
-    private void anadirFila(String nombre, int cantidad) {
+    public static void anadirFila(String nombre, double cantidad) {
         
         Object[] row = {nombre, cantidad};
-        DefaultTableModel modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();
+        
         
         modeloTabla.addRow(row);
     }
@@ -299,16 +326,13 @@ public class MateriasPrimas extends javax.swing.JFrame {
         return tablaMateriasPrimas.getSelectedRow();
     }
     
-    private void borrarFila(){
-        int fila = tablaMateriasPrimas.getSelectedRow();
-         DefaultTableModel modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();
-         if (fila==-1) {
-             JOptionPane.showMessageDialog(this, "Debe seleccionar una materia prima",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-             return;
-         }
-         
+    public static void borrarFila(int fila){
          modeloTabla.removeRow(fila);
+    }
+    
+    public static void editarFila(int fila, String nombre, double cantidad){
+        modeloTabla.setValueAt(nombre, fila, 0);
+        modeloTabla.setValueAt(cantidad, fila, 1);
     }
 
 
@@ -324,4 +348,6 @@ public class MateriasPrimas extends javax.swing.JFrame {
     private javax.swing.JTable tablaMateriasPrimas;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
+
+  
 }

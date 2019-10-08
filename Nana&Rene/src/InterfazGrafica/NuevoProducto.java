@@ -31,15 +31,25 @@ public class NuevoProducto extends javax.swing.JFrame {
     public NuevoProducto() {
         initComponents();
         this.setLocationRelativeTo(null);
-//        for(MateriaPrima materia: almacen.getMateriasPrimas()){
-//            boxMateriaPrima.addItem(materia.getNombre());
-//        }
+        materias = new HashMap<>();
         
         infoPanel = new InfoPanel();
         panelMateriasPrimas.setLayout(new GridLayout(0,1));
         panelMateriasPrimas.setPreferredSize(new Dimension(180,250));
         panelMateriasPrimas.add(infoPanel.getPanelDatos());
-        
+    }
+    
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        infoPanel = new InfoPanel();
+        boxMateriaPrima.removeAllItems();
+        this.almacen = almacen;
+        for(MateriaPrima materia: this.almacen.getMateriasPrimas()){
+            boxMateriaPrima.addItem(materia.getNombre());
+        }
     }
 
     /**
@@ -72,7 +82,8 @@ public class NuevoProducto extends javax.swing.JFrame {
         titulo = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtNombre.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -198,7 +209,7 @@ public class NuevoProducto extends javax.swing.JFrame {
             .addGroup(panelSuperiorLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(icon)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(titulo)
@@ -214,6 +225,12 @@ public class NuevoProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
+        materias = new HashMap<>();
+        precioVenta.setText("");
+        tiempoElab.setText("");
+        nombre.setText("");
+        cantidad.setText("");
+        infoPanel = new InfoPanel();
         ControladorInterfaces.mostrarNuevoProducto(false);
         ControladorInterfaces.mostrarProductos(true);
     }//GEN-LAST:event_bVolverActionPerformed
@@ -226,7 +243,7 @@ public class NuevoProducto extends javax.swing.JFrame {
         String nombreMateria = (String) boxMateriaPrima.getSelectedItem();
         MateriaPrima materia = null;
         for(MateriaPrima m : almacen.getMateriasPrimas()){
-            if(m.getNombre().equals(materia)){
+            if(m.getNombre().equals(nombreMateria)){
                 materia = m;
                 break;
             }
@@ -262,16 +279,29 @@ public class NuevoProducto extends javax.swing.JFrame {
         }
         if (flag1 && flag2){
             try{
-                int precio = Integer.parseInt(precioVenta.getText());
-                int tiempo = Integer.parseInt(tiempoElab.getText());
-                Producto p = new Producto(nombreProd, precio, tiempo, materias);
-                ArrayList<Producto> prodAux = almacen.getProductos();
-                prodAux.add(p);
-                almacen.setProductos(prodAux);
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente",
-                        "Guardado", JOptionPane.INFORMATION_MESSAGE);
-                ControladorInterfaces.mostrarNuevoProducto(false);
-                ControladorInterfaces.mostrarProductos(true);
+                if(Double.parseDouble(cantidad.getText()) > 0.0){
+                    int precio = Integer.parseInt(precioVenta.getText());
+                    int tiempo = Integer.parseInt(tiempoElab.getText());
+                    Producto p = new Producto(nombreProd, precio, tiempo, materias);
+                    ArrayList<Producto> prodAux = almacen.getProductos();
+                    prodAux.add(p);
+                    almacen.setProductos(prodAux);
+                    JOptionPane.showMessageDialog(this, "Guardado exitosamente",
+                            "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                    materias = new HashMap<>();
+                    precioVenta.setText("");
+                    tiempoElab.setText("");
+                    nombre.setText("");
+                    cantidad.setText("");
+                    infoPanel = new InfoPanel();
+                    Productos.anadirFila(nombreProd, precio, tiempo, p.getMateriasString());
+                    ControladorInterfaces.mostrarNuevoProducto(false);
+                    ControladorInterfaces.mostrarProductos(true);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad mayor a 0 "
+                    ,"Error",JOptionPane.ERROR_MESSAGE);
+                }
                 
             } catch (NumberFormatException e){
                 JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",

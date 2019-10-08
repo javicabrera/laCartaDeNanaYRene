@@ -70,7 +70,12 @@ public class GestionExcel{
                             String[] mp = listado.split(",");
                             for(int i = 0; i < mp.length; i++)
                             {
-                                MateriaPrima objMP = new MateriaPrima(mp[i], 0.0);
+                                MateriaPrima objMP = null;
+                                for(MateriaPrima materia: this.materiasPrimas){
+                                    if(materia.getNombre().equals(mp[i])){
+                                        objMP = materia;
+                                    }
+                                }
                                 materiasPrimas.put(objMP, 0);
                             }   break;
                         case 3:
@@ -131,7 +136,15 @@ public class GestionExcel{
                             {
                                 String[] productoCantidad = p2[j].split("-");
                                 //System.out.println(Arrays.toString(productoCantidad));
-                                productos.put(new Producto(productoCantidad[1], 0, 0, null), Integer.parseInt(productoCantidad[0]));
+                                Producto  prod = null;
+                                for(Producto aux: this.productos){
+                                    if(aux.getNombre().equals(productoCantidad[1])){
+                                        prod = aux;
+                                        break;
+                                    }
+                                }
+                                
+                                productos.put(prod, Integer.parseInt(productoCantidad[0]));
                             }
                             break;
                         case 1:
@@ -426,6 +439,20 @@ public class GestionExcel{
         }
         return respuesta;
     }
+
+    public void setProductos(ArrayList<Producto> productos) {
+        this.productos = productos;
+    }
+
+    public void setPedidos(ArrayList<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
+    public void setMateriasPrimas(ArrayList<MateriaPrima> materiasPrimas) {
+        this.materiasPrimas = materiasPrimas;
+    }
+    
+    
 }
 
 /*
