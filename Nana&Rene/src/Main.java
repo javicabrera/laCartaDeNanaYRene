@@ -23,9 +23,11 @@ import java.util.ArrayList;
  */
 public class Main 
 {
+    private static ControladorInterfaces controladorInterfaces;
     private static ArrayList<Producto> productos;
     private static ArrayList<Pedido> pedidos;
     private static ArrayList<MateriaPrima> materiasPrimas;
+    private static Almacen almacen;
     /**
      * @param args the command line arguments
      */
@@ -48,10 +50,12 @@ public class Main
         catch (IllegalAccessException e) {
            // handle exception
         }
-
-        productos = new ArrayList<Producto>();
-        pedidos = new ArrayList<Pedido>();
-        materiasPrimas = new ArrayList<MateriaPrima>();
+        
+        productos = new ArrayList<>();
+        pedidos = new ArrayList<>();
+        materiasPrimas = new ArrayList<>();
+        
+        
         GestionExcel gestionExcel = new GestionExcel();
         File rutaMateriasPrimas = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\MateriasPrimas.xlsx");
         File rutaProductos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\Productos.xlsx");
@@ -60,6 +64,11 @@ public class Main
         materiasPrimas  = gestionExcel.importarMateriasPrimas(rutaMateriasPrimas);
         productos = gestionExcel.importarProductos(rutaProductos);
         pedidos = gestionExcel.importarPedidos(rutaPedidos);
+        System.out.println("Se importaron los datos");
+        
+        almacen = new Almacen(pedidos, productos, materiasPrimas, null);
+        controladorInterfaces = new ControladorInterfaces(almacen);
+        controladorInterfaces.iniciarInterfaz();
         
         File tMateriasPrimas = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\testMateriasPrimas.xlsx");
         gestionExcel.exportarMateriasPrimas(tMateriasPrimas);
