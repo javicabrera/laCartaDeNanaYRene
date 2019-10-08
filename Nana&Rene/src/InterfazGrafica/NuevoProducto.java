@@ -242,7 +242,7 @@ public class NuevoProducto extends javax.swing.JFrame {
         String nombreMateria = (String) boxMateriaPrima.getSelectedItem();
         MateriaPrima materia = null;
         for(MateriaPrima m : almacen.getMateriasPrimas()){
-            if(m.getNombre().equals(materia)){
+            if(m.getNombre().equals(nombreMateria)){
                 materia = m;
                 break;
             }
@@ -292,6 +292,7 @@ public class NuevoProducto extends javax.swing.JFrame {
                 nombre.setText("");
                 cantidad.setText("");
                 infoPanel = new InfoPanel();
+                Productos.anadirFila(nombreProd, precio, tiempo, p.getMateriasString());
                 ControladorInterfaces.mostrarNuevoProducto(false);
                 ControladorInterfaces.mostrarProductos(true);
                 

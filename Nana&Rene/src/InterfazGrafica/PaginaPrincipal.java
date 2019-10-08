@@ -40,9 +40,10 @@ public class PaginaPrincipal extends javax.swing.JFrame {
     public void setAlmacen(Almacen almacen){
         this.almacen = almacen;
         for(Pedido p: almacen.getPedidos()){
-            String resPedido = p.getNombreCliente() + "\nEstado: " + p.getEstado() 
-                    + "\n";
-            PaginaPrincipal.agregarPedido(resPedido);
+            String cliente = p.getNombreCliente();
+            String estado = "Estado: " + p.getEstado();
+            PaginaPrincipal.agregarPedido(cliente);
+            PaginaPrincipal.agregarPedido(estado);
         }
     }
 
