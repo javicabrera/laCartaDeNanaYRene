@@ -31,7 +31,7 @@ public class Pedidos extends javax.swing.JFrame {
     public Pedidos() {
         initComponents();
         this.setLocationRelativeTo(null);
-        cp = new ControladorPedido();
+        cp = new ControladorPedido(almacen);
         modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
         //Sólo permite seleccionar un elemento de la tabla
         tablaPedidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -177,7 +177,7 @@ public class Pedidos extends javax.swing.JFrame {
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
 
-        cp = new ControladorPedido();
+        cp = new ControladorPedido(almacen);
         if(obtieneFilaSeleccionada()>=0){
             Pedido pedido = almacen.getPedidos().get(obtieneFilaSeleccionada());
 
@@ -230,7 +230,7 @@ public class Pedidos extends javax.swing.JFrame {
             if(JOptionPane.showConfirmDialog(this, "¿Desea cancelar el pedido?", 
                     "Cancelar Pedido", 0)==0){
                 cancelarPedido();
-                cp = new ControladorPedido();
+                cp = new ControladorPedido(almacen);
 
                     Pedido pedido = almacen.getPedidos().get(obtieneFilaSeleccionada());
                     boolean abono = cp.cancelarPedido(pedido);
@@ -357,14 +357,16 @@ public class Pedidos extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
-        DefaultTableModel modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
-        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-            modeloTabla.removeRow(0);
-        }
+//        DefaultTableModel modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
+//        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+//            modeloTabla.removeRow(0);
+//        }
+
+        modeloTabla.setRowCount(0);
         this.almacen = almacen;
         String pattern = "dd-MM-yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        for(Pedido p: almacen.getPedidos()){
+        for(Pedido p: this.almacen.getPedidos()){
             anadirFila(p.getNombreCliente(), simpleDateFormat.format(p.getFechaRetiro()),
                     p.getPrecioTotal(), p.getEstado());
         }

@@ -30,9 +30,7 @@ public class Productos extends javax.swing.JFrame {
         
         //Sólo permite seleccionar un elemento de la tabla
         tablaProductos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        modeloTabla = (DefaultTableModel) tablaProductos.getModel();
-        
-        
+        modeloTabla = (DefaultTableModel) tablaProductos.getModel();   
     }
 
     /**
@@ -176,8 +174,8 @@ public class Productos extends javax.swing.JFrame {
         if(obtieneFilaSeleccionada()>=0){
             Producto producto = almacen.getProductos().get(obtieneFilaSeleccionada());
             ControladorInterfaces.mostrarProductos(false);
-            ControladorInterfaces.mostrarEditarProducto(true, producto);
-            borrarFila();
+            ControladorInterfaces.mostrarEditarProducto(true, producto, obtieneFilaSeleccionada());
+            
         }
         else{
             JOptionPane.showMessageDialog(this, "Debe seleccionar un producto",
@@ -195,7 +193,7 @@ public class Productos extends javax.swing.JFrame {
                 ArrayList<Producto> aux = almacen.getProductos();
                 aux.remove(obtieneFilaSeleccionada());
                 almacen.setProductos(aux);
-                borrarFila();
+                borrarFila(obtieneFilaSeleccionada());
             }
         }
         else{
@@ -279,15 +277,17 @@ public class Productos extends javax.swing.JFrame {
         modeloTabla.addRow(row);
     }
     
-    public void borrarFila(){
-        int fila = tablaProductos.getSelectedRow();
-         if (fila==-1) {
-             JOptionPane.showMessageDialog(this, "Debe seleccionar un producto",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-             return;
-         }
+    public static void borrarFila(int fila){
          
          modeloTabla.removeRow(fila);
+    }
+    
+    public static void editarFila(int fila, String nombre, int precioVenta, 
+            double tiempoElaboracion, String materiasPrimas){
+        modeloTabla.setValueAt(nombre, fila, 0);
+        modeloTabla.setValueAt("$"+precioVenta, fila, 1);
+        modeloTabla.setValueAt(tiempoElaboracion, fila, 2);
+        modeloTabla.setValueAt(materiasPrimas, fila, 3);
     }
     
     private int obtieneFilaSeleccionada(){
@@ -300,12 +300,13 @@ public class Productos extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
-        DefaultTableModel modeloTabla = (DefaultTableModel) tablaProductos.getModel();
-        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-            modeloTabla.removeRow(0);
-        }
+//        DefaultTableModel modeloTabla = (DefaultTableModel) tablaProductos.getModel();
+//        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+//            modeloTabla.removeRow(0);
+//        }
+        modeloTabla.setRowCount(0);
         this.almacen = almacen;
-        for(Producto p: almacen.getProductos()){
+        for(Producto p: this.almacen.getProductos()){
             anadirFila(p.getNombre(),p.getPrecioVenta(),p.getTiempoElaboracion()
             ,p.getMateriasString());
         }

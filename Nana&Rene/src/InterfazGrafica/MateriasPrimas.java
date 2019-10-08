@@ -170,8 +170,7 @@ public class MateriasPrimas extends javax.swing.JFrame {
         if(obtieneFilaSeleccionada()>=0){
             MateriaPrima mp = almacen.getMateriasPrimas().get(obtieneFilaSeleccionada());
             ControladorInterfaces.mostrarMateriasPrimas(false);
-            ControladorInterfaces.mostrarEditarMateriaPrima(true, mp);
-            borrarFila();
+            ControladorInterfaces.mostrarEditarMateriaPrima(true, mp, obtieneFilaSeleccionada());
         }
         else{
             JOptionPane.showMessageDialog(this, "Debe seleccionar una materia prima",
@@ -190,7 +189,7 @@ public class MateriasPrimas extends javax.swing.JFrame {
                 ArrayList<MateriaPrima> aux = almacen.getMateriasPrimas();
                 aux.remove(obtieneFilaSeleccionada());
                 almacen.setMateriasPrimas(aux);
-                borrarFila();
+                borrarFila(obtieneFilaSeleccionada());
             }
         }
         else{
@@ -205,12 +204,13 @@ public class MateriasPrimas extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
-        DefaultTableModel modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();
-        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-            modeloTabla.removeRow(0);
-        }
+//        DefaultTableModel modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();
+//        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+//            modeloTabla.removeRow(0);
+//        }
+        modeloTabla.setRowCount(0);
         this.almacen = almacen;
-        for(MateriaPrima m: almacen.getMateriasPrimas()){
+        for(MateriaPrima m: this.almacen.getMateriasPrimas()){
             anadirFila(m.getNombre(), m.getCantidad());
         }
     }
@@ -326,15 +326,13 @@ public class MateriasPrimas extends javax.swing.JFrame {
         return tablaMateriasPrimas.getSelectedRow();
     }
     
-    private void borrarFila(){
-        int fila = tablaMateriasPrimas.getSelectedRow();
-         if (fila==-1) {
-             JOptionPane.showMessageDialog(this, "Debe seleccionar una materia prima",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-             return;
-         }
-         
+    public static void borrarFila(int fila){
          modeloTabla.removeRow(fila);
+    }
+    
+    public static void editarFila(int fila, String nombre, double cantidad){
+        modeloTabla.setValueAt(nombre, fila, 0);
+        modeloTabla.setValueAt(cantidad, fila, 1);
     }
 
 

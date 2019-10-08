@@ -44,9 +44,10 @@ public class NuevoProducto extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
+        infoPanel = new InfoPanel();
         boxMateriaPrima.removeAllItems();
         this.almacen = almacen;
-        for(MateriaPrima materia: almacen.getMateriasPrimas()){
+        for(MateriaPrima materia: this.almacen.getMateriasPrimas()){
             boxMateriaPrima.addItem(materia.getNombre());
         }
     }
