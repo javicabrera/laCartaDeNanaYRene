@@ -2,8 +2,13 @@
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import logica.ControladorInterfaces;
-
-
+import BaseDeDatos.*;
+import logica.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 
 /*
@@ -16,32 +21,51 @@ import logica.ControladorInterfaces;
  *
  * @author elias
  */
-public class Main {
+public class Main 
+{
+    private static ArrayList<Producto> productos;
+    private static ArrayList<Pedido> pedidos;
+    private static ArrayList<MateriaPrima> materiasPrimas;
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
         
-//        try {
-//        UIManager.setLookAndFeel(
-//        "javax.swing.plaf.nimbus.NimbusLookAndFeel");
-//        } 
-//        catch (UnsupportedLookAndFeelException e) {
-//           // handle exception
-//        }
-//        catch (ClassNotFoundException e) {
-//           // handle exception
-//        }
-//        catch (InstantiationException e) {
-//           // handle exception
-//        }
-//        catch (IllegalAccessException e) {
-//           // handle exception
-//        }
+        try {
+        UIManager.setLookAndFeel(
+        "javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } 
+        catch (UnsupportedLookAndFeelException e) {
+           // handle exception
+        }
+        catch (ClassNotFoundException e) {
+           // handle exception
+        }
+        catch (InstantiationException e) {
+           // handle exception
+        }
+        catch (IllegalAccessException e) {
+           // handle exception
+        }
 
-        ControladorInterfaces controlador = new ControladorInterfaces();
-        ControladorInterfaces.iniciarInterfaz();
-    }
-    
+        productos = new ArrayList<Producto>();
+        pedidos = new ArrayList<Pedido>();
+        materiasPrimas = new ArrayList<MateriaPrima>();
+        GestionExcel gestionExcel = new GestionExcel();
+        File rutaMateriasPrimas = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\MateriasPrimas.xlsx");
+        File rutaProductos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\Productos.xlsx");
+        File rutaPedidos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\Pedidos.xlsx");
+        
+        materiasPrimas  = gestionExcel.importarMateriasPrimas(rutaMateriasPrimas);
+        productos = gestionExcel.importarProductos(rutaProductos);
+        pedidos = gestionExcel.importarPedidos(rutaPedidos);
+        
+        File tMateriasPrimas = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\testMateriasPrimas.xlsx");
+        gestionExcel.exportarMateriasPrimas(tMateriasPrimas);
+        File tProductos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\testProductos.xlsx");
+        gestionExcel.exportarProductos(tProductos);
+        File tPedidos = new File("C:\\Users\\MarceloPablo\\Documents\\NetBeansProjects\\laCartaDeNanaYRene\\testPedidos.xlsx");
+        gestionExcel.exportarPedido(tPedidos);
+    }  
 }

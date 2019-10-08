@@ -75,7 +75,7 @@ public class MateriasPrimas extends javax.swing.JFrame {
         });
         getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, 120, 70));
 
-        btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/trash16.png"))); // NOI18N
+        btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/basurero16.png"))); // NOI18N
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
@@ -169,12 +169,13 @@ public class MateriasPrimas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+
         MateriaPrima mp = almacen.getMateriasPrimas().get(obtieneFilaSeleccionada());
         ControladorInterfaces.mostrarMateriasPrimas(false);
         ControladorInterfaces.mostrarEditarMateriaPrima(true, mp);
+    }
         
-        
-    }//GEN-LAST:event_btnEditarActionPerformed
+//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         if(JOptionPane.showConfirmDialog(this, "¿Desea eliminar la materia prima?", 

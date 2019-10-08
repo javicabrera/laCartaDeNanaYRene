@@ -78,7 +78,7 @@ public class Productos extends javax.swing.JFrame {
         });
         getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, 120, 70));
 
-        btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/trash16.png"))); // NOI18N
+        btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/basurero16.png"))); // NOI18N
         btnBorrar.setToolTipText("Eliminar");
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

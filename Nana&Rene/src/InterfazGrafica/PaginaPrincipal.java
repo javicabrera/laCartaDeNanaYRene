@@ -5,6 +5,8 @@
  */
 package InterfazGrafica;
 
+import BaseDeDatos.GestionExcel;
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
@@ -56,6 +58,7 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
+        SalirYExportar = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -124,6 +127,14 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         titulo.setForeground(new java.awt.Color(255, 255, 255));
         titulo.setText("LA CARTA DE NANÁ Y RENÉ");
 
+        SalirYExportar.setText("Salir");
+        SalirYExportar.setActionCommand("SalirYExportar");
+        SalirYExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalirYExportar(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelSuperiorLayout = new javax.swing.GroupLayout(panelSuperior);
         panelSuperior.setLayout(panelSuperiorLayout);
         panelSuperiorLayout.setHorizontalGroup(
@@ -133,7 +144,9 @@ public class PaginaPrincipal extends javax.swing.JFrame {
                 .addComponent(icon)
                 .addGap(18, 18, 18)
                 .addComponent(titulo)
-                .addContainerGap(324, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                .addComponent(SalirYExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68))
         );
         panelSuperiorLayout.setVerticalGroup(
             panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,9 +156,13 @@ public class PaginaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(titulo)
+                .addGroup(panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(SalirYExportar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18))
         );
+
+        SalirYExportar.getAccessibleContext().setAccessibleName("SalirYExportar");
 
         getContentPane().add(panelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 70));
 
@@ -175,6 +192,16 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         ControladorInterfaces.mostrarPrincipal(false);
         ControladorInterfaces.mostrarProductos(true);
     }//GEN-LAST:event_btnProductosActionPerformed
+
+    private void SalirYExportar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirYExportar
+        GestionExcel ge= new GestionExcel();
+        File tProductos = new File("C:\\Users\\MarceloPablo\\Documents\\NetBeansProjects\\laCartaDeNanaYRene\\testProductos.xlsx");
+        ge.exportarProductos(tProductos);
+        File tPedidos = new File("C:\\Users\\MarceloPablo\\Documents\\NetBeansProjects\\laCartaDeNanaYRene\\testPedidos.xlsx");
+        ge.exportarPedido(tPedidos);
+        File tMateriasPrimas = new File("C:\\Users\\MarceloPablo\\Documents\\NetBeansProjects\\laCartaDeNanaYRene\\testMateriasPrimas.xlsx");
+        ge.exportarMateriasPrimas(tMateriasPrimas);
+    }//GEN-LAST:event_SalirYExportar
 
     /**
      * @param args the command line arguments
@@ -216,6 +243,7 @@ public class PaginaPrincipal extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton SalirYExportar;
     private javax.swing.JLabel background;
     private javax.swing.JButton btnClientesHabituales;
     private javax.swing.JButton btnElaborarReportes;
