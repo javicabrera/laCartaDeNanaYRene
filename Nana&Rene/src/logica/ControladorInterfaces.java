@@ -1,6 +1,7 @@
 package logica;
 
 
+import BaseDeDatos.GestionExcel;
 import InterfazGrafica.EditarMateriaPrima;
 import InterfazGrafica.EditarProducto;
 import InterfazGrafica.MateriasPrimas;
@@ -32,19 +33,25 @@ public class ControladorInterfaces {
     private static EditarMateriaPrima editarMateriaPrima;
     private static NuevaMateriaPrima registarMateriaPrima;
         
-    public ControladorInterfaces(Almacen almacen){
+    public ControladorInterfaces(Almacen almacen, GestionExcel ge){
         this.principal = new PaginaPrincipal();
+        this.principal.setAlmacen(almacen);
+        this.principal.setGe(ge);
         this.nuevoPedido = new NuevoPedido();
+        this.nuevoPedido.setAlmacen(almacen);
         this.gestionaPedido = new Pedidos();
         this.gestionaPedido.setAlmacen(almacen);
         this.productos = new Productos();
         this.productos.setAlmacen(almacen);
         this.nuevoProducto = new NuevoProducto();
+        this.nuevoProducto.setAlmacen(almacen);
         this.editarProducto = new EditarProducto();
+        this.editarProducto.setAlmacen(almacen);
         this.materiasPrimas = new MateriasPrimas();
         this.materiasPrimas.setAlmacen(almacen);
         this.editarMateriaPrima = new EditarMateriaPrima();
         this.registarMateriaPrima = new NuevaMateriaPrima();
+        this.registarMateriaPrima.setAlmacen(almacen);
     }
     
     public static void iniciarInterfaz(){

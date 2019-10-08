@@ -5,9 +5,7 @@ import logica.ControladorInterfaces;
 import BaseDeDatos.*;
 import logica.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 
@@ -57,9 +55,9 @@ public class Main
         
         
         GestionExcel gestionExcel = new GestionExcel();
-        File rutaMateriasPrimas = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\MateriasPrimas.xlsx");
-        File rutaProductos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\Productos.xlsx");
-        File rutaPedidos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\Pedidos.xlsx");
+        File rutaMateriasPrimas = new File("/Users/isavo/Desktop/U/8º semestre/Construccion de Software/Repositorios/laCartaDeNanaYRene/MateriasPrimas.xlsx");
+        File rutaProductos = new File("/Users/isavo/Desktop/U/8º semestre/Construccion de Software/Repositorios/laCartaDeNanaYRene/Productos.xlsx");
+        File rutaPedidos = new File("/Users/isavo/Desktop/U/8º semestre/Construccion de Software/Repositorios/laCartaDeNanaYRene/Pedidos.xlsx");
         
         materiasPrimas  = gestionExcel.importarMateriasPrimas(rutaMateriasPrimas);
         productos = gestionExcel.importarProductos(rutaProductos);
@@ -67,14 +65,14 @@ public class Main
         System.out.println("Se importaron los datos");
         
         almacen = new Almacen(pedidos, productos, materiasPrimas, null);
-        controladorInterfaces = new ControladorInterfaces(almacen);
+        controladorInterfaces = new ControladorInterfaces(almacen, gestionExcel);
         controladorInterfaces.iniciarInterfaz();
         
-        File tMateriasPrimas = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\testMateriasPrimas.xlsx");
-        gestionExcel.exportarMateriasPrimas(tMateriasPrimas);
-        File tProductos = new File("C:\\Users\\jaavi\\Documents\\laCartaDeNanaYRene\\testProductos.xlsx");
-        gestionExcel.exportarProductos(tProductos);
-        File tPedidos = new File("C:\\Users\\MarceloPablo\\Documents\\NetBeansProjects\\laCartaDeNanaYRene\\testPedidos.xlsx");
-        gestionExcel.exportarPedido(tPedidos);
+//        File tMateriasPrimas = new File("/Users/isavo/Desktop/U/8º semestre/Construccion de Software/Repositorios/laCartaDeNanaYRene/testMateriasPrimas.xlsx");
+//        gestionExcel.exportarMateriasPrimas(tMateriasPrimas);
+//        File tProductos = new File("/Users/isavo/Desktop/U/8º semestre/Construccion de Software/Repositorios/laCartaDeNanaYRene/testProductos.xlsx");
+//        gestionExcel.exportarProductos(tProductos);
+//        File tPedidos = new File("/Users/isavo/Desktop/U/8º semestre/Construccion de Software/Repositorios/laCartaDeNanaYRene/testPedidos.xlsx");
+//        gestionExcel.exportarPedido(tPedidos);
     }  
 }

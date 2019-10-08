@@ -11,7 +11,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import logica.Almacen;
 import logica.ControladorInterfaces;
-import logica.MateriaPrima;
 import logica.Producto;
 
 /**
@@ -27,13 +26,10 @@ public class Productos extends javax.swing.JFrame {
     public Productos() {
         initComponents();
         this.setLocationRelativeTo(null);
-        //almacen = new Almacen();
         
         //Sólo permite seleccionar un elemento de la tabla
         tablaProductos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
-        anadirFila("Pastel de Prueba", 5000, "4 años", "cosas");
-        anadirFila("Completo de Prueba", 8000, "1 día", "cosas");
         
         
     }
@@ -58,8 +54,9 @@ public class Productos extends javax.swing.JFrame {
         titulo = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setLocation(new java.awt.Point(0, 0));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCrear.setText("+ Crear");
@@ -258,7 +255,8 @@ public class Productos extends javax.swing.JFrame {
         });
     }
     
-    private void anadirFila(String nombre, int precioVenta, String tiempoElab, String materiasPrimas) {
+    private void anadirFila(String nombre, int precioVenta, int tiempoElab,
+            String materiasPrimas) {
         
         Object[] row = {nombre, "$"+precioVenta, tiempoElab, materiasPrimas};
         DefaultTableModel modeloTabla = (DefaultTableModel) tablaProductos.getModel();
@@ -289,6 +287,10 @@ public class Productos extends javax.swing.JFrame {
 
     public void setAlmacen(Almacen almacen) {
         this.almacen = almacen;
+        for(Producto p: almacen.getProductos()){
+            anadirFila(p.getNombre(),p.getPrecioVenta(),p.getTiempoElaboracion()
+            ,p.getMateriasString());
+        }
     }
 
 

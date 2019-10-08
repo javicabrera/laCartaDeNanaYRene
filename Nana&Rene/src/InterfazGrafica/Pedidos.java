@@ -5,6 +5,7 @@
  */
 package InterfazGrafica;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -29,14 +30,11 @@ public class Pedidos extends javax.swing.JFrame {
     public Pedidos() {
         initComponents();
         this.setLocationRelativeTo(null);
-        //almacen = new Almacen();
         cp = new ControladorPedido();
         
         //Sólo permite seleccionar un elemento de la tabla
         tablaPedidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
-        anadirFila("Juanito De Prueba 1", "21/12/2032", 21000, "Pendiente");
-        anadirFila("Juanito De Prueba 2", "21/12/2032", 21000, "Pendiente");
         
     }
 
@@ -60,8 +58,9 @@ public class Pedidos extends javax.swing.JFrame {
         titulo = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setLocation(new java.awt.Point(0, 0));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCrear.setText("+ Crear");
@@ -149,7 +148,7 @@ public class Pedidos extends javax.swing.JFrame {
             .addGroup(panelSuperiorLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(icon)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(titulo)
@@ -347,6 +346,12 @@ public class Pedidos extends javax.swing.JFrame {
 
     public void setAlmacen(Almacen almacen) {
         this.almacen = almacen;
+        String pattern = "dd-MM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        for(Pedido p: almacen.getPedidos()){
+            anadirFila(p.getNombreCliente(), simpleDateFormat.format(p.getFechaRetiro()),
+                    p.getPrecioTotal(), p.getEstado());
+        }
     }
 
     

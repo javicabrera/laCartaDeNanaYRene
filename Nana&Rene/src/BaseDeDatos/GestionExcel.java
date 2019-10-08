@@ -426,6 +426,20 @@ public class GestionExcel{
         }
         return respuesta;
     }
+
+    public void setProductos(ArrayList<Producto> productos) {
+        this.productos = productos;
+    }
+
+    public void setPedidos(ArrayList<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
+    public void setMateriasPrimas(ArrayList<MateriaPrima> materiasPrimas) {
+        this.materiasPrimas = materiasPrimas;
+    }
+    
+    
 }
 
 /*

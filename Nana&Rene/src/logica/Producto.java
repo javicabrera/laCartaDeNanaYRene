@@ -65,5 +65,14 @@ public class Producto
     {
         this.materiasPrimas = materiasPrimas;
     }
+    
+    public String getMateriasString()
+    {
+        String materias = "";
+        for(MateriaPrima m: this.materiasPrimas.keySet()){
+            materias += m.getNombre() + ", ";
+        }
+        return materias;
+    }
 
 }
