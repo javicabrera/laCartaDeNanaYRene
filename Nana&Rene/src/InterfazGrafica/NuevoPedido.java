@@ -54,7 +54,7 @@ public class NuevoPedido extends javax.swing.JFrame {
     public void setAlmacen(Almacen almacen) {
         boxProductos.removeAllItems();
         this.almacen = almacen;
-        for(Producto p: almacen.getProductos()){
+        for(Producto p: this.almacen.getProductos()){
             boxProductos.addItem(p.getNombre());
         }
     }
@@ -301,10 +301,12 @@ public class NuevoPedido extends javax.swing.JFrame {
         fRetiro.setText("");
         precioAbonado.setText("");
         precioTotal.setText("0");
+        total = 0;
         descuento.setText("");
         nombre.setText("");
         numero.setText("");
         correo.setText("");
+        productos = new HashMap<>();
         infoPanel = new InfoPanel();
         ControladorInterfaces.mostrarNuevoPedido(false);
         ControladorInterfaces.mostrarGestionaPedido(true);
@@ -405,6 +407,7 @@ public class NuevoPedido extends javax.swing.JFrame {
             String estado = "Estado: " + p.getEstado();
             PaginaPrincipal.agregarPedido(cliente);
             PaginaPrincipal.agregarPedido(estado);
+            PaginaPrincipal.agregarPedido("___________");
             String pattern = "dd-MM-yyyy";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             Pedidos.anadirFila(nombre.getText(), simpleDateFormat.format(DateRetiro), 
@@ -413,11 +416,14 @@ public class NuevoPedido extends javax.swing.JFrame {
             fSolicitud.setText("");
             fRetiro.setText("");
             precioAbonado.setText("");
+            total = 0;
             precioTotal.setText("0");
             descuento.setText("");
             nombre.setText("");
             numero.setText("");
             correo.setText("");
+            
+            productos = new HashMap<>();
             infoPanel = new InfoPanel();
             ControladorInterfaces.mostrarNuevoPedido(false);
             ControladorInterfaces.mostrarGestionaPedido(true);

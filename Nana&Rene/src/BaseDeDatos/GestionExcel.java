@@ -70,7 +70,12 @@ public class GestionExcel{
                             String[] mp = listado.split(",");
                             for(int i = 0; i < mp.length; i++)
                             {
-                                MateriaPrima objMP = new MateriaPrima(mp[i], 0.0);
+                                MateriaPrima objMP = null;
+                                for(MateriaPrima materia: this.materiasPrimas){
+                                    if(materia.getNombre().equals(mp[i])){
+                                        objMP = materia;
+                                    }
+                                }
                                 materiasPrimas.put(objMP, 0);
                             }   break;
                         case 3:
