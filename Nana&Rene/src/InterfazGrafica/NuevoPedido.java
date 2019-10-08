@@ -94,6 +94,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         precioTotal = new javax.swing.JLabel();
         btnAgregarProducto = new javax.swing.JButton();
         txt$ = new javax.swing.JLabel();
+        txtPorcentaje = new javax.swing.JLabel();
         panelResumenPedido = new javax.swing.JPanel();
         txtResumenPedido = new javax.swing.JPanel();
         resumenPedido = new javax.swing.JLabel();
@@ -167,7 +168,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         getContentPane().add(precioAbonado, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, 130, -1));
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 450, -1));
         getContentPane().add(numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 150, -1));
-        getContentPane().add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 130, -1));
+        getContentPane().add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 50, -1));
         getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 130, -1));
 
         fRetiro.setText("dd/MM/aaaa");
@@ -213,6 +214,9 @@ public class NuevoPedido extends javax.swing.JFrame {
 
         txt$.setText("$");
         getContentPane().add(txt$, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, -1, 20));
+
+        txtPorcentaje.setText("%");
+        getContentPane().add(txtPorcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, -1, 20));
 
         panelResumenPedido.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -516,6 +520,7 @@ public class NuevoPedido extends javax.swing.JFrame {
     private javax.swing.JLabel txtFechaSolicitud;
     private javax.swing.JLabel txtNCliente;
     private javax.swing.JLabel txtNumero;
+    private javax.swing.JLabel txtPorcentaje;
     private javax.swing.JLabel txtPrecioAbonado;
     private javax.swing.JLabel txtPrecioTotal;
     private javax.swing.JLabel txtProducto;
