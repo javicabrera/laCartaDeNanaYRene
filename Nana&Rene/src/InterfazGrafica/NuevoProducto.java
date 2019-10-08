@@ -21,7 +21,7 @@ import logica.MateriaPrima;
  * @author elias
  */
 public class NuevoProducto extends javax.swing.JFrame {
-    private HashMap<MateriaPrima,Integer> materias;
+    private HashMap<MateriaPrima,Double> materias;
     private InfoPanel infoPanel;
     private Almacen almacen;
 
@@ -249,7 +249,7 @@ public class NuevoProducto extends javax.swing.JFrame {
             }
         }
         try{
-            int cant = Integer.parseInt(cantidad.getText());
+            Double cant = Double.parseDouble(cantidad.getText());
             materias.put(materia, cant);
             infoPanel.agregaProductoOrMatPrima(nombreMateria, cant);
         } catch (NumberFormatException e){
