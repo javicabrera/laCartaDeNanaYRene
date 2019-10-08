@@ -2,7 +2,7 @@ pruebas crear producto:
 	1.-nombre: torta
 	   precioVenta:30000
 	   tiempoRequerido:3
-	   materiasPrimas: crema,harina,huevo,manjar
+	   materiasPrimas: crema(1),harina(2),huevo(10),manjar(2)
 	ÉXITO
 
 	2.-nombre: ---
@@ -17,21 +17,33 @@ pruebas crear producto:
 	   tiempoRequerido:0
 	   materiasPrimas: 
 	FALLO,faltan campos por completar, no hay
-	materias primas
+	materias primas ni el precio de venta
+	4.-nombre: alfajor
+	   precioVenta: 250
+	   tiempoRequerido:1	
+	   materiasPrimas: galleta,manjar,chocolate
+	FALLO, materias primas no tienen sus cantidades
+	correspondientes
+
+	5.-nombre: cuchufli bañado en chocolate
+	   precioVenta: 100
+	   tiempoRequerido:0	
+	   materiasPrimas: 
+	FALLO, faltan campos por completar, no ha materias primas
 
 Pruebas modificar producto
 
 	1.-nombre: empolvado
 	   precioVenta:--- ->300
 	   tiempoRequerido:0
-	   materiasPrimas:--- -> harina,huevo,aceite,
-	   azucar
+	   materiasPrimas:--- -> harina(50),huevo(3),aceite(1),
+	   azucar(1)
   	ÉXITO, campos llenados completamente
 	
 	2.-nombre: torta
 	   precioVenta:30000 --> 23000
 	   tiempoRequerido:1
-	   materiasPrimas: crema,harina,huevo,manjar
+	   materiasPrimas: crema(1),harina(2),huevo(10),manjar(2)
 	ÉXITO, modificacion aceptada
 	
 	3.-nombre: ---  -> chileno
@@ -40,3 +52,15 @@ Pruebas modificar producto
 	   materiasPrimas: ---
 	FALLO, faltan las materias primas que componen
 	el producto a vender
+
+	4.-nombre: alfajor
+	   precioVenta: 250
+	   tiempoRequerido:1	
+	   materiasPrimas: galleta(1),manjar(1),chocolate(1)
+	ÉXITO, modificacion aceptada
+
+	5.-nombre: cuchufli bañado en chocolate
+	   precioVenta: 100
+	   tiempoRequerido:0	
+	   materiasPrimas: vaina(1),chocolate(1),manjar(1)
+	ÉXITO, modificacion aceptara
