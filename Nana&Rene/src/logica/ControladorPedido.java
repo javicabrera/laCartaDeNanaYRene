@@ -10,6 +10,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class ControladorPedido {
     private Almacen almacen;
+
+    public ControladorPedido(Almacen almacen) {
+        this.almacen = almacen;
+    }
     
     public boolean cancelarPedido(Pedido p){ 
         Date fechaActual = new Date();

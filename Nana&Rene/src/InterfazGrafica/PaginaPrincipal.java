@@ -38,12 +38,14 @@ public class PaginaPrincipal extends javax.swing.JFrame {
     }
     
     public void setAlmacen(Almacen almacen){
+        PaginaPrincipal.model.clear();
         this.almacen = almacen;
-        for(Pedido p: almacen.getPedidos()){
+        for(Pedido p: this.almacen.getPedidos()){
             String cliente = p.getNombreCliente();
             String estado = "Estado: " + p.getEstado();
             PaginaPrincipal.agregarPedido(cliente);
             PaginaPrincipal.agregarPedido(estado);
+            PaginaPrincipal.agregarPedido("___________");
         }
     }
 
@@ -213,11 +215,11 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         ge.setPedidos(almacen.getPedidos());
         ge.setProductos(almacen.getProductos());
         
-        File tProductos = new File("testProductos.xlsx");
+        File tProductos = new File("Productos.xlsx");
         ge.exportarProductos(tProductos);
-        File tPedidos = new File("testPedidos.xlsx");
+        File tPedidos = new File("Pedidos.xlsx");
         ge.exportarPedido(tPedidos);
-        File tMateriasPrimas = new File("testMateriasPrimas.xlsx");
+        File tMateriasPrimas = new File("MateriasPrimas.xlsx");
         ge.exportarMateriasPrimas(tMateriasPrimas);
         System.exit(0);
     }//GEN-LAST:event_SalirYExportar

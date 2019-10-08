@@ -17,6 +17,7 @@ import logica.MateriaPrima;
  */
 public class EditarMateriaPrima extends javax.swing.JFrame {
     private MateriaPrima materia;
+    private int fila;
 
     /**
      * Creates new form PaginaPrincipalFX
@@ -31,6 +32,12 @@ public class EditarMateriaPrima extends javax.swing.JFrame {
         nombre.setText(this.materia.getNombre());
         cantidad.setText(String.valueOf(this.materia.getCantidad()));
     }
+
+    public void setFila(int fila) {
+        this.fila = fila;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -130,7 +137,7 @@ public class EditarMateriaPrima extends javax.swing.JFrame {
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
         nombre.setText("");
         cantidad.setText("");
-        ControladorInterfaces.mostrarEditarMateriaPrima(false, materia);
+        ControladorInterfaces.mostrarEditarMateriaPrima(false, materia,fila);
         ControladorInterfaces.mostrarMateriasPrimas(true);
     }//GEN-LAST:event_bVolverActionPerformed
 
@@ -149,8 +156,8 @@ public class EditarMateriaPrima extends javax.swing.JFrame {
                 materia.modificarCantidad(cantMateria);
                 JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", 
                 JOptionPane.INFORMATION_MESSAGE);
-                MateriasPrimas.anadirFila(nombreMateria, cantMateria);
-                ControladorInterfaces.mostrarEditarMateriaPrima(false, materia);
+//                MateriasPrimas.editarFila(fila, nombreMateria, cantMateria);
+                ControladorInterfaces.mostrarEditarMateriaPrima(false, materia, fila);
                 ControladorInterfaces.mostrarMateriasPrimas(true);
                 nombre.setText("");
                 cantidad.setText("");
