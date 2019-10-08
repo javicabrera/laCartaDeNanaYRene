@@ -131,7 +131,15 @@ public class GestionExcel{
                             {
                                 String[] productoCantidad = p2[j].split("-");
                                 //System.out.println(Arrays.toString(productoCantidad));
-                                productos.put(new Producto(productoCantidad[1], 0, 0, null), Integer.parseInt(productoCantidad[0]));
+                                Producto  prod = null;
+                                for(Producto aux: this.productos){
+                                    if(aux.getNombre().equals(productoCantidad[1])){
+                                        prod = aux;
+                                        break;
+                                    }
+                                }
+                                
+                                productos.put(prod, Integer.parseInt(productoCantidad[0]));
                             }
                             break;
                         case 1:

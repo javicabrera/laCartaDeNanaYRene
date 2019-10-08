@@ -286,6 +286,10 @@ public class Productos extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) tablaProductos.getModel();
+        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+            modeloTabla.removeRow(0);
+        }
         this.almacen = almacen;
         for(Producto p: almacen.getProductos()){
             anadirFila(p.getNombre(),p.getPrecioVenta(),p.getTiempoElaboracion()

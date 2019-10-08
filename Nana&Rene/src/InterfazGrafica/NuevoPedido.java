@@ -52,6 +52,7 @@ public class NuevoPedido extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
+        boxProductos.removeAllItems();
         this.almacen = almacen;
         for(Producto p: almacen.getProductos()){
             boxProductos.addItem(p.getNombre());
@@ -304,6 +305,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         nombre.setText("");
         numero.setText("");
         correo.setText("");
+        infoPanel = new InfoPanel();
         ControladorInterfaces.mostrarNuevoPedido(false);
         ControladorInterfaces.mostrarGestionaPedido(true);
         
@@ -385,7 +387,9 @@ public class NuevoPedido extends javax.swing.JFrame {
             almacen.setPedidos(aux);
             JOptionPane.showMessageDialog(this, "Guardado exitosamente",
                         "Guardado", JOptionPane.INFORMATION_MESSAGE);
-            PaginaPrincipal.agregarPedido(nombre.getText());
+            String resPedido = p.getNombreCliente() + "\nEstado: " + p.getEstado() 
+                    + "\n";
+            PaginaPrincipal.agregarPedido(resPedido);
             cantidad.setText("");
             fSolicitud.setText("");
             fRetiro.setText("");
@@ -395,6 +399,7 @@ public class NuevoPedido extends javax.swing.JFrame {
             nombre.setText("");
             numero.setText("");
             correo.setText("");
+            infoPanel = new InfoPanel();
             ControladorInterfaces.mostrarNuevoPedido(false);
             ControladorInterfaces.mostrarGestionaPedido(true);
 

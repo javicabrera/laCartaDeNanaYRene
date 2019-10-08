@@ -190,6 +190,10 @@ public class MateriasPrimas extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();
+        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+            modeloTabla.removeRow(0);
+        }
         this.almacen = almacen;
         for(MateriaPrima m: almacen.getMateriasPrimas()){
             anadirFila(m.getNombre(), m.getCantidad());
