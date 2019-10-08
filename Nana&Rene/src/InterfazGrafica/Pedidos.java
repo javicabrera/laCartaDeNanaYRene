@@ -345,6 +345,10 @@ public class Pedidos extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
+        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+            modeloTabla.removeRow(0);
+        }
         this.almacen = almacen;
         String pattern = "dd-MM-yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
