@@ -389,7 +389,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         }
         if(dcto<0 || dcto>100){
             flag4= false;
-            JOptionPane.showMessageDialog(this, "El descuento debe estar entre 0% y 100%",
+            JOptionPane.showMessageDialog(this, "El descuento debe estar entre 0 y 100",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
         
