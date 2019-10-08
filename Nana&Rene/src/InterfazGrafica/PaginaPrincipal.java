@@ -7,9 +7,8 @@ package InterfazGrafica;
 
 import BaseDeDatos.GestionExcel;
 import java.io.File;
-import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import javax.swing.JPanel;
+import logica.Almacen;
 import logica.ControladorInterfaces;
 
 /**
@@ -18,6 +17,8 @@ import logica.ControladorInterfaces;
  */
 public class PaginaPrincipal extends javax.swing.JFrame {
     private static DefaultListModel model;
+    private Almacen almacen;
+    private GestionExcel ge;
     /**
      * Creates new form PaginaPrincipalFX
      */
@@ -36,7 +37,14 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         PaginaPrincipal.model.addElement(s);
         
     }
+    
+    public void setAlmacen(Almacen almacen){
+        this.almacen = almacen;
+    }
 
+    public void setGe(GestionExcel ge){
+        this.ge = ge;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,7 +69,8 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         SalirYExportar = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtUPedidos.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
@@ -194,13 +203,18 @@ public class PaginaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void SalirYExportar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirYExportar
-        GestionExcel ge= new GestionExcel();
-        File tProductos = new File("C:\\Users\\MarceloPablo\\Documents\\NetBeansProjects\\laCartaDeNanaYRene\\testProductos.xlsx");
+
+        ge.setMateriasPrimas(almacen.getMateriasPrimas());
+        ge.setPedidos(almacen.getPedidos());
+        ge.setProductos(almacen.getProductos());
+        
+        File tProductos = new File("testProductos.xlsx");
         ge.exportarProductos(tProductos);
-        File tPedidos = new File("C:\\Users\\MarceloPablo\\Documents\\NetBeansProjects\\laCartaDeNanaYRene\\testPedidos.xlsx");
+        File tPedidos = new File("testPedidos.xlsx");
         ge.exportarPedido(tPedidos);
-        File tMateriasPrimas = new File("C:\\Users\\MarceloPablo\\Documents\\NetBeansProjects\\laCartaDeNanaYRene\\testMateriasPrimas.xlsx");
+        File tMateriasPrimas = new File("testMateriasPrimas.xlsx");
         ge.exportarMateriasPrimas(tMateriasPrimas);
+        System.exit(0);
     }//GEN-LAST:event_SalirYExportar
 
     /**
