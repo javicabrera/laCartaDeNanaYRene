@@ -16,13 +16,15 @@ public class Producto
     private String nombre;
     private int precioVenta;
     private int tiempoElaboracion; //En horas
-    private HashMap<MateriaPrima,Integer> materiasPrimas;
+    private HashMap<MateriaPrima, Double> materiasPrimas;
     
-    public Producto(String nombre, int precioVenta, int tiempoRequerido, HashMap<MateriaPrima,Integer> materiasPrimas)
+    public Producto(String nombre, int precioVenta, int tiempoRequerido, 
+            HashMap<MateriaPrima,Double> materiasPrimas)
     {
         this.nombre = nombre;
         this.precioVenta = precioVenta;
         this.tiempoElaboracion = tiempoRequerido;
+        this.materiasPrimas = new HashMap();
         this.materiasPrimas = materiasPrimas;
     }
 
@@ -56,13 +58,11 @@ public class Producto
         this.tiempoElaboracion = tiempoElaboracion;
     }
 
-    public HashMap<MateriaPrima,Integer> getMateriasPrimas() 
-    {
+    public HashMap<MateriaPrima, Double> getMateriasPrimas() {
         return materiasPrimas;
     }
 
-    public void setMateriasPrimas(HashMap<MateriaPrima,Integer> materiasPrimas)
-    {
+    public void setMateriasPrimas(HashMap<MateriaPrima, Double> materiasPrimas) {
         this.materiasPrimas = materiasPrimas;
     }
     

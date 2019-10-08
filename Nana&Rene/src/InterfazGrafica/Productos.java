@@ -19,6 +19,7 @@ import logica.Producto;
  */
 public class Productos extends javax.swing.JFrame {
     private Almacen almacen;
+    private static DefaultTableModel modeloTabla;
     
     /**
      * Creates new form PaginaPrincipalFX
@@ -29,9 +30,7 @@ public class Productos extends javax.swing.JFrame {
         
         //Sólo permite seleccionar un elemento de la tabla
         tablaProductos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        
-        
+        modeloTabla = (DefaultTableModel) tablaProductos.getModel();   
     }
 
     /**
@@ -172,20 +171,34 @@ public class Productos extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        Producto producto = almacen.getProductos().get(obtieneFilaSeleccionada());
-        ControladorInterfaces.mostrarProductos(false);
-        ControladorInterfaces.mostrarEditarProducto(true, producto);
+        if(obtieneFilaSeleccionada()>=0){
+            Producto producto = almacen.getProductos().get(obtieneFilaSeleccionada());
+            ControladorInterfaces.mostrarProductos(false);
+            ControladorInterfaces.mostrarEditarProducto(true, producto, obtieneFilaSeleccionada());
+            
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
         
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
-        if(JOptionPane.showConfirmDialog(this, "¿Desea eliminar el producto?", 
-                "Eliminar Producto", 0)==0){
-            borrarFila();
-            ArrayList<Producto> aux = almacen.getProductos();
-            aux.remove(obtieneFilaSeleccionada());
-            almacen.setProductos(aux);
+        if(obtieneFilaSeleccionada()>=0){
+            if(JOptionPane.showConfirmDialog(this, "¿Desea eliminar el producto?", 
+                    "Eliminar Producto", 0)==0){
+
+                ArrayList<Producto> aux = almacen.getProductos();
+                aux.remove(obtieneFilaSeleccionada());
+                almacen.setProductos(aux);
+                borrarFila(obtieneFilaSeleccionada());
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
@@ -255,25 +268,26 @@ public class Productos extends javax.swing.JFrame {
         });
     }
     
-    private void anadirFila(String nombre, int precioVenta, int tiempoElab,
+    public static void anadirFila(String nombre, int precioVenta, int tiempoElab,
             String materiasPrimas) {
         
         Object[] row = {nombre, "$"+precioVenta, tiempoElab, materiasPrimas};
-        DefaultTableModel modeloTabla = (DefaultTableModel) tablaProductos.getModel();
+        
         
         modeloTabla.addRow(row);
     }
     
-    private void borrarFila(){
-        int fila = tablaProductos.getSelectedRow();
-         DefaultTableModel modeloTabla = (DefaultTableModel) tablaProductos.getModel();
-         if (fila==-1) {
-             JOptionPane.showMessageDialog(this, "Debe seleccionar un producto",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-             return;
-         }
+    public static void borrarFila(int fila){
          
          modeloTabla.removeRow(fila);
+    }
+    
+    public static void editarFila(int fila, String nombre, int precioVenta, 
+            double tiempoElaboracion, String materiasPrimas){
+        modeloTabla.setValueAt(nombre, fila, 0);
+        modeloTabla.setValueAt("$"+precioVenta, fila, 1);
+        modeloTabla.setValueAt(tiempoElaboracion, fila, 2);
+        modeloTabla.setValueAt(materiasPrimas, fila, 3);
     }
     
     private int obtieneFilaSeleccionada(){
@@ -286,12 +300,13 @@ public class Productos extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
-        DefaultTableModel modeloTabla = (DefaultTableModel) tablaProductos.getModel();
-        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-            modeloTabla.removeRow(0);
-        }
+//        DefaultTableModel modeloTabla = (DefaultTableModel) tablaProductos.getModel();
+//        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+//            modeloTabla.removeRow(0);
+//        }
+        modeloTabla.setRowCount(0);
         this.almacen = almacen;
-        for(Producto p: almacen.getProductos()){
+        for(Producto p: this.almacen.getProductos()){
             anadirFila(p.getNombre(),p.getPrecioVenta(),p.getTiempoElaboracion()
             ,p.getMateriasString());
         }

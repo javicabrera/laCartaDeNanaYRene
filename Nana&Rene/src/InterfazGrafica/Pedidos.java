@@ -23,6 +23,7 @@ import logica.ControladorPedido;
 public class Pedidos extends javax.swing.JFrame {
     private Almacen almacen;
     private ControladorPedido cp;
+    private static DefaultTableModel modeloTabla;
     
     /**
      * Creates new form PaginaPrincipalFX
@@ -30,8 +31,8 @@ public class Pedidos extends javax.swing.JFrame {
     public Pedidos() {
         initComponents();
         this.setLocationRelativeTo(null);
-        cp = new ControladorPedido();
-        
+        cp = new ControladorPedido(almacen);
+        modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
         //Sólo permite seleccionar un elemento de la tabla
         tablaPedidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
@@ -176,68 +177,81 @@ public class Pedidos extends javax.swing.JFrame {
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
 
-        cp = new ControladorPedido();
-        Pedido pedido = almacen.getPedidos().get(obtieneFilaSeleccionada());
-        
-        String estado = pedido.getEstado();
-        String nuevo = "";
-        switch (estado){
-            case "Pendiente":
-                nuevo = "En proceso";
-                int caso = cp.elaborarPedido(pedido);
-                if(caso == 0){
+        cp = new ControladorPedido(almacen);
+        if(obtieneFilaSeleccionada()>=0){
+            Pedido pedido = almacen.getPedidos().get(obtieneFilaSeleccionada());
+
+            String estado = pedido.getEstado();
+            String nuevo = "";
+            switch (estado){
+                case "Pendiente":
+                    nuevo = "En proceso";
+                    int caso = cp.elaborarPedido(pedido);
+                    if(caso == 0){
+                        aumentarEstadoPedido();
+                    }
+                    else if (caso == 1){
+                        JOptionPane.showMessageDialog(this, "No se puede realizar "
+                                + "el pedido, no se ha abonado el 50%.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else if (caso == 2){
+                        JOptionPane.showMessageDialog(this, "No se puede realizar "
+                                + "el pedido, no hay suficiente materia prima.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else if (caso == 3){
+                        JOptionPane.showMessageDialog(this, "No se puede realizar "
+                                + "el pedido, no se ha abonado el 50% ni hay suficiente"
+                                + "materia prima.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+                case "En proceso":
+                    nuevo = "Finalizado";
                     aumentarEstadoPedido();
-                }
-                else if (caso == 1){
-                    JOptionPane.showMessageDialog(this, "No se puede realizar "
-                            + "el pedido, no se ha abonado el 50%.",
+                    pedido.setEstado(nuevo);
+                    break;
+                case "Finalizado":
+                    nuevo = "Retirado";
+                    aumentarEstadoPedido();
+                    pedido.setEstado(nuevo);
+                    break;
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido",
                     "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                else if (caso == 2){
-                    JOptionPane.showMessageDialog(this, "No se puede realizar "
-                            + "el pedido, no hay suficiente materia prima.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                else if (caso == 3){
-                    JOptionPane.showMessageDialog(this, "No se puede realizar "
-                            + "el pedido, no se ha abonado el 50% ni hay suficiente"
-                            + "materia prima.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                break;
-            case "En proceso":
-                nuevo = "Finalizado";
-                aumentarEstadoPedido();
-                pedido.setEstado(nuevo);
-                break;
-            case "Finalizado":
-                nuevo = "Retirado";
-                aumentarEstadoPedido();
-                pedido.setEstado(nuevo);
-                break;
         }
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        if(JOptionPane.showConfirmDialog(this, "¿Desea cancelar el pedido?", 
-                "Cancelar Pedido", 0)==0){
-            cancelarPedido();
-            cp = new ControladorPedido();
-            Pedido pedido = almacen.getPedidos().get(obtieneFilaSeleccionada());
-            boolean abono = cp.cancelarPedido(pedido);
-            int abonado = pedido.getPrecioAbonado();
-            if (abono){
-                JOptionPane.showMessageDialog(this,"Se debe devolver el abono de: $"
-                        + abonado + ".", "Cancelar Pedido", JOptionPane.INFORMATION_MESSAGE);
+        if(obtieneFilaSeleccionada()>=0){
+            if(JOptionPane.showConfirmDialog(this, "¿Desea cancelar el pedido?", 
+                    "Cancelar Pedido", 0)==0){
+                cancelarPedido();
+                cp = new ControladorPedido(almacen);
+
+                    Pedido pedido = almacen.getPedidos().get(obtieneFilaSeleccionada());
+                    boolean abono = cp.cancelarPedido(pedido);
+                    int abonado = pedido.getPrecioAbonado();
+                    if (abono){
+                        JOptionPane.showMessageDialog(this,"Se debe devolver el abono de: $"
+                                + abonado + ".", "Cancelar Pedido", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this,"No se devuelve abono.",""
+                                + "Cancelar Pedido", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    ArrayList<Pedido> aux = almacen.getPedidos();
+                    aux.remove(pedido);
+                    almacen.setPedidos(aux);
             }
-            else{
-                JOptionPane.showMessageDialog(this,"No se devuelve abono.",""
-                        + "Cancelar Pedido", JOptionPane.INFORMATION_MESSAGE);
-            }
-            ArrayList<Pedido> aux = almacen.getPedidos();
-            aux.remove(pedido);
-            almacen.setPedidos(aux);
         }
+        else{
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
@@ -290,10 +304,9 @@ public class Pedidos extends javax.swing.JFrame {
         });
     }
 
-    private void anadirFila(String cliente, String fechaRetiro, int precio, String estado) {
+    public static void anadirFila(String cliente, String fechaRetiro, int precio, String estado) {
         
         Object[] row = {cliente, fechaRetiro, "$"+precio, estado};
-        DefaultTableModel modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
         
         modeloTabla.addRow(row);
     }
@@ -303,8 +316,7 @@ public class Pedidos extends javax.swing.JFrame {
         return tablaPedidos.getSelectedRow();
     }
     
-    private void aumentarEstadoPedido(){
-        DefaultTableModel modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
+    public void aumentarEstadoPedido(){
         
         int fila = tablaPedidos.getSelectedRow();
         
@@ -345,14 +357,16 @@ public class Pedidos extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
-        DefaultTableModel modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
-        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-            modeloTabla.removeRow(0);
-        }
+//        DefaultTableModel modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
+//        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+//            modeloTabla.removeRow(0);
+//        }
+
+        modeloTabla.setRowCount(0);
         this.almacen = almacen;
         String pattern = "dd-MM-yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        for(Pedido p: almacen.getPedidos()){
+        for(Pedido p: this.almacen.getPedidos()){
             anadirFila(p.getNombreCliente(), simpleDateFormat.format(p.getFechaRetiro()),
                     p.getPrecioTotal(), p.getEstado());
         }

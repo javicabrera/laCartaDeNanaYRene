@@ -21,7 +21,7 @@ import logica.MateriaPrima;
  * @author elias
  */
 public class NuevoProducto extends javax.swing.JFrame {
-    private HashMap<MateriaPrima,Integer> materias;
+    private HashMap<MateriaPrima,Double> materias;
     private InfoPanel infoPanel;
     private Almacen almacen;
 
@@ -44,9 +44,10 @@ public class NuevoProducto extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
+        infoPanel = new InfoPanel();
         boxMateriaPrima.removeAllItems();
         this.almacen = almacen;
-        for(MateriaPrima materia: almacen.getMateriasPrimas()){
+        for(MateriaPrima materia: this.almacen.getMateriasPrimas()){
             boxMateriaPrima.addItem(materia.getNombre());
         }
     }
@@ -242,13 +243,13 @@ public class NuevoProducto extends javax.swing.JFrame {
         String nombreMateria = (String) boxMateriaPrima.getSelectedItem();
         MateriaPrima materia = null;
         for(MateriaPrima m : almacen.getMateriasPrimas()){
-            if(m.getNombre().equals(materia)){
+            if(m.getNombre().equals(nombreMateria)){
                 materia = m;
                 break;
             }
         }
         try{
-            int cant = Integer.parseInt(cantidad.getText());
+            Double cant = Double.parseDouble(cantidad.getText());
             materias.put(materia, cant);
             infoPanel.agregaProductoOrMatPrima(nombreMateria, cant);
         } catch (NumberFormatException e){
@@ -278,22 +279,29 @@ public class NuevoProducto extends javax.swing.JFrame {
         }
         if (flag1 && flag2){
             try{
-                int precio = Integer.parseInt(precioVenta.getText());
-                int tiempo = Integer.parseInt(tiempoElab.getText());
-                Producto p = new Producto(nombreProd, precio, tiempo, materias);
-                ArrayList<Producto> prodAux = almacen.getProductos();
-                prodAux.add(p);
-                almacen.setProductos(prodAux);
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente",
-                        "Guardado", JOptionPane.INFORMATION_MESSAGE);
-                materias = new HashMap<>();
-                precioVenta.setText("");
-                tiempoElab.setText("");
-                nombre.setText("");
-                cantidad.setText("");
-                infoPanel = new InfoPanel();
-                ControladorInterfaces.mostrarNuevoProducto(false);
-                ControladorInterfaces.mostrarProductos(true);
+                if(Double.parseDouble(cantidad.getText()) > 0.0){
+                    int precio = Integer.parseInt(precioVenta.getText());
+                    int tiempo = Integer.parseInt(tiempoElab.getText());
+                    Producto p = new Producto(nombreProd, precio, tiempo, materias);
+                    ArrayList<Producto> prodAux = almacen.getProductos();
+                    prodAux.add(p);
+                    almacen.setProductos(prodAux);
+                    JOptionPane.showMessageDialog(this, "Guardado exitosamente",
+                            "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                    materias = new HashMap<>();
+                    precioVenta.setText("");
+                    tiempoElab.setText("");
+                    nombre.setText("");
+                    cantidad.setText("");
+                    infoPanel = new InfoPanel();
+                    Productos.anadirFila(nombreProd, precio, tiempo, p.getMateriasString());
+                    ControladorInterfaces.mostrarNuevoProducto(false);
+                    ControladorInterfaces.mostrarProductos(true);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad mayor a 0 "
+                    ,"Error",JOptionPane.ERROR_MESSAGE);
+                }
                 
             } catch (NumberFormatException e){
                 JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",

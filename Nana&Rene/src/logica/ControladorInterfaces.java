@@ -39,14 +39,23 @@ public class ControladorInterfaces {
         this.almacen = almacen;
         this.ge = ge;
         this.principal = new PaginaPrincipal();
+//        this.principal.setAlmacen(almacen);
+//        this.principal.setGe(ge);
         this.nuevoPedido = new NuevoPedido();
+        //this.nuevoPedido.setAlmacen(almacen);
         this.gestionaPedido = new Pedidos();
+        //this.gestionaPedido.setAlmacen(almacen);
         this.productos = new Productos();
+        //this.productos.setAlmacen(almacen);
         this.nuevoProducto = new NuevoProducto();
+        //this.nuevoProducto.setAlmacen(almacen);
         this.editarProducto = new EditarProducto();
+        //this.editarProducto.setAlmacen(almacen);
         this.materiasPrimas = new MateriasPrimas();
+        //this.materiasPrimas.setAlmacen(almacen);
         this.editarMateriaPrima = new EditarMateriaPrima();
         this.registarMateriaPrima = new NuevaMateriaPrima();
+        //this.registarMateriaPrima.setAlmacen(almacen);
         
     }
     
@@ -60,8 +69,6 @@ public class ControladorInterfaces {
     
     public static void mostrarPrincipal(boolean b){
         ControladorInterfaces.principal.setVisible(b);
-        ControladorInterfaces.principal.setAlmacen(almacen);
-        ControladorInterfaces.principal.setGe(ge);
         ControladorInterfaces.principal.repaint();
     }
     
@@ -89,9 +96,10 @@ public class ControladorInterfaces {
         ControladorInterfaces.nuevoProducto.repaint();
     }
     
-    public static void mostrarEditarProducto(boolean b, Producto producto){
+    public static void mostrarEditarProducto(boolean b, Producto producto, int fila){
         ControladorInterfaces.editarProducto.setVisible(b);
         ControladorInterfaces.editarProducto.setProducto(producto);
+        ControladorInterfaces.editarProducto.setFila(fila);
         ControladorInterfaces.editarProducto.setAlmacen(almacen);
         ControladorInterfaces.editarProducto.repaint();
     }
@@ -102,9 +110,11 @@ public class ControladorInterfaces {
         ControladorInterfaces.materiasPrimas.repaint();
     }
     
-    public static void mostrarEditarMateriaPrima(boolean b, MateriaPrima materia){
+    public static void mostrarEditarMateriaPrima(boolean b, MateriaPrima materia,
+            int fila){
         ControladorInterfaces.editarMateriaPrima.setVisible(b);
         ControladorInterfaces.editarMateriaPrima.setMateria(materia);
+        ControladorInterfaces.editarMateriaPrima.setFila(fila);
         ControladorInterfaces.editarMateriaPrima.repaint();
     }
     

@@ -49,7 +49,7 @@ public class GestionExcel{
    
                 String nombre = "";
                 int tiempoElaboracion = 0, precioVenta = 0;
-                HashMap<MateriaPrima,Integer> materiasPrimas = new HashMap<>(); 
+                HashMap<MateriaPrima,Double> materiasPrimas = new HashMap<>(); 
                 int indiceColumna = 0;
                 while(columnaIterator.hasNext())
                 {
@@ -68,10 +68,19 @@ public class GestionExcel{
                         case 2:
                             String listado = celda.getStringCellValue();
                             String[] mp = listado.split(",");
+                            
+                            MateriaPrima objMP = null;
                             for(int i = 0; i < mp.length; i++)
                             {
-                                MateriaPrima objMP = new MateriaPrima(mp[i], 0.0);
-                                materiasPrimas.put(objMP, 0);
+                                String[] mpCantidad = mp[i].split("-");
+                                //System.out.println("mpcant: "+Arrays.toString(mpCantidad));
+                                for(MateriaPrima materia: this.materiasPrimas)
+                                {
+                                    if(materia.getNombre().equals(mpCantidad[1])){
+                                        objMP = materia;
+                                    }
+                                }
+                                materiasPrimas.put(objMP, Double.parseDouble(mpCantidad[0]));
                             }   break;
                         case 3:
                             switch(celda.getCellType())
@@ -131,14 +140,13 @@ public class GestionExcel{
                             {
                                 String[] productoCantidad = p2[j].split("-");
                                 //System.out.println(Arrays.toString(productoCantidad));
-                                Producto  prod = null;
+                                Producto prod = null;
                                 for(Producto aux: this.productos){
                                     if(aux.getNombre().equals(productoCantidad[1])){
                                         prod = aux;
                                         break;
                                     }
                                 }
-                                
                                 productos.put(prod, Integer.parseInt(productoCantidad[0]));
                             }
                             break;
@@ -304,12 +312,19 @@ public class GestionExcel{
                 {
                     nombre.setCellValue(productos.get(i).getNombre());
                     tiempo.setCellValue(productos.get(i).getTiempoElaboracion());
-                    HashMap<MateriaPrima, Integer> mp = productos.get(i).getMateriasPrimas();
+                    HashMap<MateriaPrima, Double> mp = productos.get(i).getMateriasPrimas();
+                    //System.out.println(mp);
                     String listado = "";
-                    for(MateriaPrima m: mp.keySet())
+                    
+                    for (Map.Entry<MateriaPrima, Double> entry : mp.entrySet())
                     {
-                        listado += m.getNombre()+",";
+                        Double cantidad = entry.getValue();
+                        //System.out.println(cantidad);
+                        MateriaPrima matPrima = entry.getKey();
+                        //System.out.println(matPrima.getNombre());
+                        listado += cantidad+"-"+matPrima.getNombre()+",";
                     }
+                    //System.out.println(listado);
                     materias.setCellValue(listado);
                     precio.setCellValue(productos.get(i).getPrecioVenta());
                 }
