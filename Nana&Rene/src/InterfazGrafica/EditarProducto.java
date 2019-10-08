@@ -55,6 +55,7 @@ public class EditarProducto extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
+        boxMateriaPrima.removeAllItems();
         this.almacen = almacen;
         for(MateriaPrima materia: almacen.getMateriasPrimas()){
             boxMateriaPrima.addItem(materia.getNombre());

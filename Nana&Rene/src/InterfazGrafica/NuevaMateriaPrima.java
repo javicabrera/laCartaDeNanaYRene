@@ -138,8 +138,8 @@ public class NuevaMateriaPrima extends javax.swing.JFrame {
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
         nombre.setText("");
         cantidad.setText("");
-        ControladorInterfaces.mostrarMateriasPrimas(false);
-        ControladorInterfaces.mostrarPrincipal(true);
+        ControladorInterfaces.mostrarRegistrarMateriaPrima(false);
+        ControladorInterfaces.mostrarMateriasPrimas(true);
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed

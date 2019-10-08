@@ -44,6 +44,7 @@ public class NuevoProducto extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
+        boxMateriaPrima.removeAllItems();
         this.almacen = almacen;
         for(MateriaPrima materia: almacen.getMateriasPrimas()){
             boxMateriaPrima.addItem(materia.getNombre());
@@ -227,6 +228,8 @@ public class NuevoProducto extends javax.swing.JFrame {
         precioVenta.setText("");
         tiempoElab.setText("");
         nombre.setText("");
+        cantidad.setText("");
+        infoPanel = new InfoPanel();
         ControladorInterfaces.mostrarNuevoProducto(false);
         ControladorInterfaces.mostrarProductos(true);
     }//GEN-LAST:event_bVolverActionPerformed
@@ -287,6 +290,8 @@ public class NuevoProducto extends javax.swing.JFrame {
                 precioVenta.setText("");
                 tiempoElab.setText("");
                 nombre.setText("");
+                cantidad.setText("");
+                infoPanel = new InfoPanel();
                 ControladorInterfaces.mostrarNuevoProducto(false);
                 ControladorInterfaces.mostrarProductos(true);
                 
