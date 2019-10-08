@@ -55,9 +55,17 @@ public class Main
         
         
         GestionExcel gestionExcel = new GestionExcel();
+
+        /*
         File rutaMateriasPrimas = new File("/Users/isavo/Desktop/U/8º semestre/Construccion de Software/Repositorios/laCartaDeNanaYRene/MateriasPrimas.xlsx");
         File rutaProductos = new File("/Users/isavo/Desktop/U/8º semestre/Construccion de Software/Repositorios/laCartaDeNanaYRene/Productos.xlsx");
         File rutaPedidos = new File("/Users/isavo/Desktop/U/8º semestre/Construccion de Software/Repositorios/laCartaDeNanaYRene/Pedidos.xlsx");
+        */
+
+        File rutaMateriasPrimas = new File("/Users/elias/Documents/Construccion/laCartaDeNanaYRene/MateriasPrimas.xlsx");
+        File rutaProductos = new File("/Users/elias/Documents/Construccion/laCartaDeNanaYRene/productos.xlsx");
+        File rutaPedidos = new File("/Users/elias/Documents/Construccion/laCartaDeNanaYRene/laCartaDeNanaYRene/pedidos.xlsx");
+
         
         materiasPrimas  = gestionExcel.importarMateriasPrimas(rutaMateriasPrimas);
         productos = gestionExcel.importarProductos(rutaProductos);
