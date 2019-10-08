@@ -304,7 +304,7 @@ public class EditarProducto extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Guardado exitosamente",
                             "Guardado", JOptionPane.INFORMATION_MESSAGE);
                     //Productos.anadirFila(nombreProd, precio, tiempo, producto.getMateriasString());
-                    ControladorInterfaces.mostrarEditarProducto(false, producto);
+                    //ControladorInterfaces.mostrarEditarProducto(false, producto);
                     ControladorInterfaces.mostrarProductos(true);
                     nombre.setText("");
                     precioVenta.setText("");

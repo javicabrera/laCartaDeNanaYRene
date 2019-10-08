@@ -61,7 +61,7 @@ public class Main
 
         /*File rutaMateriasPrimas = new File("C:\\Users\\56992\\Desktop\\Utal\\8vo semestre\\Construcción de Software\\Unidad 2\\Proyecto\\laCartaDeNanaYRene\\MateriasPrimas.xlsx");
         File rutaProductos = new File("C:\\Users\\56992\\Desktop\\Utal\\8vo semestre\\Construcción de Software\\Unidad 2\\Proyecto\\laCartaDeNanaYRene\\Productos.xlsx");
-        File rutaPedidos = new File("C:\\Users\\56992\\Desktop\\Utal\\8vo semestre\\Construcción de Software\\Unidad 2\\Proyecto\\laCartaDeNanaYRene\\Pedidos.xlsx");
+        File rutaPedidos = new File("C:\\Users\\56992\\Desktop\\Utal\\8vo semestre\\Construcción de Software\\Unidad 2\\Proyecto\\laCartaDeNanaYRene\\Pedidos.xlsx");*/
 
 //        File rutaMateriasPrimas = new File("/Users/elias/Documents/Construccion/laCartaDeNanaYRene/MateriasPrimas.xlsx");
 //        File rutaProductos = new File("/Users/elias/Documents/Construccion/laCartaDeNanaYRene/productos.xlsx");
