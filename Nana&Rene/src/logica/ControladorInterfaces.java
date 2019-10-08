@@ -32,14 +32,17 @@ public class ControladorInterfaces {
     private static EditarMateriaPrima editarMateriaPrima;
     private static NuevaMateriaPrima registarMateriaPrima;
         
-    public ControladorInterfaces(){
+    public ControladorInterfaces(Almacen almacen){
         this.principal = new PaginaPrincipal();
         this.nuevoPedido = new NuevoPedido();
         this.gestionaPedido = new Pedidos();
+        this.gestionaPedido.setAlmacen(almacen);
         this.productos = new Productos();
+        this.productos.setAlmacen(almacen);
         this.nuevoProducto = new NuevoProducto();
         this.editarProducto = new EditarProducto();
         this.materiasPrimas = new MateriasPrimas();
+        this.materiasPrimas.setAlmacen(almacen);
         this.editarMateriaPrima = new EditarMateriaPrima();
         this.registarMateriaPrima = new NuevaMateriaPrima();
     }

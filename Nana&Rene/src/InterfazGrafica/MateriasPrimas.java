@@ -188,6 +188,14 @@ public class MateriasPrimas extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnBorrarActionPerformed
 
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        this.almacen = almacen;
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -324,4 +332,6 @@ public class MateriasPrimas extends javax.swing.JFrame {
     private javax.swing.JTable tablaMateriasPrimas;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
+
+  
 }
