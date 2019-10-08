@@ -294,6 +294,27 @@ public class EditarProducto extends javax.swing.JFrame {
         }
         if (flag1 && flag2){
             try{
+                if(Double.parseDouble(cantidad.getText()) > 0.0){                                 
+                    int precio = Integer.parseInt(precioVenta.getText());
+                    int tiempo = Integer.parseInt(tiempoElab.getText());
+                    producto.setNombre(nombreProd);
+                    producto.setPrecioVenta(precio);
+                    producto.setTiempoElaboracion(tiempo);
+                    producto.setMateriasPrimas(materias);
+                    JOptionPane.showMessageDialog(this, "Guardado exitosamente",
+                            "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                    //Productos.anadirFila(nombreProd, precio, tiempo, producto.getMateriasString());
+                    //ControladorInterfaces.mostrarEditarProducto(false, producto);
+                    ControladorInterfaces.mostrarProductos(true);
+                    nombre.setText("");
+                    precioVenta.setText("");
+                    tiempoElab.setText("");
+                    cantidad.setText("");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad mayor a 0 "
+                    ,"Error",JOptionPane.ERROR_MESSAGE);
+                }
                 int precio = Integer.parseInt(precioVenta.getText());
                 int tiempo = Integer.parseInt(tiempoElab.getText());
                 producto.setNombre(nombreProd);
