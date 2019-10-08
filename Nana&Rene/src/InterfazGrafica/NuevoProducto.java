@@ -278,23 +278,29 @@ public class NuevoProducto extends javax.swing.JFrame {
         }
         if (flag1 && flag2){
             try{
-                int precio = Integer.parseInt(precioVenta.getText());
-                int tiempo = Integer.parseInt(tiempoElab.getText());
-                Producto p = new Producto(nombreProd, precio, tiempo, materias);
-                ArrayList<Producto> prodAux = almacen.getProductos();
-                prodAux.add(p);
-                almacen.setProductos(prodAux);
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente",
-                        "Guardado", JOptionPane.INFORMATION_MESSAGE);
-                materias = new HashMap<>();
-                precioVenta.setText("");
-                tiempoElab.setText("");
-                nombre.setText("");
-                cantidad.setText("");
-                infoPanel = new InfoPanel();
-                Productos.anadirFila(nombreProd, precio, tiempo, p.getMateriasString());
-                ControladorInterfaces.mostrarNuevoProducto(false);
-                ControladorInterfaces.mostrarProductos(true);
+                if(Double.parseDouble(cantidad.getText()) > 0.0){
+                    int precio = Integer.parseInt(precioVenta.getText());
+                    int tiempo = Integer.parseInt(tiempoElab.getText());
+                    Producto p = new Producto(nombreProd, precio, tiempo, materias);
+                    ArrayList<Producto> prodAux = almacen.getProductos();
+                    prodAux.add(p);
+                    almacen.setProductos(prodAux);
+                    JOptionPane.showMessageDialog(this, "Guardado exitosamente",
+                            "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                    materias = new HashMap<>();
+                    precioVenta.setText("");
+                    tiempoElab.setText("");
+                    nombre.setText("");
+                    cantidad.setText("");
+                    infoPanel = new InfoPanel();
+                    Productos.anadirFila(nombreProd, precio, tiempo, p.getMateriasString());
+                    ControladorInterfaces.mostrarNuevoProducto(false);
+                    ControladorInterfaces.mostrarProductos(true);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad mayor a 0 "
+                    ,"Error",JOptionPane.ERROR_MESSAGE);
+                }
                 
             } catch (NumberFormatException e){
                 JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",

@@ -145,15 +145,22 @@ public class EditarMateriaPrima extends javax.swing.JFrame {
             try{
                 String nombreMateria = nombre.getText();
                 double cantMateria = Double.parseDouble(cantidad.getText());
-                materia.setNombre(nombreMateria);
-                materia.modificarCantidad(cantMateria);
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", 
-                JOptionPane.INFORMATION_MESSAGE);
-                MateriasPrimas.anadirFila(nombreMateria, cantMateria);
-                ControladorInterfaces.mostrarEditarMateriaPrima(false, materia);
-                ControladorInterfaces.mostrarMateriasPrimas(true);
-                nombre.setText("");
-                cantidad.setText("");
+                if(cantMateria > 0.0){
+                    materia.setNombre(nombreMateria);
+                    materia.modificarCantidad(cantMateria);
+                    JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", 
+                    JOptionPane.INFORMATION_MESSAGE);
+                    MateriasPrimas.anadirFila(nombreMateria, cantMateria);
+                    ControladorInterfaces.mostrarEditarMateriaPrima(false, materia);
+                    ControladorInterfaces.mostrarMateriasPrimas(true);
+                    nombre.setText("");
+                    cantidad.setText("");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad mayor a 0 "
+                    ,"Error",JOptionPane.ERROR_MESSAGE);
+                }
+                
             } catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(this, "Debe ingresar un número "
                         + "válido","Error",JOptionPane.ERROR_MESSAGE);
