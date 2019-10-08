@@ -289,21 +289,27 @@ public class EditarProducto extends javax.swing.JFrame {
         }
         if (flag1 && flag2){
             try{
-                int precio = Integer.parseInt(precioVenta.getText());
-                int tiempo = Integer.parseInt(tiempoElab.getText());
-                producto.setNombre(nombreProd);
-                producto.setPrecioVenta(precio);
-                producto.setTiempoElaboracion(tiempo);
-                producto.setMateriasPrimas(materias);
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente",
-                        "Guardado", JOptionPane.INFORMATION_MESSAGE);
-                Productos.anadirFila(nombreProd, precio, tiempo, producto.getMateriasString());
-                ControladorInterfaces.mostrarEditarProducto(false, producto);
-                ControladorInterfaces.mostrarProductos(true);
-                nombre.setText("");
-                precioVenta.setText("");
-                tiempoElab.setText("");
-                cantidad.setText("");
+                if(Double.parseDouble(cantidad.getText()) > 0.0){                                 
+                    int precio = Integer.parseInt(precioVenta.getText());
+                    int tiempo = Integer.parseInt(tiempoElab.getText());
+                    producto.setNombre(nombreProd);
+                    producto.setPrecioVenta(precio);
+                    producto.setTiempoElaboracion(tiempo);
+                    producto.setMateriasPrimas(materias);
+                    JOptionPane.showMessageDialog(this, "Guardado exitosamente",
+                            "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                    Productos.anadirFila(nombreProd, precio, tiempo, producto.getMateriasString());
+                    ControladorInterfaces.mostrarEditarProducto(false, producto);
+                    ControladorInterfaces.mostrarProductos(true);
+                    nombre.setText("");
+                    precioVenta.setText("");
+                    tiempoElab.setText("");
+                    cantidad.setText("");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad mayor a 0 "
+                    ,"Error",JOptionPane.ERROR_MESSAGE);
+                }
             } catch (NumberFormatException e){
                 JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
                     "Error", JOptionPane.ERROR_MESSAGE);

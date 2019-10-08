@@ -154,17 +154,24 @@ public class NuevaMateriaPrima extends javax.swing.JFrame {
                 String nombreMateria = nombre.getText();
                 double cantMateria = Double.parseDouble(cantidad.getText());
                 MateriaPrima mp = new MateriaPrima(nombreMateria, cantMateria);
-                ArrayList<MateriaPrima> aux = almacen.getMateriasPrimas();
-                aux.add(mp);
-                almacen.setMateriasPrimas(aux);
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", 
-                JOptionPane.INFORMATION_MESSAGE);
-                MateriasPrimas.anadirFila(nombreMateria, cantMateria);
-                ControladorInterfaces.mostrarRegistrarMateriaPrima(false);
-                ControladorInterfaces.mostrarMateriasPrimas(true); 
+                if(cantMateria > 0.0){
+                    ArrayList<MateriaPrima> aux = almacen.getMateriasPrimas();
+                    aux.add(mp);
+                    almacen.setMateriasPrimas(aux);
+                    JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", 
+                    JOptionPane.INFORMATION_MESSAGE);
+                    MateriasPrimas.anadirFila(nombreMateria, cantMateria);
+                    ControladorInterfaces.mostrarRegistrarMateriaPrima(false);
+                    ControladorInterfaces.mostrarMateriasPrimas(true); 
+
+                    nombre.setText("");
+                    cantidad.setText("");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad mayor a 0 "
+                    ,"Error",JOptionPane.ERROR_MESSAGE);
+                }
                 
-                nombre.setText("");
-                cantidad.setText("");
             } catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(this, "Debe ingresar un número "
                         + "válido","Error",JOptionPane.ERROR_MESSAGE);
