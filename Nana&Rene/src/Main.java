@@ -25,6 +25,7 @@ public class Main
     private static ArrayList<Producto> productos;
     private static ArrayList<Pedido> pedidos;
     private static ArrayList<MateriaPrima> materiasPrimas;
+    private static ArrayList<Cliente> clientes;
     private static Almacen almacen;
     /**
      * @param args the command line arguments
@@ -58,22 +59,16 @@ public class Main
         File rutaMateriasPrimas = new File("MateriasPrimas.xlsx");
         File rutaProductos = new File("Productos.xlsx");
         File rutaPedidos = new File("Pedidos.xlsx");
-
-        /*File rutaMateriasPrimas = new File("C:\\Users\\56992\\Desktop\\Utal\\8vo semestre\\Construcción de Software\\Unidad 2\\Proyecto\\laCartaDeNanaYRene\\MateriasPrimas.xlsx");
-        File rutaProductos = new File("C:\\Users\\56992\\Desktop\\Utal\\8vo semestre\\Construcción de Software\\Unidad 2\\Proyecto\\laCartaDeNanaYRene\\Productos.xlsx");
-        File rutaPedidos = new File("C:\\Users\\56992\\Desktop\\Utal\\8vo semestre\\Construcción de Software\\Unidad 2\\Proyecto\\laCartaDeNanaYRene\\Pedidos.xlsx");*/
-
-//        File rutaMateriasPrimas = new File("/Users/elias/Documents/Construccion/laCartaDeNanaYRene/MateriasPrimas.xlsx");
-//        File rutaProductos = new File("/Users/elias/Documents/Construccion/laCartaDeNanaYRene/productos.xlsx");
-//        File rutaPedidos = new File("/Users/elias/Documents/Construccion/laCartaDeNanaYRene/laCartaDeNanaYRene/pedidos.xlsx");
-
+        File rutaClientes = new File("Clientes.xlsx");
         
         materiasPrimas  = gestionExcel.importarMateriasPrimas(rutaMateriasPrimas);
         productos = gestionExcel.importarProductos(rutaProductos);
         pedidos = gestionExcel.importarPedidos(rutaPedidos);
+        clientes = gestionExcel.importarClientes(rutaClientes);
         System.out.println("Se importaron los datos");
         
-        almacen = new Almacen(pedidos, productos, materiasPrimas, null);
+        
+        almacen = new Almacen(pedidos, productos, materiasPrimas, clientes);
         ControladorPedido cp = new ControladorPedido(almacen);
         controladorInterfaces = new ControladorInterfaces(almacen, gestionExcel);
         controladorInterfaces.iniciarInterfaz();
@@ -84,6 +79,8 @@ public class Main
         File tProductos = new File("ProductosTest.xlsx");
         gestionExcel.exportarProductos(tProductos);
         File tPedidos = new File("PedidosTest.xlsx");
-        gestionExcel.exportarPedido(tPedidos);*/
+        gestionExcel.exportarPedido(tPedidos);
+        File tClientes = new File("ClientesTest.xlsx");
+        gestionExcel.exportarClientes(tClientes);*/
     }  
 }
