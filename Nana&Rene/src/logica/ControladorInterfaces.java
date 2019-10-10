@@ -2,6 +2,7 @@ package logica;
 
 
 import BaseDeDatos.GestionExcel;
+import InterfazGrafica.VistaDetallePedido;
 import InterfazGrafica.VistaEditarMateriaPrima;
 import InterfazGrafica.VistaEditarProducto;
 import InterfazGrafica.VistaMateriasPrimas;
@@ -32,6 +33,7 @@ public class ControladorInterfaces {
     private static VistaMateriasPrimas materiasPrimas;
     private static VistaEditarMateriaPrima editarMateriaPrima;
     private static VistaNuevaMateriaPrima registarMateriaPrima;
+    private static VistaDetallePedido vistaDetallePedido;
     private static Almacen almacen;
     private static GestionExcel ge;
         
@@ -56,6 +58,7 @@ public class ControladorInterfaces {
         this.editarMateriaPrima = new VistaEditarMateriaPrima();
         this.registarMateriaPrima = new VistaNuevaMateriaPrima();
         //this.registarMateriaPrima.setAlmacen(almacen);
+        this.vistaDetallePedido = new VistaDetallePedido();
         
     }
     
@@ -124,6 +127,17 @@ public class ControladorInterfaces {
         ControladorInterfaces.registarMateriaPrima.setVisible(b);
         ControladorInterfaces.registarMateriaPrima.setAlmacen(almacen);
         ControladorInterfaces.registarMateriaPrima.repaint();
+    }
+    
+    public static void mostrarDetallePedido(boolean b, Pedido pedido){
+        ControladorInterfaces.habilitarGestionaPedido(false);
+        ControladorInterfaces.vistaDetallePedido.setVisible(b);
+        ControladorInterfaces.vistaDetallePedido.inicializaTabla(pedido);
+        ControladorInterfaces.vistaDetallePedido.repaint();
+    }
+    
+    public static void habilitarGestionaPedido(boolean b){
+        ControladorInterfaces.gestionaPedido.enable(b);
     }
 
 }
