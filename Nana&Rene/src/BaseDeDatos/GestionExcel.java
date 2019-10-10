@@ -23,12 +23,14 @@ public class GestionExcel{
     private ArrayList<Producto> productos;
     private ArrayList<Pedido> pedidos;
     private ArrayList<MateriaPrima> materiasPrimas;
+    private ArrayList<Cliente> clientes;
     
     public GestionExcel()
     {
         this.productos = new ArrayList<Producto>();
         this.pedidos = new ArrayList<Pedido>();
         this.materiasPrimas = new ArrayList<MateriaPrima>();
+        this.clientes = new ArrayList<Cliente>();
     }
     
     public ArrayList<Producto> importarProductos(File archivo)
@@ -284,6 +286,72 @@ public class GestionExcel{
         return materiasPrimas;
     }
     
+    public ArrayList<Cliente> importarClientes(File archivo)
+    {
+        try{
+            wb = WorkbookFactory.create(new FileInputStream(archivo));
+            Sheet hoja = wb.getSheetAt(0);
+            Iterator filaIterator = hoja.rowIterator();
+            int indiceFila = 0;
+            while(filaIterator.hasNext())
+            {
+                if(indiceFila == 0 )
+                {
+                    filaIterator.next();
+                }
+                Row fila = (Row) filaIterator.next();
+                Iterator columnaIterator = fila.cellIterator();
+
+                String nombreCliente = "", correoCliente = "", numeroCliente = "";
+                HashMap<Producto, Integer> historial = new HashMap<>();
+                int indiceColumna = 0;
+                while(columnaIterator.hasNext())
+                {
+                    Cell celda = (Cell) columnaIterator.next();
+                    //System.out.println(celda);
+                    switch (indiceColumna) {
+                        case 0:
+                            nombreCliente = celda.getStringCellValue();
+                            break;
+                        case 1:
+                            correoCliente = celda.getStringCellValue();    
+                            break;
+                        case 2:
+                            numeroCliente = celda.getStringCellValue();
+                            break;
+                        case 3:
+                            String p = celda.getStringCellValue();
+                            String[] p2 = p.split(",");
+                            for(int j = 0; j < p2.length; j++)
+                            {
+                                String[] productoCantidad = p2[j].split("-");
+                                //System.out.println(Arrays.toString(productoCantidad));
+                                Producto prod;
+                                for(Producto aux: this.productos)
+                                {
+                                    if(aux.getNombre().equals(productoCantidad[1]))
+                                    {
+                                        prod = aux;
+                                        historial.put(prod, Integer.parseInt(productoCantidad[0]));
+                                    }
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    indiceColumna++;
+                }
+                Cliente c = new Cliente(nombreCliente, correoCliente, numeroCliente, historial);
+                clientes.add(c);
+                indiceFila++;
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return clientes;
+    }
+    
     public String exportarProductos(File archivo){
         String respuesta = "No se realizo con éxito la exportación";
         if(archivo.getName().endsWith("xls")){
@@ -449,6 +517,56 @@ public class GestionExcel{
         }
         return respuesta;
     }
+    
+        public String exportarClientes(File archivo){
+        String respuesta = "No se realizo con éxito la exportación";
+        if(archivo.getName().endsWith("xls")){
+            wb = new HSSFWorkbook();
+        }
+        else{
+            wb = new XSSFWorkbook();
+        }
+        Sheet hoja = wb.createSheet("Prueba");
+        try{
+            for(int i = -1; i < clientes.size(); i++)
+            {
+                Row fila = hoja.createRow(i+1);
+                Cell nombre = fila.createCell(0);
+                Cell correo = fila.createCell(1);
+                Cell numero = fila.createCell(2);
+                Cell historial = fila.createCell(3);
+                
+                if(i == -1)
+                {
+                    nombre.setCellValue("Nombre");
+                    correo.setCellValue("Correo");
+                    numero.setCellValue("Número telefónico");
+                    historial.setCellValue("Historial de pedidos");
+                }
+                else
+                {
+                    HashMap<Producto, Integer> prod = clientes.get(i).getHistorialPedidos();
+                    String listado = "";
+                    
+                    for (Map.Entry<Producto, Integer> entry : prod.entrySet())
+                    {
+                        int cantidad = entry.getValue();
+                        Producto producto = entry.getKey();
+                        listado += cantidad+"-"+producto.getNombre()+",";
+                    }
+                    historial.setCellValue(listado);
+                    nombre.setCellValue(clientes.get(i).getNombreCliente());
+                    correo.setCellValue(clientes.get(i).getCorreoCliente());
+                    numero.setCellValue(clientes.get(i).getNumeroCliente());
+                }
+                wb.write(new FileOutputStream(archivo));
+            }
+            respuesta = "Exportación existosa";
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return respuesta;
+    }
 
     public void setProductos(ArrayList<Producto> productos) {
         this.productos = productos;
@@ -460,6 +578,10 @@ public class GestionExcel{
 
     public void setMateriasPrimas(ArrayList<MateriaPrima> materiasPrimas) {
         this.materiasPrimas = materiasPrimas;
+    }
+
+    public void setClientes(ArrayList<Cliente> clientes) {
+        this.clientes = clientes;
     }
     
     

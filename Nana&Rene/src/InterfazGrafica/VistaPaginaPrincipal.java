@@ -7,6 +7,7 @@ package InterfazGrafica;
 
 import BaseDeDatos.GestionExcel;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import javax.swing.DefaultListModel;
 import logica.Almacen;
 import logica.ControladorInterfaces;
@@ -16,14 +17,14 @@ import logica.Pedido;
  *
  * @author elias
  */
-public class PaginaPrincipal extends javax.swing.JFrame {
+public class VistaPaginaPrincipal extends javax.swing.JFrame {
     private static DefaultListModel model;
     private Almacen almacen;
     private GestionExcel ge;
     /**
      * Creates new form PaginaPrincipalFX
      */
-    public PaginaPrincipal() {
+    public VistaPaginaPrincipal() {
         this.setLocationRelativeTo(null);
         //pedidos = new ArrayList<>();
         initComponents();
@@ -33,19 +34,25 @@ public class PaginaPrincipal extends javax.swing.JFrame {
     }
     
     public static void agregarPedido(String s){
-        PaginaPrincipal.model.addElement(s);
+        VistaPaginaPrincipal.model.addElement(s);
         
     }
     
     public void setAlmacen(Almacen almacen){
-        PaginaPrincipal.model.clear();
+        VistaPaginaPrincipal.model.clear();
         this.almacen = almacen;
         for(Pedido p: this.almacen.getPedidos()){
             String cliente = p.getNombreCliente();
             String estado = "Estado: " + p.getEstado();
-            PaginaPrincipal.agregarPedido(cliente);
-            PaginaPrincipal.agregarPedido(estado);
-            PaginaPrincipal.agregarPedido("___________");
+            String pattern = "dd-MM-yyyy";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            String fecha = "Fecha Retiro: " + simpleDateFormat.format(p.getFechaRetiro());
+            VistaPaginaPrincipal.agregarPedido(cliente);
+            VistaPaginaPrincipal.agregarPedido(estado);
+            VistaPaginaPrincipal.agregarPedido(fecha);
+            VistaPaginaPrincipal.agregarPedido("___________");
+            
+            
         }
     }
 
@@ -221,6 +228,8 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         ge.exportarPedido(tPedidos);
         File tMateriasPrimas = new File("MateriasPrimas.xlsx");
         ge.exportarMateriasPrimas(tMateriasPrimas);
+        File tClientes = new File("Clientes.xlsx");
+        ge.exportarClientes(tClientes);
         System.exit(0);
     }//GEN-LAST:event_SalirYExportar
 
@@ -241,14 +250,18 @@ public class PaginaPrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaPaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaPaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaPaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaPaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -257,7 +270,7 @@ public class PaginaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PaginaPrincipal().setVisible(true);
+                new VistaPaginaPrincipal().setVisible(true);
             }
         });
     }
