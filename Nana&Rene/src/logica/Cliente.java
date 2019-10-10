@@ -5,6 +5,9 @@
  */
 package logica;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  *
  * @author Javiera Méndez
@@ -14,13 +17,13 @@ public class Cliente
     private String nombreCliente;
     private String correoCliente;
     private String numeroCliente;
-    private String historialPedidos; //lo dejé como string solo para leerloo, debería ser un hashmap
+    private HashMap<Producto, Integer> historialPedidos;
     
-    public Cliente(String nombreCliente, String correoCliente, String numeroCliente, String historialPedidos)
+    public Cliente(String nombreCliente, String correoCliente, String numeroCliente, HashMap<Producto, Integer> historialPedidos)
     {
         this.nombreCliente = nombreCliente;
         this.correoCliente = correoCliente;
-        this.nombreCliente = numeroCliente;
+        this.numeroCliente = numeroCliente;
         this.historialPedidos = historialPedidos;
     }
 
@@ -54,13 +57,14 @@ public class Cliente
         this.numeroCliente = numeroCliente;
     }
 
-    public String getHistorialPedidos() 
-    {
+    public HashMap<Producto, Integer> getHistorialPedidos() {
         return historialPedidos;
     }
 
-    public void setHistorialPedidos(String historialPedidos)
-    {
+    public void setHistorialPedidos(HashMap<Producto, Integer> historialPedidos) {
         this.historialPedidos = historialPedidos;
     }
+
+
+
 }

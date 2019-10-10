@@ -221,6 +221,8 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         ge.exportarPedido(tPedidos);
         File tMateriasPrimas = new File("MateriasPrimas.xlsx");
         ge.exportarMateriasPrimas(tMateriasPrimas);
+        File tClientes = new File("Clientes.xlsx");
+        ge.exportarClientes(tClientes);
         System.exit(0);
     }//GEN-LAST:event_SalirYExportar
 
