@@ -407,7 +407,7 @@ public class NuevoPedido extends javax.swing.JFrame {
             String estado = "Estado: " + p.getEstado();
             PaginaPrincipal.agregarPedido(cliente);
             PaginaPrincipal.agregarPedido(estado);
-            PaginaPrincipal.agregarPedido("___________");
+            PaginaPrincipal.agregarPedido("_______________");
             String pattern = "dd-MM-yyyy";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             Pedidos.anadirFila(nombre.getText(), simpleDateFormat.format(DateRetiro), 
