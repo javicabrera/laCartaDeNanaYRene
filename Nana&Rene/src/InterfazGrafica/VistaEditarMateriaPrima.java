@@ -208,7 +208,6 @@ public class VistaEditarMateriaPrima extends javax.swing.JFrame {
                         + "válido","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
-            
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed
