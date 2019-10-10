@@ -94,6 +94,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         precioTotal = new javax.swing.JLabel();
         btnAgregarProducto = new javax.swing.JButton();
         txt$ = new javax.swing.JLabel();
+        txtPorcentaje = new javax.swing.JLabel();
         panelResumenPedido = new javax.swing.JPanel();
         txtResumenPedido = new javax.swing.JPanel();
         resumenPedido = new javax.swing.JLabel();
@@ -167,7 +168,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         getContentPane().add(precioAbonado, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, 130, -1));
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 450, -1));
         getContentPane().add(numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 150, -1));
-        getContentPane().add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 130, -1));
+        getContentPane().add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 50, -1));
         getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 130, -1));
 
         fRetiro.setText("dd/MM/aaaa");
@@ -213,6 +214,9 @@ public class NuevoPedido extends javax.swing.JFrame {
 
         txt$.setText("$");
         getContentPane().add(txt$, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, -1, 20));
+
+        txtPorcentaje.setText("%");
+        getContentPane().add(txtPorcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, -1, 20));
 
         panelResumenPedido.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -360,6 +364,9 @@ public class NuevoPedido extends javax.swing.JFrame {
         boolean flag2 = false;
         boolean flag3 = true;
         boolean flag4 = true;
+        boolean flag5 = true;
+        boolean flag6 = true;
+        boolean flag7 = true;
         Date DateSolicitud = null;
         Date DateRetiro = null;
         int abono = 0;
@@ -389,14 +396,29 @@ public class NuevoPedido extends javax.swing.JFrame {
         }
         if(dcto<0 || dcto>100){
             flag4= false;
-            JOptionPane.showMessageDialog(this, "El descuento debe estar entre 0% y 100%",
+            JOptionPane.showMessageDialog(this, "El descuento debe estar entre 0 y 100",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+        int precioDescontado = (Integer.parseInt(precioTotal.getText()))*(1-(dcto/100));
+        if(abono>precioDescontado){
+            JOptionPane.showMessageDialog(this, "El abono no puede ser mayor al total",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            flag5 = false;
+        }
+        if(!(numero.getText().length() == 9 && numero.getText().charAt(0) == '9')){
+            JOptionPane.showMessageDialog(this, "Ingrese un numero de telefono valido",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            flag6 = false;
+        }
+        if(!correo.getText().matches("^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$")){
+            JOptionPane.showMessageDialog(this, "Ingrese un correo valido",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            flag7 =false;
+        }
 
-        if (flag && flag2 && flag3 && flag4){
+        if (flag && flag2 && flag3 && flag4 && flag5 && flag6 && flag7){
             Pedido p = new Pedido(productos, DateSolicitud, DateRetiro,
-                    Integer.parseInt(precioTotal.getText()),dcto,nombre.getText(), 
+                    precioDescontado,dcto,nombre.getText(), 
                     correo.getText(), numero.getText(), abono);
             ArrayList<Pedido> aux = almacen.getPedidos();
             aux.add(p);
@@ -411,7 +433,7 @@ public class NuevoPedido extends javax.swing.JFrame {
             String pattern = "dd-MM-yyyy";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             Pedidos.anadirFila(nombre.getText(), simpleDateFormat.format(DateRetiro), 
-                    Integer.parseInt(precioTotal.getText()), p.getEstado());
+                    precioDescontado, p.getEstado());
             cantidad.setText("");
             fSolicitud.setText("");
             fRetiro.setText("");
@@ -516,6 +538,7 @@ public class NuevoPedido extends javax.swing.JFrame {
     private javax.swing.JLabel txtFechaSolicitud;
     private javax.swing.JLabel txtNCliente;
     private javax.swing.JLabel txtNumero;
+    private javax.swing.JLabel txtPorcentaje;
     private javax.swing.JLabel txtPrecioAbonado;
     private javax.swing.JLabel txtPrecioTotal;
     private javax.swing.JLabel txtProducto;
