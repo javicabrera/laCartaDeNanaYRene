@@ -6,9 +6,17 @@
 package InterfazGrafica;
 
 import BaseDeDatos.GestionExcel;
+import java.awt.Color;
+import java.awt.Component;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
 import logica.Almacen;
 import logica.ControladorInterfaces;
 import logica.Pedido;
@@ -17,42 +25,70 @@ import logica.Pedido;
  *
  * @author elias
  */
-public class VistaPaginaPrincipal extends javax.swing.JFrame {
+public class PaginaPrincipal extends javax.swing.JFrame {
     private static DefaultListModel model;
     private Almacen almacen;
     private GestionExcel ge;
     /**
      * Creates new form PaginaPrincipalFX
      */
-    public VistaPaginaPrincipal() {
+    public PaginaPrincipal() {
         this.setLocationRelativeTo(null);
         //pedidos = new ArrayList<>();
         initComponents();
         this.model = new DefaultListModel();
+//        this.listaPedidos.setCellRenderer(new DefaultListCellRenderer() {
+//
+//                     @Override
+//                     public Component getListCellRendererComponent(JList list, Object value, int index,
+//                               boolean isSelected, boolean cellHasFocus) {
+//                          Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+//                          if (value instanceof Pedido) {
+//                                Pedido p = (Pedido) value;
+//                                setText(p.getNombreCliente() + "\nEstado: " + p.getEstado()+"\n" + 
+//                                        "Fecha Retiro: " + p.getFechaRetiro());
+//                                Date fechaActual = new Date();
+//                                TimeUnit timeUnit = TimeUnit.DAYS;
+//                                long diffInMillies = fechaActual.getTime() - p.getFechaSolicitud().getTime();
+//                                int diferencia = (int) timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+//                                if (diferencia>=7) {
+//                                    setBackground(Color.GREEN);
+//                               } else if (diferencia<7 && diferencia>=3){
+//                                    setBackground(Color.YELLOW);
+//                               }
+//                               else{
+//                                   setBackground(Color.RED);
+//                               }
+//                          }
+//                          return c;
+//                     }
+//
+//                });
         listaPedidos.setModel(this.model);
  
     }
-    
+    /**
+     * 
+     * @param s 
+     */
     public static void agregarPedido(String s){
-        VistaPaginaPrincipal.model.addElement(s);
+        PaginaPrincipal.model.addElement(s);
         
     }
     
     public void setAlmacen(Almacen almacen){
-        VistaPaginaPrincipal.model.clear();
+        PaginaPrincipal.model.clear();
         this.almacen = almacen;
+        String pattern = "dd-MM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         for(Pedido p: this.almacen.getPedidos()){
             String cliente = p.getNombreCliente();
             String estado = "Estado: " + p.getEstado();
-            String pattern = "dd-MM-yyyy";
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-            String fecha = "Fecha Retiro: " + simpleDateFormat.format(p.getFechaRetiro());
-            VistaPaginaPrincipal.agregarPedido(cliente);
-            VistaPaginaPrincipal.agregarPedido(estado);
-            VistaPaginaPrincipal.agregarPedido(fecha);
-            VistaPaginaPrincipal.agregarPedido("___________");
-            
-            
+            PaginaPrincipal.agregarPedido(cliente);
+            PaginaPrincipal.agregarPedido(estado);
+            PaginaPrincipal.agregarPedido("Fecha Retiro: " + simpleDateFormat.format(p.getFechaRetiro()));
+            PaginaPrincipal.agregarPedido("_______________");
+
         }
     }
 
@@ -90,7 +126,7 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         txtUPedidos.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         txtUPedidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtUPedidos.setText("Resumen Pedidos:");
-        getContentPane().add(txtUPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 220, -1));
+        getContentPane().add(txtUPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 220, -1));
 
         listaPedidos.setBackground(new java.awt.Color(242, 242, 242));
         listaPedidos.setModel(new javax.swing.AbstractListModel<String>() {
@@ -100,9 +136,10 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
             public String getElementAt(int i) { return strings[i]; }
 
         });
+        listaPedidos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(listaPedidos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 220, 330));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 220, 330));
 
         btnProductos.setText("Productos");
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
@@ -228,8 +265,6 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         ge.exportarPedido(tPedidos);
         File tMateriasPrimas = new File("MateriasPrimas.xlsx");
         ge.exportarMateriasPrimas(tMateriasPrimas);
-        File tClientes = new File("Clientes.xlsx");
-        ge.exportarClientes(tClientes);
         System.exit(0);
     }//GEN-LAST:event_SalirYExportar
 
@@ -250,18 +285,14 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaPaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaPaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaPaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaPaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -270,7 +301,7 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaPaginaPrincipal().setVisible(true);
+                new PaginaPrincipal().setVisible(true);
             }
         });
     }

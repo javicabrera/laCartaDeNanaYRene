@@ -69,6 +69,8 @@ public class ControladorInterfaces {
     
     public static void mostrarPrincipal(boolean b){
         ControladorInterfaces.principal.setVisible(b);
+        ControladorInterfaces.principal.setAlmacen(almacen);
+        ControladorInterfaces.principal.setGe(ge);
         ControladorInterfaces.principal.repaint();
     }
     
