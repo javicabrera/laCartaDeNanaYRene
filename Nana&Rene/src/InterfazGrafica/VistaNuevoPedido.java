@@ -5,6 +5,9 @@
  */
 package InterfazGrafica;
 
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -364,6 +367,9 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         boolean flag4 = true;
         boolean flag5 = true;
         boolean flag6 = true;
+        boolean flag7 = true;
+        boolean flag8 = true;
+        boolean flag9 = true;
         Date DateSolicitud = null;
         Date DateRetiro = null;
         int abono = 0;
@@ -407,8 +413,48 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
                     "Error", JOptionPane.ERROR_MESSAGE);
             flag6 =false;
         }
+        double descuento2 = (Double.parseDouble(descuento.getText())/100)*Integer.parseInt(precioTotal.getText());
+        int precioAbonoDescuento = (int) (Integer.parseInt(precioTotal.getText())-Integer.parseInt(precioAbonado.getText())-descuento2);
+        if(precioAbonoDescuento < 0)
+        {
+            JOptionPane.showMessageDialog(this, "El descuento más el abono superan el precio total.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            flag8 =false;
+        }
 
-        if (flag && flag2 && flag3 && flag4 && flag5 && flag6){
+        try {
+            Date fSolicitud = new SimpleDateFormat("dd/MM/yyyy").parse(this.fSolicitud.getText());
+            Date fRetiro =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fRetiro.getText());
+            Date fActual = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
+            String strDate = dateFormat.format(fActual);  
+            fActual = new SimpleDateFormat("dd/MM/yyyy").parse(strDate);
+            System.out.println(fActual);
+            System.out.println(fSolicitud);
+            System.out.println(fRetiro);
+            if(fSolicitud.before(fActual))
+            {
+                flag9 = false;
+                JOptionPane.showMessageDialog(this, "La fecha de solicitud es anterior a la actual.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if(fRetiro.before(fActual))
+            {
+                JOptionPane.showMessageDialog(this, "La fecha de retiro es anterior a la actual.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+                flag9 = false;
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(VistaNuevoPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(precioAbonoDescuento < 0)
+        {
+            JOptionPane.showMessageDialog(this, "El descuento más el abono superan el precio total.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            flag8 =false;
+        }
+        if (flag && flag2 && flag3 && flag4 && flag5 && flag6 && flag7 && flag8 && flag9){
             Pedido p = new Pedido(productos, DateSolicitud, DateRetiro,
                     total,dcto,nombre.getText(), 
                     correo.getText(), numero.getText(), abono);

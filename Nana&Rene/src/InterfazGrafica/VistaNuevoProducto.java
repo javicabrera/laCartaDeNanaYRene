@@ -109,6 +109,12 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
             }
         });
         getContentPane().add(precioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 350, -1));
+
+        tiempoElab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tiempoElabActionPerformed(evt);
+            }
+        });
         getContentPane().add(tiempoElab, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 350, -1));
         getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 80, -1));
 
@@ -252,6 +258,8 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         String nombreProd = nombre.getText();
         boolean flag1 = true;
         boolean flag2 = true;
+        int precio = Integer.parseInt(precioVenta.getText());
+        int tiempo = Integer.parseInt(tiempoElab.getText());
         if (nombreProd.equals("") || nombreProd == null){
             JOptionPane.showMessageDialog(this, "Debe ingresar un nombre.","Error", 
                     JOptionPane.ERROR_MESSAGE);
@@ -260,14 +268,22 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         if(materias.isEmpty()){
             JOptionPane.showMessageDialog(this, "Debe ingresar al menos una materia"
                     + "prima.","Error", 
-                    JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE); 
             flag2 = false;
         }
+        if(tiempo<=0 || tiempo>24){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un tiempo valido.","Error", 
+                    JOptionPane.ERROR_MESSAGE);  
+        }
+        if(precio<=0){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un precio valido.","Error", 
+            JOptionPane.ERROR_MESSAGE); 
+        }
+        
         if (flag1 && flag2){
             try{
                 if(Double.parseDouble(cantidad.getText()) > 0.0){
-                    int precio = Integer.parseInt(precioVenta.getText());
-                    int tiempo = Integer.parseInt(tiempoElab.getText());
+                    
                     Producto p = new Producto(nombreProd, precio, tiempo, materias);
                     ArrayList<Producto> prodAux = almacen.getProductos();
                     prodAux.add(p);
@@ -298,6 +314,11 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
     private void precioVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioVentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_precioVentaActionPerformed
+
+    private void tiempoElabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiempoElabActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_tiempoElabActionPerformed
 
     /**
      * @param args the command line arguments
