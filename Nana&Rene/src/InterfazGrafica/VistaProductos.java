@@ -19,7 +19,7 @@ import logica.Producto;
  */
 public class VistaProductos extends javax.swing.JFrame {
     private Almacen almacen;
-    private static DefaultTableModel modeloTabla;
+    private DefaultTableModel modeloTabla;
     
     /**
      * Creates new form PaginaPrincipalFX
@@ -300,7 +300,7 @@ public class VistaProductos extends javax.swing.JFrame {
         });
     }
     
-    public static void anadirFila(String nombre, int precioVenta, int tiempoElab,
+    public void anadirFila(String nombre, int precioVenta, int tiempoElab,
             String materiasPrimas) {
         
         Object[] row = {nombre, "$"+precioVenta, tiempoElab, materiasPrimas};
@@ -309,18 +309,11 @@ public class VistaProductos extends javax.swing.JFrame {
         modeloTabla.addRow(row);
     }
     
-    public static void borrarFila(int fila){
+    public void borrarFila(int fila){
          
          modeloTabla.removeRow(fila);
     }
-    
-    public static void editarFila(int fila, String nombre, int precioVenta, 
-            double tiempoElaboracion, String materiasPrimas){
-        modeloTabla.setValueAt(nombre, fila, 0);
-        modeloTabla.setValueAt("$"+precioVenta, fila, 1);
-        modeloTabla.setValueAt(tiempoElaboracion, fila, 2);
-        modeloTabla.setValueAt(materiasPrimas, fila, 3);
-    }
+   
     
     private int obtieneFilaSeleccionada(){
         
@@ -332,10 +325,6 @@ public class VistaProductos extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
-//        DefaultTableModel modeloTabla = (DefaultTableModel) tablaProductos.getModel();
-//        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-//            modeloTabla.removeRow(0);
-//        }
         modeloTabla.setRowCount(0);
         this.almacen = almacen;
         for(Producto p: this.almacen.getProductos()){
