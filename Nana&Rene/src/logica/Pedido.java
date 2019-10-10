@@ -34,6 +34,23 @@ public class Pedido {
         this.correoCliente = correoCliente;
         this.numeroCliente = numeroCliente;
     }
+    public int diasRestantesRetiro(){
+        if(this.fechaSolicitud.getYear()==this.fechaRetiro.getYear()){
+            if(this.fechaSolicitud.getMonth()==this.fechaRetiro.getMonth()){
+                int dias=this.fechaRetiro.getDate()-this.fechaSolicitud.getDate();
+                if(dias<=2){
+                    return 3;
+                }
+                if(dias>2 && dias<=7){
+                    return 2;
+                }
+                else{
+                    return 1;
+                }
+            }
+        }
+        return 1;
+    }
 
     public HashMap<Producto, Integer> getProductos() {
         return productos;

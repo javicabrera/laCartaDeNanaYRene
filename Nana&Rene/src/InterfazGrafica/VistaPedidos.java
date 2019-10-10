@@ -101,9 +101,19 @@ public class VistaPedidos extends javax.swing.JFrame {
         getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 160, 30, 30));
 
         btnAbono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/abono16.png"))); // NOI18N
+        btnAbono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbonoActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnAbono, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 160, 30, 30));
 
         btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/info16.png"))); // NOI18N
+        btnInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInfoActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 160, 30, 30));
 
         tablaPedidos.setModel(new javax.swing.table.DefaultTableModel(
@@ -252,7 +262,7 @@ public class VistaPedidos extends javax.swing.JFrame {
                                 + "Cancelar Pedido", JOptionPane.INFORMATION_MESSAGE);
                     }
                     ArrayList<Pedido> aux = almacen.getPedidos();
-                    aux.remove(pedido);
+                    
                     almacen.setPedidos(aux);
             }
         }
@@ -261,6 +271,14 @@ public class VistaPedidos extends javax.swing.JFrame {
                     "Error", JOptionPane.ERROR_MESSAGE);
             }
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInfoActionPerformed
+
+    private void btnAbonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbonoActionPerformed
+        
+    }//GEN-LAST:event_btnAbonoActionPerformed
 
     /**
      * @param args the command line arguments

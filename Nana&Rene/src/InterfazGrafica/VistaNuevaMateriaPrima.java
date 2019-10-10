@@ -173,13 +173,14 @@ public class VistaNuevaMateriaPrima extends javax.swing.JFrame {
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
-        boolean flag = true;
+         boolean flag1 = true;
+        boolean flag2 = true;
         if(nombre.getText().equals("") || nombre.getText()==null){
-            flag = false;
+            flag1 = false;
             JOptionPane.showMessageDialog(this, "Debe ingresar un nombre.","Error", 
                 JOptionPane.ERROR_MESSAGE);
         }
-        if (flag){
+        if (flag1){
             try{
                 String nombreMateria = nombre.getText();
                 double cantMateria = Double.parseDouble(cantidad.getText());
@@ -207,6 +208,7 @@ public class VistaNuevaMateriaPrima extends javax.swing.JFrame {
                         + "válido","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
+                                   
                                    
     }//GEN-LAST:event_bGuardarActionPerformed
 
