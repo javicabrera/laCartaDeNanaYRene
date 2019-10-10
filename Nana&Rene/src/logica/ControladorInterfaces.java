@@ -2,15 +2,15 @@ package logica;
 
 
 import BaseDeDatos.GestionExcel;
-import InterfazGrafica.EditarMateriaPrima;
-import InterfazGrafica.EditarProducto;
-import InterfazGrafica.MateriasPrimas;
-import InterfazGrafica.Pedidos;
-import InterfazGrafica.NuevoPedido;
-import InterfazGrafica.NuevoProducto;
-import InterfazGrafica.PaginaPrincipal;
-import InterfazGrafica.Productos;
-import InterfazGrafica.NuevaMateriaPrima;
+import InterfazGrafica.VistaEditarMateriaPrima;
+import InterfazGrafica.VistaEditarProducto;
+import InterfazGrafica.VistaMateriasPrimas;
+import InterfazGrafica.VistaPedidos;
+import InterfazGrafica.VistaNuevoPedido;
+import InterfazGrafica.VistaNuevoProducto;
+import InterfazGrafica.VistaPaginaPrincipal;
+import InterfazGrafica.VistaProductos;
+import InterfazGrafica.VistaNuevaMateriaPrima;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,38 +23,38 @@ import InterfazGrafica.NuevaMateriaPrima;
  * @author elias
  */
 public class ControladorInterfaces {
-    private static PaginaPrincipal principal;
-    private static NuevoPedido nuevoPedido;
-    private static Pedidos gestionaPedido;
-    private static Productos productos;
-    private static NuevoProducto nuevoProducto;
-    private static EditarProducto editarProducto;
-    private static MateriasPrimas materiasPrimas;
-    private static EditarMateriaPrima editarMateriaPrima;
-    private static NuevaMateriaPrima registarMateriaPrima;
+    private static VistaPaginaPrincipal principal;
+    private static VistaNuevoPedido nuevoPedido;
+    private static VistaPedidos gestionaPedido;
+    private static VistaProductos productos;
+    private static VistaNuevoProducto nuevoProducto;
+    private static VistaEditarProducto editarProducto;
+    private static VistaMateriasPrimas materiasPrimas;
+    private static VistaEditarMateriaPrima editarMateriaPrima;
+    private static VistaNuevaMateriaPrima registarMateriaPrima;
     private static Almacen almacen;
     private static GestionExcel ge;
         
     public ControladorInterfaces(Almacen almacen, GestionExcel ge){
         this.almacen = almacen;
         this.ge = ge;
-        this.principal = new PaginaPrincipal();
+        this.principal = new VistaPaginaPrincipal();
 //        this.principal.setAlmacen(almacen);
 //        this.principal.setGe(ge);
-        this.nuevoPedido = new NuevoPedido();
+        this.nuevoPedido = new VistaNuevoPedido();
         //this.nuevoPedido.setAlmacen(almacen);
-        this.gestionaPedido = new Pedidos();
+        this.gestionaPedido = new VistaPedidos();
         //this.gestionaPedido.setAlmacen(almacen);
-        this.productos = new Productos();
+        this.productos = new VistaProductos();
         //this.productos.setAlmacen(almacen);
-        this.nuevoProducto = new NuevoProducto();
+        this.nuevoProducto = new VistaNuevoProducto();
         //this.nuevoProducto.setAlmacen(almacen);
-        this.editarProducto = new EditarProducto();
+        this.editarProducto = new VistaEditarProducto();
         //this.editarProducto.setAlmacen(almacen);
-        this.materiasPrimas = new MateriasPrimas();
+        this.materiasPrimas = new VistaMateriasPrimas();
         //this.materiasPrimas.setAlmacen(almacen);
-        this.editarMateriaPrima = new EditarMateriaPrima();
-        this.registarMateriaPrima = new NuevaMateriaPrima();
+        this.editarMateriaPrima = new VistaEditarMateriaPrima();
+        this.registarMateriaPrima = new VistaNuevaMateriaPrima();
         //this.registarMateriaPrima.setAlmacen(almacen);
         
     }
@@ -69,6 +69,8 @@ public class ControladorInterfaces {
     
     public static void mostrarPrincipal(boolean b){
         ControladorInterfaces.principal.setVisible(b);
+        ControladorInterfaces.principal.setAlmacen(almacen);
+        ControladorInterfaces.principal.setGe(ge);
         ControladorInterfaces.principal.repaint();
     }
     
