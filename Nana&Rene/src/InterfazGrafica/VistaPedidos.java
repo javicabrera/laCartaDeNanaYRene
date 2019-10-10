@@ -274,6 +274,14 @@ public class VistaPedidos extends javax.swing.JFrame {
 
     private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
         // TODO add your handling code here:
+        cp = new ControladorPedido(almacen);
+        if(obtieneFilaSeleccionada()>=0){
+            
+            //Poner mensaje de error acá
+        
+        }
+        Pedido pedido = almacen.getPedidos().get(obtieneFilaSeleccionada());
+        ControladorInterfaces.mostrarDetallePedido(true, pedido);
     }//GEN-LAST:event_btnInfoActionPerformed
 
     private void btnAbonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbonoActionPerformed

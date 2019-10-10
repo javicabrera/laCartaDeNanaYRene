@@ -2,6 +2,7 @@ package logica;
 
 
 import BaseDeDatos.GestionExcel;
+import InterfazGrafica.VistaDetallePedido;
 import InterfazGrafica.VistaClientes;
 import InterfazGrafica.VistaEditarCliente;
 import InterfazGrafica.VistaEditarMateriaPrima;
@@ -35,6 +36,7 @@ public class ControladorInterfaces {
     private static VistaMateriasPrimas materiasPrimas;
     private static VistaEditarMateriaPrima editarMateriaPrima;
     private static VistaNuevaMateriaPrima registarMateriaPrima;
+    private static VistaDetallePedido vistaDetallePedido;
     private static VistaClientes clientes;
     private static VistaEditarCliente editarCliente;
     private static VistaNuevoCliente nuevoCliente;
@@ -62,6 +64,7 @@ public class ControladorInterfaces {
         this.editarMateriaPrima = new VistaEditarMateriaPrima();
         this.registarMateriaPrima = new VistaNuevaMateriaPrima();
         //this.registarMateriaPrima.setAlmacen(almacen);
+        this.vistaDetallePedido = new VistaDetallePedido();
         this.clientes = new VistaClientes();
         this.editarCliente = new VistaEditarCliente();
         this.nuevoCliente = new VistaNuevoCliente();
@@ -134,6 +137,18 @@ public class ControladorInterfaces {
         ControladorInterfaces.registarMateriaPrima.setAlmacen(almacen);
         ControladorInterfaces.registarMateriaPrima.repaint();
     }
+    
+    public static void mostrarDetallePedido(boolean b, Pedido pedido){
+        ControladorInterfaces.habilitarGestionaPedido(false);
+        ControladorInterfaces.vistaDetallePedido.setVisible(b);
+        ControladorInterfaces.vistaDetallePedido.inicializaTabla(pedido);
+        ControladorInterfaces.vistaDetallePedido.repaint();
+    }
+    
+    public static void habilitarGestionaPedido(boolean b){
+        ControladorInterfaces.gestionaPedido.enable(b);
+    }
+
     
     public static void mostrarClientes(boolean b){
         ControladorInterfaces.clientes.setVisible(b);
