@@ -367,6 +367,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         boolean flag5 = true;
         boolean flag6 = true;
         boolean flag7 = true;
+        boolean flag8 = true;
         Date DateSolicitud = null;
         Date DateRetiro = null;
         int abono = 0;
