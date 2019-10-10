@@ -20,7 +20,7 @@ import logica.ControladorPedido;
  *
  * @author elias
  */
-public class Pedidos extends javax.swing.JFrame {
+public class VistaPedidos extends javax.swing.JFrame {
     private Almacen almacen;
     private ControladorPedido cp;
     private static DefaultTableModel modeloTabla;
@@ -28,7 +28,7 @@ public class Pedidos extends javax.swing.JFrame {
     /**
      * Creates new form PaginaPrincipalFX
      */
-    public Pedidos() {
+    public VistaPedidos() {
         initComponents();
         this.setLocationRelativeTo(null);
         cp = new ControladorPedido(almacen);
@@ -52,6 +52,8 @@ public class Pedidos extends javax.swing.JFrame {
         btnVolver = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnSiguiente = new javax.swing.JButton();
+        btnAbono = new javax.swing.JButton();
+        btnInfo = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
         tablaPedidos = new javax.swing.JTable();
         panelSuperior = new javax.swing.JPanel();
@@ -87,7 +89,7 @@ public class Pedidos extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 30, 30));
+        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 160, 30, 30));
 
         btnSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/next16.png"))); // NOI18N
         btnSiguiente.setToolTipText("Cambiar Estado");
@@ -96,7 +98,13 @@ public class Pedidos extends javax.swing.JFrame {
                 btnSiguienteActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, 30, 30));
+        getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 160, 30, 30));
+
+        btnAbono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/abono16.png"))); // NOI18N
+        getContentPane().add(btnAbono, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 160, 30, 30));
+
+        btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/info16.png"))); // NOI18N
+        getContentPane().add(btnInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 160, 30, 30));
 
         tablaPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -123,7 +131,7 @@ public class Pedidos extends javax.swing.JFrame {
         });
         jScrollPane.setViewportView(tablaPedidos);
 
-        getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 550, 300));
+        getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 630, 300));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
 
@@ -271,14 +279,30 @@ public class Pedidos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -299,7 +323,7 @@ public class Pedidos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Pedidos().setVisible(true);
+                new VistaPedidos().setVisible(true);
             }
         });
     }
@@ -375,8 +399,10 @@ public class Pedidos extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
+    private javax.swing.JButton btnAbono;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCrear;
+    private javax.swing.JButton btnInfo;
     private javax.swing.JButton btnSiguiente;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel icon;

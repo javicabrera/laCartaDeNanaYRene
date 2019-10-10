@@ -11,26 +11,25 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import logica.Almacen;
 import logica.ControladorInterfaces;
-import logica.Producto;
+import logica.MateriaPrima;
 
 /**
  *
  * @author elias
  */
-public class Productos extends javax.swing.JFrame {
+public class VistaMateriasPrimas extends javax.swing.JFrame {
     private Almacen almacen;
-    private static DefaultTableModel modeloTabla;
+    private static DefaultTableModel modeloTabla; 
     
     /**
      * Creates new form PaginaPrincipalFX
      */
-    public Productos() {
+    public VistaMateriasPrimas() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
         //Sólo permite seleccionar un elemento de la tabla
-        tablaProductos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        modeloTabla = (DefaultTableModel) tablaProductos.getModel();   
+        tablaMateriasPrimas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();
     }
 
     /**
@@ -47,7 +46,7 @@ public class Productos extends javax.swing.JFrame {
         btnBorrar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
-        tablaProductos = new javax.swing.JTable();
+        tablaMateriasPrimas = new javax.swing.JTable();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -75,36 +74,34 @@ public class Productos extends javax.swing.JFrame {
         getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, 120, 70));
 
         btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/basurero16.png"))); // NOI18N
-        btnBorrar.setToolTipText("Eliminar");
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 30, 30));
+        getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, 30, 30));
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/edit16.png"))); // NOI18N
-        btnEditar.setToolTipText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, 30, 30));
+        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 160, 30, 30));
 
-        tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
+        tablaMateriasPrimas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Precio Venta", "Tiempo Elaboración", "Materias Primas"
+                "Nombre", "Cantidad"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -115,9 +112,9 @@ public class Productos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane.setViewportView(tablaProductos);
+        jScrollPane.setViewportView(tablaMateriasPrimas);
 
-        getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 550, 300));
+        getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 630, 300));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
 
@@ -125,7 +122,7 @@ public class Productos extends javax.swing.JFrame {
 
         titulo.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         titulo.setForeground(new java.awt.Color(255, 255, 255));
-        titulo.setText("PRODUCTOS");
+        titulo.setText("MATERIAS PRIMAS");
 
         javax.swing.GroupLayout panelSuperiorLayout = new javax.swing.GroupLayout(panelSuperior);
         panelSuperior.setLayout(panelSuperiorLayout);
@@ -136,7 +133,7 @@ public class Productos extends javax.swing.JFrame {
                 .addComponent(icon)
                 .addGap(18, 18, 18)
                 .addComponent(titulo)
-                .addContainerGap(510, Short.MAX_VALUE))
+                .addContainerGap(437, Short.MAX_VALUE))
         );
         panelSuperiorLayout.setVerticalGroup(
             panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,47 +157,63 @@ public class Productos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        ControladorInterfaces.mostrarProductos(false);
-        ControladorInterfaces.mostrarNuevoProducto(true);
+        ControladorInterfaces.mostrarRegistrarMateriaPrima(true);
+        ControladorInterfaces.mostrarMateriasPrimas(false);
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        ControladorInterfaces.mostrarProductos(false);
+        ControladorInterfaces.mostrarMateriasPrimas(false);
         ControladorInterfaces.mostrarPrincipal(true);      
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
         if(obtieneFilaSeleccionada()>=0){
-            Producto producto = almacen.getProductos().get(obtieneFilaSeleccionada());
-            ControladorInterfaces.mostrarProductos(false);
-            ControladorInterfaces.mostrarEditarProducto(true, producto, obtieneFilaSeleccionada());
-            
+            MateriaPrima mp = almacen.getMateriasPrimas().get(obtieneFilaSeleccionada());
+            ControladorInterfaces.mostrarMateriasPrimas(false);
+            ControladorInterfaces.mostrarEditarMateriaPrima(true, mp, obtieneFilaSeleccionada());
         }
         else{
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto",
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una materia prima",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
         
-    }//GEN-LAST:event_btnEditarActionPerformed
+    }
+        
+//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        // TODO add your handling code here:
         if(obtieneFilaSeleccionada()>=0){
-            if(JOptionPane.showConfirmDialog(this, "¿Desea eliminar el producto?", 
-                    "Eliminar Producto", 0)==0){
+            if(JOptionPane.showConfirmDialog(this, "¿Desea eliminar la materia prima?", 
+                    "Eliminar Materia Prima", 0)==0){
 
-                ArrayList<Producto> aux = almacen.getProductos();
+                ArrayList<MateriaPrima> aux = almacen.getMateriasPrimas();
                 aux.remove(obtieneFilaSeleccionada());
-                almacen.setProductos(aux);
+                almacen.setMateriasPrimas(aux);
                 borrarFila(obtieneFilaSeleccionada());
             }
         }
         else{
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto",
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una materia prima",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
+        
     }//GEN-LAST:event_btnBorrarActionPerformed
+
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+//        DefaultTableModel modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();
+//        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+//            modeloTabla.removeRow(0);
+//        }
+        modeloTabla.setRowCount(0);
+        this.almacen = almacen;
+        for(MateriaPrima m: this.almacen.getMateriasPrimas()){
+            anadirFila(m.getNombre(), m.getCantidad());
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -219,14 +232,110 @@ public class Productos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaMateriasPrimas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaMateriasPrimas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaMateriasPrimas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaMateriasPrimas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -263,53 +372,31 @@ public class Productos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Productos().setVisible(true);
+                new VistaMateriasPrimas().setVisible(true);
             }
         });
     }
     
-    public static void anadirFila(String nombre, int precioVenta, int tiempoElab,
-            String materiasPrimas) {
+    public static void anadirFila(String nombre, double cantidad) {
         
-        Object[] row = {nombre, "$"+precioVenta, tiempoElab, materiasPrimas};
+        Object[] row = {nombre, cantidad};
         
         
         modeloTabla.addRow(row);
     }
     
+    private int obtieneFilaSeleccionada(){
+        
+        return tablaMateriasPrimas.getSelectedRow();
+    }
+    
     public static void borrarFila(int fila){
-         
          modeloTabla.removeRow(fila);
     }
     
-    public static void editarFila(int fila, String nombre, int precioVenta, 
-            double tiempoElaboracion, String materiasPrimas){
+    public static void editarFila(int fila, String nombre, double cantidad){
         modeloTabla.setValueAt(nombre, fila, 0);
-        modeloTabla.setValueAt("$"+precioVenta, fila, 1);
-        modeloTabla.setValueAt(tiempoElaboracion, fila, 2);
-        modeloTabla.setValueAt(materiasPrimas, fila, 3);
-    }
-    
-    private int obtieneFilaSeleccionada(){
-        
-        return tablaProductos.getSelectedRow();
-    }
-
-    public Almacen getAlmacen() {
-        return almacen;
-    }
-
-    public void setAlmacen(Almacen almacen) {
-//        DefaultTableModel modeloTabla = (DefaultTableModel) tablaProductos.getModel();
-//        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-//            modeloTabla.removeRow(0);
-//        }
-        modeloTabla.setRowCount(0);
-        this.almacen = almacen;
-        for(Producto p: this.almacen.getProductos()){
-            anadirFila(p.getNombre(),p.getPrecioVenta(),p.getTiempoElaboracion()
-            ,p.getMateriasString());
-        }
+        modeloTabla.setValueAt(cantidad, fila, 1);
     }
 
 
@@ -322,9 +409,9 @@ public class Productos extends javax.swing.JFrame {
     private javax.swing.JLabel icon;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JPanel panelSuperior;
-    private javax.swing.JTable tablaProductos;
+    private javax.swing.JTable tablaMateriasPrimas;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 
-
+  
 }

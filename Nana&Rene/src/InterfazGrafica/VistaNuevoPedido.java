@@ -25,7 +25,7 @@ import logica.Producto;
  *
  * @author elias
  */
-public class NuevoPedido extends javax.swing.JFrame {
+public class VistaNuevoPedido extends javax.swing.JFrame {
     private HashMap<Producto, Integer> productos;
     private InfoPanel infoPanel;
     private int total;
@@ -34,7 +34,7 @@ public class NuevoPedido extends javax.swing.JFrame {
     /**
      * Creates new form PaginaPrincipalFX
      */
-    public NuevoPedido() {
+    public VistaNuevoPedido() {
         initComponents();
         this.setLocationRelativeTo(null);
         productos = new HashMap<>();
@@ -95,6 +95,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         btnAgregarProducto = new javax.swing.JButton();
         txt$ = new javax.swing.JLabel();
         txtPorcentaje = new javax.swing.JLabel();
+        btnAplicarDscto = new javax.swing.JButton();
         panelResumenPedido = new javax.swing.JPanel();
         txtResumenPedido = new javax.swing.JPanel();
         resumenPedido = new javax.swing.JLabel();
@@ -121,7 +122,7 @@ public class NuevoPedido extends javax.swing.JFrame {
 
         txtDescuento.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         txtDescuento.setText("Descuento:");
-        getContentPane().add(txtDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 80, 20));
+        getContentPane().add(txtDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, 80, 20));
 
         txtCliente.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         txtCliente.setText("Clientes:");
@@ -145,7 +146,7 @@ public class NuevoPedido extends javax.swing.JFrame {
 
         txtPrecioAbonado.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         txtPrecioAbonado.setText("Precio Abonado:");
-        getContentPane().add(txtPrecioAbonado, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, -1, 20));
+        getContentPane().add(txtPrecioAbonado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, 20));
 
         txtCorreo.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         txtCorreo.setText("Correo:");
@@ -165,10 +166,10 @@ public class NuevoPedido extends javax.swing.JFrame {
                 precioAbonadoActionPerformed(evt);
             }
         });
-        getContentPane().add(precioAbonado, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, 130, -1));
+        getContentPane().add(precioAbonado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 130, -1));
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 450, -1));
         getContentPane().add(numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 150, -1));
-        getContentPane().add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 50, -1));
+        getContentPane().add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, 70, -1));
         getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 130, -1));
 
         fRetiro.setText("dd/MM/aaaa");
@@ -210,13 +211,16 @@ public class NuevoPedido extends javax.swing.JFrame {
                 btnAgregarProductoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAgregarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 40, 30));
+        getContentPane().add(btnAgregarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 50, 30));
 
         txt$.setText("$");
         getContentPane().add(txt$, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, -1, 20));
 
         txtPorcentaje.setText("%");
-        getContentPane().add(txtPorcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, -1, 20));
+        getContentPane().add(txtPorcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, 10, 20));
+
+        btnAplicarDscto.setText("Aplicar");
+        getContentPane().add(btnAplicarDscto, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, 80, 30));
 
         panelResumenPedido.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -385,7 +389,7 @@ public class NuevoPedido extends javax.swing.JFrame {
             DateRetiro =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fRetiro.getText());
             flag2 = true;
         } catch (ParseException ex) {
-            Logger.getLogger(NuevoPedido.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VistaNuevoPedido.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Debe ingresar una fecha válida",
                 "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -427,12 +431,12 @@ public class NuevoPedido extends javax.swing.JFrame {
                         "Guardado", JOptionPane.INFORMATION_MESSAGE);
             String cliente = p.getNombreCliente();
             String estado = "Estado: " + p.getEstado();
-            PaginaPrincipal.agregarPedido(cliente);
-            PaginaPrincipal.agregarPedido(estado);
-            PaginaPrincipal.agregarPedido("___________");
+            VistaPaginaPrincipal.agregarPedido(cliente);
+            VistaPaginaPrincipal.agregarPedido(estado);
+            VistaPaginaPrincipal.agregarPedido("___________");
             String pattern = "dd-MM-yyyy";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-            Pedidos.anadirFila(nombre.getText(), simpleDateFormat.format(DateRetiro), 
+            VistaPedidos.anadirFila(nombre.getText(), simpleDateFormat.format(DateRetiro), 
                     precioDescontado, p.getEstado());
             cantidad.setText("");
             fSolicitud.setText("");
@@ -474,14 +478,30 @@ public class NuevoPedido extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NuevoPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaNuevoPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NuevoPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaNuevoPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NuevoPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaNuevoPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NuevoPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaNuevoPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -502,7 +522,7 @@ public class NuevoPedido extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NuevoPedido().setVisible(true);
+                new VistaNuevoPedido().setVisible(true);
             }
         });
     }
@@ -515,6 +535,7 @@ public class NuevoPedido extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> boxCliente;
     private javax.swing.JComboBox<String> boxProductos;
     private javax.swing.JButton btnAgregarProducto;
+    private javax.swing.JButton btnAplicarDscto;
     private javax.swing.JTextField cantidad;
     private javax.swing.JTextField correo;
     private javax.swing.JTextField descuento;
