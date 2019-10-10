@@ -7,6 +7,7 @@ package InterfazGrafica;
 
 import BaseDeDatos.GestionExcel;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import javax.swing.DefaultListModel;
 import logica.Almacen;
 import logica.ControladorInterfaces;
@@ -43,9 +44,15 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         for(Pedido p: this.almacen.getPedidos()){
             String cliente = p.getNombreCliente();
             String estado = "Estado: " + p.getEstado();
+            String pattern = "dd-MM-yyyy";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            String fecha = "Fecha Retiro: " + simpleDateFormat.format(p.getFechaRetiro());
             VistaPaginaPrincipal.agregarPedido(cliente);
             VistaPaginaPrincipal.agregarPedido(estado);
+            VistaPaginaPrincipal.agregarPedido(fecha);
             VistaPaginaPrincipal.agregarPedido("___________");
+            
+            
         }
     }
 
