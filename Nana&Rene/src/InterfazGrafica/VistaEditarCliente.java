@@ -12,7 +12,6 @@ import logica.ControladorInterfaces;
 import logica.MateriaPrima;
 import logica.Almacen;
 import logica.Cliente;
-import logica.Producto;
 
 
 /**
@@ -21,7 +20,8 @@ import logica.Producto;
  */
 public class VistaEditarCliente extends javax.swing.JFrame {
     private Almacen almacen;
-
+    private int fila;
+    private Cliente cliente;
     /**
      * Creates new form PaginaPrincipalFX
      */
@@ -30,6 +30,7 @@ public class VistaEditarCliente extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
+    
     public Almacen getAlmacen() {
         return almacen;
     }
@@ -37,7 +38,38 @@ public class VistaEditarCliente extends javax.swing.JFrame {
     public void setAlmacen(Almacen almacen) {
         this.almacen = almacen;
     }
+    
+    public void setFila(int fila)
+    {
+        this.fila = fila;
+    }
 
+    public void setCliente(Cliente cliente)
+    {
+        this.cliente = cliente;
+        nombre.setText(cliente.getNombreCliente());
+        correo.setText(cliente.getCorreoCliente());
+        
+        
+        String[] tel = cliente.getNumeroCliente().split("");
+        String nuevoTelefono = "";
+        for(int i = 0; i < tel.length; i++)
+        {
+            if(!tel[i].equals("-"))
+            {
+                nuevoTelefono+=tel[i];
+            }
+        }
+        telefono.setText(nuevoTelefono);
+        /* TIENE QUE SER EL HISTORIAL
+        for(MateriaPrima m: this.producto.getMateriasPrimas().keySet())
+        {
+            infoPanel.agregaProductoOrMatPrima(m.getNombre(),this.producto.
+                    getMateriasPrimas().get(m));
+        }*/
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,6 +100,7 @@ public class VistaEditarCliente extends javax.swing.JFrame {
         txtNombre.setText("Nombre:");
         getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, 20));
 
+        correo.setEditable(false);
         correo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 correoActionPerformed(evt);
@@ -146,33 +179,60 @@ public class VistaEditarCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
-        ControladorInterfaces.mostrarEditarCliente(false);
+        nombre.setText("");
+        correo.setText("");
+        telefono.setText("");
+        ControladorInterfaces.mostrarEditarCliente(false, cliente, fila);
         ControladorInterfaces.mostrarClientes(true);
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
-        boolean flag = true;
- 
+        boolean flag1 = true;
+        boolean flag2 = true;
+        String nombreC = null;
+        String correoC = null;
+        String telefonoC = null;
+
+        if(nombre.getText().length() == 0)
+        {
+            flag1 = false;
+            JOptionPane.showMessageDialog(this, "Debe ingresar un nombre",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
         if(!(telefono.getText().length() == 9 && telefono.getText().charAt(0) == '9')){
-            JOptionPane.showMessageDialog(this, "Ingrese un numero de telefono valido",
+            JOptionPane.showMessageDialog(this, "Ingrese un número de teléfono válido",
                     "Error", JOptionPane.ERROR_MESSAGE);
-            flag = false;
+            flag2 = false;
         }
-        if(!correo.getText().matches("^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$")){
-            JOptionPane.showMessageDialog(this, "Ingrese un correo valido",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            flag =false;
-        }
-        
-        if(flag){
-            HashMap<Producto, Integer> historialPedidos = new HashMap<Producto, Integer>();
-            Cliente cliente = new Cliente(nombre.getText(), correo.getText(), telefono.getText(), historialPedidos);
-            JOptionPane.showMessageDialog(this, "Guardado exitosamente",
-                        "Guardado", JOptionPane.INFORMATION_MESSAGE);
+
+        if (flag1 && flag2)
+        {
+            String[] tel = telefono.getText().split("");
+            String nuevoTelefono = "";
+            for(int i = 0; i < tel.length; i++)
+            {
+                if(i == 0)
+                {
+                    nuevoTelefono = tel[i]+"-";
+                }
+                else{
+                    nuevoTelefono+= tel[i];
+                }
+            }
+            
+            cliente.setNombreCliente(nombre.getText());
+            cliente.setNumeroCliente(nuevoTelefono);
+            JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", JOptionPane.INFORMATION_MESSAGE);
+            ControladorInterfaces.mostrarEditarCliente(false, cliente, fila);
+            ControladorInterfaces.mostrarClientes(true);
+            
+            correo.setText("");
             nombre.setText("");
             telefono.setText("");
-            correo.setText("");
-        }
+            
+            ControladorInterfaces.mostrarNuevoCliente(false);
+            ControladorInterfaces.mostrarClientes(true);
+        }   
                                    
     }//GEN-LAST:event_bGuardarActionPerformed
 

@@ -321,19 +321,23 @@ public class GestionExcel{
                             numeroCliente = celda.getStringCellValue();
                             break;
                         case 3:
+                            System.out.println("c:"+celda.getStringCellValue());
                             String p = celda.getStringCellValue();
-                            String[] p2 = p.split(",");
-                            for(int j = 0; j < p2.length; j++)
+                            if(p.length() > 1)
                             {
-                                String[] productoCantidad = p2[j].split("-");
-                                //System.out.println(Arrays.toString(productoCantidad));
-                                Producto prod;
-                                for(Producto aux: this.productos)
+                                String[] p2 = p.split(",");
+                                for(int j = 0; j < p2.length; j++)
                                 {
-                                    if(aux.getNombre().equals(productoCantidad[1]))
+                                    String[] productoCantidad = p2[j].split("-");
+                                    //System.out.println(Arrays.toString(productoCantidad));
+                                    Producto prod;
+                                    for(Producto aux: this.productos)
                                     {
-                                        prod = aux;
-                                        historial.put(prod, Integer.parseInt(productoCantidad[0]));
+                                        if(aux.getNombre().equals(productoCantidad[1]))
+                                        {
+                                            prod = aux;
+                                            historial.put(prod, Integer.parseInt(productoCantidad[0]));
+                                        }
                                     }
                                 }
                             }

@@ -69,6 +69,7 @@ public class Producto
     public String getMateriasString()
     {
         String materias = "";
+        
         for(MateriaPrima m: this.materiasPrimas.keySet()){
             materias += m.getNombre() + "\n";
         }

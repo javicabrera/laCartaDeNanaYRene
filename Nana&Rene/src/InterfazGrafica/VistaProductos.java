@@ -203,7 +203,6 @@ public class VistaProductos extends javax.swing.JFrame {
                 ArrayList<Producto> aux = almacen.getProductos();
                 aux.remove(obtieneFilaSeleccionada());
                 almacen.setProductos(aux);
-                borrarFila(obtieneFilaSeleccionada());
             }
         }
         else{

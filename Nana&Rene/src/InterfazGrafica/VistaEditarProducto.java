@@ -5,9 +5,13 @@
  */
 package InterfazGrafica;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.Component;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import logica.Almacen;
 import logica.ControladorInterfaces;
@@ -23,8 +27,8 @@ public class VistaEditarProducto extends javax.swing.JFrame {
     private Producto producto;
     private int fila;
     private HashMap<MateriaPrima,Double> materias;
-    private InfoPanel infoPanel;
     private Almacen almacen;
+    private DefaultListModel model;
 
     /**
      * Creates new form PaginaPrincipalFX
@@ -32,11 +36,24 @@ public class VistaEditarProducto extends javax.swing.JFrame {
     public VistaEditarProducto() {
         initComponents();
         this.setLocationRelativeTo(null);
-        infoPanel = new InfoPanel();
-        panelMateriasPrimas.setLayout(new GridLayout(0,1));
-        panelMateriasPrimas.setPreferredSize(new Dimension(180,250));
-        panelMateriasPrimas.add(infoPanel.getPanelDatos());
-        
+        this.model = new DefaultListModel();
+        listaMaterias.setModel(this.model);
+        listaMaterias.setCellRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index,
+                      boolean isSelected, boolean cellHasFocus) {
+                 Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                 if (value instanceof Map.Entry) {
+                     MateriaPrima m = (MateriaPrima) ((Entry) value).getKey();
+                     double cantidad = (double) ((Entry) value).getValue();
+                      setText("<html>"+ m.getNombre() + 
+                              "<br>Cantidad: " + cantidad + 
+                              "<br>____________________________</span></html>"); 
+                 } 
+                 return c;
+            }
+
+       });
     }
 
     public void setProducto(Producto producto) {
@@ -44,10 +61,6 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         nombre.setText(producto.getNombre());
         precioVenta.setText(String.valueOf(producto.getPrecioVenta()));
         tiempoElab.setText(String.valueOf(producto.getTiempoElaboracion()));
-        for(MateriaPrima m: this.producto.getMateriasPrimas().keySet()){
-            infoPanel.agregaProductoOrMatPrima(m.getNombre(),this.producto.
-                    getMateriasPrimas().get(m));
-        }
         materias = this.producto.getMateriasPrimas();
     }
 
@@ -65,10 +78,12 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         for(MateriaPrima materia: this.almacen.getMateriasPrimas()){
             boxMateriaPrima.addItem(materia.getNombre());
         }
+        for (Map.Entry<MateriaPrima, Double> entry : materias.entrySet()) {
+            model.addElement(entry);
+        }
+        
     }
     
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,13 +107,13 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         btnAgregarMPrima = new javax.swing.JButton();
         nombre = new javax.swing.JTextField();
         actualizaMatPrima = new javax.swing.JButton();
+        materiasPrimas = new javax.swing.JLabel();
         borrarMatPrima = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaMaterias = new javax.swing.JList<>();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
-        txtMateriasPrimas = new javax.swing.JPanel();
-        materiasPrimas = new javax.swing.JLabel();
-        panelMateriasPrimas = new javax.swing.JPanel();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -167,10 +182,36 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 350, -1));
 
         actualizaMatPrima.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/edit16.png"))); // NOI18N
+        actualizaMatPrima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actualizaMatPrimaActionPerformed(evt);
+            }
+        });
         getContentPane().add(actualizaMatPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 320, -1, -1));
 
+        materiasPrimas.setText("Materias Primas");
+        getContentPane().add(materiasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 80, -1, -1));
+
         borrarMatPrima.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/basurero16.png"))); // NOI18N
+        borrarMatPrima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                borrarMatPrimaActionPerformed(evt);
+            }
+        });
         getContentPane().add(borrarMatPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, 40, 30));
+
+        listaMaterias.setBackground(new java.awt.Color(242, 242, 242));
+        listaMaterias.setModel(new javax.swing.AbstractListModel<String>() {
+
+            String[] strings = {"item 1"};
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+
+        });
+        listaMaterias.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(listaMaterias);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, 190, 220));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
 
@@ -205,44 +246,6 @@ public class VistaEditarProducto extends javax.swing.JFrame {
 
         getContentPane().add(panelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 70));
 
-        txtMateriasPrimas.setBackground(new java.awt.Color(255, 255, 255));
-
-        materiasPrimas.setText("Materias Primas");
-
-        javax.swing.GroupLayout txtMateriasPrimasLayout = new javax.swing.GroupLayout(txtMateriasPrimas);
-        txtMateriasPrimas.setLayout(txtMateriasPrimasLayout);
-        txtMateriasPrimasLayout.setHorizontalGroup(
-            txtMateriasPrimasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtMateriasPrimasLayout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addComponent(materiasPrimas)
-                .addGap(39, 39, 39))
-        );
-        txtMateriasPrimasLayout.setVerticalGroup(
-            txtMateriasPrimasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(txtMateriasPrimasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(materiasPrimas)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(txtMateriasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, 180, 30));
-
-        panelMateriasPrimas.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout panelMateriasPrimasLayout = new javax.swing.GroupLayout(panelMateriasPrimas);
-        panelMateriasPrimas.setLayout(panelMateriasPrimasLayout);
-        panelMateriasPrimasLayout.setHorizontalGroup(
-            panelMateriasPrimasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelMateriasPrimasLayout.setVerticalGroup(
-            panelMateriasPrimasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(panelMateriasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 180, 190));
-
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/fondoLargo.jpg"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 780, 360));
 
@@ -254,6 +257,7 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         precioVenta.setText("");
         tiempoElab.setText("");
         cantidad.setText("");
+        model.clear();
         ControladorInterfaces.mostrarEditarProducto(false, producto, fila);
         ControladorInterfaces.mostrarProductos(true);
     }//GEN-LAST:event_bVolverActionPerformed
@@ -273,82 +277,144 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         }
         try{
             Double cant = Double.parseDouble(cantidad.getText());
-            materias.put(materia, cant);
-            infoPanel.agregaProductoOrMatPrima(nombreMateria, cant);
+            if(materias.containsKey(materia)){
+                materias.replace(materia, cant);
+            }
+            else{
+                materias.put(materia, cant);
+            }
+            this.model.clear();
+            for (Map.Entry<MateriaPrima, Double> entry : materias.entrySet()) {
+                model.addElement(entry);
+            }
+            super.paintComponents(this.getGraphics());
         } catch (NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido.",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-        infoPanel.agregaProductoOrMatPrima("PapayasDePrueba", 90);
-        super.paintComponents(this.getGraphics());
     }//GEN-LAST:event_btnAgregarMPrimaActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
-        //Producto p = new Producto(nombre.getText(), Integer.parseInt(precioVenta.getText()), Integer.parseInt(tiempoElab.getText()));
-            
-
         String nombreProd = nombre.getText();
         boolean flag1 = true;
         boolean flag2 = true;
+        boolean flag3 = true;
+        boolean flag4 = true;
+        boolean flag5 = true;
+        int precio = 0;
+        double tiempo = 0;
+        try{
+            precio = Integer.parseInt(precioVenta.getText());
+            tiempo = Double.parseDouble(tiempoElab.getText());
+        } catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido","Error", 
+                    JOptionPane.ERROR_MESSAGE);
+            flag5 = false;
+        }
         if (nombreProd.equals("") || nombreProd == null){
             JOptionPane.showMessageDialog(this, "Debe ingresar un nombre.","Error", 
                     JOptionPane.ERROR_MESSAGE);
             flag1 = false;
         }
-        if(producto.getMateriasPrimas().isEmpty()){
+        if(materias.isEmpty()){
             JOptionPane.showMessageDialog(this, "Debe ingresar al menos una materia"
-                    + "prima.","Error", JOptionPane.ERROR_MESSAGE);
+                    + "prima.","Error", 
+                    JOptionPane.ERROR_MESSAGE); 
             flag2 = false;
         }
-        if (flag1 && flag2){
-            try{
-                if(Double.parseDouble(cantidad.getText()) > 0.0){                                 
-                    int precio = Integer.parseInt(precioVenta.getText());
-                    Double tiempo = Double.parseDouble(tiempoElab.getText());
-                    producto.setNombre(nombreProd);
-                    producto.setPrecioVenta(precio);
-                    producto.setTiempoElaboracion(tiempo);
-                    producto.setMateriasPrimas(materias);
-                    JOptionPane.showMessageDialog(this, "Guardado exitosamente",
-                            "Guardado", JOptionPane.INFORMATION_MESSAGE);
-                    //Productos.anadirFila(nombreProd, precio, tiempo, producto.getMateriasString());
-                    ControladorInterfaces.mostrarEditarProducto(false, producto, fila);
-                    ControladorInterfaces.mostrarProductos(true);
-                    nombre.setText("");
-                    precioVenta.setText("");
-                    tiempoElab.setText("");
-                    cantidad.setText("");
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad mayor a 0 "
-                    ,"Error",JOptionPane.ERROR_MESSAGE);
-                }
-                int precio = Integer.parseInt(precioVenta.getText());
-                Double tiempo = Double.parseDouble(cantidad.getText());
-                producto.setNombre(nombreProd);
-                producto.setPrecioVenta(precio);
-                producto.setTiempoElaboracion(tiempo);
-                producto.setMateriasPrimas(materias);
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente",
-                        "Guardado", JOptionPane.INFORMATION_MESSAGE);
-                
-                //Productos.editarFila(fila, nombreProd, precio, tiempo, producto.getMateriasString());
-                ControladorInterfaces.mostrarEditarProducto(false, producto, fila);
-                ControladorInterfaces.mostrarProductos(true);
-                nombre.setText("");
-                precioVenta.setText("");
-                tiempoElab.setText("");
-                cantidad.setText("");
-            } catch (NumberFormatException e){
-                JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            }
+        if(tiempo<=0 || tiempo>24){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un tiempo valido.","Error", 
+                    JOptionPane.ERROR_MESSAGE);  
+            flag3 = false;
+        }
+        if(precio<=0){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un precio valido.","Error", 
+            JOptionPane.ERROR_MESSAGE); 
+            flag4 = false;
+        }
+        if (flag1 && flag2 && flag3 && flag4 && flag5){     
+            producto.setNombre(nombreProd);
+            producto.setPrecioVenta(precio);
+            producto.setTiempoElaboracion(tiempo);
+            producto.setMateriasPrimas(materias);
+            JOptionPane.showMessageDialog(this, "Guardado exitosamente",
+                    "Guardado", JOptionPane.INFORMATION_MESSAGE);
+            ControladorInterfaces.mostrarEditarProducto(false, producto, fila);
+            ControladorInterfaces.mostrarProductos(true);
+            nombre.setText("");
+            precioVenta.setText("");
+            tiempoElab.setText("");
+            cantidad.setText("");
+            model.clear();
         }
     }//GEN-LAST:event_bGuardarActionPerformed
 
     private void precioVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioVentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_precioVentaActionPerformed
+
+    private void borrarMatPrimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarMatPrimaActionPerformed
+        // TODO add your handling code here:
+        int fila = listaMaterias.getSelectedIndex();
+        if (fila>=0){
+            int contador = 0;
+            MateriaPrima materia = null;
+            Double cantidad = null;
+            for(MateriaPrima m: materias.keySet()){
+                if (contador == fila){
+                    materia = m;
+                    cantidad = materias.get(m);
+                    break;
+                }
+                contador++;
+            }
+            if(JOptionPane.showConfirmDialog(this, "¿Desea eliminar la materia prima?", 
+                    "Eliminar Materia Prima", 0)==0){
+                materias.remove(materia, cantidad);
+            }
+            model.clear();
+            for (Map.Entry<MateriaPrima, Double> entry : materias.entrySet()) {
+                model.addElement(entry);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una materia",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_borrarMatPrimaActionPerformed
+
+    private void actualizaMatPrimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizaMatPrimaActionPerformed
+        // TODO add your handling code here:
+        int fila = listaMaterias.getSelectedIndex();
+        if (fila>=0){
+            int contador = 0;
+            MateriaPrima materia = null;
+            for(MateriaPrima m: materias.keySet()){
+                if (contador == fila){
+                    materia = m;
+                    break;
+                }
+                contador++;
+            }
+            try{
+                double cantidad = Double.parseDouble(JOptionPane.showInputDialog(this,
+                        "Ingrese nueva cantidad: ", 
+                    "Editar", JOptionPane.QUESTION_MESSAGE));
+                materias.replace(materia, cantidad);
+                model.clear();
+                for (Map.Entry<MateriaPrima, Double> entry : materias.entrySet()) {
+                    model.addElement(entry);
+                }
+            } catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(this, "Debe ingresar un número válido",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una materia",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_actualizaMatPrimaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -523,16 +589,16 @@ public class VistaEditarProducto extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregarMPrima;
     private javax.swing.JTextField cantidad;
     private javax.swing.JLabel icon;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> listaMaterias;
     private javax.swing.JLabel materiasPrimas;
     private javax.swing.JTextField nombre;
-    private javax.swing.JPanel panelMateriasPrimas;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JTextField precioVenta;
     private javax.swing.JTextField tiempoElab;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel txtCantidad;
     private javax.swing.JLabel txtMateriaPrima;
-    private javax.swing.JPanel txtMateriasPrimas;
     private javax.swing.JLabel txtNombre;
     private javax.swing.JLabel txtPrecioVenta;
     private javax.swing.JLabel txtTiempoElab;

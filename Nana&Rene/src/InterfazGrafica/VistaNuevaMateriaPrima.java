@@ -18,6 +18,7 @@ import logica.Almacen;
  */
 public class VistaNuevaMateriaPrima extends javax.swing.JFrame {
     private Almacen almacen;
+    private boolean tipoCDiscreta, tipoCContinua;
 
     /**
      * Creates new form PaginaPrincipalFX
@@ -180,11 +181,33 @@ public class VistaNuevaMateriaPrima extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe ingresar un nombre.","Error", 
                 JOptionPane.ERROR_MESSAGE);
         }
-        if (flag1){
+        if(tipoCDiscreta == true)
+        {
+            String c = cantidad.getText();
+            String[] c2 = c.split("\\.");
+            String[] ceros = c2[1].split("");
+            for(int i = 0; i < ceros.length; i++)
+            {
+                if(!ceros[i].equals("0"))
+                {
+                    flag2 = false;
+                    JOptionPane.showMessageDialog(this, "Debe ingresar una variable discreta","Error", 
+                    JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        if (flag1 && flag2){
             try{
                 String nombreMateria = nombre.getText();
                 double cantMateria = Double.parseDouble(cantidad.getText());
                 MateriaPrima mp = new MateriaPrima(nombreMateria, cantMateria);
+                if(tipoCContinua == true){
+                    mp.setTipo("continua");
+                }
+                else if(tipoCDiscreta == true)
+                {
+                    mp.setTipo("discreta");
+                }
                 if(cantMateria > 0.0){
                     ArrayList<MateriaPrima> aux = almacen.getMateriasPrimas();
                     aux.add(mp);
