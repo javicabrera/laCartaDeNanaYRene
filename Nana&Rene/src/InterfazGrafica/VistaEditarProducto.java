@@ -91,6 +91,8 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         bGuardar = new javax.swing.JButton();
         btnAgregarMPrima = new javax.swing.JButton();
         nombre = new javax.swing.JTextField();
+        actualizaMatPrima = new javax.swing.JButton();
+        borrarMatPrima = new javax.swing.JButton();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -163,6 +165,12 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         });
         getContentPane().add(btnAgregarMPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 250, 40, 30));
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 350, -1));
+
+        actualizaMatPrima.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/edit16.png"))); // NOI18N
+        getContentPane().add(actualizaMatPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 320, -1, -1));
+
+        borrarMatPrima.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/basurero16.png"))); // NOI18N
+        getContentPane().add(borrarMatPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, 40, 30));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
 
@@ -506,9 +514,11 @@ public class VistaEditarProducto extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton actualizaMatPrima;
     private javax.swing.JButton bGuardar;
     private javax.swing.JButton bVolver;
     private javax.swing.JLabel background;
+    private javax.swing.JButton borrarMatPrima;
     private javax.swing.JComboBox<String> boxMateriaPrima;
     private javax.swing.JButton btnAgregarMPrima;
     private javax.swing.JTextField cantidad;

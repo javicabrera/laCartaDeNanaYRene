@@ -5,17 +5,29 @@
  */
 package InterfazGrafica;
 
+import static InterfazGrafica.VistaPedidos.anadirFila;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+import logica.MateriaPrima;
+import logica.Pedido;
+import logica.Producto;
+import logica.ControladorInterfaces;
+
 /**
  *
  * @author elias
  */
 public class VistaDetallePedido extends javax.swing.JFrame {
+    private static DefaultTableModel modeloTabla;
+    private Pedido pedido;
 
     /**
      * Creates new form VistaDetallePedido
      */
     public VistaDetallePedido() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();   
     }
 
     /**
@@ -79,11 +91,17 @@ public class VistaDetallePedido extends javax.swing.JFrame {
                 "Nombre", "Cantidad"
             }
         ));
+        tablaMateriasPrimas.setEnabled(false);
         jScrollPane1.setViewportView(tablaMateriasPrimas);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 410, 240));
 
         btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 110, 40));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/fondoLargo.jpg"))); // NOI18N
@@ -91,6 +109,12 @@ public class VistaDetallePedido extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        // TODO add your handling code here:
+        ControladorInterfaces.habilitarGestionaPedido(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnOKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -125,6 +149,26 @@ public class VistaDetallePedido extends javax.swing.JFrame {
                 new VistaDetallePedido().setVisible(true);
             }
         });
+    }
+    
+    public void inicializaTabla(Pedido pedido){
+        this.pedido=pedido;
+        modeloTabla.setRowCount(0);
+        
+        pedido.getProductos();
+        
+        for(Producto p: this.pedido.getProductos().keySet()){
+            anadirFila(p.getNombre(),this.pedido.getProductos().get(p));
+        }
+        
+        
+    }
+    
+    private void anadirFila(String nombre, double cantidad) {
+        Object[] row = {nombre, cantidad};
+        
+        modeloTabla.addRow(row);
+    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

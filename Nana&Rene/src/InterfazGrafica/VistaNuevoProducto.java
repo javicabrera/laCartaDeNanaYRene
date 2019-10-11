@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import logica.Almacen;
 import logica.ControladorInterfaces;
@@ -22,7 +23,7 @@ import logica.MateriaPrima;
  */
 public class VistaNuevoProducto extends javax.swing.JFrame {
     private HashMap<MateriaPrima,Double> materias;
-    private InfoPanel infoPanel;
+    private DefaultListModel model;
     private Almacen almacen;
 
     /**
@@ -32,11 +33,8 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         materias = new HashMap<>();
-        
-        infoPanel = new InfoPanel();
-        panelMateriasPrimas.setLayout(new GridLayout(0,1));
-        panelMateriasPrimas.setPreferredSize(new Dimension(180,250));
-        panelMateriasPrimas.add(infoPanel.getPanelDatos());
+        this.model = new DefaultListModel();
+        listaMaterias.setModel(this.model);
     }
     
     public Almacen getAlmacen() {
@@ -44,7 +42,6 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
-        infoPanel = new InfoPanel();
         boxMateriaPrima.removeAllItems();
         this.almacen = almacen;
         for(MateriaPrima materia: this.almacen.getMateriasPrimas()){
@@ -70,13 +67,13 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         tiempoElab = new javax.swing.JTextField();
         cantidad = new javax.swing.JTextField();
         boxMateriaPrima = new javax.swing.JComboBox<>();
-        panelMateriasPrimas = new javax.swing.JPanel();
-        txtMateriasPrimas = new javax.swing.JPanel();
-        materiasPrimas = new javax.swing.JLabel();
         bVolver = new javax.swing.JButton();
         bGuardar = new javax.swing.JButton();
         btnAgregarMPrima = new javax.swing.JButton();
         nombre = new javax.swing.JTextField();
+        materiasPrimas = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaMaterias = new javax.swing.JList<>();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -112,6 +109,12 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
             }
         });
         getContentPane().add(precioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 350, -1));
+
+        tiempoElab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tiempoElabActionPerformed(evt);
+            }
+        });
         getContentPane().add(tiempoElab, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 350, -1));
         getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 80, -1));
 
@@ -121,44 +124,6 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
             }
         });
         getContentPane().add(boxMateriaPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 190, -1));
-
-        panelMateriasPrimas.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout panelMateriasPrimasLayout = new javax.swing.GroupLayout(panelMateriasPrimas);
-        panelMateriasPrimas.setLayout(panelMateriasPrimasLayout);
-        panelMateriasPrimasLayout.setHorizontalGroup(
-            panelMateriasPrimasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelMateriasPrimasLayout.setVerticalGroup(
-            panelMateriasPrimasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 190, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(panelMateriasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 180, 190));
-
-        txtMateriasPrimas.setBackground(new java.awt.Color(255, 255, 255));
-
-        materiasPrimas.setText("Materias Primas");
-
-        javax.swing.GroupLayout txtMateriasPrimasLayout = new javax.swing.GroupLayout(txtMateriasPrimas);
-        txtMateriasPrimas.setLayout(txtMateriasPrimasLayout);
-        txtMateriasPrimasLayout.setHorizontalGroup(
-            txtMateriasPrimasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtMateriasPrimasLayout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addComponent(materiasPrimas)
-                .addGap(39, 39, 39))
-        );
-        txtMateriasPrimasLayout.setVerticalGroup(
-            txtMateriasPrimasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(txtMateriasPrimasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(materiasPrimas)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(txtMateriasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, 180, 30));
 
         bVolver.setText("Volver");
         bVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -184,6 +149,22 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         });
         getContentPane().add(btnAgregarMPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 250, 40, 30));
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 350, -1));
+
+        materiasPrimas.setText("Materias Primas");
+        getContentPane().add(materiasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 80, -1, -1));
+
+        listaMaterias.setBackground(new java.awt.Color(242, 242, 242));
+        listaMaterias.setModel(new javax.swing.AbstractListModel<String>() {
+
+            String[] strings = {"item 1"};
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+
+        });
+        listaMaterias.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(listaMaterias);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, 190, 260));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
 
@@ -230,7 +211,7 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         tiempoElab.setText("");
         nombre.setText("");
         cantidad.setText("");
-        infoPanel = new InfoPanel();
+        model.clear();
         ControladorInterfaces.mostrarNuevoProducto(false);
         ControladorInterfaces.mostrarProductos(true);
     }//GEN-LAST:event_bVolverActionPerformed
@@ -250,8 +231,19 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         }
         try{
             Double cant = Double.parseDouble(cantidad.getText());
-            materias.put(materia, cant);
-            infoPanel.agregaProductoOrMatPrima(nombreMateria, cant);
+            if(materias.containsKey(materia)){
+                materias.replace(materia, cant);
+            }
+            else{
+                materias.put(materia, cant);
+            }
+            this.model.clear();
+                for(MateriaPrima m: materias.keySet()){
+                    this.model.addElement("Producto: " + m.getNombre());
+                    this.model.addElement("Cantidad: " + materias.get(m));
+                    this.model.addElement("_______________________");
+                }
+                super.paintComponents(this.getGraphics());
         } catch (NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido.",
                     "Error", JOptionPane.ERROR_MESSAGE);
@@ -266,6 +258,8 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         String nombreProd = nombre.getText();
         boolean flag1 = true;
         boolean flag2 = true;
+        int precio = Integer.parseInt(precioVenta.getText());
+        int tiempo = Integer.parseInt(tiempoElab.getText());
         if (nombreProd.equals("") || nombreProd == null){
             JOptionPane.showMessageDialog(this, "Debe ingresar un nombre.","Error", 
                     JOptionPane.ERROR_MESSAGE);
@@ -274,14 +268,22 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         if(materias.isEmpty()){
             JOptionPane.showMessageDialog(this, "Debe ingresar al menos una materia"
                     + "prima.","Error", 
-                    JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE); 
             flag2 = false;
         }
+        if(tiempo<=0 || tiempo>24){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un tiempo valido.","Error", 
+                    JOptionPane.ERROR_MESSAGE);  
+        }
+        if(precio<=0){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un precio valido.","Error", 
+            JOptionPane.ERROR_MESSAGE); 
+        }
+        
         if (flag1 && flag2){
             try{
                 if(Double.parseDouble(cantidad.getText()) > 0.0){
-                    int precio = Integer.parseInt(precioVenta.getText());
-                    int tiempo = Integer.parseInt(tiempoElab.getText());
+                    
                     Producto p = new Producto(nombreProd, precio, tiempo, materias);
                     ArrayList<Producto> prodAux = almacen.getProductos();
                     prodAux.add(p);
@@ -293,8 +295,7 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
                     tiempoElab.setText("");
                     nombre.setText("");
                     cantidad.setText("");
-                    infoPanel = new InfoPanel();
-                    VistaProductos.anadirFila(nombreProd, precio, tiempo, p.getMateriasString());
+                    model.clear();
                     ControladorInterfaces.mostrarNuevoProducto(false);
                     ControladorInterfaces.mostrarProductos(true);
                 }
@@ -313,6 +314,11 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
     private void precioVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioVentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_precioVentaActionPerformed
+
+    private void tiempoElabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiempoElabActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_tiempoElabActionPerformed
 
     /**
      * @param args the command line arguments
@@ -613,16 +619,16 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregarMPrima;
     private javax.swing.JTextField cantidad;
     private javax.swing.JLabel icon;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> listaMaterias;
     private javax.swing.JLabel materiasPrimas;
     private javax.swing.JTextField nombre;
-    private javax.swing.JPanel panelMateriasPrimas;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JTextField precioVenta;
     private javax.swing.JTextField tiempoElab;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel txtCantidad;
     private javax.swing.JLabel txtMateriaPrima;
-    private javax.swing.JPanel txtMateriasPrimas;
     private javax.swing.JLabel txtNombre;
     private javax.swing.JLabel txtPrecioVenta;
     private javax.swing.JLabel txtTiempoElab;

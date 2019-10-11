@@ -143,7 +143,8 @@ public class VistaEditarCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
-        
+        ControladorInterfaces.mostrarEditarCliente(false);
+        ControladorInterfaces.mostrarClientes(true);
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
