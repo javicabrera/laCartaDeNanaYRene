@@ -220,7 +220,7 @@ public class VistaPedidos extends javax.swing.JFrame {
                     }
                     else if (caso == 3){
                         JOptionPane.showMessageDialog(this, "No se puede realizar "
-                                + "el pedido, no se ha abonado el 50% ni hay suficiente"
+                                + "el pedido, no se ha abonado el 50% ni hay suficiente "
                                 + "materia prima.",
                         "Error", JOptionPane.ERROR_MESSAGE);
                     }

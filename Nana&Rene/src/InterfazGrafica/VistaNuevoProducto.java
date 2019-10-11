@@ -258,6 +258,8 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         String nombreProd = nombre.getText();
         boolean flag1 = true;
         boolean flag2 = true;
+        boolean flag3 = true;
+        boolean flag4 = true;
         int precio = Integer.parseInt(precioVenta.getText());
         int tiempo = Integer.parseInt(tiempoElab.getText());
         if (nombreProd.equals("") || nombreProd == null){
@@ -274,36 +276,30 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         if(tiempo<=0 || tiempo>24){
             JOptionPane.showMessageDialog(this, "Debe ingresar un tiempo valido.","Error", 
                     JOptionPane.ERROR_MESSAGE);  
+            flag3 = false;
         }
         if(precio<=0){
             JOptionPane.showMessageDialog(this, "Debe ingresar un precio valido.","Error", 
             JOptionPane.ERROR_MESSAGE); 
+            flag4 = false;
         }
         
-        if (flag1 && flag2){
-            try{
-                if(Double.parseDouble(cantidad.getText()) > 0.0){
-                    
-                    Producto p = new Producto(nombreProd, precio, tiempo, materias);
-                    ArrayList<Producto> prodAux = almacen.getProductos();
-                    prodAux.add(p);
-                    almacen.setProductos(prodAux);
-                    JOptionPane.showMessageDialog(this, "Guardado exitosamente",
-                            "Guardado", JOptionPane.INFORMATION_MESSAGE);
-                    materias = new HashMap<>();
-                    precioVenta.setText("");
-                    tiempoElab.setText("");
-                    nombre.setText("");
-                    cantidad.setText("");
-                    model.clear();
-                    ControladorInterfaces.mostrarNuevoProducto(false);
-                    ControladorInterfaces.mostrarProductos(true);
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad mayor a 0 "
-                    ,"Error",JOptionPane.ERROR_MESSAGE);
-                }
-                
+        if (flag1 && flag2 && flag3 && flag4){
+            try{  
+                Producto p = new Producto(nombreProd, precio, tiempo, materias);
+                ArrayList<Producto> prodAux = almacen.getProductos();
+                prodAux.add(p);
+                almacen.setProductos(prodAux);
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente",
+                        "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                materias = new HashMap<>();
+                precioVenta.setText("");
+                tiempoElab.setText("");
+                nombre.setText("");
+                cantidad.setText("");
+                model.clear();
+                ControladorInterfaces.mostrarNuevoProducto(false);
+                ControladorInterfaces.mostrarProductos(true);
             } catch (NumberFormatException e){
                 JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
                     "Error", JOptionPane.ERROR_MESSAGE);
