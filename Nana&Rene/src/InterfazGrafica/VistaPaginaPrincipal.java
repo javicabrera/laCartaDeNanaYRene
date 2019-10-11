@@ -50,7 +50,7 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
             VistaPaginaPrincipal.agregarPedido(cliente);
             VistaPaginaPrincipal.agregarPedido(estado);
             VistaPaginaPrincipal.agregarPedido(fecha);
-            VistaPaginaPrincipal.agregarPedido("___________");
+            VistaPaginaPrincipal.agregarPedido("___________________________");
             
             
         }
