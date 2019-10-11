@@ -223,6 +223,7 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
     private void btnAgregarMPrimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMPrimaActionPerformed
         String nombreMateria = (String) boxMateriaPrima.getSelectedItem();
         MateriaPrima materia = null;
+        boolean flag1 = true;
         for(MateriaPrima m : almacen.getMateriasPrimas()){
             if(m.getNombre().equals(nombreMateria)){
                 materia = m;
@@ -230,26 +231,47 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
             }
         }
         try{
+            
             Double cant = Double.parseDouble(cantidad.getText());
-            if(materias.containsKey(materia)){
-                materias.replace(materia, cant);
+            if(materia.getTipo().equals("discreta"))
+            {
+                String c = String.valueOf(cant);
+                String[] c2 = c.split("\\.");
+                String[] ceros = c2[1].split("");
+                for(int i = 0; i < ceros.length; i++)
+                {
+                    if(!ceros[i].equals("0"))
+                    {
+                        flag1 = false;
+                        JOptionPane.showMessageDialog(this, "Debe ingresar una variable discreta","Error", 
+                        JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
+                }
             }
-            else{
-                materias.put(materia, cant);
-            }
-            this.model.clear();
-                for(MateriaPrima m: materias.keySet()){
+            if(flag1)
+            {
+                if(materias.containsKey(materia))
+                {
+                    materias.replace(materia, cant);
+                }
+                else{
+                    materias.put(materia, cant);
+                }
+                this.model.clear();
+                for(MateriaPrima m: materias.keySet())
+                {
                     this.model.addElement("Producto: " + m.getNombre());
                     this.model.addElement("Cantidad: " + materias.get(m));
                     this.model.addElement("_______________________");
                 }
                 super.paintComponents(this.getGraphics());
+            }
+            
         } catch (NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido.",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        
         super.paintComponents(this.getGraphics());
     }//GEN-LAST:event_btnAgregarMPrimaActionPerformed
 
