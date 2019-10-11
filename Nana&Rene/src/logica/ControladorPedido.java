@@ -25,10 +25,10 @@ public class ControladorPedido {
     }
     
     public int elaborarPedido(Pedido p){
-        if(!verificarAbono(p)){
+        if(!verificarAbono(p) && verificarDisponibilidadMateriasPrimas(p)){
             return 1;
         }
-        if (!verificarDisponibilidadMateriasPrimas(p)){
+        if (!verificarDisponibilidadMateriasPrimas(p) && verificarAbono(p)){
             return 2;
         }
         if (!verificarAbono(p) && !verificarDisponibilidadMateriasPrimas(p)){
