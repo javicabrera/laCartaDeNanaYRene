@@ -15,6 +15,7 @@ import InterfazGrafica.VistaPaginaPrincipal;
 import InterfazGrafica.VistaProductos;
 import InterfazGrafica.VistaNuevaMateriaPrima;
 import InterfazGrafica.VistaNuevoCliente;
+import InterfazGrafica.VistaDetalleProducto;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -37,6 +38,7 @@ public class ControladorInterfaces {
     private static VistaEditarMateriaPrima editarMateriaPrima;
     private static VistaNuevaMateriaPrima registarMateriaPrima;
     private static VistaDetallePedido vistaDetallePedido;
+    private static VistaDetalleProducto vistaDetalleProducto;
     private static VistaClientes clientes;
     private static VistaEditarCliente editarCliente;
     private static VistaNuevoCliente nuevoCliente;
@@ -65,6 +67,7 @@ public class ControladorInterfaces {
         this.registarMateriaPrima = new VistaNuevaMateriaPrima();
         //this.registarMateriaPrima.setAlmacen(almacen);
         this.vistaDetallePedido = new VistaDetallePedido();
+        this.vistaDetalleProducto = new VistaDetalleProducto();
         this.clientes = new VistaClientes();
         this.editarCliente = new VistaEditarCliente();
         this.nuevoCliente = new VistaNuevoCliente();
@@ -145,8 +148,19 @@ public class ControladorInterfaces {
         ControladorInterfaces.vistaDetallePedido.repaint();
     }
     
+    public static void mostrarDetalleProducto(boolean b, Producto producto){
+        ControladorInterfaces.habilitarGestionaProducto(false);
+        ControladorInterfaces.vistaDetalleProducto.setVisible(b);
+        ControladorInterfaces.vistaDetalleProducto.inicializaTabla(producto);
+        ControladorInterfaces.vistaDetalleProducto.repaint();
+    }
+    
     public static void habilitarGestionaPedido(boolean b){
         ControladorInterfaces.gestionaPedido.enable(b);
+    }
+    
+    public static void habilitarGestionaProducto(boolean b){
+        ControladorInterfaces.productos.enable(b);
     }
 
     

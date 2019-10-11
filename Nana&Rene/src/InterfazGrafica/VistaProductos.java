@@ -46,6 +46,7 @@ public class VistaProductos extends javax.swing.JFrame {
         btnVolver = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
+        btnInfo = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
         tablaProductos = new javax.swing.JTable();
         panelSuperior = new javax.swing.JPanel();
@@ -81,7 +82,7 @@ public class VistaProductos extends javax.swing.JFrame {
                 btnBorrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, 30, 30));
+        getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, 30, 30));
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/edit16.png"))); // NOI18N
         btnEditar.setToolTipText("Editar");
@@ -90,14 +91,22 @@ public class VistaProductos extends javax.swing.JFrame {
                 btnEditarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 160, 30, 30));
+        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 160, 30, 30));
+
+        btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/info16.png"))); // NOI18N
+        btnInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInfoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 160, 30, 30));
 
         tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Precio Venta", "Tiempo Elaboración", "Materias Primas"
+                "Nombre", "Precio Venta", "Tiempo Elaboración (hrs)", "Materias Primas"
             }
         ) {
             Class[] types = new Class [] {
@@ -115,6 +124,7 @@ public class VistaProductos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaProductos.setToolTipText("");
         jScrollPane.setViewportView(tablaProductos);
 
         getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 630, 300));
@@ -193,7 +203,6 @@ public class VistaProductos extends javax.swing.JFrame {
                 ArrayList<Producto> aux = almacen.getProductos();
                 aux.remove(obtieneFilaSeleccionada());
                 almacen.setProductos(aux);
-                borrarFila(obtieneFilaSeleccionada());
             }
         }
         else{
@@ -201,6 +210,19 @@ public class VistaProductos extends javax.swing.JFrame {
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
+
+        if(obtieneFilaSeleccionada()>=0){
+            Producto producto = almacen.getProductos().get(obtieneFilaSeleccionada());
+            ControladorInterfaces.mostrarDetalleProducto(true, producto);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto",
+                "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnInfoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -300,7 +322,7 @@ public class VistaProductos extends javax.swing.JFrame {
         });
     }
     
-    public void anadirFila(String nombre, int precioVenta, int tiempoElab,
+    public void anadirFila(String nombre, int precioVenta, Double tiempoElab,
             String materiasPrimas) {
         
         Object[] row = {nombre, "$"+precioVenta, tiempoElab, materiasPrimas};
@@ -329,7 +351,7 @@ public class VistaProductos extends javax.swing.JFrame {
         this.almacen = almacen;
         for(Producto p: this.almacen.getProductos()){
             anadirFila(p.getNombre(),p.getPrecioVenta(),p.getTiempoElaboracion()
-            ,p.getMateriasString());
+                    ,p.getMateriasString());
         }
     }
 
@@ -339,6 +361,7 @@ public class VistaProductos extends javax.swing.JFrame {
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnInfo;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel icon;
     private javax.swing.JScrollPane jScrollPane;

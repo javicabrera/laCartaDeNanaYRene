@@ -149,6 +149,10 @@ public class VistaNuevoCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @author renecsc
+     * @param evt 
+     */
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
         ControladorInterfaces.mostrarNuevoCliente(false);
         ControladorInterfaces.mostrarClientes(true);
@@ -158,6 +162,10 @@ public class VistaNuevoCliente extends javax.swing.JFrame {
         telefono.setText("");
     }//GEN-LAST:event_bVolverActionPerformed
 
+    /**
+     * @author renecsc
+     * @param evt 
+     */
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
 
         boolean flag1 = true;

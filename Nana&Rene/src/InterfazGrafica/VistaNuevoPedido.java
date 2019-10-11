@@ -5,8 +5,6 @@
  */
 package InterfazGrafica;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import logica.Almacen;
+import logica.Cliente;
 import logica.ControladorInterfaces;
 import logica.Pedido;
 import logica.Producto;
@@ -46,6 +45,10 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         contador = 0;
         this.model = new DefaultListModel();
         listaProductos.setModel(this.model);
+        String pattern = "dd/MM/yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        Date hoy = new Date();
+        fSolicitud.setText(simpleDateFormat.format(hoy));
     }
     
     public Almacen getAlmacen() {
@@ -57,6 +60,11 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         this.almacen = almacen;
         for(Producto p: this.almacen.getProductos()){
             boxProductos.addItem(p.getNombre());
+        }
+        boxCliente.removeAllItems();
+        boxCliente.addItem("No Registrado");
+        for(Cliente c: this.almacen.getClientes()){
+            boxCliente.addItem(c.getNombreCliente());
         }
     }
 
@@ -153,7 +161,7 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         txtCorreo.setText("Correo:");
         getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, -1, 20));
 
-        fSolicitud.setText("dd/MM/aaaa");
+        fSolicitud.setEditable(false);
         fSolicitud.setToolTipText("");
         fSolicitud.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,7 +192,11 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         getContentPane().add(boxProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 130, -1));
         getContentPane().add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 310, 230, -1));
 
-        boxCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        boxCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxClienteActionPerformed(evt);
+            }
+        });
         getContentPane().add(boxCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 130, -1));
 
         bVolver.setText("Volver");
@@ -218,7 +230,7 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         getContentPane().add(txt$, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, -1, 20));
 
         txtPorcentaje.setText("%");
-        getContentPane().add(txtPorcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, 10, 20));
+        getContentPane().add(txtPorcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, 30, 20));
 
         btnAplicarDscto.setText("Aplicar");
         btnAplicarDscto.addActionListener(new java.awt.event.ActionListener() {
@@ -289,7 +301,10 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
         cantidad.setText("");
-        fSolicitud.setText("dd/MM/aaaa");
+        String pattern = "dd/MM/yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        Date hoy = new Date();
+        fSolicitud.setText(simpleDateFormat.format(hoy));
         fRetiro.setText("dd/MM/aaaa");
         precioAbonado.setText("");
         precioTotal.setText("0");
@@ -348,11 +363,6 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        
-        
-        
-        
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     /**
@@ -367,8 +377,6 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         boolean flag4 = true;
         boolean flag5 = true;
         boolean flag6 = true;
-        boolean flag7 = true;
-        boolean flag8 = true;
         boolean flag9 = true;
         Date DateSolicitud = null;
         Date DateRetiro = null;
@@ -413,15 +421,6 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
                     "Error", JOptionPane.ERROR_MESSAGE);
             flag6 =false;
         }
-        double descuento2 = (Double.parseDouble(descuento.getText())/100)*Integer.parseInt(precioTotal.getText());
-        int precioAbonoDescuento = (int) (Integer.parseInt(precioTotal.getText())-Integer.parseInt(precioAbonado.getText())-descuento2);
-        if(precioAbonoDescuento < 0)
-        {
-            JOptionPane.showMessageDialog(this, "El descuento más el abono superan el precio total.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            flag8 =false;
-        }
-
         try {
             Date fSolicitud = new SimpleDateFormat("dd/MM/yyyy").parse(this.fSolicitud.getText());
             Date fRetiro =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fRetiro.getText());
@@ -432,13 +431,8 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
             System.out.println(fActual);
             System.out.println(fSolicitud);
             System.out.println(fRetiro);
-            if(fSolicitud.before(fActual))
-            {
-                flag9 = false;
-                JOptionPane.showMessageDialog(this, "La fecha de solicitud es anterior a la actual.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            else if(fRetiro.before(fActual))
+            
+            if(fRetiro.before(fActual))
             {
                 JOptionPane.showMessageDialog(this, "La fecha de retiro es anterior a la actual.",
                     "Error", JOptionPane.ERROR_MESSAGE);
@@ -448,32 +442,23 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
             Logger.getLogger(VistaNuevoPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if(precioAbonoDescuento < 0)
-        {
-            JOptionPane.showMessageDialog(this, "El descuento más el abono superan el precio total.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            flag8 =false;
-        }
-        if (flag && flag2 && flag3 && flag4 && flag5 && flag6 && flag7 && flag8 && flag9){
+        if (flag && flag2 && flag3 && flag4 && flag5 && flag6 && flag9){
+            String nombreCliente = nombre.getText();
+            String numeroCliente = numero.getText();
+            String correoCliente = correo.getText();
             Pedido p = new Pedido(productos, DateSolicitud, DateRetiro,
-                    total,dcto,nombre.getText(), 
-                    correo.getText(), numero.getText(), abono);
+                    total,dcto,nombreCliente, 
+                    numeroCliente, correoCliente, abono);
             ArrayList<Pedido> aux = almacen.getPedidos();
             aux.add(p);
             almacen.setPedidos(aux);
             JOptionPane.showMessageDialog(this, "Guardado exitosamente",
                         "Guardado", JOptionPane.INFORMATION_MESSAGE);
-            String cliente = p.getNombreCliente();
-            String estado = "Estado: " + p.getEstado();
-            VistaPaginaPrincipal.agregarPedido(cliente);
-            VistaPaginaPrincipal.agregarPedido(estado);
-            VistaPaginaPrincipal.agregarPedido("___________");
-            String pattern = "dd-MM-yyyy";
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-            VistaPedidos.anadirFila(nombre.getText(), simpleDateFormat.format(DateRetiro), 
-                    total, p.getEstado());
             cantidad.setText("");
-            fSolicitud.setText("dd/MM/aaaa");
+            String pattern = "dd/MM/yyyy";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            Date hoy = new Date();
+            fSolicitud.setText(simpleDateFormat.format(hoy));
             fRetiro.setText("dd/MM/aaaa");
             precioAbonado.setText("");
             total = 0;
@@ -519,6 +504,43 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnAplicarDsctoActionPerformed
+
+    private void boxClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxClienteActionPerformed
+        // TODO add your handling code here:
+        String clienteSeleccionado = (String) boxCliente.getSelectedItem();
+        if (clienteSeleccionado!=null && !clienteSeleccionado.equals("No Registrado")){
+            Cliente cliente = null;
+            for(Cliente c: this.almacen.getClientes()){
+                if (c.getNombreCliente().equals(clienteSeleccionado)){
+                    cliente = c;
+                    break;
+                }
+            }
+            nombre.setText(cliente.getNombreCliente());
+            nombre.setEditable(false);
+            String[] tel = cliente.getNumeroCliente().split("");
+            String nuevoTelefono = "";
+            for(int i = 0; i < tel.length; i++)
+            {
+                if(!tel[i].equals("-"))
+                {
+                    nuevoTelefono+=tel[i];
+                }
+            }
+            numero.setText(nuevoTelefono);
+            numero.setEditable(false);
+            correo.setText(cliente.getCorreoCliente());
+            correo.setEditable(false);
+        }
+        else{
+            nombre.setText("");
+            nombre.setEditable(true);
+            numero.setText("");
+            numero.setEditable(true);
+            correo.setText("");
+            correo.setEditable(true);
+        }
+    }//GEN-LAST:event_boxClienteActionPerformed
 
     /**
      * @param args the command line arguments

@@ -47,7 +47,7 @@ public class VistaDetallePedido extends javax.swing.JFrame {
         btnOK = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));

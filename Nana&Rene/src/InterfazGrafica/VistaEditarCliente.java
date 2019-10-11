@@ -6,6 +6,7 @@
 package InterfazGrafica;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import logica.ControladorInterfaces;
 import logica.MateriaPrima;
