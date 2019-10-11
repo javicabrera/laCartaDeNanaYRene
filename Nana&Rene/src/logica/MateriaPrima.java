@@ -13,12 +13,12 @@ public class MateriaPrima
 {
     private String nombre;
     private double cantidad;
+    private String tipo = "continua";
     
     public MateriaPrima(String nombre, double cantidad)
     {
         this.nombre = nombre;
         this.cantidad = cantidad;
-
     }
 
     public String getNombre()
@@ -31,13 +31,23 @@ public class MateriaPrima
         this.nombre = nombre;
     }
 
-    public double getCantidad() 
+    public String getTipo()
     {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) 
+    {
+        this.tipo = tipo;
+    }
+
+    public double getCantidad() {
         return cantidad;
     }
 
-    public void modificarCantidad(double cantidad) 
-    {
+    public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
+    
+    
 }

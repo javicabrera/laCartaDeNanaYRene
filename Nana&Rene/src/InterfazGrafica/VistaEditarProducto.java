@@ -269,6 +269,7 @@ public class VistaEditarProducto extends javax.swing.JFrame {
     private void btnAgregarMPrimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMPrimaActionPerformed
         String nombreMateria = (String) boxMateriaPrima.getSelectedItem();
         MateriaPrima materia = null;
+        boolean flag1 = true;
         for(MateriaPrima m : almacen.getMateriasPrimas()){
             if(m.getNombre().equals(nombreMateria)){
                 materia = m;
@@ -277,17 +278,47 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         }
         try{
             Double cant = Double.parseDouble(cantidad.getText());
-            if(materias.containsKey(materia)){
-                materias.replace(materia, cant);
+            if(materia.getTipo().equals("discreta"))
+            {
+//                String c = String.valueOf(cant);
+//                String[] c2 = c.split("\\.");
+//                String[] ceros = c2[1].split("");
+//                for(int i = 0; i < ceros.length; i++)
+//                {
+//                    if(!ceros[i].equals("0"))
+//                    {
+//                        flag1 = false;
+//                        JOptionPane.showMessageDialog(this, "Debe ingresar una variable discreta","Error", 
+//                        JOptionPane.ERROR_MESSAGE);
+//                        break;
+//                    }
+//                }
+                try{
+                    Integer.parseInt(cantidad.getText());
+                    flag1 = true;
+                    
+                }catch(NumberFormatException nfe){
+                    flag1 = false;
+                    JOptionPane.showMessageDialog(this, "Debe ingresar una variable discreta","Error", 
+                        JOptionPane.ERROR_MESSAGE);
+                }
             }
-            else{
-                materias.put(materia, cant);
+            if(flag1)
+            {
+                if(materias.containsKey(materia))
+                {
+                    materias.replace(materia, cant);
+                }
+                else{
+                    materias.put(materia, cant);
+                }
+                this.model.clear();
+                for (Map.Entry<MateriaPrima, Double> entry : materias.entrySet()) {
+                    model.addElement(entry);
+                }
+                super.paintComponents(this.getGraphics());
             }
-            this.model.clear();
-            for (Map.Entry<MateriaPrima, Double> entry : materias.entrySet()) {
-                model.addElement(entry);
-            }
-            super.paintComponents(this.getGraphics());
+
         } catch (NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido.",
                     "Error", JOptionPane.ERROR_MESSAGE);
@@ -397,10 +428,27 @@ public class VistaEditarProducto extends javax.swing.JFrame {
                 contador++;
             }
             try{
-                double cantidad = Double.parseDouble(JOptionPane.showInputDialog(this,
-                        "Ingrese nueva cantidad: ", 
-                    "Editar", JOptionPane.QUESTION_MESSAGE));
-                materias.replace(materia, cantidad);
+                boolean flag = false;
+                String auxcantidad = "";
+                do{
+                    auxcantidad = JOptionPane.showInputDialog(this,
+                            "Ingrese nueva cantidad: ", 
+                        "Editar", JOptionPane.QUESTION_MESSAGE);
+                    if(materia.getTipo().equals("discreta")){
+                        System.out.println("discreta");
+                        try{
+                            Integer.parseInt(auxcantidad);                            
+                            flag = true;
+                        }
+                        catch(NumberFormatException nfe){
+                            JOptionPane.showMessageDialog(this, "Debe ingresar valor discreto",
+                        "Error", JOptionPane.ERROR_MESSAGE);              
+                            flag = false; 
+                        }
+                    }
+                } while(!flag);
+                
+                materias.replace(materia, Double.parseDouble(auxcantidad));
                 model.clear();
                 for (Map.Entry<MateriaPrima, Double> entry : materias.entrySet()) {
                     model.addElement(entry);
