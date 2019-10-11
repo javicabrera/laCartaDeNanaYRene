@@ -518,7 +518,16 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
             }
             nombre.setText(cliente.getNombreCliente());
             nombre.setEditable(false);
-            numero.setText(cliente.getNumeroCliente());
+            String[] tel = cliente.getNumeroCliente().split("");
+            String nuevoTelefono = "";
+            for(int i = 0; i < tel.length; i++)
+            {
+                if(!tel[i].equals("-"))
+                {
+                    nuevoTelefono+=tel[i];
+                }
+            }
+            numero.setText(nuevoTelefono);
             numero.setEditable(false);
             correo.setText(cliente.getCorreoCliente());
             correo.setEditable(false);
