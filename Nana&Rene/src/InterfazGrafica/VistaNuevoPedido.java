@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import logica.Almacen;
 import logica.ControladorInterfaces;
@@ -27,10 +28,11 @@ import logica.Producto;
  * @author elias
  */
 public class VistaNuevoPedido extends javax.swing.JFrame {
+    private DefaultListModel model;
     private HashMap<Producto, Integer> productos;
-    private InfoPanel infoPanel;
     private int total;
     private Almacen almacen;
+    private int contador;
 
     /**
      * Creates new form PaginaPrincipalFX
@@ -41,11 +43,13 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         productos = new HashMap<>();
         
         total = 0;
-        
-        infoPanel = new InfoPanel();
-        panelResumenPedido.setLayout(new GridLayout(0,1));
-        panelResumenPedido.setPreferredSize(new Dimension(180,210));
-        panelResumenPedido.add(infoPanel.getPanelDatos());
+        contador = 0;
+        this.model = new DefaultListModel();
+        listaProductos.setModel(this.model);
+        String pattern = "dd-MM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        Date hoy = new Date();
+        fSolicitud.setText(simpleDateFormat.format(hoy));
     }
     
     public Almacen getAlmacen() {
@@ -97,9 +101,9 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         txt$ = new javax.swing.JLabel();
         txtPorcentaje = new javax.swing.JLabel();
         btnAplicarDscto = new javax.swing.JButton();
-        panelResumenPedido = new javax.swing.JPanel();
-        txtResumenPedido = new javax.swing.JPanel();
         resumenPedido = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaProductos = new javax.swing.JList<>();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -153,7 +157,7 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         txtCorreo.setText("Correo:");
         getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, -1, 20));
 
-        fSolicitud.setText("dd/MM/aaaa");
+        fSolicitud.setEditable(false);
         fSolicitud.setToolTipText("");
         fSolicitud.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,45 +225,28 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         getContentPane().add(txtPorcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, 10, 20));
 
         btnAplicarDscto.setText("Aplicar");
+        btnAplicarDscto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAplicarDsctoActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnAplicarDscto, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, 80, 30));
 
-        panelResumenPedido.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout panelResumenPedidoLayout = new javax.swing.GroupLayout(panelResumenPedido);
-        panelResumenPedido.setLayout(panelResumenPedidoLayout);
-        panelResumenPedidoLayout.setHorizontalGroup(
-            panelResumenPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelResumenPedidoLayout.setVerticalGroup(
-            panelResumenPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(panelResumenPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 180, 210));
-
-        txtResumenPedido.setBackground(new java.awt.Color(255, 255, 255));
-
         resumenPedido.setText("Resumen Pedido");
+        getContentPane().add(resumenPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 80, -1, -1));
 
-        javax.swing.GroupLayout txtResumenPedidoLayout = new javax.swing.GroupLayout(txtResumenPedido);
-        txtResumenPedido.setLayout(txtResumenPedidoLayout);
-        txtResumenPedidoLayout.setHorizontalGroup(
-            txtResumenPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtResumenPedidoLayout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
-                .addComponent(resumenPedido)
-                .addGap(39, 39, 39))
-        );
-        txtResumenPedidoLayout.setVerticalGroup(
-            txtResumenPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(txtResumenPedidoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(resumenPedido)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        listaProductos.setBackground(new java.awt.Color(242, 242, 242));
+        listaProductos.setModel(new javax.swing.AbstractListModel<String>() {
 
-        getContentPane().add(txtResumenPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, 180, 30));
+            String[] strings = {"item 1"};
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+
+        });
+        listaProductos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(listaProductos);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, 190, 260));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
 
@@ -306,17 +293,21 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
         cantidad.setText("");
-        fSolicitud.setText("");
-        fRetiro.setText("");
+        String pattern = "dd-MM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        Date hoy = new Date();
+        fSolicitud.setText(simpleDateFormat.format(hoy));
+        fRetiro.setText("dd/MM/aaaa");
         precioAbonado.setText("");
         precioTotal.setText("0");
         total = 0;
+        contador = 0;
         descuento.setText("");
         nombre.setText("");
         numero.setText("");
         correo.setText("");
         productos = new HashMap<>();
-        infoPanel = new InfoPanel();
+        model.clear();
         ControladorInterfaces.mostrarNuevoPedido(false);
         ControladorInterfaces.mostrarGestionaPedido(true);
         
@@ -335,13 +326,24 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
                 break;
             }
         }
+        
         try{
             int cant = Integer.parseInt(cantidad.getText());
             if(cant>0){
-                productos.put(producto,cant);
+                if (productos.containsKey(producto)){
+                    productos.replace(producto, cant);
+                }
+                else{
+                    productos.put(producto,cant);
+                }
                 total += (producto.getPrecioVenta()*cant);
                 precioTotal.setText(String.valueOf(total));
-                infoPanel.agregaProductoOrMatPrima(nombreProducto, cant);
+                this.model.clear();
+                for(Producto p: productos.keySet()){
+                    this.model.addElement("Producto: " + p.getNombre());
+                    this.model.addElement("Cantidad: " + productos.get(p));
+                    this.model.addElement("_______________________");
+                }
                 super.paintComponents(this.getGraphics());
             }
             else{
@@ -353,6 +355,7 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
+        
         
         
         
@@ -371,8 +374,6 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         boolean flag4 = true;
         boolean flag5 = true;
         boolean flag6 = true;
-        boolean flag7 = true;
-        boolean flag8 = true;
         boolean flag9 = true;
         Date DateSolicitud = null;
         Date DateRetiro = null;
@@ -401,36 +402,22 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
                     "Error", JOptionPane.ERROR_MESSAGE);
             flag3=false;
         }
-        if(dcto<0 || dcto>100){
-            flag4= false;
-            JOptionPane.showMessageDialog(this, "El descuento debe estar entre 0 y 100",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        int precioDescontado = (Integer.parseInt(precioTotal.getText()))*(1-(dcto/100));
-        if(abono>precioDescontado){
+        
+        if(abono>total){
             JOptionPane.showMessageDialog(this, "El abono no puede ser mayor al total",
                     "Error", JOptionPane.ERROR_MESSAGE);
-            flag5 = false;
+            flag4 = false;
         }
         if(!(numero.getText().length() == 9 && numero.getText().charAt(0) == '9')){
             JOptionPane.showMessageDialog(this, "Ingrese un numero de telefono valido",
                     "Error", JOptionPane.ERROR_MESSAGE);
-            flag6 = false;
+            flag5 = false;
         }
         if(!correo.getText().matches("^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$")){
             JOptionPane.showMessageDialog(this, "Ingrese un correo valido",
                     "Error", JOptionPane.ERROR_MESSAGE);
-            flag7 =false;
+            flag6 =false;
         }
-        double descuento2 = (Double.parseDouble(descuento.getText())/100)*Integer.parseInt(precioTotal.getText());
-        int precioAbonoDescuento = (int) (Integer.parseInt(precioTotal.getText())-Integer.parseInt(precioAbonado.getText())-descuento2);
-        if(precioAbonoDescuento < 0)
-        {
-            JOptionPane.showMessageDialog(this, "El descuento más el abono superan el precio total.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            flag8 =false;
-        }
-
         try {
             Date fSolicitud = new SimpleDateFormat("dd/MM/yyyy").parse(this.fSolicitud.getText());
             Date fRetiro =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fRetiro.getText());
@@ -441,13 +428,8 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
             System.out.println(fActual);
             System.out.println(fSolicitud);
             System.out.println(fRetiro);
-            if(fSolicitud.before(fActual))
-            {
-                flag9 = false;
-                JOptionPane.showMessageDialog(this, "La fecha de solicitud es anterior a la actual.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            else if(fRetiro.before(fActual))
+            
+            if(fRetiro.before(fActual))
             {
                 JOptionPane.showMessageDialog(this, "La fecha de retiro es anterior a la actual.",
                     "Error", JOptionPane.ERROR_MESSAGE);
@@ -457,35 +439,24 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
             Logger.getLogger(VistaNuevoPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if(precioAbonoDescuento < 0)
-        {
-            JOptionPane.showMessageDialog(this, "El descuento más el abono superan el precio total.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            flag8 =false;
-        }
-        if (flag && flag2 && flag3 && flag4 && flag5 && flag6 && flag7 && flag8 && flag9){
+        if (flag && flag2 && flag3 && flag4 && flag5 && flag6 && flag9){
             Pedido p = new Pedido(productos, DateSolicitud, DateRetiro,
-                    precioDescontado,dcto,nombre.getText(), 
+                    total,dcto,nombre.getText(), 
                     correo.getText(), numero.getText(), abono);
             ArrayList<Pedido> aux = almacen.getPedidos();
             aux.add(p);
             almacen.setPedidos(aux);
             JOptionPane.showMessageDialog(this, "Guardado exitosamente",
                         "Guardado", JOptionPane.INFORMATION_MESSAGE);
-            String cliente = p.getNombreCliente();
-            String estado = "Estado: " + p.getEstado();
-            VistaPaginaPrincipal.agregarPedido(cliente);
-            VistaPaginaPrincipal.agregarPedido(estado);
-            VistaPaginaPrincipal.agregarPedido("___________");
+            cantidad.setText("");
             String pattern = "dd-MM-yyyy";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-            VistaPedidos.anadirFila(nombre.getText(), simpleDateFormat.format(DateRetiro), 
-                    precioDescontado, p.getEstado());
-            cantidad.setText("");
-            fSolicitud.setText("");
-            fRetiro.setText("");
+            Date hoy = new Date();
+            fSolicitud.setText(simpleDateFormat.format(hoy));
+            fRetiro.setText("dd/MM/aaaa");
             precioAbonado.setText("");
             total = 0;
+            contador = 0;
             precioTotal.setText("0");
             descuento.setText("");
             nombre.setText("");
@@ -493,7 +464,7 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
             correo.setText("");
             
             productos = new HashMap<>();
-            infoPanel = new InfoPanel();
+            model.clear();
             ControladorInterfaces.mostrarNuevoPedido(false);
             ControladorInterfaces.mostrarGestionaPedido(true);
 
@@ -502,7 +473,31 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
 
     private void precioAbonadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioAbonadoActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_precioAbonadoActionPerformed
+
+    private void btnAplicarDsctoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicarDsctoActionPerformed
+        // TODO add your handling code here:
+        
+        if(contador==0){
+            double dcto = Double.parseDouble(descuento.getText());
+            if(dcto<0 || dcto>100){
+                JOptionPane.showMessageDialog(this, "El descuento debe estar entre 0 y 100",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                double precioDescontado = total*(1-(dcto/100));
+                total = (int) precioDescontado;
+                precioTotal.setText(String.valueOf(total));
+                contador++;
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Solo se puede aplicar 1 vez el descuento",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnAplicarDsctoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -585,9 +580,10 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
     private javax.swing.JTextField fRetiro;
     private javax.swing.JTextField fSolicitud;
     private javax.swing.JLabel icon;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> listaProductos;
     private javax.swing.JTextField nombre;
     private javax.swing.JTextField numero;
-    private javax.swing.JPanel panelResumenPedido;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JTextField precioAbonado;
     private javax.swing.JLabel precioTotal;
@@ -606,6 +602,5 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
     private javax.swing.JLabel txtPrecioAbonado;
     private javax.swing.JLabel txtPrecioTotal;
     private javax.swing.JLabel txtProducto;
-    private javax.swing.JPanel txtResumenPedido;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,10 +6,13 @@
 package InterfazGrafica;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import logica.ControladorInterfaces;
 import logica.MateriaPrima;
 import logica.Almacen;
+import logica.Cliente;
+import logica.Producto;
 
 
 /**
@@ -142,12 +145,42 @@ public class VistaNuevoCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @author renecsc
+     * @param evt 
+     */
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
-        
+        ControladorInterfaces.mostrarNuevoCliente(false);
+        ControladorInterfaces.mostrarClientes(true);
     }//GEN-LAST:event_bVolverActionPerformed
 
+    /**
+     * @author renecsc
+     * @param evt 
+     */
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
-
+        boolean flag = true;
+ 
+        if(!(telefono.getText().length() == 9 && telefono.getText().charAt(0) == '9')){
+            JOptionPane.showMessageDialog(this, "Ingrese un numero de telefono valido",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            flag = false;
+        }
+        if(!correo.getText().matches("^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$")){
+            JOptionPane.showMessageDialog(this, "Ingrese un correo valido",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            flag =false;
+        }
+        
+        if(flag){
+            HashMap<Producto, Integer> historialPedidos = new HashMap<Producto, Integer>();
+            Cliente cliente = new Cliente(nombre.getText(), correo.getText(), telefono.getText(), historialPedidos);
+            JOptionPane.showMessageDialog(this, "Guardado exitosamente",
+                        "Guardado", JOptionPane.INFORMATION_MESSAGE);
+            nombre.setText("");
+            telefono.setText("");
+            correo.setText("");
+        }
                                    
     }//GEN-LAST:event_bGuardarActionPerformed
 

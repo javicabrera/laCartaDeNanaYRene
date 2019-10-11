@@ -160,11 +160,14 @@ public class VistaClientes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        
+        ControladorInterfaces.mostrarClientes(false);
+        ControladorInterfaces.mostrarNuevoCliente(true);
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-         
+        ControladorInterfaces.mostrarClientes(false);
+        ControladorInterfaces.mostrarPrincipal(true);
+
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed

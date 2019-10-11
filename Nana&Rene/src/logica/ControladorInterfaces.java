@@ -3,6 +3,8 @@ package logica;
 
 import BaseDeDatos.GestionExcel;
 import InterfazGrafica.VistaDetallePedido;
+import InterfazGrafica.VistaClientes;
+import InterfazGrafica.VistaEditarCliente;
 import InterfazGrafica.VistaEditarMateriaPrima;
 import InterfazGrafica.VistaEditarProducto;
 import InterfazGrafica.VistaMateriasPrimas;
@@ -12,6 +14,7 @@ import InterfazGrafica.VistaNuevoProducto;
 import InterfazGrafica.VistaPaginaPrincipal;
 import InterfazGrafica.VistaProductos;
 import InterfazGrafica.VistaNuevaMateriaPrima;
+import InterfazGrafica.VistaNuevoCliente;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -34,6 +37,9 @@ public class ControladorInterfaces {
     private static VistaEditarMateriaPrima editarMateriaPrima;
     private static VistaNuevaMateriaPrima registarMateriaPrima;
     private static VistaDetallePedido vistaDetallePedido;
+    private static VistaClientes clientes;
+    private static VistaEditarCliente editarCliente;
+    private static VistaNuevoCliente nuevoCliente;
     private static Almacen almacen;
     private static GestionExcel ge;
         
@@ -59,6 +65,9 @@ public class ControladorInterfaces {
         this.registarMateriaPrima = new VistaNuevaMateriaPrima();
         //this.registarMateriaPrima.setAlmacen(almacen);
         this.vistaDetallePedido = new VistaDetallePedido();
+        this.clientes = new VistaClientes();
+        this.editarCliente = new VistaEditarCliente();
+        this.nuevoCliente = new VistaNuevoCliente();
         
     }
     
@@ -140,4 +149,22 @@ public class ControladorInterfaces {
         ControladorInterfaces.gestionaPedido.enable(b);
     }
 
+    
+    public static void mostrarClientes(boolean b){
+        ControladorInterfaces.clientes.setVisible(b);
+        ControladorInterfaces.clientes.setAlmacen(almacen);
+        ControladorInterfaces.clientes.repaint();
+    }
+    
+    public static void mostrarEditarCliente(boolean b){
+        ControladorInterfaces.editarCliente.setVisible(b);
+        ControladorInterfaces.editarCliente.setAlmacen(almacen);
+        ControladorInterfaces.editarCliente.repaint();
+    }
+    
+    public static void mostrarNuevoCliente(boolean b){
+        ControladorInterfaces.nuevoCliente.setVisible(b);
+        ControladorInterfaces.nuevoCliente.setAlmacen(almacen);
+        ControladorInterfaces.nuevoCliente.repaint();
+    }
 }
