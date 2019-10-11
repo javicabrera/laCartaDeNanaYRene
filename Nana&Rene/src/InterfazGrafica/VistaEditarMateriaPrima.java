@@ -179,30 +179,32 @@ public class VistaEditarMateriaPrima extends javax.swing.JFrame {
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
-        boolean flag = true;
         boolean flag1 = true;
+        boolean flag2 = true;
         if(nombre.getText().equals("") || nombre.getText()==null){
-            flag = false;
+            flag1 = false;
             JOptionPane.showMessageDialog(this, "Debe ingresar un nombre.","Error", 
                 JOptionPane.ERROR_MESSAGE);
         }
         if(tipoCDiscreta == true)
         {
-            String c = cantidad.getText();
+            double cantMateria = Double.parseDouble(cantidad.getText());
+            String c = String.valueOf(cantMateria);
             String[] c2 = c.split("\\.");
             String[] ceros = c2[1].split("");
             for(int i = 0; i < ceros.length; i++)
             {
                 if(!ceros[i].equals("0"))
                 {
-                    flag1 = false;
+                    flag2 = false;
                     JOptionPane.showMessageDialog(this, "Debe ingresar una variable discreta","Error", 
                     JOptionPane.ERROR_MESSAGE);
+                    break;
                 }
             }
         }
 
-        if (flag && flag1){
+        if (flag1 && flag2){
             try{
                 String nombreMateria = nombre.getText();
                 double cantMateria = Double.parseDouble(cantidad.getText());

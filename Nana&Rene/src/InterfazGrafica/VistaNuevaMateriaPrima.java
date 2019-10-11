@@ -6,6 +6,7 @@
 package InterfazGrafica;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import logica.ControladorInterfaces;
 import logica.MateriaPrima;
@@ -174,7 +175,7 @@ public class VistaNuevaMateriaPrima extends javax.swing.JFrame {
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
-         boolean flag1 = true;
+        boolean flag1 = true;
         boolean flag2 = true;
         if(nombre.getText().equals("") || nombre.getText()==null){
             flag1 = false;
@@ -183,8 +184,10 @@ public class VistaNuevaMateriaPrima extends javax.swing.JFrame {
         }
         if(tipoCDiscreta == true)
         {
-            String c = cantidad.getText();
+            double cantMateria = Double.parseDouble(cantidad.getText());
+            String c = String.valueOf(cantMateria);
             String[] c2 = c.split("\\.");
+            //System.out.println(Arrays.toString(c2));
             String[] ceros = c2[1].split("");
             for(int i = 0; i < ceros.length; i++)
             {
@@ -193,6 +196,7 @@ public class VistaNuevaMateriaPrima extends javax.swing.JFrame {
                     flag2 = false;
                     JOptionPane.showMessageDialog(this, "Debe ingresar una variable discreta","Error", 
                     JOptionPane.ERROR_MESSAGE);
+                    break;
                 }
             }
         }
@@ -200,15 +204,16 @@ public class VistaNuevaMateriaPrima extends javax.swing.JFrame {
             try{
                 String nombreMateria = nombre.getText();
                 double cantMateria = Double.parseDouble(cantidad.getText());
-                MateriaPrima mp = new MateriaPrima(nombreMateria, cantMateria);
-                if(tipoCContinua == true){
-                    mp.setTipo("continua");
-                }
-                else if(tipoCDiscreta == true)
-                {
-                    mp.setTipo("discreta");
-                }
+                
                 if(cantMateria > 0.0){
+                    MateriaPrima mp = new MateriaPrima(nombreMateria, cantMateria);
+                    if(tipoCContinua == true){
+                        mp.setTipo("continua");
+                    }
+                    else if(tipoCDiscreta == true)
+                    {
+                        mp.setTipo("discreta");
+                    }
                     ArrayList<MateriaPrima> aux = almacen.getMateriasPrimas();
                     aux.add(mp);
                     almacen.setMateriasPrimas(aux);
@@ -246,11 +251,15 @@ public class VistaNuevaMateriaPrima extends javax.swing.JFrame {
     private void tipoDiscretaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoDiscretaActionPerformed
         // TODO add your handling code here:
         tipoContinua.setSelected(false);
+        tipoCContinua = false;
+        tipoCDiscreta = true;
     }//GEN-LAST:event_tipoDiscretaActionPerformed
 
     private void tipoContinuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoContinuaActionPerformed
         // TODO add your handling code here:
         tipoDiscreta.setSelected(false);
+        tipoCContinua = true;
+        tipoCDiscreta = false;
     }//GEN-LAST:event_tipoContinuaActionPerformed
 
     /**

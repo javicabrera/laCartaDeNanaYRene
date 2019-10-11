@@ -251,6 +251,7 @@ public class GestionExcel{
                 String nombre = "";
                 double cantidad = 0.0;
                 String unidad = "";
+                String tipo = "";
                 int indiceColumna = 0;
                 while(columnaIterator.hasNext())
                 {
@@ -267,18 +268,15 @@ public class GestionExcel{
                                     break;
                             }   break;
                         case 2:
-                            String listado = celda.getStringCellValue();
-                            String[] mp = listado.split(",");
-                            for(int i = 0; i < mp.length; i++)
-                            {
-                                unidad = celda.getStringCellValue();
-                            }   break;
+                            tipo = celda.getStringCellValue();
+                            break;
                         default:
                             break;
                     }
                     indiceColumna++;
                 }
                 MateriaPrima mp = new MateriaPrima(nombre, cantidad);
+                mp.setTipo(tipo);
                 materiasPrimas.add(mp);
                 indiceFila++;
             }
@@ -321,7 +319,6 @@ public class GestionExcel{
                             numeroCliente = celda.getStringCellValue();
                             break;
                         case 3:
-                            System.out.println("c:"+celda.getStringCellValue());
                             String p = celda.getStringCellValue();
                             if(p.length() > 1)
                             {
@@ -501,16 +498,19 @@ public class GestionExcel{
                 Row fila = hoja.createRow(i+1);
                 Cell nombre = fila.createCell(0);
                 Cell cantidad = fila.createCell(1);
+                Cell tipo = fila.createCell(2);
 
                 if(i == -1)
                 {
                     nombre.setCellValue("Nombre");
                     cantidad.setCellValue("Cantidad");
+                    tipo.setCellValue("Tipo");
                 }
                 else
                 {
                     nombre.setCellValue(materiasPrimas.get(i).getNombre());
                     cantidad.setCellValue(materiasPrimas.get(i).getCantidad());
+                    tipo.setCellValue(materiasPrimas.get(i).getTipo());
                     // REVISAR
                     //unidad.setCellValue(materiasPrimas.get(i).getUnidad());
                 }
