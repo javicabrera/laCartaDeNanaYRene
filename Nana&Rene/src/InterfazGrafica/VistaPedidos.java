@@ -121,14 +121,14 @@ public class VistaPedidos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cliente", "Fecha Retiro", "Precio Total", "Estado"
+                "Cliente", "Fecha Retiro", "Precio Total", "Por Pagar", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -307,6 +307,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
+        setAlmacen(almacen);
     }//GEN-LAST:event_btnAbonoActionPerformed
 
     /**
@@ -375,9 +376,9 @@ public class VistaPedidos extends javax.swing.JFrame {
         });
     }
 
-    public static void anadirFila(String cliente, String fechaRetiro, int precio, String estado) {
+    public static void anadirFila(String cliente, String fechaRetiro, int precio, String porPagar,String estado) {
         
-        Object[] row = {cliente, fechaRetiro, "$"+precio, estado};
+        Object[] row = {cliente, fechaRetiro, "$"+precio, porPagar, estado};
         
         modeloTabla.addRow(row);
     }
@@ -428,15 +429,31 @@ public class VistaPedidos extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
-        modeloTabla.setRowCount(0);
         this.almacen = almacen;
+        
+        modeloTabla.setRowCount(0);
+        String pattern = "dd-MM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String textoPorPagar;
+        for(Pedido p: this.almacen.getPedidos()){
+            int porPagar = p.getPrecioTotal()-p.getPrecioAbonado();
+            textoPorPagar="$"+String.valueOf(porPagar);
+            if (porPagar==0)
+                textoPorPagar="Pagado";
+                
+            anadirFila(p.getNombreCliente(), simpleDateFormat.format(p.getFechaRetiro()),p.getPrecioTotal(), textoPorPagar, p.getEstado());
+        }
+        
+    }
+    
+    /*private void reiniciaTabla(){
+        modeloTabla.setRowCount(0);
         String pattern = "dd-MM-yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         for(Pedido p: this.almacen.getPedidos()){
-            anadirFila(p.getNombreCliente(), simpleDateFormat.format(p.getFechaRetiro()),
-                    p.getPrecioTotal(), p.getEstado());
+            anadirFila(p.getNombreCliente(), simpleDateFormat.format(p.getFechaRetiro()),p.getPrecioTotal(), p.getPrecioTotal()-p.getPrecioAbonado(), p.getEstado());
         }
-    }
+    }*/
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
