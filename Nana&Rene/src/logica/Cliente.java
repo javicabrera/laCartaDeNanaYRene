@@ -19,6 +19,14 @@ public class Cliente
     private String numeroCliente;
     private HashMap<Producto, Integer> historialPedidos;
     
+    public Cliente(String nombreCliente, String correoCliente, String numeroCliente)
+    {
+        this.nombreCliente = nombreCliente;
+        this.correoCliente = correoCliente;
+        this.numeroCliente = numeroCliente;
+        this.historialPedidos = new HashMap<Producto, Integer>();
+    }
+    
     public Cliente(String nombreCliente, String correoCliente, String numeroCliente, HashMap<Producto, Integer> historialPedidos)
     {
         this.nombreCliente = nombreCliente;

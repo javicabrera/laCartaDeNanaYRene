@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import logica.Almacen;
 import logica.ControladorInterfaces;
 import logica.Producto;
-
+import logica.Cliente;
 /**
  *
  * @author elias
@@ -29,8 +29,8 @@ public class VistaClientes extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         //Sólo permite seleccionar un elemento de la tabla
-        tablaProductos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        modeloTabla = (DefaultTableModel) tablaProductos.getModel();   
+        tablaClientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modeloTabla = (DefaultTableModel) tablaClientes.getModel();   
     }
 
     /**
@@ -47,7 +47,7 @@ public class VistaClientes extends javax.swing.JFrame {
         btnBorrar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
-        tablaProductos = new javax.swing.JTable();
+        tablaClientes = new javax.swing.JTable();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -92,7 +92,7 @@ public class VistaClientes extends javax.swing.JFrame {
         });
         getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 160, 30, 30));
 
-        tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
+        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -115,7 +115,7 @@ public class VistaClientes extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane.setViewportView(tablaProductos);
+        jScrollPane.setViewportView(tablaClientes);
 
         getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 630, 300));
 
@@ -172,13 +172,35 @@ public class VistaClientes extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        
-        
+        if(obtieneFilaSeleccionada()>=0){
+            Cliente cliente = almacen.getClientes().get(obtieneFilaSeleccionada());
+            ControladorInterfaces.mostrarClientes(false);
+            ControladorInterfaces.mostrarEditarCliente(true, cliente, obtieneFilaSeleccionada());
+            
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        // TODO add your handling code here:
-        
+        if(obtieneFilaSeleccionada()>=0)
+        {
+            if(JOptionPane.showConfirmDialog(this, "¿Desea eliminar el cliente?", 
+                    "Eliminar Cliente", 0)==0){
+
+                ArrayList<Cliente> aux = almacen.getClientes();
+                aux.remove(obtieneFilaSeleccionada());
+                almacen.setClientes(aux);
+                borrarFila(obtieneFilaSeleccionada());
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } 
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     /**
@@ -206,134 +228,7 @@ public class VistaClientes extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VistaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -343,7 +238,7 @@ public class VistaClientes extends javax.swing.JFrame {
         });
     }
     
-    public static void anadirFila(String nombre, int numero, String correo) {
+    public static void anadirFila(String nombre, String numero, String correo) {
         
         Object[] row = {nombre, numero, correo};
         
@@ -356,7 +251,7 @@ public class VistaClientes extends javax.swing.JFrame {
          modeloTabla.removeRow(fila);
     }
     
-    public static void editarFila(int fila, String nombre, int numero, String correo){
+    public static void editarFila(int fila, String nombre, String numero, String correo){
         modeloTabla.setValueAt(nombre, fila, 0);
         modeloTabla.setValueAt(numero, fila, 1);
         modeloTabla.setValueAt(correo, fila, 2);
@@ -364,7 +259,7 @@ public class VistaClientes extends javax.swing.JFrame {
     
     private int obtieneFilaSeleccionada(){
         
-        return tablaProductos.getSelectedRow();
+        return tablaClientes.getSelectedRow();
     }
 
     public Almacen getAlmacen() {
@@ -372,13 +267,15 @@ public class VistaClientes extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
-//        DefaultTableModel modeloTabla = (DefaultTableModel) tablaProductos.getModel();
+//        DefaultTableModel modeloTabla = (DefaultTableModel) tablaClientes.getModel();
 //        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
 //            modeloTabla.removeRow(0);
 //        }
         modeloTabla.setRowCount(0);
         this.almacen = almacen;
-        
+        for(Cliente c: this.almacen.getClientes()){
+            anadirFila(c.getNombreCliente(), c.getNumeroCliente(), c.getCorreoCliente());
+        }
     }
 
 
@@ -391,7 +288,7 @@ public class VistaClientes extends javax.swing.JFrame {
     private javax.swing.JLabel icon;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JPanel panelSuperior;
-    private javax.swing.JTable tablaProductos;
+    private javax.swing.JTable tablaClientes;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 
