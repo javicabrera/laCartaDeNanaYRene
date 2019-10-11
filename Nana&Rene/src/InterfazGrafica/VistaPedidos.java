@@ -273,11 +273,40 @@ public class VistaPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
-        // TODO add your handling code here:
+
+        if(obtieneFilaSeleccionada()>=0){
+            Pedido pedido = almacen.getPedidos().get(obtieneFilaSeleccionada());
+            ControladorInterfaces.mostrarDetallePedido(true, pedido);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_btnInfoActionPerformed
 
     private void btnAbonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbonoActionPerformed
-        
+        if(obtieneFilaSeleccionada()>=0){
+            try{
+                int abono = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese valor a abonar: ", 
+                    "Abonar", JOptionPane.QUESTION_MESSAGE));
+                int totalAbono = this.almacen.getPedidos().get(obtieneFilaSeleccionada()).getPrecioAbonado()+abono;
+                if(totalAbono<=this.almacen.getPedidos().get(obtieneFilaSeleccionada()).getPrecioTotal()){
+                    this.almacen.getPedidos().get(obtieneFilaSeleccionada()).setPrecioAbonado(totalAbono);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "El abono no puede ser mayor al total",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(this, "Debe ingresar un número válido.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnAbonoActionPerformed
 
     /**
@@ -399,11 +428,6 @@ public class VistaPedidos extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
-//        DefaultTableModel modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
-//        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-//            modeloTabla.removeRow(0);
-//        }
-
         modeloTabla.setRowCount(0);
         this.almacen = almacen;
         String pattern = "dd-MM-yyyy";

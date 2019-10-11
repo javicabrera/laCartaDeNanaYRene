@@ -19,7 +19,7 @@ import logica.Producto;
  */
 public class VistaProductos extends javax.swing.JFrame {
     private Almacen almacen;
-    private static DefaultTableModel modeloTabla;
+    private DefaultTableModel modeloTabla;
     
     /**
      * Creates new form PaginaPrincipalFX
@@ -46,6 +46,7 @@ public class VistaProductos extends javax.swing.JFrame {
         btnVolver = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
+        btnInfo = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
         tablaProductos = new javax.swing.JTable();
         panelSuperior = new javax.swing.JPanel();
@@ -81,7 +82,7 @@ public class VistaProductos extends javax.swing.JFrame {
                 btnBorrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, 30, 30));
+        getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, 30, 30));
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/edit16.png"))); // NOI18N
         btnEditar.setToolTipText("Editar");
@@ -90,7 +91,15 @@ public class VistaProductos extends javax.swing.JFrame {
                 btnEditarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 160, 30, 30));
+        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 160, 30, 30));
+
+        btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/info16.png"))); // NOI18N
+        btnInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInfoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 160, 30, 30));
 
         tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -202,6 +211,19 @@ public class VistaProductos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
+    private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
+
+        if(obtieneFilaSeleccionada()>=0){
+            Producto producto = almacen.getProductos().get(obtieneFilaSeleccionada());
+            ControladorInterfaces.mostrarDetalleProducto(true, producto);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto",
+                "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnInfoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -300,7 +322,7 @@ public class VistaProductos extends javax.swing.JFrame {
         });
     }
     
-    public static void anadirFila(String nombre, int precioVenta, int tiempoElab,
+    public void anadirFila(String nombre, int precioVenta, int tiempoElab,
             String materiasPrimas) {
         
         Object[] row = {nombre, "$"+precioVenta, tiempoElab, materiasPrimas};
@@ -309,18 +331,11 @@ public class VistaProductos extends javax.swing.JFrame {
         modeloTabla.addRow(row);
     }
     
-    public static void borrarFila(int fila){
+    public void borrarFila(int fila){
          
          modeloTabla.removeRow(fila);
     }
-    
-    public static void editarFila(int fila, String nombre, int precioVenta, 
-            double tiempoElaboracion, String materiasPrimas){
-        modeloTabla.setValueAt(nombre, fila, 0);
-        modeloTabla.setValueAt("$"+precioVenta, fila, 1);
-        modeloTabla.setValueAt(tiempoElaboracion, fila, 2);
-        modeloTabla.setValueAt(materiasPrimas, fila, 3);
-    }
+   
     
     private int obtieneFilaSeleccionada(){
         
@@ -332,10 +347,6 @@ public class VistaProductos extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
-//        DefaultTableModel modeloTabla = (DefaultTableModel) tablaProductos.getModel();
-//        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-//            modeloTabla.removeRow(0);
-//        }
         modeloTabla.setRowCount(0);
         this.almacen = almacen;
         for(Producto p: this.almacen.getProductos()){
@@ -350,6 +361,7 @@ public class VistaProductos extends javax.swing.JFrame {
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnInfo;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel icon;
     private javax.swing.JScrollPane jScrollPane;

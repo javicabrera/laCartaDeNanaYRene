@@ -50,7 +50,7 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
             VistaPaginaPrincipal.agregarPedido(cliente);
             VistaPaginaPrincipal.agregarPedido(estado);
             VistaPaginaPrincipal.agregarPedido(fecha);
-            VistaPaginaPrincipal.agregarPedido("___________");
+            VistaPaginaPrincipal.agregarPedido("___________________________");
             
             
         }
@@ -90,7 +90,7 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         txtUPedidos.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         txtUPedidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtUPedidos.setText("Resumen Pedidos:");
-        getContentPane().add(txtUPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 220, -1));
+        getContentPane().add(txtUPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 220, -1));
 
         listaPedidos.setBackground(new java.awt.Color(242, 242, 242));
         listaPedidos.setModel(new javax.swing.AbstractListModel<String>() {
@@ -100,9 +100,10 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
             public String getElementAt(int i) { return strings[i]; }
 
         });
+        listaPedidos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(listaPedidos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 220, 330));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 220, 330));
 
         btnProductos.setText("Productos");
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +130,11 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         getContentPane().add(btnMateriasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 220, 200, 50));
 
         btnClientesHabituales.setText("Clientes Habituales");
+        btnClientesHabituales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesHabitualesActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnClientesHabituales, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 200, 50));
 
         btnElaborarReportes.setText("Elaborar Reportes");
@@ -232,6 +238,12 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         ge.exportarClientes(tClientes);
         System.exit(0);
     }//GEN-LAST:event_SalirYExportar
+
+    private void btnClientesHabitualesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesHabitualesActionPerformed
+        // TODO add your handling code here:
+        ControladorInterfaces.mostrarPrincipal(false);
+        ControladorInterfaces.mostrarClientes(true);
+    }//GEN-LAST:event_btnClientesHabitualesActionPerformed
 
     /**
      * @param args the command line arguments
