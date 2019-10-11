@@ -300,8 +300,17 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         boolean flag2 = true;
         boolean flag3 = true;
         boolean flag4 = true;
-        int precio = Integer.parseInt(precioVenta.getText());
-        int tiempo = Integer.parseInt(tiempoElab.getText());
+        boolean flag5 = true;
+        int precio = 0;
+        double tiempo = 0;
+        try{
+            precio = Integer.parseInt(precioVenta.getText());
+            tiempo = Double.parseDouble(tiempoElab.getText());
+        } catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido","Error", 
+                    JOptionPane.ERROR_MESSAGE);
+            flag5 = false;
+        }
         if (nombreProd.equals("") || nombreProd == null){
             JOptionPane.showMessageDialog(this, "Debe ingresar un nombre.","Error", 
                     JOptionPane.ERROR_MESSAGE);
@@ -323,25 +332,20 @@ public class VistaEditarProducto extends javax.swing.JFrame {
             JOptionPane.ERROR_MESSAGE); 
             flag4 = false;
         }
-        if (flag1 && flag2 && flag3 && flag4){
-            try{         
-                producto.setNombre(nombreProd);
-                producto.setPrecioVenta(precio);
-                producto.setTiempoElaboracion(tiempo);
-                producto.setMateriasPrimas(materias);
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente",
-                        "Guardado", JOptionPane.INFORMATION_MESSAGE);
-                ControladorInterfaces.mostrarEditarProducto(false, producto, fila);
-                ControladorInterfaces.mostrarProductos(true);
-                nombre.setText("");
-                precioVenta.setText("");
-                tiempoElab.setText("");
-                cantidad.setText("");
-                model.clear();
-            } catch (NumberFormatException e){
-                JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            }
+        if (flag1 && flag2 && flag3 && flag4 && flag5){     
+            producto.setNombre(nombreProd);
+            producto.setPrecioVenta(precio);
+            producto.setTiempoElaboracion(tiempo);
+            producto.setMateriasPrimas(materias);
+            JOptionPane.showMessageDialog(this, "Guardado exitosamente",
+                    "Guardado", JOptionPane.INFORMATION_MESSAGE);
+            ControladorInterfaces.mostrarEditarProducto(false, producto, fila);
+            ControladorInterfaces.mostrarProductos(true);
+            nombre.setText("");
+            precioVenta.setText("");
+            tiempoElab.setText("");
+            cantidad.setText("");
+            model.clear();
         }
     }//GEN-LAST:event_bGuardarActionPerformed
 
