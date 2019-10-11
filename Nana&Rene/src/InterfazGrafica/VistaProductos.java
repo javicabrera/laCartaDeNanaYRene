@@ -106,7 +106,7 @@ public class VistaProductos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Precio Venta", "Tiempo Elaboración", "Materias Primas"
+                "Nombre", "Precio Venta", "Tiempo Elaboración (hrs)", "Materias Primas"
             }
         ) {
             Class[] types = new Class [] {
@@ -124,6 +124,7 @@ public class VistaProductos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaProductos.setToolTipText("");
         jScrollPane.setViewportView(tablaProductos);
 
         getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 630, 300));
@@ -322,7 +323,7 @@ public class VistaProductos extends javax.swing.JFrame {
         });
     }
     
-    public void anadirFila(String nombre, int precioVenta, int tiempoElab,
+    public void anadirFila(String nombre, int precioVenta, Double tiempoElab,
             String materiasPrimas) {
         
         Object[] row = {nombre, "$"+precioVenta, tiempoElab, materiasPrimas};
@@ -351,7 +352,7 @@ public class VistaProductos extends javax.swing.JFrame {
         this.almacen = almacen;
         for(Producto p: this.almacen.getProductos()){
             anadirFila(p.getNombre(),p.getPrecioVenta(),p.getTiempoElaboracion()
-            ,p.getMateriasString());
+                    ,p.getMateriasString());
         }
     }
 

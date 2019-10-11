@@ -304,7 +304,7 @@ public class VistaEditarProducto extends javax.swing.JFrame {
             try{
                 if(Double.parseDouble(cantidad.getText()) > 0.0){                                 
                     int precio = Integer.parseInt(precioVenta.getText());
-                    int tiempo = Integer.parseInt(tiempoElab.getText());
+                    Double tiempo = Double.parseDouble(tiempoElab.getText());
                     producto.setNombre(nombreProd);
                     producto.setPrecioVenta(precio);
                     producto.setTiempoElaboracion(tiempo);
@@ -324,7 +324,7 @@ public class VistaEditarProducto extends javax.swing.JFrame {
                     ,"Error",JOptionPane.ERROR_MESSAGE);
                 }
                 int precio = Integer.parseInt(precioVenta.getText());
-                int tiempo = Integer.parseInt(tiempoElab.getText());
+                Double tiempo = Double.parseDouble(cantidad.getText());
                 producto.setNombre(nombreProd);
                 producto.setPrecioVenta(precio);
                 producto.setTiempoElaboracion(tiempo);

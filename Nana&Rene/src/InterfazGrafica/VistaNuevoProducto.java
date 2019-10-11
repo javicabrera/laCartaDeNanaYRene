@@ -259,7 +259,7 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         boolean flag1 = true;
         boolean flag2 = true;
         int precio = Integer.parseInt(precioVenta.getText());
-        int tiempo = Integer.parseInt(tiempoElab.getText());
+        Double tiempo = Double.parseDouble(tiempoElab.getText());
         if (nombreProd.equals("") || nombreProd == null){
             JOptionPane.showMessageDialog(this, "Debe ingresar un nombre.","Error", 
                     JOptionPane.ERROR_MESSAGE);
