@@ -15,10 +15,10 @@ public class Producto
 {
     private String nombre;
     private int precioVenta;
-    private int tiempoElaboracion; //En horas
+    private Double tiempoElaboracion; //En horas
     private HashMap<MateriaPrima, Double> materiasPrimas;
     
-    public Producto(String nombre, int precioVenta, int tiempoRequerido, 
+    public Producto(String nombre, int precioVenta, Double tiempoRequerido, 
             HashMap<MateriaPrima,Double> materiasPrimas)
     {
         this.nombre = nombre;
@@ -48,12 +48,12 @@ public class Producto
         this.precioVenta = precioVenta;
     }
 
-    public int getTiempoElaboracion()
+    public Double getTiempoElaboracion()
     {
         return tiempoElaboracion;
     }
 
-    public void setTiempoElaboracion(int tiempoElaboracion) 
+    public void setTiempoElaboracion(Double tiempoElaboracion) 
     {
         this.tiempoElaboracion = tiempoElaboracion;
     }

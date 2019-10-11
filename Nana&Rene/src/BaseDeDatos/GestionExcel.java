@@ -50,7 +50,8 @@ public class GestionExcel{
                 Iterator columnaIterator = fila.cellIterator();
    
                 String nombre = "";
-                int tiempoElaboracion = 0, precioVenta = 0;
+                Double tiempoElaboracion = 0.;
+                int precioVenta = 0;
                 HashMap<MateriaPrima,Double> materiasPrimas = new HashMap<>(); 
                 int indiceColumna = 0;
                 while(columnaIterator.hasNext())
@@ -64,7 +65,7 @@ public class GestionExcel{
                             switch(celda.getCellType())
                             {
                                 case Cell.CELL_TYPE_NUMERIC:
-                                    tiempoElaboracion = (int) Math.round(celda.getNumericCellValue());
+                                    tiempoElaboracion = (celda.getNumericCellValue());
                                     break;
                             }   break;
                         case 2:
