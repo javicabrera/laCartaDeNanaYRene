@@ -260,8 +260,17 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         boolean flag2 = true;
         boolean flag3 = true;
         boolean flag4 = true;
-        int precio = Integer.parseInt(precioVenta.getText());
-        Double tiempo = Double.parseDouble(tiempoElab.getText());
+        boolean flag5 = true;
+        int precio = 0;
+        double tiempo = 0;
+        try{
+            precio = Integer.parseInt(precioVenta.getText());
+            tiempo = Double.parseDouble(tiempoElab.getText());
+        } catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            flag5 = false;
+        }
         if (nombreProd.equals("") || nombreProd == null){
             JOptionPane.showMessageDialog(this, "Debe ingresar un nombre.","Error", 
                     JOptionPane.ERROR_MESSAGE);
@@ -284,7 +293,7 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
             flag4 = false;
         }
         
-        if (flag1 && flag2 && flag3 && flag4){
+        if (flag1 && flag2 && flag3 && flag4 && flag5){
             try{  
                 Producto p = new Producto(nombreProd, precio, tiempo, materias);
                 ArrayList<Producto> prodAux = almacen.getProductos();
@@ -301,8 +310,7 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
                 ControladorInterfaces.mostrarNuevoProducto(false);
                 ControladorInterfaces.mostrarProductos(true);
             } catch (NumberFormatException e){
-                JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                
             }
         }
     }//GEN-LAST:event_bGuardarActionPerformed
