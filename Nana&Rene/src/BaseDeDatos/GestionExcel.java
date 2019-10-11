@@ -321,7 +321,7 @@ public class GestionExcel{
                             numeroCliente = celda.getStringCellValue();
                             break;
                         case 3:
-                            //System.out.println("c:"+celda.getStringCellValue());
+                            System.out.println("c:"+celda.getStringCellValue());
                             String p = celda.getStringCellValue();
                             if(p.length() > 1)
                             {
