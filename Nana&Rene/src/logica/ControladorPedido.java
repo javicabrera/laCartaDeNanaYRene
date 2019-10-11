@@ -83,7 +83,7 @@ public class ControladorPedido {
         for(MateriaPrima a: materiasPrimas.keySet()){
             for (MateriaPrima b: almacen.getMateriasPrimas()) {
                 if(a.getNombre().equals(b.getNombre())){
-                    b.modificarCantidad(b.getCantidad()-materiasPrimas.get(a));
+                    b.setCantidad(b.getCantidad()-materiasPrimas.get(a));
                 }
             }
         }

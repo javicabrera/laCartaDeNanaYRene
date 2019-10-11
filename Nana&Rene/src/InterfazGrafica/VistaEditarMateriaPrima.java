@@ -5,6 +5,7 @@
  */
 package InterfazGrafica;
 
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import logica.ControladorInterfaces;
@@ -18,6 +19,7 @@ import logica.MateriaPrima;
 public class VistaEditarMateriaPrima extends javax.swing.JFrame {
     private MateriaPrima materia;
     private int fila;
+    private boolean tipoCDiscreta, tipoCContinua;
 
     /**
      * Creates new form PaginaPrincipalFX
@@ -178,18 +180,42 @@ public class VistaEditarMateriaPrima extends javax.swing.JFrame {
 
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
         boolean flag = true;
+        boolean flag1 = true;
         if(nombre.getText().equals("") || nombre.getText()==null){
             flag = false;
             JOptionPane.showMessageDialog(this, "Debe ingresar un nombre.","Error", 
                 JOptionPane.ERROR_MESSAGE);
         }
-        if (flag){
+        if(tipoCDiscreta == true)
+        {
+            String c = cantidad.getText();
+            String[] c2 = c.split("\\.");
+            String[] ceros = c2[1].split("");
+            for(int i = 0; i < ceros.length; i++)
+            {
+                if(!ceros[i].equals("0"))
+                {
+                    flag1 = false;
+                    JOptionPane.showMessageDialog(this, "Debe ingresar una variable discreta","Error", 
+                    JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+
+        if (flag && flag1){
             try{
                 String nombreMateria = nombre.getText();
                 double cantMateria = Double.parseDouble(cantidad.getText());
                 if(cantMateria > 0.0){
                     materia.setNombre(nombreMateria);
-                    materia.modificarCantidad(cantMateria);
+                    materia.setCantidad(Double.parseDouble(cantidad.getText()));
+                    if(tipoCContinua == true){
+                        materia.setTipo("continua");
+                    }
+                    else if(tipoCDiscreta == true)
+                    {
+                        materia.setTipo("discreta");
+                    }
                     JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", 
                     JOptionPane.INFORMATION_MESSAGE);
                     //MateriasPrimas.anadirFila(nombreMateria, cantMateria);
@@ -221,11 +247,15 @@ public class VistaEditarMateriaPrima extends javax.swing.JFrame {
     private void tipoContinuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoContinuaActionPerformed
         // TODO add your handling code here:
         tipoDiscreta.setSelected(false);
+        tipoCContinua = true;
+        tipoCDiscreta = false;
     }//GEN-LAST:event_tipoContinuaActionPerformed
 
     private void tipoDiscretaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoDiscretaActionPerformed
         // TODO add your handling code here:
         tipoContinua.setSelected(false);
+        tipoCContinua = false;
+        tipoCDiscreta = true;
     }//GEN-LAST:event_tipoDiscretaActionPerformed
 
     /**
