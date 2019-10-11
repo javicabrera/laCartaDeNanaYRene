@@ -363,11 +363,6 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        
-        
-        
-        
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     /**
@@ -512,8 +507,8 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
 
     private void boxClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxClienteActionPerformed
         // TODO add your handling code here:
-        String clienteSeleccionado = (String) boxProductos.getSelectedItem();
-        if (!clienteSeleccionado.equals("No Registrado")){
+        String clienteSeleccionado = (String) boxCliente.getSelectedItem();
+        if (clienteSeleccionado!=null && !clienteSeleccionado.equals("No Registrado")){
             Cliente cliente = null;
             for(Cliente c: this.almacen.getClientes()){
                 if (c.getNombreCliente().equals(clienteSeleccionado)){
@@ -527,6 +522,14 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
             numero.setEditable(false);
             correo.setText(cliente.getCorreoCliente());
             correo.setEditable(false);
+        }
+        else{
+            nombre.setText("");
+            nombre.setEditable(true);
+            numero.setText("");
+            numero.setEditable(true);
+            correo.setText("");
+            correo.setEditable(true);
         }
     }//GEN-LAST:event_boxClienteActionPerformed
 
