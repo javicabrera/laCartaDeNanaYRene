@@ -280,18 +280,27 @@ public class VistaEditarProducto extends javax.swing.JFrame {
             Double cant = Double.parseDouble(cantidad.getText());
             if(materia.getTipo().equals("discreta"))
             {
-                String c = String.valueOf(cant);
-                String[] c2 = c.split("\\.");
-                String[] ceros = c2[1].split("");
-                for(int i = 0; i < ceros.length; i++)
-                {
-                    if(!ceros[i].equals("0"))
-                    {
-                        flag1 = false;
-                        JOptionPane.showMessageDialog(this, "Debe ingresar una variable discreta","Error", 
+//                String c = String.valueOf(cant);
+//                String[] c2 = c.split("\\.");
+//                String[] ceros = c2[1].split("");
+//                for(int i = 0; i < ceros.length; i++)
+//                {
+//                    if(!ceros[i].equals("0"))
+//                    {
+//                        flag1 = false;
+//                        JOptionPane.showMessageDialog(this, "Debe ingresar una variable discreta","Error", 
+//                        JOptionPane.ERROR_MESSAGE);
+//                        break;
+//                    }
+//                }
+                try{
+                    Integer.parseInt(cantidad.getText());
+                    flag1 = true;
+                    
+                }catch(NumberFormatException nfe){
+                    flag1 = false;
+                    JOptionPane.showMessageDialog(this, "Debe ingresar una variable discreta","Error", 
                         JOptionPane.ERROR_MESSAGE);
-                        break;
-                    }
                 }
             }
             if(flag1)
@@ -419,10 +428,27 @@ public class VistaEditarProducto extends javax.swing.JFrame {
                 contador++;
             }
             try{
-                double cantidad = Double.parseDouble(JOptionPane.showInputDialog(this,
-                        "Ingrese nueva cantidad: ", 
-                    "Editar", JOptionPane.QUESTION_MESSAGE));
-                materias.replace(materia, cantidad);
+                boolean flag = false;
+                String auxcantidad = "";
+                do{
+                    auxcantidad = JOptionPane.showInputDialog(this,
+                            "Ingrese nueva cantidad: ", 
+                        "Editar", JOptionPane.QUESTION_MESSAGE);
+                    if(materia.getTipo().equals("discreta")){
+                        System.out.println("discreta");
+                        try{
+                            Integer.parseInt(auxcantidad);                            
+                            flag = true;
+                        }
+                        catch(NumberFormatException nfe){
+                            JOptionPane.showMessageDialog(this, "Debe ingresar valor discreto",
+                        "Error", JOptionPane.ERROR_MESSAGE);              
+                            flag = false; 
+                        }
+                    }
+                } while(!flag);
+                
+                materias.replace(materia, Double.parseDouble(auxcantidad));
                 model.clear();
                 for (Map.Entry<MateriaPrima, Double> entry : materias.entrySet()) {
                     model.addElement(entry);
