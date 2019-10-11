@@ -5,11 +5,8 @@
  */
 package InterfazGrafica;
 
-import static InterfazGrafica.VistaPedidos.anadirFila;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import logica.MateriaPrima;
-import logica.Pedido;
 import logica.Producto;
 import logica.ControladorInterfaces;
 
@@ -17,14 +14,14 @@ import logica.ControladorInterfaces;
  *
  * @author elias
  */
-public class VistaDetallePedido extends javax.swing.JFrame {
+public class VistaDetalleProducto extends javax.swing.JFrame {
     private static DefaultTableModel modeloTabla;
-    private Pedido pedido;
+    private Producto producto;
 
     /**
      * Creates new form VistaDetallePedido
      */
-    public VistaDetallePedido() {
+    public VistaDetalleProducto() {
         initComponents();
         this.setLocationRelativeTo(null);
         modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();   
@@ -56,7 +53,7 @@ public class VistaDetallePedido extends javax.swing.JFrame {
 
         titulo.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         titulo.setForeground(new java.awt.Color(255, 255, 255));
-        titulo.setText("DETALLE PEDIDO");
+        titulo.setText("DETALLE PRODUCTO");
 
         javax.swing.GroupLayout panelSuperiorLayout = new javax.swing.GroupLayout(panelSuperior);
         panelSuperior.setLayout(panelSuperiorLayout);
@@ -67,7 +64,7 @@ public class VistaDetallePedido extends javax.swing.JFrame {
                 .addComponent(icon)
                 .addGap(18, 18, 18)
                 .addComponent(titulo)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
         panelSuperiorLayout.setVerticalGroup(
             panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,7 +109,7 @@ public class VistaDetallePedido extends javax.swing.JFrame {
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         // TODO add your handling code here:
-        ControladorInterfaces.habilitarGestionaPedido(true);
+        ControladorInterfaces.habilitarGestionaProducto(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnOKActionPerformed
 
@@ -133,32 +130,32 @@ public class VistaDetallePedido extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaDetallePedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaDetalleProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaDetallePedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaDetalleProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaDetallePedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaDetalleProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaDetallePedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaDetalleProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaDetallePedido().setVisible(true);
+                new VistaDetalleProducto().setVisible(true);
             }
         });
     }
     
-    public void inicializaTabla(Pedido pedido){
-        this.pedido=pedido;
+    public void inicializaTabla(Producto producto){
+        this.producto=producto;
         modeloTabla.setRowCount(0);
         
-        pedido.getProductos();
         
-        for(Producto p: this.pedido.getProductos().keySet()){
-            anadirFila(p.getNombre(),this.pedido.getProductos().get(p));
+        for(MateriaPrima m: this.producto.getMateriasPrimas().keySet()){
+            anadirFila(m.getNombre(),m.getCantidad());
         }
         
         
