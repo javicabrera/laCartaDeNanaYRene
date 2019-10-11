@@ -170,8 +170,10 @@ public class ControladorInterfaces {
         ControladorInterfaces.clientes.repaint();
     }
     
-    public static void mostrarEditarCliente(boolean b){
+    public static void mostrarEditarCliente(boolean b, Cliente cliente, int fila){
         ControladorInterfaces.editarCliente.setVisible(b);
+        ControladorInterfaces.editarCliente.setCliente(cliente);
+        ControladorInterfaces.editarCliente.setFila(fila);
         ControladorInterfaces.editarCliente.setAlmacen(almacen);
         ControladorInterfaces.editarCliente.repaint();
     }
