@@ -357,7 +357,7 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
             int cant = Integer.parseInt(cantidad.getText());
             if(cant>0){
                 if (productos.containsKey(producto)){
-                    productos.replace(producto, cant);
+                    productos.replace(producto, productos.get(producto)+cant);
                 }
                 else{
                     productos.put(producto,cant);
