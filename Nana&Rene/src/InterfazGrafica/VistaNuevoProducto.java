@@ -262,7 +262,7 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
             {
                 if(materias.containsKey(materia))
                 {
-                    materias.replace(materia, cant);
+                    materias.replace(materia, materias.get(materia)+cant);
                 }
                 else{
                     materias.put(materia, cant);
