@@ -109,14 +109,14 @@ public class VistaProductos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Precio Venta", "Tiempo Elaboración (hrs)", "Materias Primas"
+                "Nombre", "Precio Venta", "Tiempo Elaboración (hrs)"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -335,10 +335,9 @@ public class VistaProductos extends javax.swing.JFrame {
         });
     }
     
-    public void anadirFila(String nombre, int precioVenta, Double tiempoElab,
-            String materiasPrimas) {
+    public void anadirFila(String nombre, int precioVenta, Double tiempoElab) {
         
-        Object[] row = {nombre, "$"+precioVenta, tiempoElab, materiasPrimas};
+        Object[] row = {nombre, "$"+precioVenta, tiempoElab};
         
         
         modeloTabla.addRow(row);
@@ -363,8 +362,7 @@ public class VistaProductos extends javax.swing.JFrame {
         modeloTabla.setRowCount(0);
         this.almacen = almacen;
         for(Producto p: this.almacen.getProductos()){
-            anadirFila(p.getNombre(),p.getPrecioVenta(),p.getTiempoElaboracion()
-                    ,p.getMateriasString());
+            anadirFila(p.getNombre(),p.getPrecioVenta(),p.getTiempoElaboracion());
         }
     }
 
