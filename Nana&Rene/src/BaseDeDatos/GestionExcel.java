@@ -217,7 +217,7 @@ public class GestionExcel{
                             switch(celda.getCellType())
                             {
                                 case Cell.CELL_TYPE_NUMERIC:
-                                    descuento = (int) Math.round(celda.getNumericCellValue());
+                                    precioAbonado = (int) Math.round(celda.getNumericCellValue());
                                     break;
                             }   break;
                         case 9:

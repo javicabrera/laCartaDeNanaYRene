@@ -257,6 +257,7 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         ge.setMateriasPrimas(almacen.getMateriasPrimas());
         ge.setPedidos(almacen.getPedidos());
         ge.setProductos(almacen.getProductos());
+        ge.setClientes(almacen.getClientes());
         
         File tProductos = new File("Productos.xlsx");
         ge.exportarProductos(tProductos);
