@@ -92,6 +92,9 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="precioVenta">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingrese precio de venta"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="precioVentaActionPerformed"/>
       </Events>
@@ -102,6 +105,9 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="tiempoElab">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingrese tiempo de elaboraci&#xf3;n (en horas)"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="170" y="200" width="350" height="-1"/>
@@ -109,6 +115,9 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="cantidad">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingrese cantidad que usa para hacer este producto"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="440" y="250" width="80" height="-1"/>
@@ -120,6 +129,7 @@
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Seleccione una materia prima"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boxMateriaPrimaActionPerformed"/>
@@ -149,6 +159,7 @@
     <Component class="javax.swing.JButton" name="bGuardar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Guardar"/>
+        <Property name="toolTipText" type="java.lang.String" value="Guardar este producto"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bGuardarActionPerformed"/>
@@ -162,6 +173,7 @@
     <Component class="javax.swing.JButton" name="btnAgregarMPrima">
       <Properties>
         <Property name="text" type="java.lang.String" value="+"/>
+        <Property name="toolTipText" type="java.lang.String" value="A&#xf1;adir materia prima"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarMPrimaActionPerformed"/>
@@ -173,6 +185,9 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="nombre">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingrese nombre"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="170" y="100" width="350" height="-1"/>
@@ -184,6 +199,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/Recursos/edit16.png"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Editar cantidad materia prima"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="actualizaMatPrimaActionPerformed"/>
@@ -209,6 +225,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/Recursos/basurero16.png"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Eliminar materia prima"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="borrarMatPrimaActionPerformed"/>

@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import logica.Almacen;
 import logica.ControladorInterfaces;
 import logica.MateriaPrima;
+import logica.Producto;
 
 /**
  *
@@ -58,6 +59,7 @@ public class VistaMateriasPrimas extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCrear.setText("+ Crear");
+        btnCrear.setToolTipText("Crear nueva");
         btnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearActionPerformed(evt);
@@ -74,6 +76,7 @@ public class VistaMateriasPrimas extends javax.swing.JFrame {
         getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, 120, 70));
 
         btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/basurero16.png"))); // NOI18N
+        btnBorrar.setToolTipText("Eliminar");
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
@@ -82,6 +85,7 @@ public class VistaMateriasPrimas extends javax.swing.JFrame {
         getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, 30, 30));
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/edit16.png"))); // NOI18N
+        btnEditar.setToolTipText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -185,11 +189,20 @@ public class VistaMateriasPrimas extends javax.swing.JFrame {
         if(obtieneFilaSeleccionada()>=0){
             if(JOptionPane.showConfirmDialog(this, "¿Desea eliminar la materia prima?", 
                     "Eliminar Materia Prima", 0)==0){
-
+                
                 ArrayList<MateriaPrima> aux = almacen.getMateriasPrimas();
+                MateriaPrima materia = aux.get(obtieneFilaSeleccionada());
                 aux.remove(obtieneFilaSeleccionada());
                 almacen.setMateriasPrimas(aux);
                 borrarFila(obtieneFilaSeleccionada());
+                for(Producto p: almacen.getProductos()){
+                    for (MateriaPrima m: p.getMateriasPrimas().keySet()){
+                        if (m.getNombre().equals(materia.getNombre())){
+                            double cant = p.getMateriasPrimas().get(m);
+                            p.getMateriasPrimas().remove(m, cant);
+                        }
+                    }
+                }
             }
         }
         else{

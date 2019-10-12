@@ -72,6 +72,7 @@ public class VistaNuevoCliente extends javax.swing.JFrame {
         txtNombre.setText("Nombre:");
         getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, 20));
 
+        correo.setToolTipText("Ingrese correo electrónico");
         correo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 correoActionPerformed(evt);
@@ -99,6 +100,8 @@ public class VistaNuevoCliente extends javax.swing.JFrame {
             }
         });
         getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 370, 100, 50));
+
+        nombre.setToolTipText("Ingrese nombre");
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 510, -1));
 
         txtTelefono.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -108,6 +111,8 @@ public class VistaNuevoCliente extends javax.swing.JFrame {
         txtCorreo.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         txtCorreo.setText("Correo Electrónico:");
         getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, 30));
+
+        telefono.setToolTipText("Ingrese número telefónico");
         getContentPane().add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 510, -1));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
