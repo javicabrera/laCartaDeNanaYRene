@@ -294,7 +294,10 @@ public class VistaPedidos extends javax.swing.JFrame {
                     "Abonar", JOptionPane.QUESTION_MESSAGE));
                 int totalAbono = this.almacen.getPedidos().get(obtieneFilaSeleccionada()).getPrecioAbonado()+abono;
                 if(totalAbono<=this.almacen.getPedidos().get(obtieneFilaSeleccionada()).getPrecioTotal()){
-                    this.almacen.getPedidos().get(obtieneFilaSeleccionada()).setPrecioAbonado(totalAbono);
+                    ArrayList<Pedido> pedidos = this.almacen.getPedidos();
+                    pedidos.get(obtieneFilaSeleccionada()).setPrecioAbonado(totalAbono);
+                    this.almacen.setPedidos(pedidos);
+                    
                 }
                 else{
                     JOptionPane.showMessageDialog(this, "El abono no puede ser mayor al total",

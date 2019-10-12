@@ -92,7 +92,7 @@ public class VistaClientes extends javax.swing.JFrame {
                 btnBorrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, 30, 30));
+        getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 160, 30, 30));
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/edit16.png"))); // NOI18N
         btnEditar.setToolTipText("Editar");
@@ -101,7 +101,7 @@ public class VistaClientes extends javax.swing.JFrame {
                 btnEditarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 160, 30, 30));
+        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(695, 160, 30, 30));
 
         tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
