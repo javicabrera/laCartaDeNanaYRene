@@ -74,6 +74,7 @@ public class VistaNuevaMateriaPrima extends javax.swing.JFrame {
         txtCantidad.setText("Cantidad:");
         getContentPane().add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, 20));
 
+        cantidad.setToolTipText("Ingrese cantidad disponible");
         cantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cantidadActionPerformed(evt);
@@ -95,12 +96,15 @@ public class VistaNuevaMateriaPrima extends javax.swing.JFrame {
         getContentPane().add(bVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 100, 50));
 
         bGuardar.setText("Guardar");
+        bGuardar.setToolTipText("Guardar esta materia prima");
         bGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bGuardarActionPerformed(evt);
             }
         });
         getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 370, 100, 50));
+
+        nombre.setToolTipText("Ingrese nombre");
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 510, -1));
 
         txtUMedida.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -110,6 +114,8 @@ public class VistaNuevaMateriaPrima extends javax.swing.JFrame {
         txtTipo.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         txtTipo.setText("Tipo:");
         getContentPane().add(txtTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 20));
+
+        uMedida.setToolTipText("Ingrese unidad de medida. Ejemplo: kg, gr, litros, etc.");
         getContentPane().add(uMedida, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 510, -1));
 
         tipoDiscreta.setText("Discreta");
@@ -170,6 +176,7 @@ public class VistaNuevaMateriaPrima extends javax.swing.JFrame {
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
         nombre.setText("");
         cantidad.setText("");
+        uMedida.setText("");
         ControladorInterfaces.mostrarRegistrarMateriaPrima(false);
         ControladorInterfaces.mostrarMateriasPrimas(true);
     }//GEN-LAST:event_bVolverActionPerformed
@@ -214,7 +221,7 @@ public class VistaNuevaMateriaPrima extends javax.swing.JFrame {
         }
         if (flag1 && flag2 && flag3 && flag4){
             try{
-                String nombreMateria = nombre.getText();
+                String nombreMateria = nombre.getText() + " (" + uMedida.getText() + ")";
                 double cantMateria = Double.parseDouble(cantidad.getText());
                 
                 if(cantMateria > 0.0){
@@ -237,6 +244,7 @@ public class VistaNuevaMateriaPrima extends javax.swing.JFrame {
 
                     nombre.setText("");
                     cantidad.setText("");
+                    uMedida.setText("");
                 }
                 else{
                     JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad mayor a 0 "
