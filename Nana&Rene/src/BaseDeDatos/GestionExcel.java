@@ -24,6 +24,7 @@ public class GestionExcel{
     private ArrayList<Pedido> pedidos;
     private ArrayList<MateriaPrima> materiasPrimas;
     private ArrayList<Cliente> clientes;
+    private int mayorId;
     
     public GestionExcel()
     {
@@ -31,6 +32,15 @@ public class GestionExcel{
         this.pedidos = new ArrayList<Pedido>();
         this.materiasPrimas = new ArrayList<MateriaPrima>();
         this.clientes = new ArrayList<Cliente>();
+        mayorId = 0;
+    }
+
+    public int getMayorId() {
+        return mayorId;
+    }
+
+    public void setMayorId(int mayorId) {
+        this.mayorId = mayorId;
     }
     
     public ArrayList<Producto> importarProductos(File archivo)
@@ -50,7 +60,8 @@ public class GestionExcel{
                 Iterator columnaIterator = fila.cellIterator();
    
                 String nombre = "";
-                int tiempoElaboracion = 0, precioVenta = 0;
+                Double tiempoElaboracion = 0.;
+                int precioVenta = 0;
                 HashMap<MateriaPrima,Double> materiasPrimas = new HashMap<>(); 
                 int indiceColumna = 0;
                 while(columnaIterator.hasNext())
@@ -64,7 +75,7 @@ public class GestionExcel{
                             switch(celda.getCellType())
                             {
                                 case Cell.CELL_TYPE_NUMERIC:
-                                    tiempoElaboracion = (int) Math.round(celda.getNumericCellValue());
+                                    tiempoElaboracion = (celda.getNumericCellValue());
                                     break;
                             }   break;
                         case 2:
@@ -206,7 +217,7 @@ public class GestionExcel{
                             switch(celda.getCellType())
                             {
                                 case Cell.CELL_TYPE_NUMERIC:
-                                    descuento = (int) Math.round(celda.getNumericCellValue());
+                                    precioAbonado = (int) Math.round(celda.getNumericCellValue());
                                     break;
                             }   break;
                         case 9:
@@ -216,12 +227,15 @@ public class GestionExcel{
                                     descuento = (int) Math.round(celda.getNumericCellValue());
                                     break;
                             }   break;
+                        case 10:
+                            mayorId = (int) celda.getNumericCellValue();
+                            
                         default:
                             break;
                     }
                     indiceColumna++;
                 }
-                Pedido p = new Pedido(productos, fechaSolicitud, fechaRetiro, precioTotal, descuento, nombreCliente, correoCliente, numeroCliente, precioAbonado);
+                Pedido p = new Pedido(mayorId, productos, fechaSolicitud, fechaRetiro, precioTotal, descuento, nombreCliente, correoCliente, numeroCliente, precioAbonado);
                 pedidos.add(p);
                 indiceFila++;
             }
@@ -250,6 +264,7 @@ public class GestionExcel{
                 String nombre = "";
                 double cantidad = 0.0;
                 String unidad = "";
+                String tipo = "";
                 int indiceColumna = 0;
                 while(columnaIterator.hasNext())
                 {
@@ -266,18 +281,15 @@ public class GestionExcel{
                                     break;
                             }   break;
                         case 2:
-                            String listado = celda.getStringCellValue();
-                            String[] mp = listado.split(",");
-                            for(int i = 0; i < mp.length; i++)
-                            {
-                                unidad = celda.getStringCellValue();
-                            }   break;
+                            tipo = celda.getStringCellValue();
+                            break;
                         default:
                             break;
                     }
                     indiceColumna++;
                 }
                 MateriaPrima mp = new MateriaPrima(nombre, cantidad);
+                mp.setTipo(tipo);
                 materiasPrimas.add(mp);
                 indiceFila++;
             }
@@ -303,7 +315,7 @@ public class GestionExcel{
                 Iterator columnaIterator = fila.cellIterator();
 
                 String nombreCliente = "", correoCliente = "", numeroCliente = "";
-                HashMap<Producto, Integer> historial = new HashMap<>();
+                ArrayList<Pedido> historial = new ArrayList<>();
                 int indiceColumna = 0;
                 while(columnaIterator.hasNext())
                 {
@@ -321,19 +333,20 @@ public class GestionExcel{
                             break;
                         case 3:
                             String p = celda.getStringCellValue();
-                            String[] p2 = p.split(",");
-                            for(int j = 0; j < p2.length; j++)
+                            if(p.length() > 1)
                             {
-                                String[] productoCantidad = p2[j].split("-");
-                                //System.out.println(Arrays.toString(productoCantidad));
-                                Producto prod;
-                                for(Producto aux: this.productos)
+                                String[] idPedidos = p.split(",");
+                                for(int j = 0; j < idPedidos.length; j++)
                                 {
-                                    if(aux.getNombre().equals(productoCantidad[1]))
-                                    {
-                                        prod = aux;
-                                        historial.put(prod, Integer.parseInt(productoCantidad[0]));
+                                    int idPed = Integer.parseInt(idPedidos[j]);
+                                    Pedido pedido = null;
+                                    for(Pedido ped: pedidos){
+                                        if(ped.getId() == idPed){
+                                            pedido = ped;
+                                            break;
+                                        }
                                     }
+                                    historial.add(pedido);
                                 }
                             }
                             break;
@@ -428,6 +441,7 @@ public class GestionExcel{
                 Cell precioTotal = fila.createCell(7);
                 Cell precioCancelado = fila.createCell(8);
                 Cell descuento = fila.createCell(9);
+                Cell id = fila.createCell(10);
                 if(i == -1)
                 {
                     tipo.setCellValue("Tipo de producto");
@@ -440,6 +454,7 @@ public class GestionExcel{
                     precioTotal.setCellValue("Precio total");
                     precioCancelado.setCellValue("Precio cancelado");
                     descuento.setCellValue("Porcentaje descuento");
+                    id.setCellValue("ID");
                 }
                 else
                 {
@@ -471,6 +486,7 @@ public class GestionExcel{
                     precioTotal.setCellValue(pedidos.get(i).getPrecioTotal());
                     precioCancelado.setCellValue(pedidos.get(i).getPrecioAbonado());
                     descuento.setCellValue(pedidos.get(i).getDescuento());
+                    id.setCellValue(pedidos.get(i).getId());
                 }
                 wb.write(new FileOutputStream(archivo));
             }
@@ -496,16 +512,19 @@ public class GestionExcel{
                 Row fila = hoja.createRow(i+1);
                 Cell nombre = fila.createCell(0);
                 Cell cantidad = fila.createCell(1);
+                Cell tipo = fila.createCell(2);
 
                 if(i == -1)
                 {
                     nombre.setCellValue("Nombre");
                     cantidad.setCellValue("Cantidad");
+                    tipo.setCellValue("Tipo");
                 }
                 else
                 {
                     nombre.setCellValue(materiasPrimas.get(i).getNombre());
                     cantidad.setCellValue(materiasPrimas.get(i).getCantidad());
+                    tipo.setCellValue(materiasPrimas.get(i).getTipo());
                     // REVISAR
                     //unidad.setCellValue(materiasPrimas.get(i).getUnidad());
                 }
@@ -545,14 +564,13 @@ public class GestionExcel{
                 }
                 else
                 {
-                    HashMap<Producto, Integer> prod = clientes.get(i).getHistorialPedidos();
+                    ArrayList<Pedido> ped = clientes.get(i).getHistorialPedidos();
                     String listado = "";
                     
-                    for (Map.Entry<Producto, Integer> entry : prod.entrySet())
+                    for (Pedido p: ped)
                     {
-                        int cantidad = entry.getValue();
-                        Producto producto = entry.getKey();
-                        listado += cantidad+"-"+producto.getNombre()+",";
+                        int id = p.getId();
+                        listado += String.valueOf(id) + ",";
                     }
                     historial.setCellValue(listado);
                     nombre.setCellValue(clientes.get(i).getNombreCliente());

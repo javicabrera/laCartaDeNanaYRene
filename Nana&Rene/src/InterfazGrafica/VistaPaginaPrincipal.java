@@ -6,9 +6,18 @@
 package InterfazGrafica;
 
 import BaseDeDatos.GestionExcel;
+import java.awt.Color;
+import java.awt.Component;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
 import logica.Almacen;
 import logica.ControladorInterfaces;
 import logica.Pedido;
@@ -24,17 +33,74 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form PaginaPrincipalFX
      */
+    
+    class ListEntry{
+        private Pedido pedido;
+        private ImageIcon icono;
+
+        public ListEntry(Pedido pedido, ImageIcon icono) {
+           this.pedido = pedido;
+           this.icono = icono;
+        }
+
+        public Pedido getPedido() {
+           return pedido;
+        }
+
+        public ImageIcon getIcono() {
+           return icono;
+        }
+
+        public String toString() {
+            String pattern = "dd-MM-yyyy";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+           return "<html>"+ pedido.getNombreCliente() + 
+                              "<br>Estado: " + pedido.getEstado() + 
+                              "<br>Fecha Retiro: " + simpleDateFormat.
+                                      format(pedido.getFechaRetiro()) + 
+                              "<br>____________________________</span></html>";
+        }
+    }
+    
+    class ListEntryCellRenderer extends JLabel implements ListCellRenderer{
+   private JLabel label;
+  
+   public Component getListCellRendererComponent(JList list, Object value,
+                                                 int index, boolean isSelected,
+                                                 boolean cellHasFocus) {
+      ListEntry entry = (ListEntry) value;
+  
+      setText(entry.toString());
+      setIcon(entry.getIcono());
+   
+      if (isSelected) {
+         setBackground(list.getSelectionBackground());
+         setForeground(list.getSelectionForeground());
+      }
+      else {
+         setBackground(list.getBackground());
+         setForeground(list.getForeground());
+      }
+  
+      setEnabled(list.isEnabled());
+      setFont(list.getFont());
+      setOpaque(true);
+  
+      return this;
+   }
+}
+    
     public VistaPaginaPrincipal() {
         this.setLocationRelativeTo(null);
-        //pedidos = new ArrayList<>();
         initComponents();
         this.model = new DefaultListModel();
         listaPedidos.setModel(this.model);
+        listaPedidos.setCellRenderer(new ListEntryCellRenderer());
  
     }
     
-    public static void agregarPedido(String s){
-        VistaPaginaPrincipal.model.addElement(s);
+    public static void agregarPedido(ListEntry p){
+        VistaPaginaPrincipal.model.addElement(p);
         
     }
     
@@ -42,15 +108,23 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         VistaPaginaPrincipal.model.clear();
         this.almacen = almacen;
         for(Pedido p: this.almacen.getPedidos()){
-            String cliente = p.getNombreCliente();
-            String estado = "Estado: " + p.getEstado();
-            String pattern = "dd-MM-yyyy";
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-            String fecha = "Fecha Retiro: " + simpleDateFormat.format(p.getFechaRetiro());
-            VistaPaginaPrincipal.agregarPedido(cliente);
-            VistaPaginaPrincipal.agregarPedido(estado);
-            VistaPaginaPrincipal.agregarPedido(fecha);
-            VistaPaginaPrincipal.agregarPedido("___________________________");
+            ImageIcon icon = null;
+            if(!p.getEstado().equals("Cancelado") && !p.getEstado().equals("Retirado")){
+                Date fechaActual = new Date();
+                TimeUnit timeUnit = TimeUnit.DAYS;
+                long diffInMillies = p.getFechaRetiro().getTime() - fechaActual.getTime();
+                int diferencia = (int) timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+                if(diferencia>=7){
+                    icon = new ImageIcon("1.png");
+                }
+                else if (diferencia<7 && diferencia>2){
+                    icon = new ImageIcon("2.png");
+                }
+                else if (diferencia<=2){
+                    icon = new ImageIcon("3.png");
+                }
+                VistaPaginaPrincipal.agregarPedido(new ListEntry(p,icon));
+            }
             
             
         }
@@ -227,6 +301,7 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         ge.setMateriasPrimas(almacen.getMateriasPrimas());
         ge.setPedidos(almacen.getPedidos());
         ge.setProductos(almacen.getProductos());
+        ge.setClientes(almacen.getClientes());
         
         File tProductos = new File("Productos.xlsx");
         ge.exportarProductos(tProductos);

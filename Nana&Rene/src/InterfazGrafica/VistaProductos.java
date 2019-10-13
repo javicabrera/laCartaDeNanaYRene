@@ -11,6 +11,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import logica.Almacen;
 import logica.ControladorInterfaces;
+import logica.Pedido;
 import logica.Producto;
 
 /**
@@ -60,6 +61,7 @@ public class VistaProductos extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCrear.setText("+ Crear");
+        btnCrear.setToolTipText("Crear nuevo");
         btnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearActionPerformed(evt);
@@ -82,7 +84,7 @@ public class VistaProductos extends javax.swing.JFrame {
                 btnBorrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, 30, 30));
+        getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 160, 30, 30));
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/edit16.png"))); // NOI18N
         btnEditar.setToolTipText("Editar");
@@ -91,29 +93,30 @@ public class VistaProductos extends javax.swing.JFrame {
                 btnEditarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 160, 30, 30));
+        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(695, 160, 30, 30));
 
         btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/info16.png"))); // NOI18N
+        btnInfo.setToolTipText("Ver detalle producto");
         btnInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInfoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 160, 30, 30));
+        getContentPane().add(btnInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 160, 30, 30));
 
         tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Precio Venta", "Tiempo Elaboración", "Materias Primas"
+                "Nombre", "Precio Venta", "Tiempo Elaboración (hrs)"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -124,6 +127,7 @@ public class VistaProductos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaProductos.setToolTipText("");
         jScrollPane.setViewportView(tablaProductos);
 
         getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 630, 300));
@@ -200,9 +204,18 @@ public class VistaProductos extends javax.swing.JFrame {
                     "Eliminar Producto", 0)==0){
 
                 ArrayList<Producto> aux = almacen.getProductos();
+                Producto producto = aux.get(obtieneFilaSeleccionada());
                 aux.remove(obtieneFilaSeleccionada());
                 almacen.setProductos(aux);
                 borrarFila(obtieneFilaSeleccionada());
+                for(Pedido pedido: almacen.getPedidos()){
+                    for(Producto p: pedido.getProductos().keySet()){
+                        if(p.getNombre().equals(producto.getNombre())){
+                            int cant = pedido.getProductos().get(p);
+                            pedido.getProductos().remove(p, cant);
+                        }
+                    }
+                }
             }
         }
         else{
@@ -322,10 +335,9 @@ public class VistaProductos extends javax.swing.JFrame {
         });
     }
     
-    public void anadirFila(String nombre, int precioVenta, int tiempoElab,
-            String materiasPrimas) {
+    public void anadirFila(String nombre, int precioVenta, Double tiempoElab) {
         
-        Object[] row = {nombre, "$"+precioVenta, tiempoElab, materiasPrimas};
+        Object[] row = {nombre, "$"+precioVenta, tiempoElab};
         
         
         modeloTabla.addRow(row);
@@ -350,8 +362,7 @@ public class VistaProductos extends javax.swing.JFrame {
         modeloTabla.setRowCount(0);
         this.almacen = almacen;
         for(Producto p: this.almacen.getProductos()){
-            anadirFila(p.getNombre(),p.getPrecioVenta(),p.getTiempoElaboracion()
-            ,p.getMateriasString());
+            anadirFila(p.getNombre(),p.getPrecioVenta(),p.getTiempoElaboracion());
         }
     }
 

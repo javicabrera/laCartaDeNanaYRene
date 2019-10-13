@@ -5,10 +5,8 @@
  */
 package InterfazGrafica;
 
-import static InterfazGrafica.VistaPedidos.anadirFila;
-import javax.swing.ListSelectionModel;
+
 import javax.swing.table.DefaultTableModel;
-import logica.MateriaPrima;
 import logica.Pedido;
 import logica.Producto;
 import logica.ControladorInterfaces;

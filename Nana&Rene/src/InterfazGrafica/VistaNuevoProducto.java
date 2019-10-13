@@ -103,6 +103,7 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         txtMateriaPrima.setText("Materia Prima:");
         getContentPane().add(txtMateriaPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, 20));
 
+        precioVenta.setToolTipText("Ingrese precio de venta");
         precioVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 precioVentaActionPerformed(evt);
@@ -110,14 +111,18 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         });
         getContentPane().add(precioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 350, -1));
 
+        tiempoElab.setToolTipText("Ingrese tiempo de elaboración (en horas)");
         tiempoElab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tiempoElabActionPerformed(evt);
             }
         });
         getContentPane().add(tiempoElab, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 350, -1));
+
+        cantidad.setToolTipText("Ingrese cantidad que usa para hacer este producto");
         getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 80, -1));
 
+        boxMateriaPrima.setToolTipText("Seleccione una materia prima");
         boxMateriaPrima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boxMateriaPrimaActionPerformed(evt);
@@ -134,6 +139,7 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         getContentPane().add(bVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 100, 50));
 
         bGuardar.setText("Guardar");
+        bGuardar.setToolTipText("Guardar este producto");
         bGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bGuardarActionPerformed(evt);
@@ -142,12 +148,15 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 370, 100, 50));
 
         btnAgregarMPrima.setText("+");
+        btnAgregarMPrima.setToolTipText("Añadir materia prima");
         btnAgregarMPrima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarMPrimaActionPerformed(evt);
             }
         });
         getContentPane().add(btnAgregarMPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 250, 40, 30));
+
+        nombre.setToolTipText("Ingrese nombre");
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 350, -1));
 
         materiasPrimas.setText("Materias Primas");
@@ -223,6 +232,7 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
     private void btnAgregarMPrimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMPrimaActionPerformed
         String nombreMateria = (String) boxMateriaPrima.getSelectedItem();
         MateriaPrima materia = null;
+        boolean flag1 = true;
         for(MateriaPrima m : almacen.getMateriasPrimas()){
             if(m.getNombre().equals(nombreMateria)){
                 materia = m;
@@ -230,26 +240,47 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
             }
         }
         try{
+            
             Double cant = Double.parseDouble(cantidad.getText());
-            if(materias.containsKey(materia)){
-                materias.replace(materia, cant);
+            if(materia.getTipo().equals("discreta"))
+            {
+                String c = String.valueOf(cant);
+                String[] c2 = c.split("\\.");
+                String[] ceros = c2[1].split("");
+                for(int i = 0; i < ceros.length; i++)
+                {
+                    if(!ceros[i].equals("0"))
+                    {
+                        flag1 = false;
+                        JOptionPane.showMessageDialog(this, "Debe ingresar una variable discreta","Error", 
+                        JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
+                }
             }
-            else{
-                materias.put(materia, cant);
-            }
-            this.model.clear();
-                for(MateriaPrima m: materias.keySet()){
+            if(flag1)
+            {
+                if(materias.containsKey(materia))
+                {
+                    materias.replace(materia, materias.get(materia)+cant);
+                }
+                else{
+                    materias.put(materia, cant);
+                }
+                this.model.clear();
+                for(MateriaPrima m: materias.keySet())
+                {
                     this.model.addElement("Producto: " + m.getNombre());
                     this.model.addElement("Cantidad: " + materias.get(m));
                     this.model.addElement("_______________________");
                 }
                 super.paintComponents(this.getGraphics());
+            }
+            
         } catch (NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido.",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        
         super.paintComponents(this.getGraphics());
     }//GEN-LAST:event_btnAgregarMPrimaActionPerformed
 
@@ -258,8 +289,19 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         String nombreProd = nombre.getText();
         boolean flag1 = true;
         boolean flag2 = true;
-        int precio = Integer.parseInt(precioVenta.getText());
-        int tiempo = Integer.parseInt(tiempoElab.getText());
+        boolean flag3 = true;
+        boolean flag4 = true;
+        boolean flag5 = true;
+        int precio = 0;
+        double tiempo = 0;
+        try{
+            precio = Integer.parseInt(precioVenta.getText());
+            tiempo = Double.parseDouble(tiempoElab.getText());
+        } catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            flag5 = false;
+        }
         if (nombreProd.equals("") || nombreProd == null){
             JOptionPane.showMessageDialog(this, "Debe ingresar un nombre.","Error", 
                     JOptionPane.ERROR_MESSAGE);
@@ -274,39 +316,32 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         if(tiempo<=0 || tiempo>24){
             JOptionPane.showMessageDialog(this, "Debe ingresar un tiempo valido.","Error", 
                     JOptionPane.ERROR_MESSAGE);  
+            flag3 = false;
         }
         if(precio<=0){
             JOptionPane.showMessageDialog(this, "Debe ingresar un precio valido.","Error", 
             JOptionPane.ERROR_MESSAGE); 
+            flag4 = false;
         }
         
-        if (flag1 && flag2){
-            try{
-                if(Double.parseDouble(cantidad.getText()) > 0.0){
-                    
-                    Producto p = new Producto(nombreProd, precio, tiempo, materias);
-                    ArrayList<Producto> prodAux = almacen.getProductos();
-                    prodAux.add(p);
-                    almacen.setProductos(prodAux);
-                    JOptionPane.showMessageDialog(this, "Guardado exitosamente",
-                            "Guardado", JOptionPane.INFORMATION_MESSAGE);
-                    materias = new HashMap<>();
-                    precioVenta.setText("");
-                    tiempoElab.setText("");
-                    nombre.setText("");
-                    cantidad.setText("");
-                    model.clear();
-                    ControladorInterfaces.mostrarNuevoProducto(false);
-                    ControladorInterfaces.mostrarProductos(true);
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad mayor a 0 "
-                    ,"Error",JOptionPane.ERROR_MESSAGE);
-                }
-                
+        if (flag1 && flag2 && flag3 && flag4 && flag5){
+            try{  
+                Producto p = new Producto(nombreProd, precio, tiempo, materias);
+                ArrayList<Producto> prodAux = almacen.getProductos();
+                prodAux.add(p);
+                almacen.setProductos(prodAux);
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente",
+                        "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                materias = new HashMap<>();
+                precioVenta.setText("");
+                tiempoElab.setText("");
+                nombre.setText("");
+                cantidad.setText("");
+                model.clear();
+                ControladorInterfaces.mostrarNuevoProducto(false);
+                ControladorInterfaces.mostrarProductos(true);
             } catch (NumberFormatException e){
-                JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                
             }
         }
     }//GEN-LAST:event_bGuardarActionPerformed

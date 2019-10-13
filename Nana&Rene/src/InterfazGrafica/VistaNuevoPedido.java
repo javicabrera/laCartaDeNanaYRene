@@ -5,8 +5,6 @@
  */
 package InterfazGrafica;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import logica.Almacen;
+import logica.Cliente;
 import logica.ControladorInterfaces;
 import logica.Pedido;
 import logica.Producto;
@@ -33,6 +32,7 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
     private int total;
     private Almacen almacen;
     private int contador;
+    private Cliente cliente;
 
     /**
      * Creates new form PaginaPrincipalFX
@@ -46,7 +46,7 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         contador = 0;
         this.model = new DefaultListModel();
         listaProductos.setModel(this.model);
-        String pattern = "dd-MM-yyyy";
+        String pattern = "dd/MM/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         Date hoy = new Date();
         fSolicitud.setText(simpleDateFormat.format(hoy));
@@ -61,6 +61,11 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         this.almacen = almacen;
         for(Producto p: this.almacen.getProductos()){
             boxProductos.addItem(p.getNombre());
+        }
+        boxCliente.removeAllItems();
+        boxCliente.addItem("No Registrado");
+        for(Cliente c: this.almacen.getClientes()){
+            boxCliente.addItem(c.getNombreCliente());
         }
     }
 
@@ -166,29 +171,47 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         });
         getContentPane().add(fSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 130, -1));
 
+        precioAbonado.setToolTipText("Ingrese cantidad abonada");
         precioAbonado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 precioAbonadoActionPerformed(evt);
             }
         });
         getContentPane().add(precioAbonado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 130, -1));
+
+        nombre.setToolTipText("Ingrese nombre cliente");
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 450, -1));
+
+        numero.setToolTipText("Ingrese número telefónico");
         getContentPane().add(numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 150, -1));
+
+        descuento.setToolTipText("Ingrese descuento (en porcentaje)");
         getContentPane().add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, 70, -1));
+
+        cantidad.setToolTipText("Ingrese cantidad");
         getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 130, -1));
 
         fRetiro.setText("dd/MM/aaaa");
+        fRetiro.setToolTipText("Ingrese fecha de retiro");
         getContentPane().add(fRetiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 130, 130, -1));
 
+        boxProductos.setToolTipText("Seleccione un producto");
         boxProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boxProductosActionPerformed(evt);
             }
         });
         getContentPane().add(boxProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 130, -1));
+
+        correo.setToolTipText("Ingrese correo electrónico");
         getContentPane().add(correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 310, 230, -1));
 
-        boxCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        boxCliente.setToolTipText("Seleccione un cliente");
+        boxCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxClienteActionPerformed(evt);
+            }
+        });
         getContentPane().add(boxCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 130, -1));
 
         bVolver.setText("Volver");
@@ -200,6 +223,7 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         getContentPane().add(bVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 100, 50));
 
         bGuardar.setText("Guardar");
+        bGuardar.setToolTipText("Guardar pedido");
         bGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bGuardarActionPerformed(evt);
@@ -211,6 +235,7 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         getContentPane().add(precioTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, -1, 20));
 
         btnAgregarProducto.setText("+");
+        btnAgregarProducto.setToolTipText("Agregar este producto al pedido");
         btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarProductoActionPerformed(evt);
@@ -222,9 +247,10 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         getContentPane().add(txt$, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, -1, 20));
 
         txtPorcentaje.setText("%");
-        getContentPane().add(txtPorcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, 10, 20));
+        getContentPane().add(txtPorcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, 30, 20));
 
         btnAplicarDscto.setText("Aplicar");
+        btnAplicarDscto.setToolTipText("Aplicar descuento al precio total");
         btnAplicarDscto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAplicarDsctoActionPerformed(evt);
@@ -293,7 +319,7 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
         cantidad.setText("");
-        String pattern = "dd-MM-yyyy";
+        String pattern = "dd/MM/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         Date hoy = new Date();
         fSolicitud.setText(simpleDateFormat.format(hoy));
@@ -331,7 +357,7 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
             int cant = Integer.parseInt(cantidad.getText());
             if(cant>0){
                 if (productos.containsKey(producto)){
-                    productos.replace(producto, cant);
+                    productos.replace(producto, productos.get(producto)+cant);
                 }
                 else{
                     productos.put(producto,cant);
@@ -355,11 +381,6 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        
-        
-        
-        
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     /**
@@ -425,9 +446,7 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
             String strDate = dateFormat.format(fActual);  
             fActual = new SimpleDateFormat("dd/MM/yyyy").parse(strDate);
-            System.out.println(fActual);
-            System.out.println(fSolicitud);
-            System.out.println(fRetiro);
+            
             
             if(fRetiro.before(fActual))
             {
@@ -440,16 +459,25 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         }
         
         if (flag && flag2 && flag3 && flag4 && flag5 && flag6 && flag9){
-            Pedido p = new Pedido(productos, DateSolicitud, DateRetiro,
-                    total,dcto,nombre.getText(), 
-                    correo.getText(), numero.getText(), abono);
+            String nombreCliente = nombre.getText();
+            String numeroCliente = numero.getText();
+            String correoCliente = correo.getText();
+            int id = almacen.getMayorId();
+            id++;
+            Pedido p = new Pedido(id, productos, DateSolicitud, DateRetiro,
+                    total,dcto,nombreCliente, 
+                    numeroCliente, correoCliente, abono);
+            almacen.setMayorId(id);
             ArrayList<Pedido> aux = almacen.getPedidos();
             aux.add(p);
             almacen.setPedidos(aux);
+            if(cliente!= null){
+                cliente.getHistorialPedidos().add(p);
+            }
             JOptionPane.showMessageDialog(this, "Guardado exitosamente",
                         "Guardado", JOptionPane.INFORMATION_MESSAGE);
             cantidad.setText("");
-            String pattern = "dd-MM-yyyy";
+            String pattern = "dd/MM/yyyy";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             Date hoy = new Date();
             fSolicitud.setText(simpleDateFormat.format(hoy));
@@ -498,6 +526,43 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnAplicarDsctoActionPerformed
+
+    private void boxClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxClienteActionPerformed
+        // TODO add your handling code here:
+        String clienteSeleccionado = (String) boxCliente.getSelectedItem();
+        cliente = null;
+        if (clienteSeleccionado!=null && !clienteSeleccionado.equals("No Registrado")){
+            for(Cliente c: this.almacen.getClientes()){
+                if (c.getNombreCliente().equals(clienteSeleccionado)){
+                    cliente = c;
+                    break;
+                }
+            }
+            nombre.setText(cliente.getNombreCliente());
+            nombre.setEditable(false);
+            String[] tel = cliente.getNumeroCliente().split("");
+            String nuevoTelefono = "";
+            for(int i = 0; i < tel.length; i++)
+            {
+                if(!tel[i].equals("-"))
+                {
+                    nuevoTelefono+=tel[i];
+                }
+            }
+            numero.setText(nuevoTelefono);
+            numero.setEditable(false);
+            correo.setText(cliente.getCorreoCliente());
+            correo.setEditable(false);
+        }
+        else{
+            nombre.setText("");
+            nombre.setEditable(true);
+            numero.setText("");
+            numero.setEditable(true);
+            correo.setText("");
+            correo.setEditable(true);
+        }
+    }//GEN-LAST:event_boxClienteActionPerformed
 
     /**
      * @param args the command line arguments

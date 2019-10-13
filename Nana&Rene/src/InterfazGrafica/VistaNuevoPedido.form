@@ -184,6 +184,9 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="precioAbonado">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingrese cantidad abonada"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="precioAbonadoActionPerformed"/>
       </Events>
@@ -194,6 +197,9 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="nombre">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingrese nombre cliente"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="80" y="280" width="450" height="-1"/>
@@ -201,6 +207,9 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="numero">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingrese n&#xfa;mero telef&#xf3;nico"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="80" y="310" width="150" height="-1"/>
@@ -208,6 +217,9 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="descuento">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingrese descuento (en porcentaje)"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="400" y="160" width="70" height="-1"/>
@@ -215,6 +227,9 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="cantidad">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingrese cantidad"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="400" y="100" width="130" height="-1"/>
@@ -224,6 +239,7 @@
     <Component class="javax.swing.JTextField" name="fRetiro">
       <Properties>
         <Property name="text" type="java.lang.String" value="dd/MM/aaaa"/>
+        <Property name="toolTipText" type="java.lang.String" value="Ingrese fecha de retiro"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -236,6 +252,7 @@
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Seleccione un producto"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boxProductosActionPerformed"/>
@@ -250,6 +267,9 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="correo">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingrese correo electr&#xf3;nico"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="300" y="310" width="230" height="-1"/>
@@ -259,14 +279,13 @@
     <Component class="javax.swing.JComboBox" name="boxCliente">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Seleccione un cliente"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boxClienteActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -292,6 +311,7 @@
     <Component class="javax.swing.JButton" name="bGuardar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Guardar"/>
+        <Property name="toolTipText" type="java.lang.String" value="Guardar pedido"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bGuardarActionPerformed"/>
@@ -315,6 +335,7 @@
     <Component class="javax.swing.JButton" name="btnAgregarProducto">
       <Properties>
         <Property name="text" type="java.lang.String" value="+"/>
+        <Property name="toolTipText" type="java.lang.String" value="Agregar este producto al pedido"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarProductoActionPerformed"/>
@@ -341,13 +362,14 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="480" y="160" width="10" height="20"/>
+          <AbsoluteConstraints x="470" y="160" width="30" height="20"/>
         </Constraint>
       </Constraints>
     </Component>
     <Component class="javax.swing.JButton" name="btnAplicarDscto">
       <Properties>
         <Property name="text" type="java.lang.String" value="Aplicar"/>
+        <Property name="toolTipText" type="java.lang.String" value="Aplicar descuento al precio total"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAplicarDsctoActionPerformed"/>

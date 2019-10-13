@@ -68,7 +68,7 @@ public class Main
         System.out.println("Se importaron los datos");
         
         
-        almacen = new Almacen(pedidos, productos, materiasPrimas, clientes);
+        almacen = new Almacen(gestionExcel.getMayorId(), pedidos, productos, materiasPrimas, clientes);
         ControladorPedido cp = new ControladorPedido(almacen);
         controladorInterfaces = new ControladorInterfaces(almacen, gestionExcel);
         controladorInterfaces.iniciarInterfaz();
