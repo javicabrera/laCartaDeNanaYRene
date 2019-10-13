@@ -35,7 +35,10 @@ public class Cliente
         this.numeroCliente = numeroCliente;
         this.historialPedidos = historialPedidos;
     }
-
+    
+    public Cliente(){        
+    }
+    
     public String getNombreCliente() 
     {
         return nombreCliente;
