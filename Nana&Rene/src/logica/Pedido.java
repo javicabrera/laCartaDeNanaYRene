@@ -36,6 +36,10 @@ public class Pedido {
         this.correoCliente = correoCliente;
         this.numeroCliente = numeroCliente;
     }
+    
+    public Pedido(){
+        
+    }
     public int diasRestantesRetiro(){
         if(this.fechaSolicitud.getYear()==this.fechaRetiro.getYear()){
             if(this.fechaSolicitud.getMonth()==this.fechaRetiro.getMonth()){
