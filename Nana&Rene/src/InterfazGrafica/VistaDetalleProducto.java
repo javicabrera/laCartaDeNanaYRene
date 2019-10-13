@@ -5,6 +5,7 @@
  */
 package InterfazGrafica;
 
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import logica.MateriaPrima;
 import logica.Producto;
@@ -24,7 +25,8 @@ public class VistaDetalleProducto extends javax.swing.JFrame {
     public VistaDetalleProducto() {
         initComponents();
         this.setLocationRelativeTo(null);
-        modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();   
+        modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();  
+        tablaMateriasPrimas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     /**

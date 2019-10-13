@@ -103,6 +103,7 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         txtMateriaPrima.setText("Materia Prima:");
         getContentPane().add(txtMateriaPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, 20));
 
+        precioVenta.setToolTipText("Ingrese precio de venta");
         precioVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 precioVentaActionPerformed(evt);
@@ -110,14 +111,18 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         });
         getContentPane().add(precioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 350, -1));
 
+        tiempoElab.setToolTipText("Ingrese tiempo de elaboración (en horas)");
         tiempoElab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tiempoElabActionPerformed(evt);
             }
         });
         getContentPane().add(tiempoElab, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 350, -1));
+
+        cantidad.setToolTipText("Ingrese cantidad que usa para hacer este producto");
         getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 80, -1));
 
+        boxMateriaPrima.setToolTipText("Seleccione una materia prima");
         boxMateriaPrima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boxMateriaPrimaActionPerformed(evt);
@@ -134,6 +139,7 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         getContentPane().add(bVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 100, 50));
 
         bGuardar.setText("Guardar");
+        bGuardar.setToolTipText("Guardar este producto");
         bGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bGuardarActionPerformed(evt);
@@ -142,12 +148,15 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 370, 100, 50));
 
         btnAgregarMPrima.setText("+");
+        btnAgregarMPrima.setToolTipText("Añadir materia prima");
         btnAgregarMPrima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarMPrimaActionPerformed(evt);
             }
         });
         getContentPane().add(btnAgregarMPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 250, 40, 30));
+
+        nombre.setToolTipText("Ingrese nombre");
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 350, -1));
 
         materiasPrimas.setText("Materias Primas");
@@ -253,7 +262,7 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
             {
                 if(materias.containsKey(materia))
                 {
-                    materias.replace(materia, cant);
+                    materias.replace(materia, materias.get(materia)+cant);
                 }
                 else{
                     materias.put(materia, cant);

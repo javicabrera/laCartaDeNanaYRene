@@ -42,6 +42,7 @@ public class VistaClientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnInfo = new javax.swing.JButton();
         btnCrear = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
@@ -58,7 +59,17 @@ public class VistaClientes extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/info16.png"))); // NOI18N
+        btnInfo.setToolTipText("Ver historial de pedidos");
+        btnInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInfoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 160, 30, 30));
+
         btnCrear.setText("+ Crear");
+        btnCrear.setToolTipText("Crear un nuevo cliente");
         btnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearActionPerformed(evt);
@@ -81,7 +92,7 @@ public class VistaClientes extends javax.swing.JFrame {
                 btnBorrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, 30, 30));
+        getContentPane().add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 160, 30, 30));
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/edit16.png"))); // NOI18N
         btnEditar.setToolTipText("Editar");
@@ -90,7 +101,7 @@ public class VistaClientes extends javax.swing.JFrame {
                 btnEditarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 160, 30, 30));
+        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(695, 160, 30, 30));
 
         tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -203,6 +214,19 @@ public class VistaClientes extends javax.swing.JFrame {
         } 
     }//GEN-LAST:event_btnBorrarActionPerformed
 
+    private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
+
+        if(obtieneFilaSeleccionada()>=0){
+            Cliente cliente = almacen.getClientes().get(obtieneFilaSeleccionada());
+            ControladorInterfaces.mostrarHistorialCliente(true, cliente);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente",
+                "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnInfoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -284,6 +308,7 @@ public class VistaClientes extends javax.swing.JFrame {
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnInfo;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel icon;
     private javax.swing.JScrollPane jScrollPane;

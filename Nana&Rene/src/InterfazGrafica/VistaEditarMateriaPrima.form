@@ -42,6 +42,7 @@
     <Component class="javax.swing.JButton" name="bGuardar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Guardar"/>
+        <Property name="toolTipText" type="java.lang.String" value="Guardar esta materia prima"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bGuardarActionPerformed"/>
@@ -66,6 +67,9 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="nombre">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingrese nombre"/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="210" y="120" width="510" height="-1"/>
@@ -86,6 +90,9 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="uMedida">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingrese unidad de medida. Ejemplo: kg, gr, litros, etc."/>
+      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="210" y="160" width="510" height="-1"/>
@@ -119,6 +126,9 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="cantidad">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Ingrese cantidad disponible"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cantidadActionPerformed"/>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cantidadKeyPressed"/>

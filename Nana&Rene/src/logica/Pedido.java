@@ -9,6 +9,7 @@ import java.util.Date;
  * @author Isavo Castro
  */
 public class Pedido {
+    private int id;
     private HashMap<Producto, Integer> productos;
     private Date fechaSolicitud;
     private Date fechaRetiro;
@@ -20,9 +21,10 @@ public class Pedido {
     private String correoCliente;
     private String numeroCliente;
 
-    public Pedido(HashMap<Producto, Integer> productos, Date fechaSolicitud, 
+    public Pedido(int id, HashMap<Producto, Integer> productos, Date fechaSolicitud, 
             Date fechaRetiro, int precioTotal, int descuento, String nombreCliente, 
             String correoCliente, String numeroCliente, int precioAbonado) {
+        this.id = id;
         this.productos = productos;
         this.fechaSolicitud = fechaSolicitud;
         this.fechaRetiro = fechaRetiro;
@@ -65,6 +67,15 @@ public class Pedido {
         return fechaSolicitud;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
     public void setFechaSolicitud(Date fechaSolicitud) 
     {
         this.fechaSolicitud = fechaSolicitud;

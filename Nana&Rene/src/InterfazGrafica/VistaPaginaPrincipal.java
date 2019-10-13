@@ -14,7 +14,10 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.ListCellRenderer;
 import logica.Almacen;
 import logica.ControladorInterfaces;
 import logica.Pedido;
@@ -30,50 +33,73 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form PaginaPrincipalFX
      */
+    
+    class ListEntry{
+        private Pedido pedido;
+        private ImageIcon icono;
+
+        public ListEntry(Pedido pedido, ImageIcon icono) {
+           this.pedido = pedido;
+           this.icono = icono;
+        }
+
+        public Pedido getPedido() {
+           return pedido;
+        }
+
+        public ImageIcon getIcono() {
+           return icono;
+        }
+
+        public String toString() {
+            String pattern = "dd-MM-yyyy";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+           return "<html>"+ pedido.getNombreCliente() + 
+                              "<br>Estado: " + pedido.getEstado() + 
+                              "<br>Fecha Retiro: " + simpleDateFormat.
+                                      format(pedido.getFechaRetiro()) + 
+                              "<br>____________________________</span></html>";
+        }
+    }
+    
+    class ListEntryCellRenderer extends JLabel implements ListCellRenderer{
+   private JLabel label;
+  
+   public Component getListCellRendererComponent(JList list, Object value,
+                                                 int index, boolean isSelected,
+                                                 boolean cellHasFocus) {
+      ListEntry entry = (ListEntry) value;
+  
+      setText(entry.toString());
+      setIcon(entry.getIcono());
+   
+      if (isSelected) {
+         setBackground(list.getSelectionBackground());
+         setForeground(list.getSelectionForeground());
+      }
+      else {
+         setBackground(list.getBackground());
+         setForeground(list.getForeground());
+      }
+  
+      setEnabled(list.isEnabled());
+      setFont(list.getFont());
+      setOpaque(true);
+  
+      return this;
+   }
+}
+    
     public VistaPaginaPrincipal() {
         this.setLocationRelativeTo(null);
         initComponents();
         this.model = new DefaultListModel();
         listaPedidos.setModel(this.model);
-        listaPedidos.setCellRenderer(new DefaultListCellRenderer() {
-            @Override
-            public Component getListCellRendererComponent(JList list, Object value, int index,
-                      boolean isSelected, boolean cellHasFocus) {
-                 Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                 if (value instanceof Pedido) {
-                     Pedido p = (Pedido) value;
-                     String pattern = "dd-MM-yyyy";
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-                      setText("<html>"+ p.getNombreCliente() + 
-                              "<br>Estado: " + p.getEstado() + 
-                              "<br>Fecha Retiro: " + simpleDateFormat.
-                                      format(p.getFechaRetiro()) + 
-                              "<br>____________________________</span></html>");
-                      if(!p.getEstado().equals("Cancelado")){
-                        Date fechaActual = new Date();
-                        TimeUnit timeUnit = TimeUnit.DAYS;
-                        long diffInMillies = p.getFechaRetiro().getTime() - fechaActual.getTime();
-                        int diferencia = (int) timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
-                        if(diferencia>=7){
-                            setBackground(new Color(199, 224, 211));
-                        }
-                        else if (diferencia<7 && diferencia>2){
-                            setBackground(new Color(153, 197, 175));
-                        }
-                        else if (diferencia<=2){
-                            setBackground(new Color(127, 185, 156));
-                        }
-                      }
-                      
-                 } 
-                 return c;
-            }
-
-       });
+        listaPedidos.setCellRenderer(new ListEntryCellRenderer());
  
     }
     
-    public static void agregarPedido(Pedido p){
+    public static void agregarPedido(ListEntry p){
         VistaPaginaPrincipal.model.addElement(p);
         
     }
@@ -82,7 +108,25 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         VistaPaginaPrincipal.model.clear();
         this.almacen = almacen;
         for(Pedido p: this.almacen.getPedidos()){
-                VistaPaginaPrincipal.agregarPedido(p);
+            ImageIcon icon = null;
+            if(!p.getEstado().equals("Cancelado") && !p.getEstado().equals("Retirado")){
+                Date fechaActual = new Date();
+                TimeUnit timeUnit = TimeUnit.DAYS;
+                long diffInMillies = p.getFechaRetiro().getTime() - fechaActual.getTime();
+                int diferencia = (int) timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+                if(diferencia>=7){
+                    icon = new ImageIcon("1.png");
+                }
+                else if (diferencia<7 && diferencia>2){
+                    icon = new ImageIcon("2.png");
+                }
+                else if (diferencia<=2){
+                    icon = new ImageIcon("3.png");
+                }
+                VistaPaginaPrincipal.agregarPedido(new ListEntry(p,icon));
+            }
+            
+            
         }
     }
 
@@ -257,6 +301,7 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         ge.setMateriasPrimas(almacen.getMateriasPrimas());
         ge.setPedidos(almacen.getPedidos());
         ge.setProductos(almacen.getProductos());
+        ge.setClientes(almacen.getClientes());
         
         File tProductos = new File("Productos.xlsx");
         ge.exportarProductos(tProductos);
