@@ -27,6 +27,10 @@ public class Producto
         this.materiasPrimas = new HashMap();
         this.materiasPrimas = materiasPrimas;
     }
+    
+    public Producto(){
+        
+    }
 
     public String getNombre() 
     {

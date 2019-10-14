@@ -15,6 +15,7 @@ import logica.Almacen;
 import logica.Pedido;
 import logica.ControladorInterfaces;
 import logica.ControladorPedido;
+import logica.EnviaCorreo;
 
 /**
  *
@@ -231,6 +232,10 @@ public class VistaPedidos extends javax.swing.JFrame {
                     nuevo = "Finalizado";
                     aumentarEstadoPedido();
                     pedido.setEstado(nuevo);
+                    String correo = pedido.getCorreoCliente();
+                    String valorAPagar = String.valueOf(pedido.getPrecioTotal()-pedido.getPrecioAbonado());
+                    String fechaRetiro = pedido.getFechaRetiro().toString();
+                    EnviaCorreo.enviar(correo , valorAPagar, fechaRetiro);
                     break;
                 case "Finalizado":
                     nuevo = "Retirado";
