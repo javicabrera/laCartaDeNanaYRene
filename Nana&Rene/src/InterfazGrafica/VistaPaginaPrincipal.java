@@ -115,13 +115,13 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
                 long diffInMillies = p.getFechaRetiro().getTime() - fechaActual.getTime();
                 int diferencia = (int) timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
                 if(diferencia>=7){
-                    icon = new ImageIcon("1.png");
+                    icon = new ImageIcon(getClass().getResource("/Recursos/Calendario7.png"));
                 }
                 else if (diferencia<7 && diferencia>2){
-                    icon = new ImageIcon("2.png");
+                    icon = new ImageIcon(getClass().getResource("/Recursos/Calendario7.png"));
                 }
                 else if (diferencia<=2){
-                    icon = new ImageIcon("3.png");
+                    icon = new ImageIcon(getClass().getResource("/Recursos/Calendario7.png"));
                 }
                 VistaPaginaPrincipal.agregarPedido(new ListEntry(p,icon));
             }
@@ -179,6 +179,8 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 220, 330));
 
+        btnProductos.setFont(new java.awt.Font("Lucida Grande", 0, 13)); // NOI18N
+        btnProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Productos.png"))); // NOI18N
         btnProductos.setText("Productos");
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,6 +189,8 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 130, 200, 50));
 
+        btnPedidos.setFont(new java.awt.Font("Lucida Grande", 0, 13)); // NOI18N
+        btnPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Pedidos.png"))); // NOI18N
         btnPedidos.setText("Pedidos");
         btnPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,6 +199,8 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(btnPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 200, 50));
 
+        btnMateriasPrimas.setFont(new java.awt.Font("Lucida Grande", 0, 13)); // NOI18N
+        btnMateriasPrimas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Leche.png"))); // NOI18N
         btnMateriasPrimas.setText("Materias Primas");
         btnMateriasPrimas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,7 +209,9 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(btnMateriasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 220, 200, 50));
 
-        btnClientesHabituales.setText("Clientes Habituales");
+        btnClientesHabituales.setFont(new java.awt.Font("Lucida Grande", 0, 13)); // NOI18N
+        btnClientesHabituales.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Clientes.png"))); // NOI18N
+        btnClientesHabituales.setText("Clientes");
         btnClientesHabituales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClientesHabitualesActionPerformed(evt);
@@ -211,7 +219,9 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(btnClientesHabituales, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 200, 50));
 
-        btnElaborarReportes.setText("Elaborar Reportes");
+        btnElaborarReportes.setFont(new java.awt.Font("Lucida Grande", 0, 13)); // NOI18N
+        btnElaborarReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Reportes.png"))); // NOI18N
+        btnElaborarReportes.setText("Reportes");
         btnElaborarReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnElaborarReportesActionPerformed(evt);
