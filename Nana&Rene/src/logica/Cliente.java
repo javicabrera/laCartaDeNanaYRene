@@ -17,24 +17,28 @@ public class Cliente
     private String nombreCliente;
     private String correoCliente;
     private String numeroCliente;
-    private HashMap<Producto, Integer> historialPedidos;
+    private ArrayList<Pedido> historialPedidos;
     
     public Cliente(String nombreCliente, String correoCliente, String numeroCliente)
     {
         this.nombreCliente = nombreCliente;
         this.correoCliente = correoCliente;
         this.numeroCliente = numeroCliente;
-        this.historialPedidos = new HashMap<Producto, Integer>();
+        this.historialPedidos = new ArrayList<>();
     }
     
-    public Cliente(String nombreCliente, String correoCliente, String numeroCliente, HashMap<Producto, Integer> historialPedidos)
+    public Cliente(String nombreCliente, String correoCliente, String numeroCliente, 
+            ArrayList<Pedido> historialPedidos)
     {
         this.nombreCliente = nombreCliente;
         this.correoCliente = correoCliente;
         this.numeroCliente = numeroCliente;
         this.historialPedidos = historialPedidos;
     }
-
+    
+    public Cliente(){        
+    }
+    
     public String getNombreCliente() 
     {
         return nombreCliente;
@@ -65,11 +69,11 @@ public class Cliente
         this.numeroCliente = numeroCliente;
     }
 
-    public HashMap<Producto, Integer> getHistorialPedidos() {
+    public ArrayList<Pedido> getHistorialPedidos() {
         return historialPedidos;
     }
 
-    public void setHistorialPedidos(HashMap<Producto, Integer> historialPedidos) {
+    public void setHistorialPedidos(ArrayList<Pedido> historialPedidos) {
         this.historialPedidos = historialPedidos;
     }
 

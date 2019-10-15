@@ -75,6 +75,7 @@ public class VistaEditarProducto extends javax.swing.JFrame {
     public void setAlmacen(Almacen almacen) {
         boxMateriaPrima.removeAllItems();
         this.almacen = almacen;
+        model.clear();
         for(MateriaPrima materia: this.almacen.getMateriasPrimas()){
             boxMateriaPrima.addItem(materia.getNombre());
         }
@@ -140,15 +141,21 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         txtMateriaPrima.setText("Materia Prima:");
         getContentPane().add(txtMateriaPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, 20));
 
+        precioVenta.setToolTipText("Ingrese precio de venta");
         precioVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 precioVentaActionPerformed(evt);
             }
         });
         getContentPane().add(precioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 350, -1));
+
+        tiempoElab.setToolTipText("Ingrese tiempo de elaboración (en horas)");
         getContentPane().add(tiempoElab, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 350, -1));
+
+        cantidad.setToolTipText("Ingrese cantidad que usa para hacer este producto");
         getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 80, -1));
 
+        boxMateriaPrima.setToolTipText("Seleccione una materia prima");
         boxMateriaPrima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boxMateriaPrimaActionPerformed(evt);
@@ -165,6 +172,7 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         getContentPane().add(bVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 100, 50));
 
         bGuardar.setText("Guardar");
+        bGuardar.setToolTipText("Guardar este producto");
         bGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bGuardarActionPerformed(evt);
@@ -173,15 +181,19 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 370, 100, 50));
 
         btnAgregarMPrima.setText("+");
+        btnAgregarMPrima.setToolTipText("Añadir materia prima");
         btnAgregarMPrima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarMPrimaActionPerformed(evt);
             }
         });
         getContentPane().add(btnAgregarMPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 250, 40, 30));
+
+        nombre.setToolTipText("Ingrese nombre");
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 350, -1));
 
         actualizaMatPrima.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/edit16.png"))); // NOI18N
+        actualizaMatPrima.setToolTipText("Editar cantidad materia prima");
         actualizaMatPrima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 actualizaMatPrimaActionPerformed(evt);
@@ -193,6 +205,7 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         getContentPane().add(materiasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 80, -1, -1));
 
         borrarMatPrima.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/basurero16.png"))); // NOI18N
+        borrarMatPrima.setToolTipText("Eliminar materia prima");
         borrarMatPrima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 borrarMatPrimaActionPerformed(evt);
@@ -280,25 +293,34 @@ public class VistaEditarProducto extends javax.swing.JFrame {
             Double cant = Double.parseDouble(cantidad.getText());
             if(materia.getTipo().equals("discreta"))
             {
-                String c = String.valueOf(cant);
-                String[] c2 = c.split("\\.");
-                String[] ceros = c2[1].split("");
-                for(int i = 0; i < ceros.length; i++)
-                {
-                    if(!ceros[i].equals("0"))
-                    {
-                        flag1 = false;
-                        JOptionPane.showMessageDialog(this, "Debe ingresar una variable discreta","Error", 
+//                String c = String.valueOf(cant);
+//                String[] c2 = c.split("\\.");
+//                String[] ceros = c2[1].split("");
+//                for(int i = 0; i < ceros.length; i++)
+//                {
+//                    if(!ceros[i].equals("0"))
+//                    {
+//                        flag1 = false;
+//                        JOptionPane.showMessageDialog(this, "Debe ingresar una variable discreta","Error", 
+//                        JOptionPane.ERROR_MESSAGE);
+//                        break;
+//                    }
+//                }
+                try{
+                    Integer.parseInt(cantidad.getText());
+                    flag1 = true;
+                    
+                }catch(NumberFormatException nfe){
+                    flag1 = false;
+                    JOptionPane.showMessageDialog(this, "Debe ingresar una variable discreta","Error", 
                         JOptionPane.ERROR_MESSAGE);
-                        break;
-                    }
                 }
             }
             if(flag1)
             {
                 if(materias.containsKey(materia))
                 {
-                    materias.replace(materia, cant);
+                    materias.replace(materia, materias.get(materia)+cant);
                 }
                 else{
                     materias.put(materia, cant);
@@ -419,10 +441,29 @@ public class VistaEditarProducto extends javax.swing.JFrame {
                 contador++;
             }
             try{
-                double cantidad = Double.parseDouble(JOptionPane.showInputDialog(this,
-                        "Ingrese nueva cantidad: ", 
-                    "Editar", JOptionPane.QUESTION_MESSAGE));
-                materias.replace(materia, cantidad);
+                boolean flag = false;
+                String auxcantidad = "";
+                do{
+                    auxcantidad = JOptionPane.showInputDialog(this,
+                            "Ingrese nueva cantidad: ", 
+                        "Editar", JOptionPane.QUESTION_MESSAGE);
+                    if(materia.getTipo().equals("discreta")){
+                        try{
+                            Integer.parseInt(auxcantidad);                            
+                            flag = true;
+                        }
+                        catch(NumberFormatException nfe){
+                            JOptionPane.showMessageDialog(this, "Debe ingresar valor discreto",
+                        "Error", JOptionPane.ERROR_MESSAGE);              
+                            flag = false; 
+                        }
+                    }
+                    else{
+                        flag = true;
+                    }
+                } while(!flag);
+                
+                materias.replace(materia, Double.parseDouble(auxcantidad));
                 model.clear();
                 for (Map.Entry<MateriaPrima, Double> entry : materias.entrySet()) {
                     model.addElement(entry);

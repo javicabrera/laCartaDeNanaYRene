@@ -12,6 +12,7 @@ import logica.ControladorInterfaces;
 import logica.MateriaPrima;
 import logica.Almacen;
 import logica.Cliente;
+import logica.Pedido;
 
 
 /**
@@ -61,12 +62,6 @@ public class VistaEditarCliente extends javax.swing.JFrame {
             }
         }
         telefono.setText(nuevoTelefono);
-        /* TIENE QUE SER EL HISTORIAL
-        for(MateriaPrima m: this.producto.getMateriasPrimas().keySet())
-        {
-            infoPanel.agregaProductoOrMatPrima(m.getNombre(),this.producto.
-                    getMateriasPrimas().get(m));
-        }*/
     }
 
     
@@ -100,7 +95,7 @@ public class VistaEditarCliente extends javax.swing.JFrame {
         txtNombre.setText("Nombre:");
         getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, 20));
 
-        correo.setEditable(false);
+        correo.setToolTipText("Ingrese correo electrónico");
         correo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 correoActionPerformed(evt);
@@ -122,12 +117,15 @@ public class VistaEditarCliente extends javax.swing.JFrame {
         getContentPane().add(bVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 100, 50));
 
         bGuardar.setText("Guardar");
+        bGuardar.setToolTipText("Guardar este cliente");
         bGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bGuardarActionPerformed(evt);
             }
         });
         getContentPane().add(bGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 370, 100, 50));
+
+        nombre.setToolTipText("Ingrese nombre");
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 510, -1));
 
         txtTelefono.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -137,6 +135,8 @@ public class VistaEditarCliente extends javax.swing.JFrame {
         txtCorreo.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         txtCorreo.setText("Correo Electrónico:");
         getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, 30));
+
+        telefono.setToolTipText("Ingrese número telefónico");
         getContentPane().add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 510, -1));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
@@ -189,9 +189,7 @@ public class VistaEditarCliente extends javax.swing.JFrame {
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
         boolean flag1 = true;
         boolean flag2 = true;
-        String nombreC = null;
-        String correoC = null;
-        String telefonoC = null;
+        boolean flag3 = true;
 
         if(nombre.getText().length() == 0)
         {
@@ -204,8 +202,14 @@ public class VistaEditarCliente extends javax.swing.JFrame {
                     "Error", JOptionPane.ERROR_MESSAGE);
             flag2 = false;
         }
+        if(correo.getText().length() == 0)
+        {
+            flag3 = false;
+            JOptionPane.showMessageDialog(this, "Debe ingresar un correo",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
-        if (flag1 && flag2)
+        if (flag1 && flag2 && flag3)
         {
             String[] tel = telefono.getText().split("");
             String nuevoTelefono = "";
@@ -219,9 +223,18 @@ public class VistaEditarCliente extends javax.swing.JFrame {
                     nuevoTelefono+= tel[i];
                 }
             }
-            
+            cliente.setCorreoCliente(correo.getText());
             cliente.setNombreCliente(nombre.getText());
             cliente.setNumeroCliente(nuevoTelefono);
+            for(Pedido p: this.almacen.getPedidos()){
+                for(int i=0; i<cliente.getHistorialPedidos().size(); i++){
+                    if (p.getId()==cliente.getHistorialPedidos().get(i).getId()){
+                        p.setNombreCliente(nombre.getText());
+                        p.setNumeroCliente(nuevoTelefono);
+                        p.setCorreoCliente(correo.getText());
+                    }
+                }
+            }
             JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", JOptionPane.INFORMATION_MESSAGE);
             ControladorInterfaces.mostrarEditarCliente(false, cliente, fila);
             ControladorInterfaces.mostrarClientes(true);

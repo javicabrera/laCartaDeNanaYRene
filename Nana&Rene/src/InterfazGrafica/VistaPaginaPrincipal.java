@@ -14,7 +14,10 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.ListCellRenderer;
 import logica.Almacen;
 import logica.ControladorInterfaces;
 import logica.Pedido;
@@ -30,50 +33,63 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form PaginaPrincipalFX
      */
+    
+    class ListEntry{
+        private Pedido pedido;
+        private ImageIcon icono;
+
+        public ListEntry(Pedido pedido, ImageIcon icono) {
+           this.pedido = pedido;
+           this.icono = icono;
+        }
+
+        public Pedido getPedido() {
+           return pedido;
+        }
+
+        public ImageIcon getIcono() {
+           return icono;
+        }
+
+        public String toString() {
+            String pattern = "dd-MM-yyyy";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+           return "<html>"+ pedido.getNombreCliente() + 
+                              "<br>Estado: " + pedido.getEstado() + 
+                              "<br>Fecha Retiro: " + simpleDateFormat.
+                                      format(pedido.getFechaRetiro()) + 
+                              "<br>___________________________</span></html>";
+        }
+    }
+    
+    class ListEntryCellRenderer extends JLabel implements ListCellRenderer{
+   private JLabel label;
+  
+   public Component getListCellRendererComponent(JList list, Object value,
+                                                 int index, boolean isSelected,
+                                                 boolean cellHasFocus) {
+      ListEntry entry = (ListEntry) value;
+  
+      setText(entry.toString());
+      setIcon(entry.getIcono());  
+      setEnabled(list.isEnabled());
+      setFont(list.getFont());
+      setOpaque(true);
+  
+      return this;
+   }
+}
+    
     public VistaPaginaPrincipal() {
         this.setLocationRelativeTo(null);
         initComponents();
         this.model = new DefaultListModel();
         listaPedidos.setModel(this.model);
-        listaPedidos.setCellRenderer(new DefaultListCellRenderer() {
-            @Override
-            public Component getListCellRendererComponent(JList list, Object value, int index,
-                      boolean isSelected, boolean cellHasFocus) {
-                 Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                 if (value instanceof Pedido) {
-                     Pedido p = (Pedido) value;
-                     String pattern = "dd-MM-yyyy";
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-                      setText("<html>"+ p.getNombreCliente() + 
-                              "<br>Estado: " + p.getEstado() + 
-                              "<br>Fecha Retiro: " + simpleDateFormat.
-                                      format(p.getFechaRetiro()) + 
-                              "<br>____________________________</span></html>");
-                      if(!p.getEstado().equals("Cancelado")){
-                        Date fechaActual = new Date();
-                        TimeUnit timeUnit = TimeUnit.DAYS;
-                        long diffInMillies = p.getFechaRetiro().getTime() - fechaActual.getTime();
-                        int diferencia = (int) timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
-                        if(diferencia>=7){
-                            setBackground(new Color(199, 224, 211));
-                        }
-                        else if (diferencia<7 && diferencia>2){
-                            setBackground(new Color(153, 197, 175));
-                        }
-                        else if (diferencia<=2){
-                            setBackground(new Color(127, 185, 156));
-                        }
-                      }
-                      
-                 } 
-                 return c;
-            }
-
-       });
+        listaPedidos.setCellRenderer(new ListEntryCellRenderer());
  
     }
     
-    public static void agregarPedido(Pedido p){
+    public static void agregarPedido(ListEntry p){
         VistaPaginaPrincipal.model.addElement(p);
         
     }
@@ -82,7 +98,43 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         VistaPaginaPrincipal.model.clear();
         this.almacen = almacen;
         for(Pedido p: this.almacen.getPedidos()){
-                VistaPaginaPrincipal.agregarPedido(p);
+            ImageIcon icon = null;
+            if(!p.getEstado().equals("Cancelado") && !p.getEstado().equals("Retirado")){
+                Date fechaActual = new Date();
+                TimeUnit timeUnit = TimeUnit.DAYS;
+                long diffInMillies = p.getFechaRetiro().getTime() - fechaActual.getTime();
+                int diferencia = (int) timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+                if(diferencia>7){
+                    icon = new ImageIcon(getClass().getResource("/Recursos/Calendario+7.png"));
+                }
+                else if(diferencia==7){
+                    icon = new ImageIcon(getClass().getResource("/Recursos/Calendario7.png"));
+                }
+                else if(diferencia==6){
+                    icon = new ImageIcon(getClass().getResource("/Recursos/Calendario6.png"));
+                }
+                else if(diferencia==5){
+                    icon = new ImageIcon(getClass().getResource("/Recursos/Calendario5.png"));
+                }
+                else if(diferencia==4){
+                    icon = new ImageIcon(getClass().getResource("/Recursos/Calendario4.png"));
+                }
+                else if(diferencia==3){
+                    icon = new ImageIcon(getClass().getResource("/Recursos/Calendario3.png"));
+                }
+                else if(diferencia==2){
+                    icon = new ImageIcon(getClass().getResource("/Recursos/Calendario2.png"));
+                }
+                else if(diferencia==1){
+                    icon = new ImageIcon(getClass().getResource("/Recursos/Calendario1.png"));
+                }
+                else if(diferencia<=0){
+                    icon = new ImageIcon(getClass().getResource("/Recursos/Calendario0.png"));
+                }
+                VistaPaginaPrincipal.agregarPedido(new ListEntry(p,icon));
+            }
+            
+            
         }
     }
 
@@ -133,8 +185,9 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         listaPedidos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(listaPedidos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 220, 330));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 230, 330));
 
+        btnProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Productos.png"))); // NOI18N
         btnProductos.setText("Productos");
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,6 +196,7 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 130, 200, 50));
 
+        btnPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Pedidos.png"))); // NOI18N
         btnPedidos.setText("Pedidos");
         btnPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,6 +205,7 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(btnPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 200, 50));
 
+        btnMateriasPrimas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Leche.png"))); // NOI18N
         btnMateriasPrimas.setText("Materias Primas");
         btnMateriasPrimas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,7 +214,8 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(btnMateriasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 220, 200, 50));
 
-        btnClientesHabituales.setText("Clientes Habituales");
+        btnClientesHabituales.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Clientes.png"))); // NOI18N
+        btnClientesHabituales.setText("Clientes");
         btnClientesHabituales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClientesHabitualesActionPerformed(evt);
@@ -167,7 +223,8 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(btnClientesHabituales, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 200, 50));
 
-        btnElaborarReportes.setText("Elaborar Reportes");
+        btnElaborarReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Reportes.png"))); // NOI18N
+        btnElaborarReportes.setText("Reportes");
         btnElaborarReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnElaborarReportesActionPerformed(evt);
@@ -257,13 +314,18 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         ge.setMateriasPrimas(almacen.getMateriasPrimas());
         ge.setPedidos(almacen.getPedidos());
         ge.setProductos(almacen.getProductos());
+        ge.setClientes(almacen.getClientes());
         
-        File tProductos = new File("Productos.xlsx");
+        System.out.println("PRODUCTOS");
+        File tProductos = new File("Productos.xlsx");        
         ge.exportarProductos(tProductos);
+        System.out.println("PEDIDOS");
         File tPedidos = new File("Pedidos.xlsx");
         ge.exportarPedido(tPedidos);
+        System.out.println("MATERIAS PRIMAS");
         File tMateriasPrimas = new File("MateriasPrimas.xlsx");
         ge.exportarMateriasPrimas(tMateriasPrimas);
+        System.out.println("CLIENTES");
         File tClientes = new File("Clientes.xlsx");
         ge.exportarClientes(tClientes);
         System.exit(0);

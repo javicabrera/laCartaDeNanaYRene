@@ -15,6 +15,7 @@ import logica.Almacen;
 import logica.Pedido;
 import logica.ControladorInterfaces;
 import logica.ControladorPedido;
+import logica.EnviaCorreo;
 
 /**
  *
@@ -101,6 +102,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         getContentPane().add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 160, 30, 30));
 
         btnAbono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/abono16.png"))); // NOI18N
+        btnAbono.setToolTipText("Abonar");
         btnAbono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAbonoActionPerformed(evt);
@@ -108,7 +110,8 @@ public class VistaPedidos extends javax.swing.JFrame {
         });
         getContentPane().add(btnAbono, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 160, 30, 30));
 
-        btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/info16.png"))); // NOI18N
+        btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/TresPuntos.png"))); // NOI18N
+        btnInfo.setToolTipText("Ver detalle de pedido");
         btnInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInfoActionPerformed(evt);
@@ -203,7 +206,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             String nuevo = "";
             switch (estado){
                 case "Pendiente":
-                    nuevo = "En proceso";
+                    nuevo = "En Proceso";
                     int caso = cp.elaborarPedido(pedido);
                     if(caso == 0){
                         aumentarEstadoPedido();
@@ -225,10 +228,14 @@ public class VistaPedidos extends javax.swing.JFrame {
                         "Error", JOptionPane.ERROR_MESSAGE);
                     }
                     break;
-                case "En proceso":
+                case "En Proceso":
                     nuevo = "Finalizado";
                     aumentarEstadoPedido();
                     pedido.setEstado(nuevo);
+                    String correo = pedido.getCorreoCliente();
+                    String valorAPagar = String.valueOf(pedido.getPrecioTotal()-pedido.getPrecioAbonado());
+                    String fechaRetiro = pedido.getFechaRetiro().toString();
+                    EnviaCorreo.enviar(correo , valorAPagar, fechaRetiro);
                     break;
                 case "Finalizado":
                     nuevo = "Retirado";
@@ -292,7 +299,10 @@ public class VistaPedidos extends javax.swing.JFrame {
                     "Abonar", JOptionPane.QUESTION_MESSAGE));
                 int totalAbono = this.almacen.getPedidos().get(obtieneFilaSeleccionada()).getPrecioAbonado()+abono;
                 if(totalAbono<=this.almacen.getPedidos().get(obtieneFilaSeleccionada()).getPrecioTotal()){
-                    this.almacen.getPedidos().get(obtieneFilaSeleccionada()).setPrecioAbonado(totalAbono);
+                    ArrayList<Pedido> pedidos = this.almacen.getPedidos();
+                    pedidos.get(obtieneFilaSeleccionada()).setPrecioAbonado(totalAbono);
+                    this.almacen.setPedidos(pedidos);
+                    
                 }
                 else{
                     JOptionPane.showMessageDialog(this, "El abono no puede ser mayor al total",

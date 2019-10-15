@@ -16,6 +16,7 @@ import InterfazGrafica.VistaProductos;
 import InterfazGrafica.VistaNuevaMateriaPrima;
 import InterfazGrafica.VistaNuevoCliente;
 import InterfazGrafica.VistaDetalleProducto;
+import InterfazGrafica.VistaHistorialCliente;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -38,6 +39,7 @@ public class ControladorInterfaces {
     private static VistaEditarMateriaPrima editarMateriaPrima;
     private static VistaNuevaMateriaPrima registarMateriaPrima;
     private static VistaDetallePedido vistaDetallePedido;
+    private static VistaHistorialCliente vistaHistorialCliente;
     private static VistaDetalleProducto vistaDetalleProducto;
     private static VistaClientes clientes;
     private static VistaEditarCliente editarCliente;
@@ -71,6 +73,7 @@ public class ControladorInterfaces {
         this.clientes = new VistaClientes();
         this.editarCliente = new VistaEditarCliente();
         this.nuevoCliente = new VistaNuevoCliente();
+        this.vistaHistorialCliente = new VistaHistorialCliente();
         
     }
     
@@ -148,11 +151,22 @@ public class ControladorInterfaces {
         ControladorInterfaces.vistaDetallePedido.repaint();
     }
     
+    public static void mostrarHistorialCliente(boolean b, Cliente cliente){
+        ControladorInterfaces.habilitarClientes(false);
+        ControladorInterfaces.vistaHistorialCliente.setVisible(b);
+        ControladorInterfaces.vistaHistorialCliente.inicializaTabla(cliente);
+        ControladorInterfaces.vistaHistorialCliente.repaint();
+    }
+    
     public static void mostrarDetalleProducto(boolean b, Producto producto){
         ControladorInterfaces.habilitarGestionaProducto(false);
         ControladorInterfaces.vistaDetalleProducto.setVisible(b);
         ControladorInterfaces.vistaDetalleProducto.inicializaTabla(producto);
         ControladorInterfaces.vistaDetalleProducto.repaint();
+    }
+    
+    public static void habilitarClientes(boolean b){
+        ControladorInterfaces.clientes.enable(b);
     }
     
     public static void habilitarGestionaPedido(boolean b){

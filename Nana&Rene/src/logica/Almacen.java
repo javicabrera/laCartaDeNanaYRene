@@ -12,18 +12,32 @@ import java.util.ArrayList;
  * @author MarceloPablo
  */
 public class Almacen {
+    private int mayorId;
     private ArrayList<Pedido> pedidos;
     private ArrayList<Producto> productos;
     private ArrayList<MateriaPrima> materiasPrimas;
     private ArrayList<Cliente> clientes;
     //private ArrayList<Pedido> reportes;
     
-    public Almacen(ArrayList<Pedido> pedidos, ArrayList<Producto> productos, 
+    public Almacen(int mayorId, ArrayList<Pedido> pedidos, ArrayList<Producto> productos, 
             ArrayList<MateriaPrima> materiasPrimas, ArrayList<Cliente> clientes) {
+        this.mayorId = mayorId;
         this.pedidos = pedidos;
         this.productos = productos;
         this.materiasPrimas = materiasPrimas;
         this.clientes = clientes;
+    }
+
+    public Almacen() {
+        
+    }
+
+    public int getMayorId() {
+        return mayorId;
+    }
+
+    public void setMayorId(int mayorId) {
+        this.mayorId = mayorId;
     }
 
     public ArrayList<Pedido> getPedidos() {
