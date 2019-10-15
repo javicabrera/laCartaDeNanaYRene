@@ -45,10 +45,10 @@ public class MateriaPrimaTest {
     @Test
     public void testGetNombreMateriaPrima() {
         System.out.println("getNombreMateriaPrima");
-        MateriaPrima instance = new MateriaPrima("limon", null, null);
+        MateriaPrima instance = new MateriaPrima("limon", 0.0);
         
         String expResult = "limon";
-        String result = instance.getCorreoCliente();
+        String result = instance.getNombre();
         
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
@@ -70,7 +70,7 @@ public class MateriaPrimaTest {
     @Test
     public void testGetCantidadMateriaPrima() {
         System.out.println("GetCantidadMateriaPrima");
-        MateriaPrima instance = new MateriaPrima(null, 2.0, null);
+        MateriaPrima instance = new MateriaPrima(null, 2.0);
         
         Double expResult = 2.0 ;
         Double result = instance.getCantidad();
@@ -88,32 +88,11 @@ public class MateriaPrimaTest {
         
         instance.setCantidad(cantidad);
         
-        assertEquals(expResult, instance.getNombre());
+        Double result = instance.getCantidad();
+        assertEquals(expResult, result);
+       
         // TODO review the generated test code and remove the default call to fail.
     }
     
-    @Test
-    public void testGetTipo() {
-        System.out.println("getTipoMateriaPrima");
-        MateriaPrima instance = new MateriaPrima(null, null, "continua");
-        
-        String expResult = "continua";
-        String result = instance.getTipo();
-        
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-    }
-    @Test
-    public void testSetTipo() {
-        System.out.println("setTipo");
-        String tipo = "continua";
-        MateriaPrima instance = new MateriaPrima();
-        
-        String expResult= "continua";
-        
-        instance.setTipo(tipo);
-        
-        assertEquals(expResult, instance.getNombre());
-        // TODO review the generated test code and remove the default call to fail.
-    }
+    
 }
