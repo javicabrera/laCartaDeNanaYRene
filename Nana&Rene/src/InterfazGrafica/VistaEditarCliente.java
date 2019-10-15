@@ -12,6 +12,7 @@ import logica.ControladorInterfaces;
 import logica.MateriaPrima;
 import logica.Almacen;
 import logica.Cliente;
+import logica.Pedido;
 
 
 /**
@@ -61,12 +62,6 @@ public class VistaEditarCliente extends javax.swing.JFrame {
             }
         }
         telefono.setText(nuevoTelefono);
-        /* TIENE QUE SER EL HISTORIAL
-        for(MateriaPrima m: this.producto.getMateriasPrimas().keySet())
-        {
-            infoPanel.agregaProductoOrMatPrima(m.getNombre(),this.producto.
-                    getMateriasPrimas().get(m));
-        }*/
     }
 
     
@@ -228,6 +223,14 @@ public class VistaEditarCliente extends javax.swing.JFrame {
             
             cliente.setNombreCliente(nombre.getText());
             cliente.setNumeroCliente(nuevoTelefono);
+            for(Pedido p: this.almacen.getPedidos()){
+                for(int i=0; i<cliente.getHistorialPedidos().size(); i++){
+                    if (p.getId()==cliente.getHistorialPedidos().get(i).getId()){
+                        p.setNombreCliente(nombre.getText());
+                        p.setNumeroCliente(nuevoTelefono);
+                    }
+                }
+            }
             JOptionPane.showMessageDialog(this, "Guardado exitosamente","Guardado", JOptionPane.INFORMATION_MESSAGE);
             ControladorInterfaces.mostrarEditarCliente(false, cliente, fila);
             ControladorInterfaces.mostrarClientes(true);
