@@ -95,7 +95,6 @@ public class VistaEditarCliente extends javax.swing.JFrame {
         txtNombre.setText("Nombre:");
         getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, 20));
 
-        correo.setEditable(false);
         correo.setToolTipText("Ingrese correo electrónico");
         correo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,9 +189,7 @@ public class VistaEditarCliente extends javax.swing.JFrame {
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
         boolean flag1 = true;
         boolean flag2 = true;
-        String nombreC = null;
-        String correoC = null;
-        String telefonoC = null;
+        boolean flag3 = true;
 
         if(nombre.getText().length() == 0)
         {
@@ -205,8 +202,14 @@ public class VistaEditarCliente extends javax.swing.JFrame {
                     "Error", JOptionPane.ERROR_MESSAGE);
             flag2 = false;
         }
+        if(correo.getText().length() == 0)
+        {
+            flag3 = false;
+            JOptionPane.showMessageDialog(this, "Debe ingresar un correo",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
-        if (flag1 && flag2)
+        if (flag1 && flag2 && flag3)
         {
             String[] tel = telefono.getText().split("");
             String nuevoTelefono = "";
@@ -220,7 +223,7 @@ public class VistaEditarCliente extends javax.swing.JFrame {
                     nuevoTelefono+= tel[i];
                 }
             }
-            
+            cliente.setCorreoCliente(correo.getText());
             cliente.setNombreCliente(nombre.getText());
             cliente.setNumeroCliente(nuevoTelefono);
             for(Pedido p: this.almacen.getPedidos()){
@@ -228,6 +231,7 @@ public class VistaEditarCliente extends javax.swing.JFrame {
                     if (p.getId()==cliente.getHistorialPedidos().get(i).getId()){
                         p.setNombreCliente(nombre.getText());
                         p.setNumeroCliente(nuevoTelefono);
+                        p.setCorreoCliente(correo.getText());
                     }
                 }
             }

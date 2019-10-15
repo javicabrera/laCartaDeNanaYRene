@@ -110,7 +110,7 @@ public class VistaPedidos extends javax.swing.JFrame {
         });
         getContentPane().add(btnAbono, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 160, 30, 30));
 
-        btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/info16.png"))); // NOI18N
+        btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/TresPuntos.png"))); // NOI18N
         btnInfo.setToolTipText("Ver detalle de pedido");
         btnInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

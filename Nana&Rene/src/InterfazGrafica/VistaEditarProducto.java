@@ -448,7 +448,6 @@ public class VistaEditarProducto extends javax.swing.JFrame {
                             "Ingrese nueva cantidad: ", 
                         "Editar", JOptionPane.QUESTION_MESSAGE);
                     if(materia.getTipo().equals("discreta")){
-                        System.out.println("discreta");
                         try{
                             Integer.parseInt(auxcantidad);                            
                             flag = true;
@@ -458,6 +457,9 @@ public class VistaEditarProducto extends javax.swing.JFrame {
                         "Error", JOptionPane.ERROR_MESSAGE);              
                             flag = false; 
                         }
+                    }
+                    else{
+                        flag = true;
                     }
                 } while(!flag);
                 
