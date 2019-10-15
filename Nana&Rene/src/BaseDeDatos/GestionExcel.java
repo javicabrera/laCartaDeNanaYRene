@@ -460,9 +460,8 @@ public class GestionExcel{
                 {
                     HashMap<Producto, Integer> prod = pedidos.get(i).getProductos();
                     String listado = "";
-                    
                     for (Map.Entry<Producto, Integer> entry : prod.entrySet())
-                    {
+                    {   
                         int cantidad = entry.getValue();
                         Producto producto = entry.getKey();
                         listado += cantidad+"-"+producto.getNombre()+",";

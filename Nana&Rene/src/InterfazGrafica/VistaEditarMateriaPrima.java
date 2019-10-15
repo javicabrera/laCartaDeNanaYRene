@@ -33,9 +33,9 @@ public class VistaEditarMateriaPrima extends javax.swing.JFrame {
         this.materia = materia;
         
         cantidad.setText(String.valueOf(this.materia.getCantidad()));
-        String[] nombreConjunto = this.materia.getNombre().split(" ");
+        String[] nombreConjunto = this.materia.getNombre().split("\\(");
         nombre.setText(nombreConjunto[0]);
-        uMedida.setText(nombreConjunto[1].substring(1, nombreConjunto[1].length()));
+        uMedida.setText(nombreConjunto[1].substring(0, nombreConjunto[1].length()-1));
     }
 
     public void setFila(int fila) {
