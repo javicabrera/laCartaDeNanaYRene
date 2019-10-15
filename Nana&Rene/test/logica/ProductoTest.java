@@ -45,7 +45,7 @@ public class ProductoTest {
     public void testGetNombre() {
         System.out.println("getNombre");
         Producto instance = new Producto("pastelWeed", 0, null, null);
-        String expResult = "";
+        String expResult = "pastelWeed";
         String result = instance.getNombre();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
@@ -129,39 +129,11 @@ public class ProductoTest {
     @Test
     public void testGetMateriasPrimas() {
         System.out.println("getMateriasPrimas");
-        Producto instance = null;
-        HashMap<MateriaPrima, Double> expResult = null;
+        Producto instance = new Producto(null, 0, null, new HashMap<MateriaPrima, Double>());
+        HashMap<MateriaPrima, Double> expResult = new HashMap<MateriaPrima, Double>();
         HashMap<MateriaPrima, Double> result = instance.getMateriasPrimas();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setMateriasPrimas method, of class Producto.
-     */
-    @Test
-    public void testSetMateriasPrimas() {
-        System.out.println("setMateriasPrimas");
-        HashMap<MateriaPrima, Double> materiasPrimas = null;
-        Producto instance = null;
-        instance.setMateriasPrimas(materiasPrimas);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getMateriasString method, of class Producto.
-     */
-    @Test
-    public void testGetMateriasString() {
-        System.out.println("getMateriasString");
-        Producto instance = null;
-        String expResult = "";
-        String result = instance.getMateriasString();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

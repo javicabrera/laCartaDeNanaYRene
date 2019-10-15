@@ -1,0 +1,47 @@
+Prueba de Software: TMDCLIEN004
+
+Requisito Asociado: RS018: La información de un cliente es: nombre, número de contacto, correo electrónico, historial de pedidos
+
+Diseñador de la Prueba: Elías Avendaño
+Ejecutador de la Prueba: René Suazo
+
+Fecha Diseño de Prueba: 11 de Octubre, 2019
+Fecha Ejecución de Prueba:
+
+Pasos a ejecutar:
+	1. Ejecutar Programa
+	2. Seleccionar botón "Clientes Habituales"
+	3. Crear un nuevo cliente usando MDCLIEN001
+	4. Verificar que en la tabla se encuentre la información requerida (nombre, número de contacto y correo electrónico)
+	5. Seleccionar botón de más información
+	6. Verificar que se muestra la ventana sin ningún pedido asociado
+	7. Seleccionar botón "Volver"
+	8. Crear un Pedido y asociarlo al cliente creado en el paso 3
+	9. Volver a Menú Principal
+	10. Seleccionar botón "Clientes Habituales"
+	11. Seleccionar el cliente del paso 2 en la tabla
+	12. Seleccionar el botón de más información
+	13. Verificar que se muestran los pedidos asociados
+
+	14. Repetir paso 8 y agregar 2 pedidos más al cliente del paso 3
+	15. Repetir pasos del 9 al 12
+	16. Repetir paso 13
+
+	FIN
+
+
+Resultados Esperados:
+	4. Se debe mostrar la información requerida en la tabla (nombre, número de contacto y correo electrónico)
+	6. Debe mostrarse la ventana de más información, pero debe estar con ningún pedido asociado
+	13. El pedido creado en el paso 8 debe mostrarse en la tabla de la ventana emergente
+	16. Los pedidos creados en el paso 8 y 14.1 deben mostrar en la tabla de la ventana emergente
+
+
+Resultados Obtenidos:
+	4.Se muestra la información en la tabla
+	6. Se muestra la informacion sin ningún pedido asociado
+	13.	El pedido creado se muestra en la tabla
+	16. Se muestran los pedidos creados y asociados al cliente
+
+¿Errores?: Sí o No
+	No

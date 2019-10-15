@@ -39,19 +39,6 @@ public class PedidoTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of diasRestantesRetiro method, of class Pedido.
-     */
-    @Test
-    public void testDiasRestantesRetiro() {
-        System.out.println("diasRestantesRetiro");
-        Pedido instance = new Pedido();
-        int expResult = 0;
-        int result = instance.diasRestantesRetiro();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of getProductos method, of class Pedido.
@@ -64,7 +51,6 @@ public class PedidoTest {
         HashMap<Producto, Integer> result = instance.getProductos();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -77,7 +63,6 @@ public class PedidoTest {
         Pedido instance = new Pedido();
         instance.setProductos(productos);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -148,7 +133,6 @@ public class PedidoTest {
         Date result = instance.getFechaRetiro();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -161,7 +145,6 @@ public class PedidoTest {
         Pedido instance = new Pedido();
         instance.setFechaRetiro(fechaRetiro);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -204,7 +187,6 @@ public class PedidoTest {
         int result = instance.getPrecioTotal();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
