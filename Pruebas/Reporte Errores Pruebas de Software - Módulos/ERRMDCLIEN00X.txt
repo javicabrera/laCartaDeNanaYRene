@@ -1,0 +1,20 @@
+**EJEMPLO**
+
+Error: ERRMDCLIEN00x: 
+
+Estado del Error: Falla
+
+Prueba de Software Asociada: TMDCLIEN00X
+
+Reporte realizado por: 
+Implementador asignado:
+
+Fecha de solución:
+Fecha de Reporte: 
+
+Resultado Esperado: 
+
+Resultado Conseguido: 
+
+Pasos exactos para reproducir el fallo:
+(Deben incluir los pasos exactos para reproducir el fallo, es decir, incluso las variables que utilizaron)

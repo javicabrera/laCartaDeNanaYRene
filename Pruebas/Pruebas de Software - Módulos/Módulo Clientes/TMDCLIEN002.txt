@@ -1,0 +1,36 @@
+Prueba de Software: TMDCLIEN002
+
+Requisito Asociado: RS016: Modificar Cliente
+
+Diseñador de la Prueba: Elías Avendaño
+Ejecutador de la Prueba: Marcelo Muñoz
+
+Fecha Diseño de Prueba: 11 de Octubre, 2019
+Fecha Ejecución de Prueba: 12 de Octubre,2019
+
+Pasos a ejecutar:
+	1. Ejecutar Programa
+	2. Seleccionar botón "Clientes Habituales"
+	3. Seleccionar un Cliente de la tabla.
+	4. Seleccionar el botón de edición.
+	5. Modificar nombre con otro nombre válido
+	6. Modficar número de teléfono con otro número válido
+	7. Seleccionar botón "Guardar"
+	8. Verificar que en la tabla de Clientes se encuentre el Cliente modificado con los respectivos cambios
+	9. Seleccionar Volver
+	10. Cerrar el Programa
+	11. Repetir pasos 1 y 2
+	12. Repetir paso 9
+
+	FIN
+
+
+Resultados Esperados:
+	9. El nuevo cliente modificado debe aparecer en la tabla del programa.
+	12. El nuevo cliente modificado aún debe aparecer en la tabla del programa.
+
+Resultados Obtenidos:
+	9. se modifico nombre cliente y numero de cliente
+	13.persisten los datos de las modificaciones
+
+¿Errores?: No
