@@ -206,7 +206,7 @@ public class VistaPedidos extends javax.swing.JFrame {
             String nuevo = "";
             switch (estado){
                 case "Pendiente":
-                    nuevo = "En proceso";
+                    nuevo = "En Proceso";
                     int caso = cp.elaborarPedido(pedido);
                     if(caso == 0){
                         aumentarEstadoPedido();
@@ -228,7 +228,7 @@ public class VistaPedidos extends javax.swing.JFrame {
                         "Error", JOptionPane.ERROR_MESSAGE);
                     }
                     break;
-                case "En proceso":
+                case "En Proceso":
                     nuevo = "Finalizado";
                     aumentarEstadoPedido();
                     pedido.setEstado(nuevo);
