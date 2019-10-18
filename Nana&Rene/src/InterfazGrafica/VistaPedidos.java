@@ -206,10 +206,11 @@ public class VistaPedidos extends javax.swing.JFrame {
             String nuevo = "";
             switch (estado){
                 case "Pendiente":
+                    System.out.println("es pendiente");
                     nuevo = "En Proceso";
                     int caso = cp.elaborarPedido(pedido);
                     if(caso == 0){
-                        aumentarEstadoPedido();
+                        System.out.println("se elabora");
                     }
                     else if (caso == 1){
                         JOptionPane.showMessageDialog(this, "No se puede realizar "
@@ -230,19 +231,20 @@ public class VistaPedidos extends javax.swing.JFrame {
                     break;
                 case "En Proceso":
                     nuevo = "Finalizado";
-                    aumentarEstadoPedido();
                     pedido.setEstado(nuevo);
                     String correo = pedido.getCorreoCliente();
                     String valorAPagar = String.valueOf(pedido.getPrecioTotal()-pedido.getPrecioAbonado());
-                    String fechaRetiro = pedido.getFechaRetiro().toString();
+                    String pattern = "dd/MM/yyyy";
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+                    String fechaRetiro = simpleDateFormat.format(pedido.getFechaRetiro());
                     EnviaCorreo.enviar(correo , valorAPagar, fechaRetiro);
                     break;
                 case "Finalizado":
                     nuevo = "Retirado";
-                    aumentarEstadoPedido();
                     pedido.setEstado(nuevo);
                     break;
             }
+            setAlmacen(almacen);
         }
         else{
             JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido",
@@ -298,15 +300,21 @@ public class VistaPedidos extends javax.swing.JFrame {
                 int abono = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese valor a abonar: ", 
                     "Abonar", JOptionPane.QUESTION_MESSAGE));
                 int totalAbono = this.almacen.getPedidos().get(obtieneFilaSeleccionada()).getPrecioAbonado()+abono;
-                if(totalAbono<=this.almacen.getPedidos().get(obtieneFilaSeleccionada()).getPrecioTotal()){
-                    ArrayList<Pedido> pedidos = this.almacen.getPedidos();
-                    pedidos.get(obtieneFilaSeleccionada()).setPrecioAbonado(totalAbono);
-                    this.almacen.setPedidos(pedidos);
-                    
+                if(abono<0){
+                    JOptionPane.showMessageDialog(this, "El abono no puede ser negativo",
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 else{
-                    JOptionPane.showMessageDialog(this, "El abono no puede ser mayor al total",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    if(totalAbono<=this.almacen.getPedidos().get(obtieneFilaSeleccionada()).getPrecioTotal()){
+                        ArrayList<Pedido> pedidos = this.almacen.getPedidos();
+                        pedidos.get(obtieneFilaSeleccionada()).setPrecioAbonado(totalAbono);
+                        this.almacen.setPedidos(pedidos);
+
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "El abono no puede ser mayor al total",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             } catch(NumberFormatException e){
                 JOptionPane.showMessageDialog(this, "Debe ingresar un número válido.",
@@ -407,16 +415,17 @@ public class VistaPedidos extends javax.swing.JFrame {
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        if (modeloTabla.getValueAt(fila, 3).equals("Pendiente")) {
-            modeloTabla.setValueAt("En Proceso", fila, 3);
-        }
-        
-        else if (modeloTabla.getValueAt(fila, 3).equals("En Proceso")) {
-            modeloTabla.setValueAt("Finalizado", fila, 3);
-        }
-        else if (modeloTabla.getValueAt(fila, 3).equals("Finalizado")) {
-            modeloTabla.setValueAt("Retirado", fila, 3);
+        else{
+            if (modeloTabla.getValueAt(fila, 3).equals("Pendiente")) {
+                modeloTabla.setValueAt("En Proceso", fila, 3);
+            }
+
+            else if (modeloTabla.getValueAt(fila, 3).equals("En Proceso")) {
+                modeloTabla.setValueAt("Finalizado", fila, 3);
+            }
+            else if (modeloTabla.getValueAt(fila, 3).equals("Finalizado")) {
+                modeloTabla.setValueAt("Retirado", fila, 3);
+            }
         }
     }
     

@@ -5,6 +5,7 @@
  */
 package logica;
 
+import java.text.SimpleDateFormat;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -53,7 +54,7 @@ public class EnviaCorreo {
             Message mensaje = new MimeMessage(sesion);
             mensaje.setFrom(new InternetAddress(correo));
             mensaje.setRecipients(Message.RecipientType.TO, InternetAddress.parse(correoDestinatario));
-            mensaje.setSubject("Notificación de padido");
+            mensaje.setSubject("Notificación de pedido");
             
             String contenidoMensaje = "Estimado cliente: \n Su pedido se encuentra finalizado.\n "
                                         + "Total a pagar:" + valorAPagar +"\n"

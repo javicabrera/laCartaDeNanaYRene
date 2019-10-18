@@ -136,7 +136,8 @@ public class GestionExcel{
                 int cantidad = 0;
                 Date fechaSolicitud = null;
                 Date fechaRetiro = null;
-                String nombreCliente = "", correoCliente = "", numeroCliente = "";
+                String nombreCliente = "", correoCliente = "", numeroCliente = "",
+                        estado = "";
                 int precioTotal = 0, precioAbonado = 0, descuento = 0;
 
                 LocalTime tiempodate;
@@ -206,6 +207,8 @@ public class GestionExcel{
                         case 5:
                             numeroCliente = celda.getStringCellValue();
                             break;
+                        case 6:
+                            estado = celda.getStringCellValue();
                         case 7:
                             switch(celda.getCellType())
                             {
@@ -235,7 +238,7 @@ public class GestionExcel{
                     }
                     indiceColumna++;
                 }
-                Pedido p = new Pedido(mayorId, productos, fechaSolicitud, fechaRetiro, precioTotal, descuento, nombreCliente, correoCliente, numeroCliente, precioAbonado);
+                Pedido p = new Pedido(mayorId, productos, fechaSolicitud, fechaRetiro, precioTotal, descuento, nombreCliente, correoCliente, numeroCliente, precioAbonado, estado);
                 pedidos.add(p);
                 indiceFila++;
             }
