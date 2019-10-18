@@ -3,12 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/isavo/Desktop/U/8º%20semestre/Construccion%20de%20Software/Repositorios/laCartaDeNanaYRene/Nana&amp;Rene/src/Main.java</file>
-            <file>file:/Users/isavo/Desktop/U/8º%20semestre/Construccion%20de%20Software/Repositorios/laCartaDeNanaYRene/Nana&amp;Rene/src/logica/ControladorInterfaces.java</file>
+            <file>file:/Users/isavo/Desktop/U/8º%20semestre/Construccion%20de%20Software/Repositorios/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaNuevoPedido.java</file>
+            <file>file:/Users/isavo/Desktop/U/8º%20semestre/Construccion%20de%20Software/Repositorios/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaEditarCliente.java</file>
             <file>file:/Users/isavo/Desktop/U/8º%20semestre/Construccion%20de%20Software/Repositorios/laCartaDeNanaYRene/Nana&amp;Rene/src/logica/EnviaCorreo.java</file>
-            <file>file:/Users/isavo/Desktop/U/8º%20semestre/Construccion%20de%20Software/Repositorios/laCartaDeNanaYRene/Nana&amp;Rene/src/logica/Almacen.java</file>
-            <file>file:/Users/isavo/Desktop/U/8º%20semestre/Construccion%20de%20Software/Repositorios/laCartaDeNanaYRene/Nana&amp;Rene/src/logica/ControladorPedido.java</file>
-            <file>file:/Users/isavo/Desktop/U/8º%20semestre/Construccion%20de%20Software/Repositorios/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaPaginaPrincipal.java</file>
+            <file>file:/Users/isavo/Desktop/U/8º%20semestre/Construccion%20de%20Software/Repositorios/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaPedidos.java</file>
+            <file>file:/Users/isavo/Desktop/U/8º%20semestre/Construccion%20de%20Software/Repositorios/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaNuevoCliente.java</file>
+            <file>file:/Users/isavo/Desktop/U/8º%20semestre/Construccion%20de%20Software/Repositorios/laCartaDeNanaYRene/Nana&amp;Rene/src/logica/Pedido.java</file>
+            <file>file:/Users/isavo/Desktop/U/8º%20semestre/Construccion%20de%20Software/Repositorios/laCartaDeNanaYRene/Nana&amp;Rene/src/BaseDeDatos/GestionExcel.java</file>
         </group>
     </open-files>
 </project-private>
