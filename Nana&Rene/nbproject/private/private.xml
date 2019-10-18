@@ -1,3 +1,28 @@
+<<<<<<< HEAD
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaClientes.java</file>
+            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaNuevaMateriaPrima.java</file>
+            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaEditarMateriaPrima.java</file>
+            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaPedidos.java</file>
+            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaEditarProducto.java</file>
+            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaPaginaPrincipal.java</file>
+            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaNuevoPedido.java</file>
+            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaDetallePedido.java</file>
+            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/InfoPanel.java</file>
+            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/BaseDeDatos/GestionExcel.java</file>
+            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/logica/Pedido.java</file>
+            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaNuevoProducto.java</file>
+            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/logica/ControladorPedido.java</file>
+            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/logica/Producto.java</file>
+            <file>file:/C:/Users/56992/Desktop/Utal/8vo%20semestre/Construcción%20de%20Software/Unidad%202/Proyecto/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaProductos.java</file>
+        </group>
+    </open-files>
+</project-private>
+=======
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
@@ -13,3 +38,4 @@
         </group>
     </open-files>
 </project-private>
+>>>>>>> isavo

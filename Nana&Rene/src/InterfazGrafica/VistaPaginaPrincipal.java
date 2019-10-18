@@ -316,12 +316,16 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         ge.setProductos(almacen.getProductos());
         ge.setClientes(almacen.getClientes());
         
-        File tProductos = new File("Productos.xlsx");
+        System.out.println("PRODUCTOS");
+        File tProductos = new File("Productos.xlsx");        
         ge.exportarProductos(tProductos);
+        System.out.println("PEDIDOS");
         File tPedidos = new File("Pedidos.xlsx");
         ge.exportarPedido(tPedidos);
+        System.out.println("MATERIAS PRIMAS");
         File tMateriasPrimas = new File("MateriasPrimas.xlsx");
         ge.exportarMateriasPrimas(tMateriasPrimas);
+        System.out.println("CLIENTES");
         File tClientes = new File("Clientes.xlsx");
         ge.exportarClientes(tClientes);
         System.exit(0);
