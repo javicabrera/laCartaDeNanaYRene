@@ -50,28 +50,33 @@ public class Main
            // handle exception
         }
         
-        productos = new ArrayList<>();
-        pedidos = new ArrayList<>();
-        materiasPrimas = new ArrayList<>();
+//        productos = new ArrayList<>();
+//        pedidos = new ArrayList<>();
+//        materiasPrimas = new ArrayList<>();
+//        
+//        
+//        GestionExcel gestionExcel = new GestionExcel();
+//        File rutaMateriasPrimas = new File("MateriasPrimas.xlsx");
+//        File rutaProductos = new File("Productos.xlsx");
+//        File rutaPedidos = new File("Pedidos.xlsx");
+//        File rutaClientes = new File("Clientes.xlsx");
+//        
+//        materiasPrimas  = gestionExcel.importarMateriasPrimas(rutaMateriasPrimas);
+//        productos = gestionExcel.importarProductos(rutaProductos);
+//        pedidos = gestionExcel.importarPedidos(rutaPedidos);
+//        clientes = gestionExcel.importarClientes(rutaClientes);
+//        System.out.println("Se importaron los datos");
+//        
+//        
+//        almacen = new Almacen(gestionExcel.getMayorId(), pedidos, productos, materiasPrimas, clientes);
+//        ControladorPedido cp = new ControladorPedido(almacen);
+//        controladorInterfaces = new ControladorInterfaces(almacen, gestionExcel);
+        //controladorInterfaces.iniciarInterfaz();
         
-        
-        GestionExcel gestionExcel = new GestionExcel();
-        File rutaMateriasPrimas = new File("MateriasPrimas.xlsx");
-        File rutaProductos = new File("Productos.xlsx");
-        File rutaPedidos = new File("Pedidos.xlsx");
-        File rutaClientes = new File("Clientes.xlsx");
-        
-        materiasPrimas  = gestionExcel.importarMateriasPrimas(rutaMateriasPrimas);
-        productos = gestionExcel.importarProductos(rutaProductos);
-        pedidos = gestionExcel.importarPedidos(rutaPedidos);
-        clientes = gestionExcel.importarClientes(rutaClientes);
-        System.out.println("Se importaron los datos");
-        
-        
-        almacen = new Almacen(gestionExcel.getMayorId(), pedidos, productos, materiasPrimas, clientes);
-        ControladorPedido cp = new ControladorPedido(almacen);
-        controladorInterfaces = new ControladorInterfaces(almacen, gestionExcel);
-        controladorInterfaces.iniciarInterfaz();
+//        EnviaCorreo.enviar("mrrojano97@icloud.com", "100000", "10/10/1000");
+//        EnviaCorreo.enviar("isavocastro@gmail.com", "100000", "10/10/1000");
+
+        EnviaCorreo.enviar("renecsc@gmail.com", "100000", "10/10/1000");
         
         
         /*File tMateriasPrimas = new File("MateriasPrimasTest.xlsx");
