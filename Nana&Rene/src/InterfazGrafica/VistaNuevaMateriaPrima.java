@@ -6,7 +6,6 @@
 package InterfazGrafica;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.JOptionPane;
 import logica.ControladorInterfaces;
 import logica.MateriaPrima;
@@ -225,7 +224,7 @@ public class VistaNuevaMateriaPrima extends javax.swing.JFrame {
                 double cantMateria = Double.parseDouble(cantidad.getText());
                 
                 if(cantMateria > 0.0){
-                    MateriaPrima mp = new MateriaPrima(nombreMateria, cantMateria);
+                    MateriaPrima mp = new MateriaPrima(nombreMateria, cantMateria, true);
                     if(tipoCContinua == true){
                         mp.setTipo("continua");
                     }
