@@ -477,7 +477,7 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
             id++;
             Pedido p = new Pedido(id, productos, DateSolicitud, DateRetiro,
                     total,dcto,nombreCliente, correoCliente, nuevoTelefono, abono,
-                    "En Proceso");
+                    "Pendiente");
             almacen.setMayorId(id);
             ArrayList<Pedido> aux = almacen.getPedidos();
             aux.add(p);

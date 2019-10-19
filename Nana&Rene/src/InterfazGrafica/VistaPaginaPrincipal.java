@@ -74,7 +74,6 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
       setIcon(entry.getIcono());  
       setEnabled(list.isEnabled());
       setFont(list.getFont());
-      setOpaque(true);
   
       return this;
    }
@@ -99,7 +98,8 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         this.almacen = almacen;
         for(Pedido p: this.almacen.getPedidos()){
             ImageIcon icon = null;
-            if(!p.getEstado().equals("Cancelado") && !p.getEstado().equals("Retirado")){
+            if(!p.getEstado().equals("Cancelado") && !p.getEstado().equals("Retirado") 
+                    && !p.getEstado().equals("Finalizado") ){
                 Date fechaActual = new Date();
                 TimeUnit timeUnit = TimeUnit.DAYS;
                 long diffInMillies = p.getFechaRetiro().getTime() - fechaActual.getTime();
@@ -129,7 +129,7 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
                     icon = new ImageIcon(getClass().getResource("/Recursos/Calendario1.png"));
                 }
                 else if(diferencia<=0){
-                    icon = new ImageIcon(getClass().getResource("/Recursos/Calendario0.png"));
+                    icon = new ImageIcon(getClass().getResource("/Recursos/Warning.png"));
                 }
                 VistaPaginaPrincipal.agregarPedido(new ListEntry(p,icon));
             }

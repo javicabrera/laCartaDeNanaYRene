@@ -14,11 +14,13 @@ public class MateriaPrima
     private String nombre;
     private double cantidad;
     private String tipo = "continua";
+    private boolean disponible;
     
-    public MateriaPrima(String nombre, double cantidad)
+    public MateriaPrima(String nombre, double cantidad, boolean disponible)
     {
         this.nombre = nombre;
         this.cantidad = cantidad;
+        this.disponible = disponible;
     }
 
     public MateriaPrima() {
@@ -28,6 +30,14 @@ public class MateriaPrima
     public String getNombre()
     {
         return nombre;
+    }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
     }
 
     public void setNombre(String nombre) 

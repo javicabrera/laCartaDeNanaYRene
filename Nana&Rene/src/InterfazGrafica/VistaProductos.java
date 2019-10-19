@@ -202,20 +202,7 @@ public class VistaProductos extends javax.swing.JFrame {
         if(obtieneFilaSeleccionada()>=0){
             if(JOptionPane.showConfirmDialog(this, "¿Desea eliminar el producto?", 
                     "Eliminar Producto", 0)==0){
-
-                ArrayList<Producto> aux = almacen.getProductos();
-                Producto producto = aux.get(obtieneFilaSeleccionada());
-                aux.remove(obtieneFilaSeleccionada());
-                almacen.setProductos(aux);
-                borrarFila(obtieneFilaSeleccionada());
-                for(Pedido pedido: almacen.getPedidos()){
-                    for(Producto p: pedido.getProductos().keySet()){
-                        if(p.getNombre().equals(producto.getNombre())){
-                            int cant = pedido.getProductos().get(p);
-                            pedido.getProductos().remove(p, cant);
-                        }
-                    }
-                }
+                almacen.getProductos().get(obtieneFilaSeleccionada()).setDisponible(false);
             }
         }
         else{
