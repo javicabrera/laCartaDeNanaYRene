@@ -63,6 +63,7 @@ public class GestionExcel{
                 Double tiempoElaboracion = 0.;
                 int precioVenta = 0;
                 HashMap<MateriaPrima,Double> materiasPrimas = new HashMap<>(); 
+                boolean disponible = false;
                 int indiceColumna = 0;
                 while(columnaIterator.hasNext())
                 {
@@ -102,12 +103,26 @@ public class GestionExcel{
                                     precioVenta = (int) Math.round(celda.getNumericCellValue());
                                     break;
                             }   break;
+                        case 4:
+                            switch(celda.getCellType())
+                            {
+                                case Cell.CELL_TYPE_NUMERIC:
+                                    int disp = (int) Math.round(celda.getNumericCellValue());
+                                    if (disp == 0){
+                                        disponible = false;
+                                    }
+                                    else if (disp == 1){
+                                        disponible = true;
+                                    }
+                                    break;
+                            }   break;
                         default:
                             break;
                     }
                     indiceColumna++;
                 }
-                Producto p = new Producto(nombre, precioVenta, tiempoElaboracion, materiasPrimas);
+                Producto p = new Producto(nombre, precioVenta, tiempoElaboracion, 
+                        materiasPrimas, disponible);
                 productos.add(p);
                 indiceFila++;
             }
@@ -136,7 +151,8 @@ public class GestionExcel{
                 int cantidad = 0;
                 Date fechaSolicitud = null;
                 Date fechaRetiro = null;
-                String nombreCliente = "", correoCliente = "", numeroCliente = "";
+                String nombreCliente = "", correoCliente = "", numeroCliente = "",
+                        estado = "";
                 int precioTotal = 0, precioAbonado = 0, descuento = 0;
 
                 LocalTime tiempodate;
@@ -206,6 +222,8 @@ public class GestionExcel{
                         case 5:
                             numeroCliente = celda.getStringCellValue();
                             break;
+                        case 6:
+                            estado = celda.getStringCellValue();
                         case 7:
                             switch(celda.getCellType())
                             {
@@ -235,7 +253,7 @@ public class GestionExcel{
                     }
                     indiceColumna++;
                 }
-                Pedido p = new Pedido(mayorId, productos, fechaSolicitud, fechaRetiro, precioTotal, descuento, nombreCliente, correoCliente, numeroCliente, precioAbonado);
+                Pedido p = new Pedido(mayorId, productos, fechaSolicitud, fechaRetiro, precioTotal, descuento, nombreCliente, correoCliente, numeroCliente, precioAbonado, estado);
                 pedidos.add(p);
                 indiceFila++;
             }
@@ -265,6 +283,7 @@ public class GestionExcel{
                 double cantidad = 0.0;
                 String unidad = "";
                 String tipo = "";
+                boolean disponible = false;
                 int indiceColumna = 0;
                 while(columnaIterator.hasNext())
                 {
@@ -283,12 +302,25 @@ public class GestionExcel{
                         case 2:
                             tipo = celda.getStringCellValue();
                             break;
+                        case 3:
+                            switch(celda.getCellType())
+                            {
+                                case Cell.CELL_TYPE_NUMERIC:
+                                    int disp = (int) celda.getNumericCellValue();
+                                    if (disp == 0){
+                                        disponible = false;
+                                    }
+                                    else if (disp == 1){
+                                        disponible = true;
+                                    }
+                                    break;
+                            }   break;
                         default:
                             break;
                     }
                     indiceColumna++;
                 }
-                MateriaPrima mp = new MateriaPrima(nombre, cantidad);
+                MateriaPrima mp = new MateriaPrima(nombre, cantidad, disponible);
                 mp.setTipo(tipo);
                 materiasPrimas.add(mp);
                 indiceFila++;
@@ -382,12 +414,14 @@ public class GestionExcel{
                 Cell tiempo = fila.createCell(1);
                 Cell materias = fila.createCell(2);
                 Cell precio = fila.createCell(3);
+                Cell disponible = fila.createCell(4);
                 if(i == -1)
                 {
                     nombre.setCellValue("Nombre");
                     tiempo.setCellValue("Tiempo requerido");
                     materias.setCellValue("Materias primas");
                     precio.setCellValue("Precio de venta");
+                    disponible.setCellValue("Disponible");
                 }
                 else
                 {
@@ -408,6 +442,12 @@ public class GestionExcel{
                     //System.out.println(listado);
                     materias.setCellValue(listado);
                     precio.setCellValue(productos.get(i).getPrecioVenta());
+                    if (productos.get(i).isDisponible()==false){
+                        disponible.setCellValue("0");
+                    }
+                    else if(productos.get(i).isDisponible()==true){
+                        disponible.setCellValue("1");
+                    }
                 }
                 wb.write(new FileOutputStream(archivo));
             }
@@ -460,9 +500,8 @@ public class GestionExcel{
                 {
                     HashMap<Producto, Integer> prod = pedidos.get(i).getProductos();
                     String listado = "";
-                    
                     for (Map.Entry<Producto, Integer> entry : prod.entrySet())
-                    {
+                    {   
                         int cantidad = entry.getValue();
                         Producto producto = entry.getKey();
                         listado += cantidad+"-"+producto.getNombre()+",";
@@ -513,18 +552,26 @@ public class GestionExcel{
                 Cell nombre = fila.createCell(0);
                 Cell cantidad = fila.createCell(1);
                 Cell tipo = fila.createCell(2);
+                Cell disponible = fila.createCell(3);
 
                 if(i == -1)
                 {
                     nombre.setCellValue("Nombre");
                     cantidad.setCellValue("Cantidad");
                     tipo.setCellValue("Tipo");
+                    disponible.setCellValue("Disponible");
                 }
                 else
                 {
                     nombre.setCellValue(materiasPrimas.get(i).getNombre());
                     cantidad.setCellValue(materiasPrimas.get(i).getCantidad());
                     tipo.setCellValue(materiasPrimas.get(i).getTipo());
+                    if(materiasPrimas.get(i).isDisponible()==false){
+                        disponible.setCellValue("0");
+                    }
+                    else if (materiasPrimas.get(i).isDisponible()==true){
+                        disponible.setCellValue("1");
+                    }
                     // REVISAR
                     //unidad.setCellValue(materiasPrimas.get(i).getUnidad());
                 }

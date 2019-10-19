@@ -55,6 +55,7 @@ public class AlmacenTest {
         System.out.println("setMayorID");
         int mayorId=1257;
         Almacen instance= new Almacen();
+        instance.setMayorId(mayorId);
         int expResult=1257;
         assertEquals(expResult,instance.getMayorId());
     }

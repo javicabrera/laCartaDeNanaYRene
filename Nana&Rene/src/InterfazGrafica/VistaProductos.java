@@ -95,7 +95,7 @@ public class VistaProductos extends javax.swing.JFrame {
         });
         getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(695, 160, 30, 30));
 
-        btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/info16.png"))); // NOI18N
+        btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/TresPuntos.png"))); // NOI18N
         btnInfo.setToolTipText("Ver detalle producto");
         btnInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,20 +202,7 @@ public class VistaProductos extends javax.swing.JFrame {
         if(obtieneFilaSeleccionada()>=0){
             if(JOptionPane.showConfirmDialog(this, "¿Desea eliminar el producto?", 
                     "Eliminar Producto", 0)==0){
-
-                ArrayList<Producto> aux = almacen.getProductos();
-                Producto producto = aux.get(obtieneFilaSeleccionada());
-                aux.remove(obtieneFilaSeleccionada());
-                almacen.setProductos(aux);
-                borrarFila(obtieneFilaSeleccionada());
-                for(Pedido pedido: almacen.getPedidos()){
-                    for(Producto p: pedido.getProductos().keySet()){
-                        if(p.getNombre().equals(producto.getNombre())){
-                            int cant = pedido.getProductos().get(p);
-                            pedido.getProductos().remove(p, cant);
-                        }
-                    }
-                }
+                almacen.getProductos().get(obtieneFilaSeleccionada()).setDisponible(false);
             }
         }
         else{
