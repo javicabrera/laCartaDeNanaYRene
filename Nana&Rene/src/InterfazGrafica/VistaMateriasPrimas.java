@@ -5,14 +5,12 @@
  */
 package InterfazGrafica;
 
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import logica.Almacen;
 import logica.ControladorInterfaces;
 import logica.MateriaPrima;
-import logica.Producto;
 
 /**
  *
@@ -187,46 +185,10 @@ public class VistaMateriasPrimas extends javax.swing.JFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         if(obtieneFilaSeleccionada()>=0){
-            if(JOptionPane.showConfirmDialog(this, "¿Desea eliminar la materia prima?", 
+            if(JOptionPane.showConfirmDialog(this, "¿Desea deshabilitar la materia prima?", 
                     "Eliminar Materia Prima", 0)==0){
-                ArrayList<MateriaPrima> aux = almacen.getMateriasPrimas();
-                MateriaPrima materia = aux.get(obtieneFilaSeleccionada());
-                //Variable para saber si una materia prima es usada por un producto
-                boolean esUsada = false;
-                for(Producto p : almacen.getProductos()){
-                    for (MateriaPrima m: p.getMateriasPrimas().keySet()){
-                        if (m.getNombre().equals(materia.getNombre())){
-                            esUsada = true;
-                        }
-                    }
-                }
-                if(esUsada){
-                    //la materia prima es usada en algun producto
-                    if(JOptionPane.showConfirmDialog(this, "La materia prima es utilizada ¿Desea eliminarla junto con los producto?", 
-                    "Eliminar Materia Prima y productos", 0)==0){
-                        //se borra la materia prima 
-                        aux.remove(obtieneFilaSeleccionada());
-                        almacen.setMateriasPrimas(aux);
-                        borrarFila(obtieneFilaSeleccionada());
-                        //se buscan los productos que usan la materia
-                        ArrayList<Producto> auxProductos = almacen.getProductos();
-                        for(Producto p : almacen.getProductos()){
-                            for (MateriaPrima m: p.getMateriasPrimas().keySet()){
-                                if (m.getNombre().equals(materia.getNombre())){
-                                    auxProductos.remove(p);
-                                }
-                            }
-                        }
-                        //se eliminan los productos encontrados
-                        almacen.setProductos(auxProductos);
-                    }
-                }else{
-                    // se borra la materia prima
-                    aux.remove(obtieneFilaSeleccionada());
-                    almacen.setMateriasPrimas(aux);
-                    borrarFila(obtieneFilaSeleccionada());
-                    
-                }
+                almacen.getMateriasPrimas().get(obtieneFilaSeleccionada()).setDisponible(false);
+                //borrarFila(obtieneFilaSeleccionada());
             }
         }
         else{
@@ -241,10 +203,6 @@ public class VistaMateriasPrimas extends javax.swing.JFrame {
     }
 
     public void setAlmacen(Almacen almacen) {
-//        DefaultTableModel modeloTabla = (DefaultTableModel) tablaMateriasPrimas.getModel();
-//        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-//            modeloTabla.removeRow(0);
-//        }
         modeloTabla.setRowCount(0);
         this.almacen = almacen;
         for(MateriaPrima m: this.almacen.getMateriasPrimas()){

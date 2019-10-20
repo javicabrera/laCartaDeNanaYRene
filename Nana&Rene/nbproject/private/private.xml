@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
@@ -11,3 +12,32 @@
         </group>
     </open-files>
 </project-private>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaEditarCliente.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaPedidos.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/ReporteVentasSemestral.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/Main.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/test/logica/MateriaPrimaTest.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaPaginaPrincipal.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaNuevoCliente.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaDetallePedido.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/ReporteVentasAnual.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/ReporteVentasMensual.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaNuevoProducto.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaEditarProducto.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaProductos.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaNuevaMateriaPrima.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaNuevoPedido.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaClientes.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaHistorialCliente.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaEditarMateriaPrima.java</file>
+            <file>file:/Users/elias/Documents/Construcción%20de%20Software/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/ReporteProductos.java</file>
+        </group>
+    </open-files>
+</project-private>
+>>>>>>> master

@@ -326,7 +326,7 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         
         if (flag1 && flag2 && flag3 && flag4 && flag5){
             try{  
-                Producto p = new Producto(nombreProd, precio, tiempo, materias);
+                Producto p = new Producto(nombreProd, precio, tiempo, materias, true);
                 ArrayList<Producto> prodAux = almacen.getProductos();
                 prodAux.add(p);
                 almacen.setProductos(prodAux);

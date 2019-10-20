@@ -61,7 +61,8 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         nombre.setText(producto.getNombre());
         precioVenta.setText(String.valueOf(producto.getPrecioVenta()));
         tiempoElab.setText(String.valueOf(producto.getTiempoElaboracion()));
-        materias = this.producto.getMateriasPrimas();
+        materias = new HashMap();
+        materias.putAll(this.producto.getMateriasPrimas());
     }
 
     public void setFila(int fila) {

@@ -17,19 +17,29 @@ public class Producto
     private int precioVenta;
     private Double tiempoElaboracion; //En horas
     private HashMap<MateriaPrima, Double> materiasPrimas;
+    private boolean disponible;
     
     public Producto(String nombre, int precioVenta, Double tiempoRequerido, 
-            HashMap<MateriaPrima,Double> materiasPrimas)
+            HashMap<MateriaPrima,Double> materiasPrimas, boolean disponible)
     {
         this.nombre = nombre;
         this.precioVenta = precioVenta;
         this.tiempoElaboracion = tiempoRequerido;
         this.materiasPrimas = new HashMap();
         this.materiasPrimas = materiasPrimas;
+        this.disponible = disponible;
     }
     
     public Producto(){
         
+    }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
     }
 
     public String getNombre() 

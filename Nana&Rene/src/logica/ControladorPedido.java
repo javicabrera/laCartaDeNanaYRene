@@ -37,10 +37,11 @@ public class ControladorPedido {
         if(verificarAbono(p) && verificarDisponibilidadMateriasPrimas(p)){
             p.setEstado("En Proceso");
             for(Producto prod: p.getProductos().keySet()){
-                for (int i = 0; i < p.getProductos().get(prod); i++) {
-                    descontarMateriasPrimas(prod.getMateriasPrimas());
+                if(prod.isDisponible()){
+                    for (int i = 0; i < p.getProductos().get(prod); i++) {
+                        descontarMateriasPrimas(prod.getMateriasPrimas());
+                    }
                 }
-                
             }
             return 0;
         }
@@ -54,19 +55,20 @@ public class ControladorPedido {
     /* Un pedido va a tener un listado de productos, esos productos un listado 
     de materias primas*/
     public boolean verificarDisponibilidadMateriasPrimas(Pedido p){
-        for(Producto producto: p.getProductos().keySet()){
-            for (int i = 0; i < p.getProductos().get(producto); i++) {
-                for(MateriaPrima materia: producto.getMateriasPrimas().keySet()){
-                    MateriaPrima mAux = null;
-                    for(MateriaPrima mDatos: almacen.getMateriasPrimas()){
-                        if(mDatos.getNombre().equals(materia.getNombre())){
-                            mAux = mDatos;
-                            break;
+        for(MateriaPrima materia: almacen.getMateriasPrimas()){
+            if (materia.isDisponible()){
+                int contador = 0;
+                for (Producto producto: p.getProductos().keySet()){
+                    if (producto.isDisponible()){
+                        for (MateriaPrima m: producto.getMateriasPrimas().keySet()){
+                            if(materia.getNombre().equals(m.getNombre())){
+                                contador += producto.getMateriasPrimas().get(m)*p.getProductos().get(producto);
+                            }
                         }
                     }
-                    if(mAux.getCantidad()<producto.getMateriasPrimas().get(materia)){
-                        return false;
-                    }
+                }
+                if (contador>materia.getCantidad()){
+                    return false;
                 }
             }
         }
@@ -82,7 +84,7 @@ public class ControladorPedido {
             materiasPrimas){
         for(MateriaPrima a: materiasPrimas.keySet()){
             for (MateriaPrima b: almacen.getMateriasPrimas()) {
-                if(a.getNombre().equals(b.getNombre())){
+                if(a.isDisponible() && a.getNombre().equals(b.getNombre())){
                     b.setCantidad(b.getCantidad()-materiasPrimas.get(a));
                 }
             }

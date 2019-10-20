@@ -73,14 +73,19 @@ public class Main
         controladorInterfaces = new ControladorInterfaces(almacen, gestionExcel);
         controladorInterfaces.iniciarInterfaz();
         
+//        EnviaCorreo.enviar("mrrojano97@icloud.com", "100000", "10/10/1000");
+//        EnviaCorreo.enviar("isavocastro@gmail.com", "100000", "10/10/1000");
+
+//        EnviaCorreo.enviar("renecsc@gmail.com", "100000", "10/10/1000");
         
-        /*File tMateriasPrimas = new File("MateriasPrimasTest.xlsx");
+        
+        File tMateriasPrimas = new File("MateriasPrimasTest.xlsx");
         gestionExcel.exportarMateriasPrimas(tMateriasPrimas);
         File tProductos = new File("ProductosTest.xlsx");
         gestionExcel.exportarProductos(tProductos);
         File tPedidos = new File("PedidosTest.xlsx");
         gestionExcel.exportarPedido(tPedidos);
         File tClientes = new File("ClientesTest.xlsx");
-        gestionExcel.exportarClientes(tClientes);*/
+        gestionExcel.exportarClientes(tClientes);
     }  
 }
