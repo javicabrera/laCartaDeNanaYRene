@@ -23,11 +23,11 @@ import org.jfree.data.category.DefaultCategoryDataset;
  *
  * @author elias
  */
-public class ReporteVentasMensual extends javax.swing.JFrame {
+public class ReporteVentas extends javax.swing.JFrame {
     /**
      * Creates new form PaginaPrincipalFX
      */
-    public ReporteVentasMensual() {
+    public ReporteVentas() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -44,10 +44,10 @@ public class ReporteVentasMensual extends javax.swing.JFrame {
         txtSelecPeriodo = new javax.swing.JLabel();
         bVolver = new javax.swing.JButton();
         bGenerar = new javax.swing.JButton();
-        txtSelecMes = new javax.swing.JLabel();
+        txtSeleccione = new javax.swing.JLabel();
         anoConsulta = new javax.swing.JTextField();
         periodo = new javax.swing.JComboBox<>();
-        mes = new javax.swing.JComboBox<>();
+        seleccionPeriodo = new javax.swing.JComboBox<>();
         txtIngresAno = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         panelSuperior = new javax.swing.JPanel();
@@ -80,9 +80,9 @@ public class ReporteVentasMensual extends javax.swing.JFrame {
         });
         getContentPane().add(bGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 370, 100, 50));
 
-        txtSelecMes.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        txtSelecMes.setText("Seleccione mes:");
-        getContentPane().add(txtSelecMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, 20));
+        txtSeleccione.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        txtSeleccione.setText("Seleccione mes:");
+        getContentPane().add(txtSeleccione, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, 20));
 
         anoConsulta.setToolTipText("Ingrese número telefónico");
         getContentPane().add(anoConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 100, -1));
@@ -95,8 +95,8 @@ public class ReporteVentasMensual extends javax.swing.JFrame {
         });
         getContentPane().add(periodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 110, -1));
 
-        mes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
-        getContentPane().add(mes, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 110, -1));
+        seleccionPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+        getContentPane().add(seleccionPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 110, -1));
 
         txtIngresAno.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         txtIngresAno.setText("Ingrese año:");
@@ -171,9 +171,22 @@ public class ReporteVentasMensual extends javax.swing.JFrame {
         for (int i = 0; i < cantidadDeDatos; i++){
             datosGrafica.setValue(1000, "Enero", "");
         }
-
+        
         //Acá se crea la gráfica (datos estáticos en la gráfica y se añaden los datos para cada barra al agregar datosGrafica)
-        JFreeChart grafica = ChartFactory.createBarChart("Ventas "+anoConsulta.getText()+ " "+mes.getItemAt(mes.getSelectedIndex()) , "Mes", "Pesos Chilenos", datosGrafica);
+        JFreeChart grafica = null;
+        String seleccion = periodo.getSelectedItem().toString();
+        switch(seleccion){
+            case "Anual":
+                grafica = ChartFactory.createBarChart("Ventas "+anoConsulta.getText() , "Mes", "Pesos Chilenos", datosGrafica);
+                break;
+            case "Mensual":
+                grafica = ChartFactory.createBarChart("Ventas "+anoConsulta.getText()+ " "+seleccionPeriodo.getItemAt(seleccionPeriodo.getSelectedIndex()) , "Mes", "Pesos Chilenos", datosGrafica);
+                break;
+            case "Semestral":
+                grafica = ChartFactory.createBarChart("Ventas "+anoConsulta.getText()+ " "+seleccionPeriodo.getItemAt(seleccionPeriodo.getSelectedIndex()) , "Mes", "Pesos Chilenos", datosGrafica);
+                break;
+        }
+        
         
         ChartPanel panelGrafica = new ChartPanel(grafica);
         jPanel1.add(panelGrafica);
@@ -186,6 +199,26 @@ public class ReporteVentasMensual extends javax.swing.JFrame {
 
     private void periodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_periodoActionPerformed
         // TODO add your handling code here:
+        String seleccion = periodo.getSelectedItem().toString();
+        switch(seleccion){
+            case "Anual":
+                txtSeleccione.setVisible(false);
+                seleccionPeriodo.setVisible(false);
+                break;
+            case "Mensual":
+                txtSeleccione.setVisible(true);
+                txtSeleccione.setText("Selecione mes");
+                seleccionPeriodo.setVisible(true);
+                seleccionPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+                break;
+            case "Semestral":
+                txtSeleccione.setVisible(true);
+                txtSeleccione.setText("Selecione semestre");
+                seleccionPeriodo.setVisible(true);
+                seleccionPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Primer Semestre", "Segundo Semestre" }));
+                break;
+        }
+        repaint();
     }//GEN-LAST:event_periodoActionPerformed
 
     /**
@@ -205,21 +238,23 @@ public class ReporteVentasMensual extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReporteVentasMensual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReporteVentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReporteVentasMensual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReporteVentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReporteVentasMensual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReporteVentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReporteVentasMensual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReporteVentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ReporteVentasMensual().setVisible(true);
+                new ReporteVentas().setVisible(true);
             }
         });
     }
@@ -232,12 +267,12 @@ public class ReporteVentasMensual extends javax.swing.JFrame {
     private javax.swing.JLabel background;
     private javax.swing.JLabel icon;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JComboBox<String> mes;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JComboBox<String> periodo;
+    private javax.swing.JComboBox<String> seleccionPeriodo;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel txtIngresAno;
-    private javax.swing.JLabel txtSelecMes;
     private javax.swing.JLabel txtSelecPeriodo;
+    private javax.swing.JLabel txtSeleccione;
     // End of variables declaration//GEN-END:variables
 }
