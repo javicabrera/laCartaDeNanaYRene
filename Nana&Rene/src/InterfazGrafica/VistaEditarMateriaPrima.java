@@ -36,6 +36,15 @@ public class VistaEditarMateriaPrima extends javax.swing.JFrame {
         String[] nombreConjunto = this.materia.getNombre().split("\\(");
         nombre.setText(nombreConjunto[0]);
         uMedida.setText(nombreConjunto[1].substring(0, nombreConjunto[1].length()-1));
+        String tipo = materia.getTipo();
+        if (tipo.equals("discreta")){
+            tipoDiscreta.setSelected(true);
+            tipoContinua.setSelected(false);
+        }
+        else{
+            tipoDiscreta.setSelected(false);
+            tipoContinua.setSelected(true);
+        }
     }
 
     public void setFila(int fila) {
@@ -220,7 +229,7 @@ public class VistaEditarMateriaPrima extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE);
             flag3 = false;
         }
-        if(tipoCContinua == false && tipoCDiscreta == false){
+        if(tipoContinua.isSelected() == false && tipoDiscreta.isSelected() == false){
              JOptionPane.showMessageDialog(this, "Debe seleccionar discreto o continua","Error", 
                 JOptionPane.ERROR_MESSAGE);
             flag4 = false;
@@ -269,15 +278,11 @@ public class VistaEditarMateriaPrima extends javax.swing.JFrame {
     private void tipoContinuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoContinuaActionPerformed
         // TODO add your handling code here:
         tipoDiscreta.setSelected(false);
-        tipoCContinua = true;
-        tipoCDiscreta = false;
     }//GEN-LAST:event_tipoContinuaActionPerformed
 
     private void tipoDiscretaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoDiscretaActionPerformed
         // TODO add your handling code here:
         tipoContinua.setSelected(false);
-        tipoCContinua = false;
-        tipoCDiscreta = true;
     }//GEN-LAST:event_tipoDiscretaActionPerformed
 
     /**

@@ -15,10 +15,9 @@ import logica.Almacen;
 import logica.Pedido;
 import logica.ControladorInterfaces;
 import logica.ControladorPedido;
-import logica.EnviaCorreo;
 
 /**
- *
+ * Clase que muestra una lista de los pedidos existentes con sus respectivos datos
  * @author elias
  */
 public class VistaPedidos extends javax.swing.JFrame {
@@ -27,7 +26,7 @@ public class VistaPedidos extends javax.swing.JFrame {
     private static DefaultTableModel modeloTabla;
     
     /**
-     * Creates new form PaginaPrincipalFX
+     * Creates new form VistaPedidos
      */
     public VistaPedidos() {
         initComponents();
@@ -186,16 +185,29 @@ public class VistaPedidos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Permite pasar a la ventana de creacion de un nuevo pedido
+     * @param evt 
+     */
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         ControladorInterfaces.mostrarNuevoPedido(true);
         ControladorInterfaces.mostrarGestionaPedido(false);
     }//GEN-LAST:event_btnCrearActionPerformed
 
+    /**
+     * Permite volver a la pantalla anterior
+     * @param evt 
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         ControladorInterfaces.mostrarGestionaPedido(false);
         ControladorInterfaces.mostrarPrincipal(true);      
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    /**
+     * Permite cambiar un estado de pedido al siguiente estado posible, haciendo
+     * las comprobaciones correspondientes
+     * @param evt 
+     */
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
 
         cp = new ControladorPedido(almacen);
@@ -203,11 +215,9 @@ public class VistaPedidos extends javax.swing.JFrame {
             Pedido pedido = almacen.getPedidos().get(obtieneFilaSeleccionada());
 
             String estado = pedido.getEstado();
-            String nuevo = "";
             switch (estado){
                 case "Pendiente":
                     System.out.println("es pendiente");
-                    nuevo = "En Proceso";
                     int caso = cp.elaborarPedido(pedido);
                     if(caso == 0){
                         System.out.println("se elabora");
@@ -230,18 +240,16 @@ public class VistaPedidos extends javax.swing.JFrame {
                     }
                     break;
                 case "En Proceso":
-                    nuevo = "Finalizado";
-                    pedido.setEstado(nuevo);
-                    String correo = pedido.getCorreoCliente();
-                    String valorAPagar = String.valueOf(pedido.getPrecioTotal()-pedido.getPrecioAbonado());
-                    String pattern = "dd/MM/yyyy";
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-                    String fechaRetiro = simpleDateFormat.format(pedido.getFechaRetiro());
-                    EnviaCorreo.enviar(correo , valorAPagar, fechaRetiro);
+                    ControladorInterfaces.mostrarProxy(true, "Enviando correo, espere");
+                    cp.finalizarPedido(pedido);
+                    ControladorInterfaces.mostrarProxy(false, "");
                     break;
                 case "Finalizado":
-                    nuevo = "Retirado";
-                    pedido.setEstado(nuevo);
+                    if(cp.retirarPedido(pedido)==false){
+                        JOptionPane.showMessageDialog(this, "No se puede retirar,"
+                                + "aún no se ha pagado la totalidad del pedido.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                     break;
             }
             setAlmacen(almacen);
@@ -252,6 +260,10 @@ public class VistaPedidos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
+    /**
+     * Permite cancelar un pedido
+     * @param evt 
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         if(obtieneFilaSeleccionada()>=0){
             if(JOptionPane.showConfirmDialog(this, "¿Desea cancelar el pedido?", 
@@ -281,6 +293,10 @@ public class VistaPedidos extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * Permite ver los detalles de productos de un pedido
+     * @param evt 
+     */
     private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
 
         if(obtieneFilaSeleccionada()>=0){
@@ -294,6 +310,10 @@ public class VistaPedidos extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnInfoActionPerformed
 
+    /**
+     * Permite abonar un monto a un pedido
+     * @param evt 
+     */
     private void btnAbonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbonoActionPerformed
         if(obtieneFilaSeleccionada()>=0){
             try{
@@ -394,6 +414,14 @@ public class VistaPedidos extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Permite añadir una fila a la tabla de pedidos
+     * @param cliente cliente que realizo el pedido
+     * @param fechaRetiro fecha de retiro estimada
+     * @param precio precio total
+     * @param porPagar precio a pagar
+     * @param estado estado del pedido
+     */
     public static void anadirFila(String cliente, String fechaRetiro, int precio, String porPagar,String estado) {
         
         Object[] row = {cliente, fechaRetiro, "$"+precio, porPagar, estado};
@@ -401,11 +429,18 @@ public class VistaPedidos extends javax.swing.JFrame {
         modeloTabla.addRow(row);
     }
     
+    /**
+     * Obtiene la fila seleccionada de la tabla
+     * @return numero de fila
+     */
     private int obtieneFilaSeleccionada(){
         
         return tablaPedidos.getSelectedRow();
     }
     
+    /**
+     * Cambia el estado de pedido de una tabla.
+     */
     public void aumentarEstadoPedido(){
         
         int fila = tablaPedidos.getSelectedRow();
@@ -429,6 +464,9 @@ public class VistaPedidos extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Borra un pedido de una tabla
+     */
     private void cancelarPedido(){
         DefaultTableModel modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
         
@@ -443,10 +481,18 @@ public class VistaPedidos extends javax.swing.JFrame {
         modeloTabla.setValueAt("Cancelado", fila, 3);
     }
 
+    /**
+     * Obtiene el almacen actual
+     * @return almacen
+     */
     public Almacen getAlmacen() {
         return almacen;
     }
 
+    /**
+     * Permite guardar un nuevo almacen y actualiza la tabla
+     * @param almacen 
+     */
     public void setAlmacen(Almacen almacen) {
         this.almacen = almacen;
         
@@ -464,15 +510,6 @@ public class VistaPedidos extends javax.swing.JFrame {
         }
         
     }
-    
-    /*private void reiniciaTabla(){
-        modeloTabla.setRowCount(0);
-        String pattern = "dd-MM-yyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        for(Pedido p: this.almacen.getPedidos()){
-            anadirFila(p.getNombreCliente(), simpleDateFormat.format(p.getFechaRetiro()),p.getPrecioTotal(), p.getPrecioTotal()-p.getPrecioAbonado(), p.getEstado());
-        }
-    }*/
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

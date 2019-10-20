@@ -8,15 +8,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- *
+ * Clase principal que controla la conexion entre el excel, la parte logica y grafica
+ * del programa
  * @author elias
  */
 public class Main 
@@ -27,35 +21,31 @@ public class Main
     private static ArrayList<MateriaPrima> materiasPrimas;
     private static ArrayList<Cliente> clientes;
     private static Almacen almacen;
+    
     /**
+     * Metodo principal, en donde se cargan los datos del excel al almacen y se inicia
+     * la interfaz principal
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
         
         try {
-        UIManager.setLookAndFeel(
-        "javax.swing.plaf.nimbus.NimbusLookAndFeel");
+            UIManager.setLookAndFeel(
+            "javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } 
-        catch (UnsupportedLookAndFeelException e) {
-           // handle exception
-        }
-        catch (ClassNotFoundException e) {
-           // handle exception
-        }
-        catch (InstantiationException e) {
-           // handle exception
-        }
-        catch (IllegalAccessException e) {
-           // handle exception
+        catch (UnsupportedLookAndFeelException | ClassNotFoundException | 
+                InstantiationException | IllegalAccessException e) {
         }
         
         productos = new ArrayList<>();
         pedidos = new ArrayList<>();
         materiasPrimas = new ArrayList<>();
         
-        
         GestionExcel gestionExcel = new GestionExcel();
+        controladorInterfaces = new ControladorInterfaces(null, gestionExcel);
+        controladorInterfaces.mostrarProxy(true,"Importando datos, espere");
+        
         File rutaMateriasPrimas = new File("MateriasPrimas.xlsx");
         File rutaProductos = new File("Productos.xlsx");
         File rutaPedidos = new File("Pedidos.xlsx");
@@ -69,9 +59,12 @@ public class Main
         
         
         almacen = new Almacen(gestionExcel.getMayorId(), pedidos, productos, materiasPrimas, clientes);
-        ControladorPedido cp = new ControladorPedido(almacen);
         controladorInterfaces = new ControladorInterfaces(almacen, gestionExcel);
+        ControladorPedido cp = new ControladorPedido(almacen);
+        
+        
         controladorInterfaces.iniciarInterfaz();
+        controladorInterfaces.mostrarProxy(false,"");
         
 //        EnviaCorreo.enviar("mrrojano97@icloud.com", "100000", "10/10/1000");
 //        EnviaCorreo.enviar("isavocastro@gmail.com", "100000", "10/10/1000");

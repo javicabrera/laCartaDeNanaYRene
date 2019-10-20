@@ -45,7 +45,9 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         boxMateriaPrima.removeAllItems();
         this.almacen = almacen;
         for(MateriaPrima materia: this.almacen.getMateriasPrimas()){
-            boxMateriaPrima.addItem(materia.getNombre());
+            if(materia.isDisponible()){
+                boxMateriaPrima.addItem(materia.getNombre());
+            }
         }
     }
 

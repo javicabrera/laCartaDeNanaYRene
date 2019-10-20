@@ -60,7 +60,9 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         boxProductos.removeAllItems();
         this.almacen = almacen;
         for(Producto p: this.almacen.getProductos()){
-            boxProductos.addItem(p.getNombre());
+            if(p.isDisponible()){
+                boxProductos.addItem(p.getNombre());
+            }
         }
         boxCliente.removeAllItems();
         boxCliente.addItem("No Registrado");

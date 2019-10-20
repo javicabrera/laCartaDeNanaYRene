@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package InterfazGrafica;
 
 import java.util.ArrayList;
@@ -11,10 +7,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import logica.Almacen;
 import logica.ControladorInterfaces;
-import logica.Producto;
 import logica.Cliente;
 /**
- *
+ * Clase que muestra una lista de clientes registrados, dando opciones de gestion
  * @author elias
  */
 public class VistaClientes extends javax.swing.JFrame {
@@ -22,7 +17,7 @@ public class VistaClientes extends javax.swing.JFrame {
     private static DefaultTableModel modeloTabla;
     
     /**
-     * Creates new form PaginaPrincipalFX
+     * Creates new form VistaClientes
      */
     public VistaClientes() {
         initComponents();
@@ -170,17 +165,29 @@ public class VistaClientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Pasa a la interfaz que permite crear un nuevo cliente
+     * @param evt 
+     */
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         ControladorInterfaces.mostrarClientes(false);
         ControladorInterfaces.mostrarNuevoCliente(true);
     }//GEN-LAST:event_btnCrearActionPerformed
 
+    /**
+     * Vuelve a la pantalla principal
+     * @param evt 
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         ControladorInterfaces.mostrarClientes(false);
         ControladorInterfaces.mostrarPrincipal(true);
 
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    /**
+     * Permite editar un cliente seleccionado, pasando a la vista de editar
+     * @param evt 
+     */
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         if(obtieneFilaSeleccionada()>=0){
@@ -196,6 +203,10 @@ public class VistaClientes extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    /**
+     * Permite borrar un cliente seleccionado
+     * @param evt 
+     */
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         if(obtieneFilaSeleccionada()>=0)
         {
@@ -214,6 +225,10 @@ public class VistaClientes extends javax.swing.JFrame {
         } 
     }//GEN-LAST:event_btnBorrarActionPerformed
 
+    /**
+     * Permite mostrar el historial de pedidos de un cliete
+     * @param evt 
+     */
     private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
 
         if(obtieneFilaSeleccionada()>=0){
@@ -262,6 +277,12 @@ public class VistaClientes extends javax.swing.JFrame {
         });
     }
     
+    /**
+     * Permite añadir una fila a la tabla de clientes
+     * @param nombre nombre cliente
+     * @param numero numero telefonico
+     * @param correo correo electronico
+     */
     public static void anadirFila(String nombre, String numero, String correo) {
         
         Object[] row = {nombre, numero, correo};
@@ -270,31 +291,50 @@ public class VistaClientes extends javax.swing.JFrame {
         modeloTabla.addRow(row);
     }
     
+    /**
+     * Permite borrar una fila de la tabla de clientes
+     * @param fila fila a borrar
+     */
     public static void borrarFila(int fila){
          
          modeloTabla.removeRow(fila);
     }
     
+    /**
+     * Permite editar una fila de la tabla de clientes
+     * @param fila fila a editar
+     * @param nombre nombre cliente
+     * @param numero numero telefonico
+     * @param correo correo electronico
+     */
     public static void editarFila(int fila, String nombre, String numero, String correo){
         modeloTabla.setValueAt(nombre, fila, 0);
         modeloTabla.setValueAt(numero, fila, 1);
         modeloTabla.setValueAt(correo, fila, 2);
     }
     
+    /**
+     * Obtiene la fila seleccionada en la tabla
+     * @return la fila seleccionada
+     */
     private int obtieneFilaSeleccionada(){
         
         return tablaClientes.getSelectedRow();
     }
 
+    /**
+     * Obtiene el almacen en su estado actual
+     * @return almacen
+     */
     public Almacen getAlmacen() {
         return almacen;
     }
 
+    /**
+     * Permite modificar el almacen, actualizando la tabla
+     * @param almacen almacen a guardar
+     */
     public void setAlmacen(Almacen almacen) {
-//        DefaultTableModel modeloTabla = (DefaultTableModel) tablaClientes.getModel();
-//        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-//            modeloTabla.removeRow(0);
-//        }
         modeloTabla.setRowCount(0);
         this.almacen = almacen;
         for(Cliente c: this.almacen.getClientes()){

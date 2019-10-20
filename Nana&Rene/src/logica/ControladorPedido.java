@@ -1,20 +1,30 @@
 package logica;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
- * @author Javiera Méndez
+ * Clase que controla los estados de un pedido y la transicion entre estos
+ * @author Javiera Méndez, Isavo Castro
  */
 public class ControladorPedido {
     private Almacen almacen;
 
+    /**
+     * Constructor de la clase
+     * @param almacen almacen con los datos
+     */
     public ControladorPedido(Almacen almacen) {
         this.almacen = almacen;
     }
     
+    /**
+     * Permite cambiar el estado de un pedido como cancelado
+     * @param p pedido que se va a cancelar
+     * @return true o false, dependiendo si se devuelve o no el abono
+     */
     public boolean cancelarPedido(Pedido p){ 
         Date fechaActual = new Date();
         TimeUnit timeUnit = TimeUnit.HOURS;
@@ -24,6 +34,13 @@ public class ControladorPedido {
         return diferencia<=24;
     }
     
+    /**
+     * Permite verificar si se puede elaborar un pedido dependiendo de la materia
+     * prima y el abono del pedido
+     * @param p Pedido que se va a elaborar
+     * @return 0 si el pedido fue elaborado correctamente, 1 si no hay abono del 50%,
+     * 2 si no hay suficiente materias primas y 3 si no hay ambos
+     */
     public int elaborarPedido(Pedido p){
         if(!verificarAbono(p) && verificarDisponibilidadMateriasPrimas(p)){
             return 1;
@@ -37,35 +54,72 @@ public class ControladorPedido {
         if(verificarAbono(p) && verificarDisponibilidadMateriasPrimas(p)){
             p.setEstado("En Proceso");
             for(Producto prod: p.getProductos().keySet()){
-                if(prod.isDisponible()){
-                    for (int i = 0; i < p.getProductos().get(prod); i++) {
-                        descontarMateriasPrimas(prod.getMateriasPrimas());
-                    }
+                for (int i = 0; i < p.getProductos().get(prod); i++) {
+                    descontarMateriasPrimas(prod.getMateriasPrimas());
                 }
+                
             }
             return 0;
         }
         return -1;
     }
+    
+    /**
+     * Permite finalizar la elaboracion de un pedido, enviando un correo de notificacion
+     * al cliente
+     * @param pedido pedido que se finalizara 
+     */
+    public void finalizarPedido(Pedido pedido){
+        pedido.setEstado("Finalizado");
+        String correo = pedido.getCorreoCliente();
+        String valorAPagar = String.valueOf(pedido.getPrecioTotal()-pedido.getPrecioAbonado());
+        String pattern = "dd/MM/yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String fechaRetiro = simpleDateFormat.format(pedido.getFechaRetiro());
+        EnviaCorreo.enviar(correo , valorAPagar, fechaRetiro);
+    }
+    
+    /**
+     * Permite marcar un pedido como retirado, si es que se ha pagado el precio total
+     * @param p el pedido que se retirara
+     * @return true si se ha abonado, false si no
+     */
+    public boolean retirarPedido(Pedido p){
+        if(p.getPrecioAbonado()==p.getPrecioTotal()){
+            p.setEstado("Retirado");
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
         
+    /**
+     * Verifica si el abono de un pedido corresponde al 50% o mas del total
+     * @param p pedido que se verificara
+     * @return true o false, dependiendo del abono
+     */
     public boolean verificarAbono(Pedido p){
         return p.getPrecioAbonado()>=(p.getPrecioTotal()/2);
     }
     
-    /* Un pedido va a tener un listado de productos, esos productos un listado 
-    de materias primas*/
+    /**
+     * Verifica que existe suficiente materia prima para elaborar cada producto de
+     * un pedido
+     * @param p pedido a verificar
+     * @return true si hay suficiente, false si no
+     */
     public boolean verificarDisponibilidadMateriasPrimas(Pedido p){
         for(MateriaPrima materia: almacen.getMateriasPrimas()){
             if (materia.isDisponible()){
                 int contador = 0;
                 for (Producto producto: p.getProductos().keySet()){
-                    if (producto.isDisponible()){
-                        for (MateriaPrima m: producto.getMateriasPrimas().keySet()){
-                            if(materia.getNombre().equals(m.getNombre())){
-                                contador += producto.getMateriasPrimas().get(m)*p.getProductos().get(producto);
-                            }
+                    for (MateriaPrima m: producto.getMateriasPrimas().keySet()){
+                        if(materia.getNombre().equals(m.getNombre())){
+                            contador += producto.getMateriasPrimas().get(m)*p.getProductos().get(producto);
                         }
                     }
+                    
                 }
                 if (contador>materia.getCantidad()){
                     return false;
@@ -75,11 +129,10 @@ public class ControladorPedido {
         return true;
     }
     
-    /* Si están disponibles las materias primas, se debe llamar a este método 
-    pasándole un ArrayList de materias primas
-    - Obtener el ArrayList del stock de materias primas.
-    - Una materia prima podría tener un nombre, código y cantidad.
-    */
+    /**
+     * Descuenta las materias primas del almacen una vez que se elabora un pedido
+     * @param materiasPrimas materias primas que deben ser descontadas
+     */
     public void descontarMateriasPrimas(HashMap<MateriaPrima,Double> 
             materiasPrimas){
         for(MateriaPrima a: materiasPrimas.keySet()){

@@ -12,6 +12,8 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -314,10 +316,12 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
         ControladorInterfaces.mostrarPrincipal(false);
         ControladorInterfaces.mostrarProductos(true);
+        
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void SalirYExportar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirYExportar
-
+        ControladorInterfaces.mostrarProxy(true, "Exportando datos");
+        
         ge.setMateriasPrimas(almacen.getMateriasPrimas());
         ge.setPedidos(almacen.getPedidos());
         ge.setProductos(almacen.getProductos());

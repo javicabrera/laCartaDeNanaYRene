@@ -78,10 +78,14 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         this.almacen = almacen;
         model.clear();
         for(MateriaPrima materia: this.almacen.getMateriasPrimas()){
-            boxMateriaPrima.addItem(materia.getNombre());
+            if(materia.isDisponible()){
+                boxMateriaPrima.addItem(materia.getNombre());
+            }
         }
         for (Map.Entry<MateriaPrima, Double> entry : materias.entrySet()) {
-            model.addElement(entry);
+            if(entry.getKey().isDisponible()){
+                model.addElement(entry);
+            }
         }
         
     }
@@ -328,7 +332,9 @@ public class VistaEditarProducto extends javax.swing.JFrame {
                 }
                 this.model.clear();
                 for (Map.Entry<MateriaPrima, Double> entry : materias.entrySet()) {
-                    model.addElement(entry);
+                    if(entry.getKey().isDisponible()){
+                        model.addElement(entry);
+                    }
                 }
                 super.paintComponents(this.getGraphics());
             }
@@ -419,7 +425,9 @@ public class VistaEditarProducto extends javax.swing.JFrame {
             }
             model.clear();
             for (Map.Entry<MateriaPrima, Double> entry : materias.entrySet()) {
-                model.addElement(entry);
+                if(materia.isDisponible()){
+                    model.addElement(entry);
+                }
             }
         }
         else{
@@ -467,7 +475,9 @@ public class VistaEditarProducto extends javax.swing.JFrame {
                 materias.replace(materia, Double.parseDouble(auxcantidad));
                 model.clear();
                 for (Map.Entry<MateriaPrima, Double> entry : materias.entrySet()) {
-                    model.addElement(entry);
+                    if(entry.getKey().isDisponible()){
+                        model.addElement(entry);
+                    }
                 }
             } catch (NumberFormatException e){
                 JOptionPane.showMessageDialog(this, "Debe ingresar un número válido",
