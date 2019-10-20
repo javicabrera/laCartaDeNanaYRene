@@ -157,8 +157,8 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         btnPedidos = new javax.swing.JButton();
         btnMateriasPrimas = new javax.swing.JButton();
         btnClientesHabituales = new javax.swing.JButton();
-        btnElaborarReportes = new javax.swing.JButton();
-        btnOtros = new javax.swing.JButton();
+        btnReporteVentas = new javax.swing.JButton();
+        btnReporteProductos = new javax.swing.JButton();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -223,17 +223,22 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(btnClientesHabituales, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 200, 50));
 
-        btnElaborarReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Reportes.png"))); // NOI18N
-        btnElaborarReportes.setText("Reportes");
-        btnElaborarReportes.addActionListener(new java.awt.event.ActionListener() {
+        btnReporteVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Reportes.png"))); // NOI18N
+        btnReporteVentas.setText("Reporte Ventas");
+        btnReporteVentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnElaborarReportesActionPerformed(evt);
+                btnReporteVentasActionPerformed(evt);
             }
         });
-        getContentPane().add(btnElaborarReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, 200, 50));
+        getContentPane().add(btnReporteVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, 200, 50));
 
-        btnOtros.setText("Otras Opciones...");
-        getContentPane().add(btnOtros, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 320, 200, 50));
+        btnReporteProductos.setText("Reporte Productos");
+        btnReporteProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteProductosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnReporteProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 320, 200, 50));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
 
@@ -300,9 +305,11 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         ControladorInterfaces.mostrarMateriasPrimas(true);
     }//GEN-LAST:event_btnMateriasPrimasActionPerformed
 
-    private void btnElaborarReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElaborarReportesActionPerformed
+    private void btnReporteVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteVentasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnElaborarReportesActionPerformed
+        ControladorInterfaces.mostrarPrincipal(false);
+        ControladorInterfaces.mostrarReporteVentas(true);
+    }//GEN-LAST:event_btnReporteVentasActionPerformed
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
         ControladorInterfaces.mostrarPrincipal(false);
@@ -336,6 +343,12 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         ControladorInterfaces.mostrarPrincipal(false);
         ControladorInterfaces.mostrarClientes(true);
     }//GEN-LAST:event_btnClientesHabitualesActionPerformed
+
+    private void btnReporteProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteProductosActionPerformed
+        // TODO add your handling code here:
+        ControladorInterfaces.mostrarPrincipal(false);
+        ControladorInterfaces.mostrarReporteProductos(true);
+    }//GEN-LAST:event_btnReporteProductosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -384,11 +397,11 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton SalirYExportar;
     private javax.swing.JLabel background;
     private javax.swing.JButton btnClientesHabituales;
-    private javax.swing.JButton btnElaborarReportes;
     private javax.swing.JButton btnMateriasPrimas;
-    private javax.swing.JButton btnOtros;
     private javax.swing.JButton btnPedidos;
     private javax.swing.JButton btnProductos;
+    private javax.swing.JButton btnReporteProductos;
+    private javax.swing.JButton btnReporteVentas;
     private javax.swing.JLabel icon;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listaPedidos;
