@@ -5,16 +5,24 @@ import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
+ *  Clase controlador para la gestion de los pedidos
  * @author Javiera Méndez
  */
 public class ControladorPedido {
+    //Atributos
     private Almacen almacen;
-
+    /**
+     * Constructor
+     * @param almacen 
+     */
     public ControladorPedido(Almacen almacen) {
         this.almacen = almacen;
     }
-    
+    /**
+     * Cancela pedido y cambia el estado del pedido
+     * @param p
+     * @return 
+     */
     public boolean cancelarPedido(Pedido p){ 
         Date fechaActual = new Date();
         TimeUnit timeUnit = TimeUnit.HOURS;
@@ -23,7 +31,11 @@ public class ControladorPedido {
         p.setEstado("Cancelado");
         return diferencia<=24;
     }
-    
+    /**
+     * Verifica si se puede elaborar un pedido y descuenta las materias primas
+     * @param p
+     * @return 
+     */
     public int elaborarPedido(Pedido p){
         if(!verificarAbono(p) && verificarDisponibilidadMateriasPrimas(p)){
             return 1;
@@ -47,7 +59,11 @@ public class ControladorPedido {
         }
         return -1;
     }
-        
+    /**
+     * Verifica si se abonó la mitad del total
+     * @param p
+     * @return 
+     */   
     public boolean verificarAbono(Pedido p){
         return p.getPrecioAbonado()>=(p.getPrecioTotal()/2);
     }

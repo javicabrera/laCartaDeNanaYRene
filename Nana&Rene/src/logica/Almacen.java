@@ -8,17 +8,25 @@ package logica;
 import java.util.ArrayList;
 
 /**
- *
+ *  Clase en la que se carga la información de la base de datos
  * @author MarceloPablo
  */
 public class Almacen {
+    //Atributos 
     private int mayorId;
     private ArrayList<Pedido> pedidos;
     private ArrayList<Producto> productos;
     private ArrayList<MateriaPrima> materiasPrimas;
     private ArrayList<Cliente> clientes;
     //private ArrayList<Pedido> reportes;
-    
+    /**
+     * Constructor
+     * @param mayorId
+     * @param pedidos
+     * @param productos
+     * @param materiasPrimas
+     * @param clientes 
+     */
     public Almacen(int mayorId, ArrayList<Pedido> pedidos, ArrayList<Producto> productos, 
             ArrayList<MateriaPrima> materiasPrimas, ArrayList<Cliente> clientes) {
         this.mayorId = mayorId;
@@ -27,11 +35,13 @@ public class Almacen {
         this.materiasPrimas = materiasPrimas;
         this.clientes = clientes;
     }
-
+    /**
+     * Constructor sin parametros
+     */
     public Almacen() {
         
     }
-
+    //Getters y setters
     public int getMayorId() {
         return mayorId;
     }
