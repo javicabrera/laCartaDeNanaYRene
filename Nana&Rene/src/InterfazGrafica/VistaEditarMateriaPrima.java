@@ -31,8 +31,11 @@ public class VistaEditarMateriaPrima extends javax.swing.JFrame {
     
     public void setMateria(MateriaPrima materia){
         this.materia = materia;
-        nombre.setText(this.materia.getNombre());
+        
         cantidad.setText(String.valueOf(this.materia.getCantidad()));
+        String[] nombreConjunto = this.materia.getNombre().split("\\(");
+        nombre.setText(nombreConjunto[0]);
+        uMedida.setText(nombreConjunto[1].substring(0, nombreConjunto[1].length()-1));
     }
 
     public void setFila(int fila) {
@@ -241,9 +244,7 @@ public class VistaEditarMateriaPrima extends javax.swing.JFrame {
                     //MateriasPrimas.anadirFila(nombreMateria, cantMateria);
                     ControladorInterfaces.mostrarEditarMateriaPrima(false, materia, fila);
                     ControladorInterfaces.mostrarMateriasPrimas(true);
-                    nombre.setText("");
-                    cantidad.setText("");
-                    uMedida.setText(nombreMateria);
+                    
                 }
                 else{
                     JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad mayor a 0 "

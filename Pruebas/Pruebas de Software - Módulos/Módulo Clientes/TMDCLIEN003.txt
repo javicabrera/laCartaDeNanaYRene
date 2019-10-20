@@ -1,0 +1,35 @@
+Prueba de Software: TMDCLIEN003
+
+Requisito Asociado: RS017: Eliminar Cliente
+
+Diseñador de la Prueba: Elías Avendaño
+Ejecutador de la Prueba: René Suazo
+
+Fecha Diseño de Prueba: 11 de Octubre, 2019
+Fecha Ejecución de Prueba: 13 de Octubre, 2019
+
+Pasos a ejecutar:
+	1. Ejecutar Programa
+	2. Seleccionar botón "Clientes Habituales"
+	3. Seleccionar un Cliente de la tabla.
+	4. Seleccionar el botón de eliminar.
+	5. Confirmar la eliminación.
+	6. Verificar que en la tabla de Clientes ya no se encuentre el Cliente eliminado
+	7. Seleccionar Volver
+	8. Cerrar el Programa
+	9. Repetir pasos 1 y 2
+	10. Repetir paso 6
+
+	FIN
+
+
+Resultados Esperados:
+	6. El nuevo cliente eliminado no debe aparecer en la tabla del programa.
+	10. El nuevo cliente eliminado aún no debe aparecer en la tabla del programa.
+
+Resultados Obtenidos:
+	6.	El cliente seleccionado no aparece en la tabla
+	10. El cliente eliminado no aparece en la tabla
+
+¿Errores?: Sí o No
+	No

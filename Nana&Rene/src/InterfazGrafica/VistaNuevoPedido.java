@@ -460,13 +460,24 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         
         if (flag && flag2 && flag3 && flag4 && flag5 && flag6 && flag9){
             String nombreCliente = nombre.getText();
-            String numeroCliente = numero.getText();
+            String[] tel = numero.getText().split("");
+            String nuevoTelefono = "";
+            for(int i = 0; i < tel.length; i++)
+            {
+                if(i == 0)
+                {
+                    nuevoTelefono = tel[i]+"-";
+                }
+                else{
+                    nuevoTelefono+= tel[i];
+                }
+            }
             String correoCliente = correo.getText();
             int id = almacen.getMayorId();
             id++;
             Pedido p = new Pedido(id, productos, DateSolicitud, DateRetiro,
-                    total,dcto,nombreCliente, 
-                    numeroCliente, correoCliente, abono);
+                    total,dcto,nombreCliente, correoCliente, nuevoTelefono, abono,
+                    "Pendiente");
             almacen.setMayorId(id);
             ArrayList<Pedido> aux = almacen.getPedidos();
             aux.add(p);

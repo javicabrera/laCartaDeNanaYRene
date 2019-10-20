@@ -1,0 +1,21 @@
+Caso de Prueba:
+
+Requisito Asociado:
+
+Diseñador de la Prueba:
+Ejecutador de la Prueba:
+
+Fecha de Diseño de Prueba:
+Fecha Ejecución de Prueba:
+
+Pasos a ejecutar:
+
+Resultados Esperados:
+
+Resultados Obtenidos:
+
+¿Errores?
+
+Pasos con Error:
+
+Códigos de Error (en caso de existir):

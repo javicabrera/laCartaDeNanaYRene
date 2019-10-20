@@ -61,7 +61,8 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         nombre.setText(producto.getNombre());
         precioVenta.setText(String.valueOf(producto.getPrecioVenta()));
         tiempoElab.setText(String.valueOf(producto.getTiempoElaboracion()));
-        materias = this.producto.getMateriasPrimas();
+        materias = new HashMap();
+        materias.putAll(this.producto.getMateriasPrimas());
     }
 
     public void setFila(int fila) {
@@ -75,6 +76,7 @@ public class VistaEditarProducto extends javax.swing.JFrame {
     public void setAlmacen(Almacen almacen) {
         boxMateriaPrima.removeAllItems();
         this.almacen = almacen;
+        model.clear();
         for(MateriaPrima materia: this.almacen.getMateriasPrimas()){
             boxMateriaPrima.addItem(materia.getNombre());
         }
@@ -447,7 +449,6 @@ public class VistaEditarProducto extends javax.swing.JFrame {
                             "Ingrese nueva cantidad: ", 
                         "Editar", JOptionPane.QUESTION_MESSAGE);
                     if(materia.getTipo().equals("discreta")){
-                        System.out.println("discreta");
                         try{
                             Integer.parseInt(auxcantidad);                            
                             flag = true;
@@ -457,6 +458,9 @@ public class VistaEditarProducto extends javax.swing.JFrame {
                         "Error", JOptionPane.ERROR_MESSAGE);              
                             flag = false; 
                         }
+                    }
+                    else{
+                        flag = true;
                     }
                 } while(!flag);
                 

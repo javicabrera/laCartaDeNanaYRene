@@ -157,7 +157,7 @@ public class VistaDetalleProducto extends javax.swing.JFrame {
         
         
         for(MateriaPrima m: this.producto.getMateriasPrimas().keySet()){
-            anadirFila(m.getNombre(),m.getCantidad());
+            anadirFila(m.getNombre(),this.producto.getMateriasPrimas().get(m));
         }
         
         
