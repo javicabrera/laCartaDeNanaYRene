@@ -131,7 +131,8 @@ public class ReporteProductos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
-        
+        ControladorInterfaces.mostrarReporteProductos(false);
+        ControladorInterfaces.mostrarPrincipal(true);
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGenerarActionPerformed

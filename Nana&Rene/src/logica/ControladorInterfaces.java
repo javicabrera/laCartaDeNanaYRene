@@ -2,6 +2,8 @@ package logica;
 
 
 import BaseDeDatos.GestionExcel;
+import InterfazGrafica.ReporteProductos;
+import InterfazGrafica.ReporteVentas;
 import InterfazGrafica.VistaDetallePedido;
 import InterfazGrafica.VistaClientes;
 import InterfazGrafica.VistaEditarCliente;
@@ -44,6 +46,8 @@ public class ControladorInterfaces {
     private static VistaClientes clientes;
     private static VistaEditarCliente editarCliente;
     private static VistaNuevoCliente nuevoCliente;
+    private static ReporteVentas reporteVentas;
+    private static ReporteProductos reporteProductos;
     private static Almacen almacen;
     private static GestionExcel ge;
         
@@ -74,6 +78,8 @@ public class ControladorInterfaces {
         this.editarCliente = new VistaEditarCliente();
         this.nuevoCliente = new VistaNuevoCliente();
         this.vistaHistorialCliente = new VistaHistorialCliente();
+        this.reporteVentas = new ReporteVentas();
+        this.reporteProductos = new ReporteProductos();
         
     }
     
@@ -197,4 +203,17 @@ public class ControladorInterfaces {
         ControladorInterfaces.nuevoCliente.setAlmacen(almacen);
         ControladorInterfaces.nuevoCliente.repaint();
     }
+    
+    public static void mostrarReporteVentas(boolean b){
+        ControladorInterfaces.reporteVentas.setVisible(b);
+        //ControladorInterfaces.reporteVentas.setAlmacen(almacen);
+        ControladorInterfaces.reporteVentas.repaint();
+    }
+    
+    public static void mostrarReporteProductos(boolean b){
+        ControladorInterfaces.reporteProductos.setVisible(b);
+        //ControladorInterfaces.reporteProductos.setAlmacen(almacen);
+        ControladorInterfaces.reporteProductos.repaint();
+    }
+    
 }
