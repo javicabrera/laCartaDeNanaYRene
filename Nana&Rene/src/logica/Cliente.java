@@ -6,10 +6,9 @@
 package logica;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
- *
+ *  Clase que almacena los datos de un cliente
  * @author Javiera Méndez
  */
 public class Cliente 
@@ -18,7 +17,12 @@ public class Cliente
     private String correoCliente;
     private String numeroCliente;
     private ArrayList<Pedido> historialPedidos;
-    
+    /**
+     * Constructor sin historial de pedidos
+     * @param nombreCliente
+     * @param correoCliente
+     * @param numeroCliente 
+     */
     public Cliente(String nombreCliente, String correoCliente, String numeroCliente)
     {
         this.nombreCliente = nombreCliente;
@@ -26,7 +30,13 @@ public class Cliente
         this.numeroCliente = numeroCliente;
         this.historialPedidos = new ArrayList<>();
     }
-    
+    /**
+     * Constructor con historial de pedidos
+     * @param nombreCliente
+     * @param correoCliente
+     * @param numeroCliente
+     * @param historialPedidos 
+     */
     public Cliente(String nombreCliente, String correoCliente, String numeroCliente, 
             ArrayList<Pedido> historialPedidos)
     {
@@ -35,10 +45,12 @@ public class Cliente
         this.numeroCliente = numeroCliente;
         this.historialPedidos = historialPedidos;
     }
-    
+    /**
+     * Constructor vacío
+     */
     public Cliente(){        
     }
-    
+    //Getters y setters
     public String getNombreCliente() 
     {
         return nombreCliente;
@@ -69,14 +81,13 @@ public class Cliente
         this.numeroCliente = numeroCliente;
     }
 
-    public ArrayList<Pedido> getHistorialPedidos() {
+    public ArrayList<Pedido> getHistorialPedidos() 
+    {
         return historialPedidos;
     }
 
-    public void setHistorialPedidos(ArrayList<Pedido> historialPedidos) {
+    public void setHistorialPedidos(ArrayList<Pedido> historialPedidos)
+    {
         this.historialPedidos = historialPedidos;
     }
-
-
-
 }

@@ -6,7 +6,6 @@
 package BaseDeDatos;
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 import org.apache.poi.ss.usermodel.*;
@@ -674,30 +673,3 @@ public class GestionExcel{
     
     
 }
-
-/*
-System.out.println(celda);
-indiceColumna++;
-
-if(indiceFila == 0){
-    modeloT.addColumn(celda.getStringCellValue());
-}
-else{
-    if(celda != null){
-        switch(celda.getCellType()){
-            case Cell.CELL_TYPE_NUMERIC:
-                listaColumna[indiceColumna] = (int) Math.round(celda.getNumericCellValue());
-                break;
-            case Cell.CELL_TYPE_STRING:
-                listaColumna[indiceColumna] = celda.getStringCellValue();
-            case Cell.CELL_TYPE_BOOLEAN:
-                listaColumna[indiceColumna] = celda.getBooleanCellValue();
-                break;
-            default:
-                listaColumna[indiceColumna] = celda.getDateCellValue();
-        }
-    }
-}
-if(indiceFila != 0){
-    modeloT.addRow(listaColumna);
-}*/

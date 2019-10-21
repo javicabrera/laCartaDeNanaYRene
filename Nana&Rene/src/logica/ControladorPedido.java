@@ -8,13 +8,20 @@ import java.util.concurrent.TimeUnit;
 /**
  * Clase que controla los estados de un pedido y la transicion entre estos
  * @author Javiera Méndez, Isavo Castro
+ *  Clase controlador para la gestion de los pedidos
+ * @author Javiera Méndez
  */
 public class ControladorPedido {
+    //Atributos
     private Almacen almacen;
 
     /**
      * Constructor de la clase
      * @param almacen almacen con los datos
+     */
+    /**
+     * Constructor
+     * @param almacen 
      */
     public ControladorPedido(Almacen almacen) {
         this.almacen = almacen;
@@ -25,11 +32,16 @@ public class ControladorPedido {
      * @param p pedido que se va a cancelar
      * @return true o false, dependiendo si se devuelve o no el abono
      */
+    /**
+     * Cancela pedido y cambia el estado del pedido
+     * @param p
+     * @return 
+     */
     public boolean cancelarPedido(Pedido p){ 
         Date fechaActual = new Date();
-        TimeUnit timeUnit = TimeUnit.HOURS;
-        long diffInMillies = fechaActual.getTime() - p.getFechaSolicitud().getTime();
-        int diferencia = (int) timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+        TimeUnit unidadDeTiempo = TimeUnit.HOURS;
+        long diferenciaMilisegundos = fechaActual.getTime() - p.getFechaSolicitud().getTime();
+        int diferencia = (int) unidadDeTiempo.convert(diferenciaMilisegundos,TimeUnit.MILLISECONDS);
         p.setEstado("Cancelado");
         return diferencia<=24;
     }
@@ -40,6 +52,11 @@ public class ControladorPedido {
      * @param p Pedido que se va a elaborar
      * @return 0 si el pedido fue elaborado correctamente, 1 si no hay abono del 50%,
      * 2 si no hay suficiente materias primas y 3 si no hay ambos
+     */
+    /**
+     * Verifica si se puede elaborar un pedido y descuenta las materias primas
+     * @param p
+     * @return 
      */
     public int elaborarPedido(Pedido p){
         if(!verificarAbono(p) && verificarDisponibilidadMateriasPrimas(p)){
@@ -99,6 +116,11 @@ public class ControladorPedido {
      * @param p pedido que se verificara
      * @return true o false, dependiendo del abono
      */
+    /**
+     * Verifica si se abonó la mitad del total
+     * @param p
+     * @return 
+     */   
     public boolean verificarAbono(Pedido p){
         return p.getPrecioAbonado()>=(p.getPrecioTotal()/2);
     }
@@ -135,6 +157,12 @@ public class ControladorPedido {
      */
     public void descontarMateriasPrimas(HashMap<MateriaPrima,Double> 
             materiasPrimas){
+    /* Si están disponibles las materias primas, se debe llamar a este método 
+    pasándole un ArrayList de materias primas
+    - Obtener el ArrayList del stock de materias primas.
+    - Una materia prima podría tener un nombre, código y cantidad.
+    */
+    public void descontarMateriasPrimas(HashMap<MateriaPrima,Double> materiasPrimas){
         for(MateriaPrima a: materiasPrimas.keySet()){
             for (MateriaPrima b: almacen.getMateriasPrimas()) {
                 if(a.isDisponible() && a.getNombre().equals(b.getNombre())){

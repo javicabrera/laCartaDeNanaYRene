@@ -55,8 +55,11 @@
     <Component class="javax.swing.JButton" name="bGenerar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Generar"/>
-        <Property name="toolTipText" type="java.lang.String" value="Guardar este cliente"/>
+        <Property name="toolTipText" type="java.lang.String" value="Generar Gr&#xe1;fico"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Gnerar Gr&#xe1;fico"/>
+      </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bGenerarActionPerformed"/>
       </Events>

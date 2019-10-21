@@ -49,6 +49,7 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
            return icono;
         }
 
+        @Override
         public String toString() {
             String pattern = "dd-MM-yyyy";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -61,21 +62,22 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
     }
     
     class ListEntryCellRenderer extends JLabel implements ListCellRenderer{
-   private JLabel label;
+        private JLabel label;
   
-   public Component getListCellRendererComponent(JList list, Object value,
-                                                 int index, boolean isSelected,
-                                                 boolean cellHasFocus) {
-      ListEntry entry = (ListEntry) value;
-  
-      setText(entry.toString());
-      setIcon(entry.getIcono());  
-      setEnabled(list.isEnabled());
-      setFont(list.getFont());
-  
-      return this;
-   }
-}
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value,
+                                                      int index, boolean isSelected,
+                                                      boolean cellHasFocus) {
+           ListEntry entry = (ListEntry) value;
+
+           setText(entry.toString());
+           setIcon(entry.getIcono());  
+           setEnabled(list.isEnabled());
+           setFont(list.getFont());
+
+           return this;
+        }
+    }   
     
     public VistaPaginaPrincipal() {
         this.setLocationRelativeTo(null);
@@ -86,7 +88,8 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
  
     }
     
-    public static void agregarPedido(ListEntry p){
+    public static void agregarPedido(ListEntry p)
+    {
         VistaPaginaPrincipal.model.addElement(p);
         
     }
@@ -131,8 +134,6 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
                 }
                 VistaPaginaPrincipal.agregarPedido(new ListEntry(p,icon));
             }
-            
-            
         }
     }
 
@@ -375,14 +376,6 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VistaPaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
