@@ -8,7 +8,6 @@ package InterfazGrafica;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;

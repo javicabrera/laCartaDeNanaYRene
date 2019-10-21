@@ -7,23 +7,22 @@ package InterfazGrafica;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.swing.JOptionPane;
+import java.util.Map;
 import logica.ControladorInterfaces;
-import logica.MateriaPrima;
-import logica.Almacen;
-import logica.Cliente;
-import logica.Pedido;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
-
+import logica.Almacen;
+import logica.Pedido;
+import logica.Producto;
 
 /**
  *
  * @author elias
  */
 public class ReporteProductos extends javax.swing.JFrame {
+    private Almacen almacen;
     /**
      * Creates new form PaginaPrincipalFX
      */
@@ -32,6 +31,10 @@ public class ReporteProductos extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
+    public void setAlmacen(Almacen almacen) 
+    {
+        this.almacen = almacen;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,7 +134,8 @@ public class ReporteProductos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
-        
+        ControladorInterfaces.mostrarReporteProductos(false);
+        ControladorInterfaces.mostrarPrincipal(true);
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGenerarActionPerformed
@@ -152,11 +156,91 @@ public class ReporteProductos extends javax.swing.JFrame {
         jPanel1.add(panelGrafica);
         
         //Acá se indica la posición y el tamaño de la gráfica dentro del JPanel
-        panelGrafica.setBounds(5, 5, 660, 240);
+        panelGrafica.setBounds(5, 5, 660, 240);       
         
-                                   
+        productosMasVendidos();
     }//GEN-LAST:event_bGenerarActionPerformed
 
+    private class ProductoMasVendido
+    {
+        private String nombre;
+        private int cantidad;
+        
+        public ProductoMasVendido(String nombre, int cantidad)
+        {
+            this.nombre = nombre;
+            this.cantidad = cantidad;
+        }
+
+        public String getNombre() 
+        {
+            return nombre;
+        }
+
+        public void setNombre(String nombre)
+        {
+            this.nombre = nombre;
+        }
+
+        public int getCantidad() 
+        {
+            return cantidad;
+        }
+
+        public void setCantidad(int cantidad) 
+        {
+            this.cantidad = cantidad;
+        }
+        
+        public void aumentarCantidad(int c)
+        {
+            cantidad += c;
+        }
+    }
+       
+    private void productosMasVendidos()
+    {
+        ArrayList<Pedido> pedidos = almacen.getPedidos();
+        ArrayList<ProductoMasVendido> diezProductos = new ArrayList<ProductoMasVendido>();
+        System.out.println(pedidos.size());
+        for(int i = 0; i < pedidos.size(); i++)
+        {
+            Pedido p = pedidos.get(i);
+            if(p.getEstado().equals("Retirado"))
+            {
+                HashMap<Producto, Integer> prod = p.getProductos();
+                for (Map.Entry<Producto, Integer> entry : prod.entrySet())
+                {                   
+                    int cantidad = entry.getValue();
+                    Producto producto = entry.getKey();
+                    String nombre = producto.getNombre();
+                    //System.out.println(nombre+" "+cantidad);
+                    boolean loEncontro = false;
+                    
+                    for(int j = 0; j < diezProductos.size(); j++)
+                    {
+                        ProductoMasVendido producto2 =  diezProductos.get(j);
+                        if(nombre.equals(producto2.getNombre()))
+                        {
+                            loEncontro = true;
+                            producto2.aumentarCantidad(cantidad);
+                        }
+                    }
+                    
+                    if(loEncontro == false)
+                    {
+                        diezProductos.add(new ProductoMasVendido(nombre, cantidad));
+                    }
+                }
+            }
+        }
+        
+        for(int j = 0; j < diezProductos.size(); j++)
+        {
+            ProductoMasVendido producto2 =  diezProductos.get(j);
+            System.out.println(producto2.getNombre()+" "+producto2.getCantidad());
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -182,10 +266,6 @@ public class ReporteProductos extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ReporteProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -193,7 +273,6 @@ public class ReporteProductos extends javax.swing.JFrame {
             }
         });
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bGenerar;

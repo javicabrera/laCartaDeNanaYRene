@@ -60,7 +60,9 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         boxProductos.removeAllItems();
         this.almacen = almacen;
         for(Producto p: this.almacen.getProductos()){
-            boxProductos.addItem(p.getNombre());
+            if(p.isDisponible()){
+                boxProductos.addItem(p.getNombre());
+            }
         }
         boxCliente.removeAllItems();
         boxCliente.addItem("No Registrado");
@@ -600,39 +602,6 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VistaNuevoPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

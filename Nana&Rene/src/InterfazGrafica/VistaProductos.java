@@ -5,7 +5,6 @@
  */
 package InterfazGrafica;
 
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -203,6 +202,7 @@ public class VistaProductos extends javax.swing.JFrame {
             if(JOptionPane.showConfirmDialog(this, "¿Desea eliminar el producto?", 
                     "Eliminar Producto", 0)==0){
                 almacen.getProductos().get(obtieneFilaSeleccionada()).setDisponible(false);
+                borrarFila(obtieneFilaSeleccionada());
             }
         }
         else{
@@ -249,70 +249,6 @@ public class VistaProductos extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VistaProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -349,7 +285,9 @@ public class VistaProductos extends javax.swing.JFrame {
         modeloTabla.setRowCount(0);
         this.almacen = almacen;
         for(Producto p: this.almacen.getProductos()){
-            anadirFila(p.getNombre(),p.getPrecioVenta(),p.getTiempoElaboracion());
+            if(p.isDisponible()){
+                anadirFila(p.getNombre(),p.getPrecioVenta(),p.getTiempoElaboracion());
+            }
         }
     }
 

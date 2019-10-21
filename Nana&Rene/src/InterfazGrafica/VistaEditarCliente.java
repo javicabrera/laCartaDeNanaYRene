@@ -5,15 +5,11 @@
  */
 package InterfazGrafica;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import javax.swing.JOptionPane;
 import logica.ControladorInterfaces;
-import logica.MateriaPrima;
 import logica.Almacen;
 import logica.Cliente;
 import logica.Pedido;
-
 
 /**
  *
@@ -30,7 +26,6 @@ public class VistaEditarCliente extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-    
     
     public Almacen getAlmacen() {
         return almacen;

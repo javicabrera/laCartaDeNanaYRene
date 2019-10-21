@@ -1,14 +1,14 @@
 package logica;
 
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Date;
 
 /**
- *
+ * Clase que almacena la información de un pedido
  * @author Isavo Castro
  */
 public class Pedido {
+    //Atributos
     private int id;
     private HashMap<Producto, Integer> productos;
     private Date fechaSolicitud;
@@ -20,7 +20,21 @@ public class Pedido {
     private String nombreCliente;
     private String correoCliente;
     private String numeroCliente;
-
+    
+    /**
+     * Constructor de clase
+     * @param id
+     * @param productos
+     * @param fechaSolicitud
+     * @param fechaRetiro
+     * @param precioTotal
+     * @param descuento
+     * @param nombreCliente
+     * @param correoCliente
+     * @param numeroCliente
+     * @param precioAbonado
+     * @param estado 
+     */
     public Pedido(int id, HashMap<Producto, Integer> productos, Date fechaSolicitud, 
             Date fechaRetiro, int precioTotal, int descuento, String nombreCliente, 
             String correoCliente, String numeroCliente, int precioAbonado, String estado) {
@@ -36,10 +50,16 @@ public class Pedido {
         this.correoCliente = correoCliente;
         this.numeroCliente = numeroCliente;
     }
-    
+    /**
+     * Constructor vacio y sin parametros
+     */
     public Pedido(){
         
     }
+    /**
+     * Retorna los dias restantes para el retiro de un pedido
+     * @return 
+     */
     public int diasRestantesRetiro(){
         if(this.fechaSolicitud.getYear()==this.fechaRetiro.getYear()){
             if(this.fechaSolicitud.getMonth()==this.fechaRetiro.getMonth()){
@@ -58,6 +78,7 @@ public class Pedido {
         return 1;
     }
 
+    //Getters y setters
     public HashMap<Producto, Integer> getProductos() {
         return productos;
     }
@@ -66,8 +87,7 @@ public class Pedido {
         this.productos = productos;
     }
 
-    public Date getFechaSolicitud()
-    {
+    public Date getFechaSolicitud(){
         return fechaSolicitud;
     }
 
@@ -79,89 +99,71 @@ public class Pedido {
         this.id = id;
     }
 
-    
-    public void setFechaSolicitud(Date fechaSolicitud) 
-    {
+    public void setFechaSolicitud(Date fechaSolicitud) {
         this.fechaSolicitud = fechaSolicitud;
     }
 
-    public Date getFechaRetiro() 
-    {
+    public Date getFechaRetiro() {
         return fechaRetiro;
     }
 
-    public void setFechaRetiro(Date fechaRetiro)
-    {
+    public void setFechaRetiro(Date fechaRetiro){
         this.fechaRetiro = fechaRetiro;
     }
 
-    public String getEstado()
-    {
+    public String getEstado(){
         return estado;
     }
 
-    public void setEstado(String estado) 
-    {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
-    public int getPrecioTotal() 
-    {
+    public int getPrecioTotal() {
         return precioTotal;
     }
 
-    public void setPrecioTotal(int precioTotal)
-    {
+    public void setPrecioTotal(int precioTotal){
         this.precioTotal = precioTotal;
     }
 
-    public int getPrecioAbonado() 
-    {
+    public int getPrecioAbonado() {
         return precioAbonado;
     }
 
-    public void setPrecioAbonado(int precioAbonado)
-    {
+    public void setPrecioAbonado(int precioAbonado){
         this.precioAbonado = precioAbonado;
     }
 
-    public int getDescuento()
-    {
+    public int getDescuento(){
         return descuento;
     }
 
-    public void setDescuento(int descuento) 
-    {
+    public void setDescuento(int descuento) {
         this.descuento = descuento;
     }
 
-    public String getNombreCliente()
-    {
+    public String getNombreCliente(){
         return nombreCliente;
     }
 
-    public void setNombreCliente(String nombreCliente)
-    {
+    public void setNombreCliente(String nombreCliente){
         this.nombreCliente = nombreCliente;
     }
 
-    public String getCorreoCliente() 
-    {
+    public String getCorreoCliente() {
         return correoCliente;
     }
 
-    public void setCorreoCliente(String correoCliente)
-    {
+    public void setCorreoCliente(String correoCliente){
         this.correoCliente = correoCliente;
     }
 
-    public String getNumeroCliente()
-    {
+    public String getNumeroCliente(){
         return numeroCliente;
     }
 
-    public void setNumeroCliente(String numeroCliente)
-    {
+    public void setNumeroCliente(String numeroCliente){
         this.numeroCliente = numeroCliente;
     }
     

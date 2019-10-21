@@ -158,15 +158,11 @@ public class VistaDetallePedido extends javax.swing.JFrame {
         for(Producto p: this.pedido.getProductos().keySet()){
             anadirFila(p.getNombre(),this.pedido.getProductos().get(p));
         }
-        
-        
     }
     
     private void anadirFila(String nombre, double cantidad) {
         Object[] row = {nombre, cantidad};
-        
         modeloTabla.addRow(row);
-    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
