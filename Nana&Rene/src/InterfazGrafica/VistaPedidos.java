@@ -141,6 +141,7 @@ public class VistaPedidos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaPedidos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane.setViewportView(tablaPedidos);
 
         getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 630, 300));

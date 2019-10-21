@@ -6,15 +6,11 @@
 package InterfazGrafica;
 
 import BaseDeDatos.GestionExcel;
-import java.awt.Color;
 import java.awt.Component;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;

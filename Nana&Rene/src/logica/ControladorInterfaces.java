@@ -76,13 +76,23 @@ public class ControladorInterfaces {
         this.proxy = new Proxy();
         
     }
+
+    public static void setAlmacen(Almacen almacen) {
+        ControladorInterfaces.almacen = almacen;
+    }
+
+    public static void setGe(GestionExcel ge) {
+        ControladorInterfaces.ge = ge;
+    }
+    
+    
     /**
      * Inicia la interfaz con la vista principal.
      */
     public static void iniciarInterfaz(){
         ControladorInterfaces.principal.setLocationRelativeTo(null);
-        ControladorInterfaces.principal.setVisible(true);
         ControladorInterfaces.principal.setAlmacen(almacen);
+        ControladorInterfaces.principal.setVisible(true);
         ControladorInterfaces.principal.setGe(ge);
         ControladorInterfaces.principal.repaint();
     }
@@ -121,8 +131,8 @@ public class ControladorInterfaces {
      * @param mensaje mensaje que se mostrara
      */
     public static void mostrarProxy(boolean b, String mensaje){
-        ControladorInterfaces.proxy.setVisible(b);
         ControladorInterfaces.proxy.setMensaje(mensaje);
+        ControladorInterfaces.proxy.setVisible(b);
         ControladorInterfaces.proxy.repaint();
     }
     /**

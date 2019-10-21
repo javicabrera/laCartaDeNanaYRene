@@ -29,7 +29,10 @@ public class Main
      */
     public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
-        
+        almacen = new Almacen();
+        GestionExcel gestionExcel = new GestionExcel();
+        controladorInterfaces = new ControladorInterfaces(almacen, gestionExcel);
+        controladorInterfaces.mostrarProxy(true,"Importando datos, espere");
         try {
             UIManager.setLookAndFeel(
             "javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -42,10 +45,6 @@ public class Main
         pedidos = new ArrayList<>();
         materiasPrimas = new ArrayList<>();
         
-        GestionExcel gestionExcel = new GestionExcel();
-        controladorInterfaces = new ControladorInterfaces(null, gestionExcel);
-        controladorInterfaces.mostrarProxy(true,"Importando datos, espere");
-        
         File rutaMateriasPrimas = new File("MateriasPrimas.xlsx");
         File rutaProductos = new File("Productos.xlsx");
         File rutaPedidos = new File("Pedidos.xlsx");
@@ -57,14 +56,13 @@ public class Main
         clientes = gestionExcel.importarClientes(rutaClientes);
         System.out.println("Se importaron los datos");
         
-        
         almacen = new Almacen(gestionExcel.getMayorId(), pedidos, productos, materiasPrimas, clientes);
-        controladorInterfaces = new ControladorInterfaces(almacen, gestionExcel);
+        controladorInterfaces.setAlmacen(almacen);
         ControladorPedido cp = new ControladorPedido(almacen);
-        
         
         controladorInterfaces.iniciarInterfaz();
         controladorInterfaces.mostrarProxy(false,"");
+        
         
 //        EnviaCorreo.enviar("mrrojano97@icloud.com", "100000", "10/10/1000");
 //        EnviaCorreo.enviar("isavocastro@gmail.com", "100000", "10/10/1000");
