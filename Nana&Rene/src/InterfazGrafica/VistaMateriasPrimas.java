@@ -187,7 +187,7 @@ public class VistaMateriasPrimas extends javax.swing.JFrame {
             if(JOptionPane.showConfirmDialog(this, "¿Desea deshabilitar la materia prima?", 
                     "Eliminar Materia Prima", 0)==0){
                 almacen.getMateriasPrimas().get(obtieneFilaSeleccionada()).setDisponible(false);
-                //borrarFila(obtieneFilaSeleccionada());
+                borrarFila(obtieneFilaSeleccionada());
             }
         }
         else{
@@ -204,7 +204,9 @@ public class VistaMateriasPrimas extends javax.swing.JFrame {
         modeloTabla.setRowCount(0);
         this.almacen = almacen;
         for(MateriaPrima m: this.almacen.getMateriasPrimas()){
-            anadirFila(m.getNombre(), m.getCantidad());
+            if(m.isDisponible()){
+                anadirFila(m.getNombre(), m.getCantidad());
+            }
         }
     }
 

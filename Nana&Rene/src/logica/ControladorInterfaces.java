@@ -2,6 +2,7 @@ package logica;
 
 
 import BaseDeDatos.GestionExcel;
+import InterfazGrafica.Proxy;
 import InterfazGrafica.ReporteProductos;
 import InterfazGrafica.ReporteVentas;
 import InterfazGrafica.VistaDetallePedido;
@@ -20,14 +21,8 @@ import InterfazGrafica.VistaNuevoCliente;
 import InterfazGrafica.VistaDetalleProducto;
 import InterfazGrafica.VistaHistorialCliente;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- *
+ * Clase que controla las vistas y las transiciones entre ellas
  * @author elias
  */
 public class ControladorInterfaces {
@@ -51,6 +46,8 @@ public class ControladorInterfaces {
     private static ReporteProductos reporteProductos;
     private static Almacen almacen;
     private static GestionExcel ge;
+    private static Proxy proxy;
+    
     /**
      * Constructor
      * @param almacen
@@ -60,23 +57,14 @@ public class ControladorInterfaces {
         this.almacen = almacen;
         this.ge = ge;
         this.principal = new VistaPaginaPrincipal();
-//        this.principal.setAlmacen(almacen);
-//        this.principal.setGe(ge);
         this.nuevoPedido = new VistaNuevoPedido();
-        //this.nuevoPedido.setAlmacen(almacen);
         this.gestionaPedido = new VistaPedidos();
-        //this.gestionaPedido.setAlmacen(almacen);
         this.productos = new VistaProductos();
-        //this.productos.setAlmacen(almacen);
         this.nuevoProducto = new VistaNuevoProducto();
-        //this.nuevoProducto.setAlmacen(almacen);
         this.editarProducto = new VistaEditarProducto();
-        //this.editarProducto.setAlmacen(almacen);
         this.materiasPrimas = new VistaMateriasPrimas();
-        //this.materiasPrimas.setAlmacen(almacen);
         this.editarMateriaPrima = new VistaEditarMateriaPrima();
         this.registarMateriaPrima = new VistaNuevaMateriaPrima();
-        //this.registarMateriaPrima.setAlmacen(almacen);
         this.vistaDetallePedido = new VistaDetallePedido();
         this.vistaDetalleProducto = new VistaDetalleProducto();
         this.clientes = new VistaClientes();
@@ -85,16 +73,27 @@ public class ControladorInterfaces {
         this.vistaHistorialCliente = new VistaHistorialCliente();
         this.reporteVentas = new ReporteVentas();
         this.reporteProductos = new ReporteProductos();
+        this.proxy = new Proxy();
         
     }
+
+    public static void setAlmacen(Almacen almacen) {
+        ControladorInterfaces.almacen = almacen;
+    }
+
+    public static void setGe(GestionExcel ge) {
+        ControladorInterfaces.ge = ge;
+    }
+    
+    
     /**
-     * Inicia la interfaz con la vista principal
+     * Inicia la interfaz con la vista principal.
      */
     public static void iniciarInterfaz()
     {
         ControladorInterfaces.principal.setLocationRelativeTo(null);
-        ControladorInterfaces.principal.setVisible(true);
         ControladorInterfaces.principal.setAlmacen(almacen);
+        ControladorInterfaces.principal.setVisible(true);
         ControladorInterfaces.principal.setGe(ge);
         ControladorInterfaces.principal.repaint();
     }
@@ -128,6 +127,17 @@ public class ControladorInterfaces {
         ControladorInterfaces.gestionaPedido.setVisible(b);
         ControladorInterfaces.gestionaPedido.setAlmacen(almacen);
         ControladorInterfaces.gestionaPedido.repaint();
+    }
+    
+    /**
+     * Muestra u oculta la vista de mensaje que muestra el espere
+     * @param b true o false, depende si se quiere mostrar u ocultar
+     * @param mensaje mensaje que se mostrara
+     */
+    public static void mostrarProxy(boolean b, String mensaje){
+        ControladorInterfaces.proxy.setMensaje(mensaje);
+        ControladorInterfaces.proxy.setVisible(b);
+        ControladorInterfaces.proxy.repaint();
     }
     /**
      * Muestra u oculta la vista de productos

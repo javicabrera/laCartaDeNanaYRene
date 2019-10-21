@@ -313,9 +313,12 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
         ControladorInterfaces.mostrarPrincipal(false);
         ControladorInterfaces.mostrarProductos(true);
+        
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void SalirYExportar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirYExportar
+        ControladorInterfaces.mostrarProxy(true, "Exportando datos");
+        
         ge.setMateriasPrimas(almacen.getMateriasPrimas());
         ge.setPedidos(almacen.getPedidos());
         ge.setProductos(almacen.getProductos());
