@@ -7,12 +7,8 @@ package InterfazGrafica;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import javax.swing.JOptionPane;
 import logica.ControladorInterfaces;
-import logica.MateriaPrima;
 import logica.Almacen;
-import logica.Cliente;
 import logica.Pedido;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -452,10 +448,6 @@ public class ReporteVentas extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ReporteVentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

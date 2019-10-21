@@ -6,7 +6,6 @@
 package logica;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  *
@@ -69,14 +68,13 @@ public class Cliente
         this.numeroCliente = numeroCliente;
     }
 
-    public ArrayList<Pedido> getHistorialPedidos() {
+    public ArrayList<Pedido> getHistorialPedidos() 
+    {
         return historialPedidos;
     }
 
-    public void setHistorialPedidos(ArrayList<Pedido> historialPedidos) {
+    public void setHistorialPedidos(ArrayList<Pedido> historialPedidos)
+    {
         this.historialPedidos = historialPedidos;
     }
-
-
-
 }

@@ -140,9 +140,6 @@ public class VistaDetalleProducto extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VistaDetalleProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -154,13 +151,10 @@ public class VistaDetalleProducto extends javax.swing.JFrame {
     public void inicializaTabla(Producto producto){
         this.producto=producto;
         modeloTabla.setRowCount(0);
-        
-        
+ 
         for(MateriaPrima m: this.producto.getMateriasPrimas().keySet()){
             anadirFila(m.getNombre(),this.producto.getMateriasPrimas().get(m));
         }
-        
-        
     }
     
     private void anadirFila(String nombre, double cantidad) {

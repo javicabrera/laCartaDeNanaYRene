@@ -5,14 +5,7 @@
  */
 package InterfazGrafica;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import javax.swing.JOptionPane;
 import logica.ControladorInterfaces;
-import logica.MateriaPrima;
-import logica.Almacen;
-import logica.Cliente;
-import logica.Pedido;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -153,9 +146,7 @@ public class ReporteProductos extends javax.swing.JFrame {
         jPanel1.add(panelGrafica);
         
         //Acá se indica la posición y el tamaño de la gráfica dentro del JPanel
-        panelGrafica.setBounds(5, 5, 660, 240);
-        
-                                   
+        panelGrafica.setBounds(5, 5, 660, 240);                          
     }//GEN-LAST:event_bGenerarActionPerformed
 
     /**
@@ -183,10 +174,6 @@ public class ReporteProductos extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ReporteProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -194,7 +181,6 @@ public class ReporteProductos extends javax.swing.JFrame {
             }
         });
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bGenerar;

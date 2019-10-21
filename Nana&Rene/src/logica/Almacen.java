@@ -11,7 +11,8 @@ import java.util.ArrayList;
  *
  * @author MarceloPablo
  */
-public class Almacen {
+public class Almacen
+{
     private int mayorId;
     private ArrayList<Pedido> pedidos;
     private ArrayList<Producto> productos;
@@ -20,7 +21,8 @@ public class Almacen {
     //private ArrayList<Pedido> reportes;
     
     public Almacen(int mayorId, ArrayList<Pedido> pedidos, ArrayList<Producto> productos, 
-            ArrayList<MateriaPrima> materiasPrimas, ArrayList<Cliente> clientes) {
+            ArrayList<MateriaPrima> materiasPrimas, ArrayList<Cliente> clientes)
+    {
         this.mayorId = mayorId;
         this.pedidos = pedidos;
         this.productos = productos;
@@ -28,48 +30,55 @@ public class Almacen {
         this.clientes = clientes;
     }
 
-    public Almacen() {
-        
-    }
+    public Almacen() { }
 
-    public int getMayorId() {
+    public int getMayorId()
+    {
         return mayorId;
     }
 
-    public void setMayorId(int mayorId) {
+    public void setMayorId(int mayorId)
+    {
         this.mayorId = mayorId;
     }
 
-    public ArrayList<Pedido> getPedidos() {
+    public ArrayList<Pedido> getPedidos()
+    {
         return pedidos;
     }
 
-    public void setPedidos(ArrayList<Pedido> pedidos) {
+    public void setPedidos(ArrayList<Pedido> pedidos) 
+    {
         this.pedidos = pedidos;
     }
 
-    public ArrayList<Producto> getProductos() {
+    public ArrayList<Producto> getProductos() 
+    {
         return productos;
     }
 
-    public void setProductos(ArrayList<Producto> productos) {
+    public void setProductos(ArrayList<Producto> productos) 
+    {
         this.productos = productos;
     }
 
-    public ArrayList<MateriaPrima> getMateriasPrimas() {
+    public ArrayList<MateriaPrima> getMateriasPrimas()
+    {
         return materiasPrimas;
     }
 
-    public void setMateriasPrimas(ArrayList<MateriaPrima> materiasPrimas) {
+    public void setMateriasPrimas(ArrayList<MateriaPrima> materiasPrimas) 
+    {
         this.materiasPrimas = materiasPrimas;
     }
 
-    public ArrayList<Cliente> getClientes() {
+    public ArrayList<Cliente> getClientes()
+    {
         return clientes;
     }
 
-    public void setClientes(ArrayList<Cliente> clientes) {
+    public void setClientes(ArrayList<Cliente> clientes)
+    {
         this.clientes = clientes;
     }
-    
 }

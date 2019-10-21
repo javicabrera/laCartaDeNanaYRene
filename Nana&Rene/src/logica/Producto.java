@@ -30,9 +30,7 @@ public class Producto
         this.disponible = disponible;
     }
     
-    public Producto(){
-        
-    }
+    public Producto(){ }
 
     public boolean isDisponible() {
         return disponible;

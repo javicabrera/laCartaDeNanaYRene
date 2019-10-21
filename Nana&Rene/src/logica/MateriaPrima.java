@@ -9,26 +9,22 @@ package logica;
  *
  * @author Javiera Méndez
  */
-public class MateriaPrima 
-{
+public class MateriaPrima {
+    
     private String nombre;
     private double cantidad;
     private String tipo = "continua";
     private boolean disponible;
     
-    public MateriaPrima(String nombre, double cantidad, boolean disponible)
-    {
+    public MateriaPrima(String nombre, double cantidad, boolean disponible){
         this.nombre = nombre;
         this.cantidad = cantidad;
         this.disponible = disponible;
     }
 
-    public MateriaPrima() {
-        
-    }
+    public MateriaPrima() { }
 
-    public String getNombre()
-    {
+    public String getNombre(){
         return nombre;
     }
 
@@ -36,22 +32,19 @@ public class MateriaPrima
         return disponible;
     }
 
-    public void setDisponible(boolean disponible) {
+    public void setDisponible(boolean disponible){
         this.disponible = disponible;
     }
 
-    public void setNombre(String nombre) 
-    {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public String getTipo()
-    {
+    public String getTipo(){
         return tipo;
     }
 
-    public void setTipo(String tipo) 
-    {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
@@ -59,9 +52,7 @@ public class MateriaPrima
         return cantidad;
     }
 
-    public void setCantidad(double cantidad) {
+    public void setCantidad(double cantidad){
         this.cantidad = cantidad;
-    }
-    
-    
+    } 
 }
