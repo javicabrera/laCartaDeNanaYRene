@@ -142,15 +142,23 @@ public class ReporteProductos extends javax.swing.JFrame {
 
     private void bGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGenerarActionPerformed
         DefaultCategoryDataset datosGrafica = new DefaultCategoryDataset();
+        ArrayList<ProductoFinalizado> retirados=productosMasVendidos();
         
         //Falta agregar datos a datosGrafica de la siguiente manera
         
-        int cantidadDeDatos=1; //Meses, Productos, etc
-        
-        for (int i = 0; i < cantidadDeDatos; i++){
-            datosGrafica.setValue(1000, "Panesito de Alfombra", "");
+        int cantidadDeDatos=retirados.size(); //Meses, Productos, etc
+        if(cantidadDeDatos>=10){
+            for (int i = 0; i < 10; i++){
+            datosGrafica.setValue(retirados.get(i).getCantidad(), retirados.get(i).getNombre(), "");
+            }   
         }
-        productosMasVendidos();
+        else{
+            for (int i = 0; i < cantidadDeDatos; i++){
+            datosGrafica.setValue(retirados.get(i).getCantidad(), retirados.get(i).getNombre(), "");
+            }
+        }
+        
+        
         //Acá se crea la gráfica (datos estáticos en la gráfica y se añaden los datos para cada barra al agregar datosGrafica)
         JFreeChart grafica = ChartFactory.createBarChart("" , "Producto", "Cantidad", datosGrafica);
         
@@ -200,7 +208,7 @@ public class ReporteProductos extends javax.swing.JFrame {
         }
     }
        
-    private void productosMasVendidos()
+    private ArrayList<ProductoFinalizado> productosMasVendidos()
     {
         System.out.println(almacen.getPedidos().size());
         for(int i=0;i<almacen.getPedidos().size();i++){
@@ -252,6 +260,7 @@ public class ReporteProductos extends javax.swing.JFrame {
             }
     
         }
+        return finalizados;
     }
     /**
      * @param args the command line arguments
