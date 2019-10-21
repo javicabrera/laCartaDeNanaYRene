@@ -1,5 +1,7 @@
 package InterfazGrafica;
 
+import javax.swing.ImageIcon;
+
 /**
  * Clase que muestra una pequeña ventana para dar mensaje de cargando
  * @author Isavo Castro
@@ -20,7 +22,6 @@ public class Proxy extends javax.swing.JFrame {
      */
     public void setMensaje(String mensaje){
         this.mensaje.setText(mensaje);
-        this.repaint();
     }
 
     /**

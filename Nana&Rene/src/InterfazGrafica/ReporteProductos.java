@@ -19,7 +19,7 @@ import logica.Producto;
 
 /**
  *
- * @author elias
+ * @author elias, Javiera Méndez
  */
 public class ReporteProductos extends javax.swing.JFrame {
     private Almacen almacen;

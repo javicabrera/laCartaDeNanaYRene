@@ -29,10 +29,9 @@ public class Main
      */
     public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
-        almacen = new Almacen();
         GestionExcel gestionExcel = new GestionExcel();
-        controladorInterfaces = new ControladorInterfaces(almacen, gestionExcel);
-        controladorInterfaces.mostrarProxy(true,"Importando datos, espere");
+        controladorInterfaces.iniciarProxy();
+        controladorInterfaces.mostrarProxy(true,"Espere");
         try {
             UIManager.setLookAndFeel(
             "javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -57,7 +56,7 @@ public class Main
         System.out.println("Se importaron los datos");
         
         almacen = new Almacen(gestionExcel.getMayorId(), pedidos, productos, materiasPrimas, clientes);
-        controladorInterfaces.setAlmacen(almacen);
+        controladorInterfaces = new ControladorInterfaces(almacen, gestionExcel);
         ControladorPedido cp = new ControladorPedido(almacen);
         
         controladorInterfaces.iniciarInterfaz();

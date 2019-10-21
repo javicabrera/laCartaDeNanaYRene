@@ -7,6 +7,7 @@ package InterfazGrafica;
 
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import logica.ControladorInterfaces;
 import logica.Almacen;
 import logica.Pedido;
@@ -18,7 +19,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
- * @author elias
+ * @author elias, Javiera Méndez
  */
 public class ReporteVentas extends javax.swing.JFrame {
     private Almacen almacen;
@@ -170,22 +171,32 @@ public class ReporteVentas extends javax.swing.JFrame {
     private void bGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGenerarActionPerformed
         //Acá se crea la gráfica (datos estáticos en la gráfica y se añaden los datos para cada barra al agregar datosGrafica)
         //JFreeChart grafica = null;
-        String seleccion = periodo.getSelectedItem().toString();
-        switch(seleccion){
-            case "Anual":
-                //grafica = ChartFactory.createBarChart("Ventas "+anoConsulta.getText() , "Mes", "Pesos Chilenos", datosGrafica);
-                ventasAnuales();
-                break;
-            case "Mensual":
-                //grafica = ChartFactory.createBarChart("Ventas "+anoConsulta.getText()+ " "+seleccionPeriodo.getItemAt(seleccionPeriodo.getSelectedIndex()) , "Mes", "Pesos Chilenos", datosGrafica);
-                int mes = seleccionPeriodo.getSelectedIndex();
-                ventasMensuales(mes);
-                break;
-            case "Semestral":
-                //grafica = ChartFactory.createBarChart("Ventas "+anoConsulta.getText()+ " "+seleccionPeriodo.getItemAt(seleccionPeriodo.getSelectedIndex()) , "Mes", "Pesos Chilenos", datosGrafica);
-                ventasSemestrales();
-                break;
+        boolean flag1 = true;
+        if(anoConsulta.getText().equals("") || anoConsulta.getText()==null){
+            flag1 = false;
+            JOptionPane.showMessageDialog(this, "Debe ingresar un año.","Error", 
+                JOptionPane.ERROR_MESSAGE);
         }
+        String seleccion = periodo.getSelectedItem().toString();
+        if(flag1){
+            switch(seleccion)
+            {
+                case "Anual":
+                    //grafica = ChartFactory.createBarChart("Ventas "+anoConsulta.getText() , "Mes", "Pesos Chilenos", datosGrafica);
+                    ventasAnuales();
+                    break;
+                case "Mensual":
+                    //grafica = ChartFactory.createBarChart("Ventas "+anoConsulta.getText()+ " "+seleccionPeriodo.getItemAt(seleccionPeriodo.getSelectedIndex()) , "Mes", "Pesos Chilenos", datosGrafica);
+                    int mes = seleccionPeriodo.getSelectedIndex();
+                    ventasMensuales(mes);
+                    break;
+                case "Semestral":
+                    //grafica = ChartFactory.createBarChart("Ventas "+anoConsulta.getText()+ " "+seleccionPeriodo.getItemAt(seleccionPeriodo.getSelectedIndex()) , "Mes", "Pesos Chilenos", datosGrafica);
+                    ventasSemestrales();
+                    break;
+            }
+        }
+        
         //ChartPanel panelGrafica = new ChartPanel(grafica);
         //jPanel1.add(panelGrafica);
         
@@ -211,7 +222,7 @@ public class ReporteVentas extends javax.swing.JFrame {
             int mes = fecha.getMonth();
             int anoPedido = fecha.getYear()+1900;
             //System.out.println("año pedido: "+anoPedido);
-            if(anoOficial == anoPedido)
+            if((anoOficial == anoPedido) && (p.getEstado().equals("Retirado")))
             {  
                 switch (mes) 
                 {
@@ -294,7 +305,7 @@ public class ReporteVentas extends javax.swing.JFrame {
             int mesPedido = fecha.getMonth();
             int anoPedido = fecha.getYear()+1900;
             //System.out.println("año pedido: "+anoPedido);
-            if((anoOficial == anoPedido) && (mesOficial == mesPedido))
+            if((anoOficial == anoPedido) && (mesOficial == mesPedido) && (p.getEstado().equals("Retirado")))
             {  
                 ventaMensual +=  p.getPrecioTotal();
             }  
@@ -326,7 +337,7 @@ public class ReporteVentas extends javax.swing.JFrame {
             int mes = fecha.getMonth();
             int anoPedido = fecha.getYear()+1900;
 
-            if(anoOficial == anoPedido)
+            if((anoOficial == anoPedido) && (p.getEstado().equals("Retirado")))
             {  
                 switch (mes) 
                 {

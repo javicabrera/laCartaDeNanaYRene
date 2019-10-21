@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package InterfazGrafica;
 
 import javax.swing.JOptionPane;
@@ -11,7 +6,7 @@ import logica.MateriaPrima;
 
 
 /**
- *
+ * Permite editar una materia prima y guardar los nuevos datos.
  * @author elias
  */
 public class VistaEditarMateriaPrima extends javax.swing.JFrame {
@@ -20,13 +15,18 @@ public class VistaEditarMateriaPrima extends javax.swing.JFrame {
     private boolean tipoCDiscreta, tipoCContinua;
 
     /**
-     * Creates new form PaginaPrincipalFX
+     * Creates new form VistaMateriaPrima
      */
     public VistaEditarMateriaPrima() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
     
+    /**
+     * Guarda la materia que se editará y setea los campos a la informacion 
+     * correspondiente
+     * @param materia 
+     */
     public void setMateria(MateriaPrima materia){
         this.materia = materia;
         
@@ -45,6 +45,10 @@ public class VistaEditarMateriaPrima extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Guarda la fila de la materia a editar
+     * @param fila 
+     */
     public void setFila(int fila) {
         this.fila = fila;
     }
@@ -185,6 +189,10 @@ public class VistaEditarMateriaPrima extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Vuelve a la pantalla anterior
+     * @param evt 
+     */
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
         nombre.setText("");
         cantidad.setText("");
@@ -193,6 +201,10 @@ public class VistaEditarMateriaPrima extends javax.swing.JFrame {
         ControladorInterfaces.mostrarMateriasPrimas(true);
     }//GEN-LAST:event_bVolverActionPerformed
 
+    /**
+     * Guarda los datos nuevos haciendo las verificaciones correspondientes
+     * @param evt 
+     */
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
         boolean flag1 = true;
         boolean flag2 = true;
@@ -271,11 +283,19 @@ public class VistaEditarMateriaPrima extends javax.swing.JFrame {
 
     }//GEN-LAST:event_cantidadKeyPressed
 
+    /**
+     * Desactiva la otra opcion de forma que solo una este seleccionada a la vez
+     * @param evt 
+     */
     private void tipoContinuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoContinuaActionPerformed
         // TODO add your handling code here:
         tipoDiscreta.setSelected(false);
     }//GEN-LAST:event_tipoContinuaActionPerformed
 
+    /**
+     * Desactiva la otra opcion de forma que solo una este seleccionada a la vez
+     * @param evt 
+     */
     private void tipoDiscretaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoDiscretaActionPerformed
         // TODO add your handling code here:
         tipoContinua.setSelected(false);
