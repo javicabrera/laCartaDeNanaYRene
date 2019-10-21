@@ -308,7 +308,7 @@ public class ControladorInterfaces {
     public static void mostrarReporteProductos(boolean b)
     {
         ControladorInterfaces.reporteProductos.setVisible(b);
-        //ControladorInterfaces.reporteProductos.setAlmacen(almacen);
+        ControladorInterfaces.reporteProductos.setAlmacen(almacen);
         ControladorInterfaces.reporteProductos.repaint();
     }
 }
