@@ -73,7 +73,6 @@ public class ControladorInterfaces {
         this.vistaHistorialCliente = new VistaHistorialCliente();
         this.reporteVentas = new ReporteVentas();
         this.reporteProductos = new ReporteProductos();
-        this.proxy = new Proxy();
         
     }
 
@@ -130,11 +129,19 @@ public class ControladorInterfaces {
     }
     
     /**
+     * Inicializa la ventana proxy.
+     */
+    public static void iniciarProxy(){
+        ControladorInterfaces.proxy = new Proxy();
+    }
+    
+    /**
      * Muestra u oculta la vista de mensaje que muestra el espere
      * @param b true o false, depende si se quiere mostrar u ocultar
      * @param mensaje mensaje que se mostrara
      */
     public static void mostrarProxy(boolean b, String mensaje){
+        
         ControladorInterfaces.proxy.setMensaje(mensaje);
         ControladorInterfaces.proxy.setVisible(b);
         ControladorInterfaces.proxy.repaint();

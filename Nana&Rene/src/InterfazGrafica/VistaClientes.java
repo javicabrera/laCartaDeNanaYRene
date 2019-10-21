@@ -10,7 +10,7 @@ import logica.ControladorInterfaces;
 import logica.Cliente;
 /**
  * Clase que muestra una lista de clientes registrados, dando opciones de gestion
- * @author elias
+ * @author Elias, Isavo Castro
  */
 public class VistaClientes extends javax.swing.JFrame {
     private Almacen almacen;

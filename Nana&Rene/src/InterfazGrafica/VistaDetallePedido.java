@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package InterfazGrafica;
 
 
@@ -12,7 +7,7 @@ import logica.Producto;
 import logica.ControladorInterfaces;
 
 /**
- *
+ * Permite mostrar el detalle de un pedido, mostrando una lista de sus productos
  * @author elias
  */
 public class VistaDetallePedido extends javax.swing.JFrame {
@@ -108,6 +103,10 @@ public class VistaDetallePedido extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Vuelve a la pantalla anterior
+     * @param evt 
+     */
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         // TODO add your handling code here:
         ControladorInterfaces.habilitarGestionaPedido(true);
@@ -149,6 +148,10 @@ public class VistaDetallePedido extends javax.swing.JFrame {
         });
     }
     
+    /**
+     * Inicializa la tabla con los productos de un pedido
+     * @param pedido pedido a ver
+     */
     public void inicializaTabla(Pedido pedido){
         this.pedido=pedido;
         modeloTabla.setRowCount(0);
@@ -160,6 +163,11 @@ public class VistaDetallePedido extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Añade una fila a la tabla
+     * @param nombre nombre del producto
+     * @param cantidad cantidad
+     */
     private void anadirFila(String nombre, double cantidad) {
         Object[] row = {nombre, cantidad};
         modeloTabla.addRow(row);
