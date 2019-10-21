@@ -8,17 +8,25 @@ package logica;
 import java.util.HashMap;
 
 /**
- *
+ *  Clase que almacena la información de un producto
  * @author Isavo, Javiera Méndez
  */
 public class Producto
 {
+    //Atributos
     private String nombre;
     private int precioVenta;
     private Double tiempoElaboracion; //En horas
     private HashMap<MateriaPrima, Double> materiasPrimas;
     private boolean disponible;
-    
+    /**
+     * Constructor de clase
+     * @param nombre
+     * @param precioVenta
+     * @param tiempoRequerido
+     * @param materiasPrimas
+     * @param disponible 
+     */
     public Producto(String nombre, int precioVenta, Double tiempoRequerido, 
             HashMap<MateriaPrima,Double> materiasPrimas, boolean disponible)
     {
@@ -29,9 +37,13 @@ public class Producto
         this.materiasPrimas = materiasPrimas;
         this.disponible = disponible;
     }
-    
-    public Producto(){ }
-
+    /**
+     * Constructor vacio y sin parametros
+     */
+    public Producto(){
+        
+    }
+    //Getters y setters
     public boolean isDisponible() {
         return disponible;
     }

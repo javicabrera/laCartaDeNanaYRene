@@ -4,10 +4,11 @@ import java.util.HashMap;
 import java.util.Date;
 
 /**
- *
+ * Clase que almacena la información de un pedido
  * @author Isavo Castro
  */
 public class Pedido {
+    //Atributos
     private int id;
     private HashMap<Producto, Integer> productos;
     private Date fechaSolicitud;
@@ -19,7 +20,21 @@ public class Pedido {
     private String nombreCliente;
     private String correoCliente;
     private String numeroCliente;
-
+    
+    /**
+     * Constructor de clase
+     * @param id
+     * @param productos
+     * @param fechaSolicitud
+     * @param fechaRetiro
+     * @param precioTotal
+     * @param descuento
+     * @param nombreCliente
+     * @param correoCliente
+     * @param numeroCliente
+     * @param precioAbonado
+     * @param estado 
+     */
     public Pedido(int id, HashMap<Producto, Integer> productos, Date fechaSolicitud, 
             Date fechaRetiro, int precioTotal, int descuento, String nombreCliente, 
             String correoCliente, String numeroCliente, int precioAbonado, String estado) {
@@ -35,9 +50,16 @@ public class Pedido {
         this.correoCliente = correoCliente;
         this.numeroCliente = numeroCliente;
     }
-    
-    public Pedido(){ }
-    
+    /**
+     * Constructor vacio y sin parametros
+     */
+    public Pedido(){
+        
+    }
+    /**
+     * Retorna los dias restantes para el retiro de un pedido
+     * @return 
+     */
     public int diasRestantesRetiro(){
         if(this.fechaSolicitud.getYear()==this.fechaRetiro.getYear()){
             if(this.fechaSolicitud.getMonth()==this.fechaRetiro.getMonth()){
@@ -56,6 +78,7 @@ public class Pedido {
         return 1;
     }
 
+    //Getters y setters
     public HashMap<Producto, Integer> getProductos() {
         return productos;
     }

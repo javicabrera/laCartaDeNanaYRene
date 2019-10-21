@@ -106,14 +106,24 @@ public class GestionExcel{
                             switch(celda.getCellType())
                             {
                                 case Cell.CELL_TYPE_NUMERIC:
-                                    int disp = (int) Math.round(celda.getNumericCellValue());
+                                    int disp = (int) celda.getNumericCellValue();
                                     if (disp == 0){
                                         disponible = false;
                                     }
-                                    else if (disp == 1){
+                                    else{
                                         disponible = true;
                                     }
                                     break;
+                                case Cell.CELL_TYPE_STRING:
+                                    String dispon = celda.getStringCellValue();
+                                    if (dispon.equals("0")){
+                                        disponible = false;
+                                    }
+                                    else{
+                                        disponible = true;
+                                    }
+                                    break;
+                                
                             }   break;
                         default:
                             break;
@@ -309,7 +319,16 @@ public class GestionExcel{
                                     if (disp == 0){
                                         disponible = false;
                                     }
-                                    else if (disp == 1){
+                                    else{
+                                        disponible = true;
+                                    }
+                                    break;
+                                case Cell.CELL_TYPE_STRING:
+                                    String dispon = celda.getStringCellValue();
+                                    if (dispon.equals("0")){
+                                        disponible = false;
+                                    }
+                                    else{
                                         disponible = true;
                                     }
                                     break;
@@ -441,12 +460,14 @@ public class GestionExcel{
                     //System.out.println(listado);
                     materias.setCellValue(listado);
                     precio.setCellValue(productos.get(i).getPrecioVenta());
+                    String disp = "";
                     if (productos.get(i).isDisponible()==false){
-                        disponible.setCellValue("0");
+                        disp = "0";
                     }
                     else if(productos.get(i).isDisponible()==true){
-                        disponible.setCellValue("1");
+                        disp = "1";
                     }
+                    disponible.setCellValue(disp);
                 }
                 wb.write(new FileOutputStream(archivo));
             }
@@ -565,12 +586,14 @@ public class GestionExcel{
                     nombre.setCellValue(materiasPrimas.get(i).getNombre());
                     cantidad.setCellValue(materiasPrimas.get(i).getCantidad());
                     tipo.setCellValue(materiasPrimas.get(i).getTipo());
+                    String disp = "";
                     if(materiasPrimas.get(i).isDisponible()==false){
-                        disponible.setCellValue("0");
+                        disp = "0";
                     }
                     else if (materiasPrimas.get(i).isDisponible()==true){
-                        disponible.setCellValue("1");
+                        disp = "1";
                     }
+                    disponible.setCellValue(disp);
                     // REVISAR
                     //unidad.setCellValue(materiasPrimas.get(i).getUnidad());
                 }
