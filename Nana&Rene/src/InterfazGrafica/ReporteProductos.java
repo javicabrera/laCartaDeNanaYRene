@@ -150,7 +150,7 @@ public class ReporteProductos extends javax.swing.JFrame {
         for (int i = 0; i < cantidadDeDatos; i++){
             datosGrafica.setValue(1000, "Panesito de Alfombra", "");
         }
-
+        productosMasVendidos();
         //Acá se crea la gráfica (datos estáticos en la gráfica y se añaden los datos para cada barra al agregar datosGrafica)
         JFreeChart grafica = ChartFactory.createBarChart("" , "Producto", "Cantidad", datosGrafica);
         
@@ -160,7 +160,7 @@ public class ReporteProductos extends javax.swing.JFrame {
         //Acá se indica la posición y el tamaño de la gráfica dentro del JPanel
         panelGrafica.setBounds(5, 5, 660, 240);       
         
-        productosMasVendidos();
+        
     }//GEN-LAST:event_bGenerarActionPerformed
 
     private class ProductoFinalizado
@@ -240,13 +240,17 @@ public class ReporteProductos extends javax.swing.JFrame {
                 }
             }
         }
-        System.out.println("acaaaa");
+        System.out.println("acaaaa"); 
         System.out.println(finalizados.size());
-        for(int j = 0; j < finalizados.size(); j++)
+        
+        for(int i = 0; i < finalizados.size(); i++)
         {
-            System.out.println("aca");
-            ProductoFinalizado producto2 =  finalizados.get(j);
-            System.out.println(producto2.getNombre()+" "+producto2.getCantidad());
+            for(int j=0; j<finalizados.size();j++){
+                ProductoFinalizado aux=  finalizados.get(j);
+                finalizados.remove(j);
+                finalizados.add(i, aux);
+            }
+    
         }
     }
     /**
