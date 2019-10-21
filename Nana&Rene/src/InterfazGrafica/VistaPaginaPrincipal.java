@@ -6,13 +6,11 @@
 package InterfazGrafica;
 
 import BaseDeDatos.GestionExcel;
-import java.awt.Color;
 import java.awt.Component;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -51,6 +49,7 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
            return icono;
         }
 
+        @Override
         public String toString() {
             String pattern = "dd-MM-yyyy";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -63,21 +62,22 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
     }
     
     class ListEntryCellRenderer extends JLabel implements ListCellRenderer{
-   private JLabel label;
+        private JLabel label;
   
-   public Component getListCellRendererComponent(JList list, Object value,
-                                                 int index, boolean isSelected,
-                                                 boolean cellHasFocus) {
-      ListEntry entry = (ListEntry) value;
-  
-      setText(entry.toString());
-      setIcon(entry.getIcono());  
-      setEnabled(list.isEnabled());
-      setFont(list.getFont());
-  
-      return this;
-   }
-}
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value,
+                                                      int index, boolean isSelected,
+                                                      boolean cellHasFocus) {
+           ListEntry entry = (ListEntry) value;
+
+           setText(entry.toString());
+           setIcon(entry.getIcono());  
+           setEnabled(list.isEnabled());
+           setFont(list.getFont());
+
+           return this;
+        }
+    }   
     
     public VistaPaginaPrincipal() {
         this.setLocationRelativeTo(null);
@@ -88,7 +88,8 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
  
     }
     
-    public static void agregarPedido(ListEntry p){
+    public static void agregarPedido(ListEntry p)
+    {
         VistaPaginaPrincipal.model.addElement(p);
         
     }
@@ -133,8 +134,6 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
                 }
                 VistaPaginaPrincipal.agregarPedido(new ListEntry(p,icon));
             }
-            
-            
         }
     }
 
@@ -317,7 +316,6 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void SalirYExportar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirYExportar
-
         ge.setMateriasPrimas(almacen.getMateriasPrimas());
         ge.setPedidos(almacen.getPedidos());
         ge.setProductos(almacen.getProductos());
@@ -375,14 +373,6 @@ public class VistaPaginaPrincipal extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VistaPaginaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

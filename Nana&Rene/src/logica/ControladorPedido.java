@@ -25,9 +25,9 @@ public class ControladorPedido {
      */
     public boolean cancelarPedido(Pedido p){ 
         Date fechaActual = new Date();
-        TimeUnit timeUnit = TimeUnit.HOURS;
-        long diffInMillies = fechaActual.getTime() - p.getFechaSolicitud().getTime();
-        int diferencia = (int) timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+        TimeUnit unidadDeTiempo = TimeUnit.HOURS;
+        long diferenciaMilisegundos = fechaActual.getTime() - p.getFechaSolicitud().getTime();
+        int diferencia = (int) unidadDeTiempo.convert(diferenciaMilisegundos,TimeUnit.MILLISECONDS);
         p.setEstado("Cancelado");
         return diferencia<=24;
     }
@@ -96,8 +96,7 @@ public class ControladorPedido {
     - Obtener el ArrayList del stock de materias primas.
     - Una materia prima podría tener un nombre, código y cantidad.
     */
-    public void descontarMateriasPrimas(HashMap<MateriaPrima,Double> 
-            materiasPrimas){
+    public void descontarMateriasPrimas(HashMap<MateriaPrima,Double> materiasPrimas){
         for(MateriaPrima a: materiasPrimas.keySet()){
             for (MateriaPrima b: almacen.getMateriasPrimas()) {
                 if(a.isDisponible() && a.getNombre().equals(b.getNombre())){

@@ -44,22 +44,19 @@ public class MateriaPrima
         return disponible;
     }
 
-    public void setDisponible(boolean disponible) {
+    public void setDisponible(boolean disponible){
         this.disponible = disponible;
     }
 
-    public void setNombre(String nombre) 
-    {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public String getTipo()
-    {
+    public String getTipo(){
         return tipo;
     }
 
-    public void setTipo(String tipo) 
-    {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
@@ -67,9 +64,7 @@ public class MateriaPrima
         return cantidad;
     }
 
-    public void setCantidad(double cantidad) {
+    public void setCantidad(double cantidad){
         this.cantidad = cantidad;
-    }
-    
-    
+    } 
 }

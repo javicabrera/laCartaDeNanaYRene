@@ -19,7 +19,8 @@ import javax.mail.internet.MimeMultipart;
  * Clase que envia correo usando libreria JavaMail.
  * @author renecsc
  */
-public class EnviaCorreo {
+public class EnviaCorreo 
+{
     //Atributos del usuario que envia el correo.
     private static final String usuario = "lacartadenanayrene";
     private static final String contrasena = "nanarene1234";
