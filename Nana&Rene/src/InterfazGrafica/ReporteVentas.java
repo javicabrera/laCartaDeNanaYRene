@@ -222,7 +222,7 @@ public class ReporteVentas extends javax.swing.JFrame {
             int mes = fecha.getMonth();
             int anoPedido = fecha.getYear()+1900;
             //System.out.println("año pedido: "+anoPedido);
-            if(anoOficial == anoPedido)
+            if((anoOficial == anoPedido) && (p.getEstado().equals("Retirado")))
             {  
                 switch (mes) 
                 {
@@ -305,7 +305,7 @@ public class ReporteVentas extends javax.swing.JFrame {
             int mesPedido = fecha.getMonth();
             int anoPedido = fecha.getYear()+1900;
             //System.out.println("año pedido: "+anoPedido);
-            if((anoOficial == anoPedido) && (mesOficial == mesPedido))
+            if((anoOficial == anoPedido) && (mesOficial == mesPedido) && (p.getEstado().equals("Retirado")))
             {  
                 ventaMensual +=  p.getPrecioTotal();
             }  
@@ -337,7 +337,7 @@ public class ReporteVentas extends javax.swing.JFrame {
             int mes = fecha.getMonth();
             int anoPedido = fecha.getYear()+1900;
 
-            if(anoOficial == anoPedido)
+            if((anoOficial == anoPedido) && (p.getEstado().equals("Retirado")))
             {  
                 switch (mes) 
                 {
