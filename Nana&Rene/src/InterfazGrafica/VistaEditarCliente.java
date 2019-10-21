@@ -1,22 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package InterfazGrafica;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import javax.swing.JOptionPane;
 import logica.ControladorInterfaces;
-import logica.MateriaPrima;
 import logica.Almacen;
 import logica.Cliente;
 import logica.Pedido;
 
-
 /**
- *
+ * Permite editar un cliente especifico
  * @author elias
  */
 public class VistaEditarCliente extends javax.swing.JFrame {
@@ -24,27 +15,42 @@ public class VistaEditarCliente extends javax.swing.JFrame {
     private int fila;
     private Cliente cliente;
     /**
-     * Creates new form PaginaPrincipalFX
+     * Creates new form VistaEditarCliente
      */
     public VistaEditarCliente() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
     
-    
+    /**
+     * Obtiene el almacen actual
+     * @return almacen
+     */
     public Almacen getAlmacen() {
         return almacen;
     }
 
+    /**
+     * Cambia el almacen
+     * @param almacen nuevo almacen
+     */
     public void setAlmacen(Almacen almacen) {
         this.almacen = almacen;
     }
     
+    /**
+     * Permite setear la fila que se esta editando
+     * @param fila 
+     */
     public void setFila(int fila)
     {
         this.fila = fila;
     }
 
+    /**
+     * Guarda el cliente que se va a editar
+     * @param cliente 
+     */
     public void setCliente(Cliente cliente)
     {
         this.cliente = cliente;
@@ -178,6 +184,10 @@ public class VistaEditarCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Vuelve a la pagina anterior
+     * @param evt 
+     */
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
         nombre.setText("");
         correo.setText("");
@@ -186,6 +196,10 @@ public class VistaEditarCliente extends javax.swing.JFrame {
         ControladorInterfaces.mostrarClientes(true);
     }//GEN-LAST:event_bVolverActionPerformed
 
+    /**
+     * Guarda los nuevos datos, haciendo las verificaciones correspondientes
+     * @param evt 
+     */
     private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
         boolean flag1 = true;
         boolean flag2 = true;

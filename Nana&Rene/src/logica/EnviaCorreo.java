@@ -5,7 +5,6 @@
  */
 package logica;
 
-import java.text.SimpleDateFormat;
 import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -20,19 +19,18 @@ import javax.mail.internet.MimeMultipart;
  * Clase que envia correo usando libreria JavaMail.
  * @author renecsc
  */
-public class EnviaCorreo {
+public class EnviaCorreo 
+{
     //Atributos del usuario que envia el correo.
     private static final String usuario = "lacartadenanayrene";
     private static final String contrasena = "nanarene1234";
     private static final String correo = "lacartadenanayrene@gmail.com";
     
     /**
-     * Metodo que envia el correo
-     * @author renecsc
+     * Metodo para enviar un correo
      * @param correoDestinatario
-     * @param filename
-     * @param asunto
-     * @param contenidoMensaje 
+     * @param valorAPagar
+     * @param fechaRetiro 
      */
     public static void enviar(String correoDestinatario, String valorAPagar, String fechaRetiro) {
         //Se inicializan las propiedades 
@@ -58,13 +56,7 @@ public class EnviaCorreo {
             mensaje.setFrom(new InternetAddress(correo));
             mensaje.setRecipients(Message.RecipientType.TO, InternetAddress.parse(correoDestinatario));
             mensaje.setSubject("Notificación de pedido");
-            //Se declara el contenido del mensaje
-//            String contenidoMensaje = "Estimado cliente: \n Su pedido se encuentra finalizado.\n "
-//                                        + "Total a pagar:" + valorAPagar +"\n"
-//                                        + "Horario de atencion: 10hrs. - 20hrs.\n"
-//                                        + "Fecha retiro: " + fechaRetiro + "\n"
-//                                        + "Dirección: calle todo el sazón esquina sabrozonga Numero 69 \n" 
-//                                        + "No responder este mensaje!";
+            //Se declara el contenido html del mensaje
 
             String contenidoMensaje = "<!DOCTYPE html>\n" +
 "<html>\n" +
@@ -125,7 +117,7 @@ public class EnviaCorreo {
 "	</table>\n" +
 "</body>\n" +
 "</html>";
-            
+            //Se setea el contenido de mensaje 
             MimeBodyPart mensajeBodyPart = new MimeBodyPart();
             mensajeBodyPart.setContent(contenidoMensaje, "text/html");
 

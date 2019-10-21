@@ -55,8 +55,11 @@
     <Component class="javax.swing.JButton" name="bGenerar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Generar"/>
-        <Property name="toolTipText" type="java.lang.String" value="Guardar este cliente"/>
+        <Property name="toolTipText" type="java.lang.String" value="Generar Gr&#xe1;fico"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Gnerar Gr&#xe1;fico"/>
+      </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bGenerarActionPerformed"/>
       </Events>
@@ -66,12 +69,12 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="txtSelecSemes">
+    <Component class="javax.swing.JLabel" name="txtSeleccione">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Lucida Grande" size="13" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Seleccione semestre:"/>
+        <Property name="text" type="java.lang.String" value="Seleccione mes:"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -93,8 +96,8 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
-            <StringItem index="0" value="Semestral"/>
-            <StringItem index="1" value="Mensual"/>
+            <StringItem index="0" value="Mensual"/>
+            <StringItem index="1" value="Semestral"/>
             <StringItem index="2" value="Anual"/>
           </StringArray>
         </Property>
@@ -111,12 +114,22 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JComboBox" name="semestre">
+    <Component class="javax.swing.JComboBox" name="seleccionPeriodo">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="Primer Semestre"/>
-            <StringItem index="1" value="Segundo Semestre"/>
+          <StringArray count="12">
+            <StringItem index="0" value="Enero"/>
+            <StringItem index="1" value="Febrero"/>
+            <StringItem index="2" value="Marzo"/>
+            <StringItem index="3" value="Abril"/>
+            <StringItem index="4" value="Mayo"/>
+            <StringItem index="5" value="Junio"/>
+            <StringItem index="6" value="Julio"/>
+            <StringItem index="7" value="Agosto"/>
+            <StringItem index="8" value="Septiembre"/>
+            <StringItem index="9" value="Octubre"/>
+            <StringItem index="10" value="Noviembre"/>
+            <StringItem index="11" value="Diciembre"/>
           </StringArray>
         </Property>
       </Properties>

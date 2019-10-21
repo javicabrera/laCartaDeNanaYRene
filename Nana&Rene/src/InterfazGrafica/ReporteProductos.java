@@ -7,31 +7,36 @@ package InterfazGrafica;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.swing.JOptionPane;
+import java.util.Map;
 import logica.ControladorInterfaces;
-import logica.MateriaPrima;
-import logica.Almacen;
-import logica.Cliente;
-import logica.Pedido;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
-
+import logica.Almacen;
+import logica.Pedido;
+import logica.Producto;
 
 /**
  *
- * @author elias
+ * @author elias, Javiera Méndez
  */
 public class ReporteProductos extends javax.swing.JFrame {
+    private Almacen almacen;
+    private ArrayList<Pedido> pedidos;
     /**
      * Creates new form PaginaPrincipalFX
      */
     public ReporteProductos() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.pedidos= new ArrayList<Pedido>();
     }
 
+    public void setAlmacen(Almacen almacen) 
+    {
+        this.almacen = almacen;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,20 +136,29 @@ public class ReporteProductos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
-        
+        ControladorInterfaces.mostrarReporteProductos(false);
+        ControladorInterfaces.mostrarPrincipal(true);
     }//GEN-LAST:event_bVolverActionPerformed
 
     private void bGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGenerarActionPerformed
         DefaultCategoryDataset datosGrafica = new DefaultCategoryDataset();
+        ArrayList<ProductoFinalizado> retirados=productosMasVendidos();
         
         //Falta agregar datos a datosGrafica de la siguiente manera
         
-        int cantidadDeDatos=1; //Meses, Productos, etc
-        
-        for (int i = 0; i < cantidadDeDatos; i++){
-            datosGrafica.setValue(1000, "Panesito de Alfombra", "");
+        int cantidadDeDatos=retirados.size(); //Meses, Productos, etc
+        if(cantidadDeDatos>=10){
+            for (int i = 0; i < 10; i++){
+            datosGrafica.setValue(retirados.get(i).getCantidad(), retirados.get(i).getNombre(), "");
+            }   
         }
-
+        else{
+            for (int i = 0; i < cantidadDeDatos; i++){
+            datosGrafica.setValue(retirados.get(i).getCantidad(), retirados.get(i).getNombre(), "");
+            }
+        }
+        
+        
         //Acá se crea la gráfica (datos estáticos en la gráfica y se añaden los datos para cada barra al agregar datosGrafica)
         JFreeChart grafica = ChartFactory.createBarChart("" , "Producto", "Cantidad", datosGrafica);
         
@@ -152,11 +166,102 @@ public class ReporteProductos extends javax.swing.JFrame {
         jPanel1.add(panelGrafica);
         
         //Acá se indica la posición y el tamaño de la gráfica dentro del JPanel
-        panelGrafica.setBounds(5, 5, 660, 240);
+        panelGrafica.setBounds(5, 5, 660, 240);       
         
-                                   
+        
     }//GEN-LAST:event_bGenerarActionPerformed
 
+    private class ProductoFinalizado
+    {
+        private String nombre;
+        private int cantidad;
+        
+        public ProductoFinalizado(String nombre, int cantidad)
+        {
+            this.nombre = nombre;
+            this.cantidad = cantidad;
+        }
+
+        public String getNombre() 
+        {
+            return nombre;
+        }
+
+        public void setNombre(String nombre)
+        {
+            this.nombre = nombre;
+        }
+
+        public int getCantidad() 
+        {
+            return cantidad;
+        }
+
+        public void setCantidad(int cantidad) 
+        {
+            this.cantidad = cantidad;
+        }
+        
+        public void aumentarCantidad(int c)
+        {
+            cantidad += c;
+        }
+    }
+       
+    private ArrayList<ProductoFinalizado> productosMasVendidos()
+    {
+        System.out.println(almacen.getPedidos().size());
+        for(int i=0;i<almacen.getPedidos().size();i++){
+            pedidos.add(almacen.getPedidos().get(i));
+        } 
+        System.out.println(pedidos.size());
+        ArrayList<ProductoFinalizado> finalizados = new ArrayList<ProductoFinalizado>();
+        System.out.println(pedidos.size());
+        for(int i = 0; i < pedidos.size(); i++)
+        {
+            Pedido p = pedidos.get(i);
+            if(p.getEstado().equals("Retirado"))
+            {
+                HashMap<Producto, Integer> prod = p.getProductos();
+                for (Map.Entry<Producto, Integer> entry : prod.entrySet())
+                {                   
+                    int cantidad = entry.getValue();
+                    Producto producto = entry.getKey();
+                    String nombre = producto.getNombre();
+                    System.out.println(nombre+" "+cantidad);
+                    boolean loEncontro = false;
+                    
+                    for(int j = 0; j < finalizados.size(); j++)
+                    {
+                        ProductoFinalizado producto2 =  finalizados.get(j);
+                        if(nombre.equals(producto2.getNombre()))
+                        {
+                            loEncontro = true;
+                            producto2.aumentarCantidad(cantidad);
+                        }
+                    }
+                    
+                    if(loEncontro == false)
+                    {
+                        finalizados.add(new ProductoFinalizado(nombre, cantidad));
+                    }
+                }
+            }
+        }
+        System.out.println("acaaaa"); 
+        System.out.println(finalizados.size());
+        
+        for(int i = 0; i < finalizados.size(); i++)
+        {
+            for(int j=0; j<finalizados.size();j++){
+                ProductoFinalizado aux=  finalizados.get(j);
+                finalizados.remove(j);
+                finalizados.add(i, aux);
+            }
+    
+        }
+        return finalizados;
+    }
     /**
      * @param args the command line arguments
      */
@@ -182,10 +287,6 @@ public class ReporteProductos extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ReporteProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -193,7 +294,6 @@ public class ReporteProductos extends javax.swing.JFrame {
             }
         });
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bGenerar;

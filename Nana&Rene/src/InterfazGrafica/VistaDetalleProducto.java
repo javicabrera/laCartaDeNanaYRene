@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package InterfazGrafica;
 
 import javax.swing.ListSelectionModel;
@@ -12,7 +7,7 @@ import logica.Producto;
 import logica.ControladorInterfaces;
 
 /**
- *
+ * Permite ver el detalle de un producto mostrando las materias primas que utiliza
  * @author elias
  */
 public class VistaDetalleProducto extends javax.swing.JFrame {
@@ -20,7 +15,7 @@ public class VistaDetalleProducto extends javax.swing.JFrame {
     private Producto producto;
 
     /**
-     * Creates new form VistaDetallePedido
+     * Creates new form VistaDetalleProducto
      */
     public VistaDetalleProducto() {
         initComponents();
@@ -109,6 +104,10 @@ public class VistaDetalleProducto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Vuelve a la pantalla anterior y oculta la actual
+     * @param evt 
+     */
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         // TODO add your handling code here:
         ControladorInterfaces.habilitarGestionaProducto(true);
@@ -140,9 +139,6 @@ public class VistaDetalleProducto extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VistaDetalleProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -151,18 +147,24 @@ public class VistaDetalleProducto extends javax.swing.JFrame {
         });
     }
     
+    /**
+     * Inicializa la tabla con los las materias primas
+     * @param producto el producto a detallar
+     */
     public void inicializaTabla(Producto producto){
         this.producto=producto;
         modeloTabla.setRowCount(0);
-        
-        
+ 
         for(MateriaPrima m: this.producto.getMateriasPrimas().keySet()){
             anadirFila(m.getNombre(),this.producto.getMateriasPrimas().get(m));
         }
-        
-        
     }
     
+    /**
+     * Añade una fila a la tabla de materias primas
+     * @param nombre nombre de la materia prima
+     * @param cantidad cantidad
+     */
     private void anadirFila(String nombre, double cantidad) {
         Object[] row = {nombre, cantidad};
         
