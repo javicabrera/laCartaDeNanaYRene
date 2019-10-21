@@ -155,13 +155,6 @@ public class ControladorPedido {
      * Descuenta las materias primas del almacen una vez que se elabora un pedido
      * @param materiasPrimas materias primas que deben ser descontadas
      */
-    public void descontarMateriasPrimas(HashMap<MateriaPrima,Double> 
-            materiasPrimas){
-    /* Si están disponibles las materias primas, se debe llamar a este método 
-    pasándole un ArrayList de materias primas
-    - Obtener el ArrayList del stock de materias primas.
-    - Una materia prima podría tener un nombre, código y cantidad.
-    */
     public void descontarMateriasPrimas(HashMap<MateriaPrima,Double> materiasPrimas){
         for(MateriaPrima a: materiasPrimas.keySet()){
             for (MateriaPrima b: almacen.getMateriasPrimas()) {
