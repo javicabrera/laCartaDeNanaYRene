@@ -23,12 +23,14 @@ import logica.Producto;
  */
 public class ReporteProductos extends javax.swing.JFrame {
     private Almacen almacen;
+    private ArrayList<Pedido> pedidos;
     /**
      * Creates new form PaginaPrincipalFX
      */
     public ReporteProductos() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.pedidos= new ArrayList<Pedido>();
     }
 
     public void setAlmacen(Almacen almacen) 
@@ -161,12 +163,12 @@ public class ReporteProductos extends javax.swing.JFrame {
         productosMasVendidos();
     }//GEN-LAST:event_bGenerarActionPerformed
 
-    private class ProductoMasVendido
+    private class ProductoFinalizado
     {
         private String nombre;
         private int cantidad;
         
-        public ProductoMasVendido(String nombre, int cantidad)
+        public ProductoFinalizado(String nombre, int cantidad)
         {
             this.nombre = nombre;
             this.cantidad = cantidad;
@@ -200,8 +202,12 @@ public class ReporteProductos extends javax.swing.JFrame {
        
     private void productosMasVendidos()
     {
-        ArrayList<Pedido> pedidos = almacen.getPedidos();
-        ArrayList<ProductoMasVendido> diezProductos = new ArrayList<ProductoMasVendido>();
+        System.out.println(almacen.getPedidos().size());
+        for(int i=0;i<almacen.getPedidos().size();i++){
+            pedidos.add(almacen.getPedidos().get(i));
+        } 
+        System.out.println(pedidos.size());
+        ArrayList<ProductoFinalizado> finalizados = new ArrayList<ProductoFinalizado>();
         System.out.println(pedidos.size());
         for(int i = 0; i < pedidos.size(); i++)
         {
@@ -214,12 +220,12 @@ public class ReporteProductos extends javax.swing.JFrame {
                     int cantidad = entry.getValue();
                     Producto producto = entry.getKey();
                     String nombre = producto.getNombre();
-                    //System.out.println(nombre+" "+cantidad);
+                    System.out.println(nombre+" "+cantidad);
                     boolean loEncontro = false;
                     
-                    for(int j = 0; j < diezProductos.size(); j++)
+                    for(int j = 0; j < finalizados.size(); j++)
                     {
-                        ProductoMasVendido producto2 =  diezProductos.get(j);
+                        ProductoFinalizado producto2 =  finalizados.get(j);
                         if(nombre.equals(producto2.getNombre()))
                         {
                             loEncontro = true;
@@ -229,15 +235,17 @@ public class ReporteProductos extends javax.swing.JFrame {
                     
                     if(loEncontro == false)
                     {
-                        diezProductos.add(new ProductoMasVendido(nombre, cantidad));
+                        finalizados.add(new ProductoFinalizado(nombre, cantidad));
                     }
                 }
             }
         }
-        
-        for(int j = 0; j < diezProductos.size(); j++)
+        System.out.println("acaaaa");
+        System.out.println(finalizados.size());
+        for(int j = 0; j < finalizados.size(); j++)
         {
-            ProductoMasVendido producto2 =  diezProductos.get(j);
+            System.out.println("aca");
+            ProductoFinalizado producto2 =  finalizados.get(j);
             System.out.println(producto2.getNombre()+" "+producto2.getCantidad());
         }
     }
