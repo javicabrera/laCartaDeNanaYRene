@@ -23,12 +23,14 @@ import logica.Producto;
  */
 public class ReporteProductos extends javax.swing.JFrame {
     private Almacen almacen;
+    private ArrayList<Pedido> pedidos;
     /**
      * Creates new form PaginaPrincipalFX
      */
     public ReporteProductos() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.pedidos= new ArrayList<Pedido>();
     }
 
     public void setAlmacen(Almacen almacen) 
@@ -140,15 +142,23 @@ public class ReporteProductos extends javax.swing.JFrame {
 
     private void bGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGenerarActionPerformed
         DefaultCategoryDataset datosGrafica = new DefaultCategoryDataset();
+        ArrayList<ProductoFinalizado> retirados=productosMasVendidos();
         
         //Falta agregar datos a datosGrafica de la siguiente manera
         
-        int cantidadDeDatos=1; //Meses, Productos, etc
-        
-        for (int i = 0; i < cantidadDeDatos; i++){
-            datosGrafica.setValue(1000, "Panesito de Alfombra", "");
+        int cantidadDeDatos=retirados.size(); //Meses, Productos, etc
+        if(cantidadDeDatos>=10){
+            for (int i = 0; i < 10; i++){
+            datosGrafica.setValue(retirados.get(i).getCantidad(), retirados.get(i).getNombre(), "");
+            }   
         }
-
+        else{
+            for (int i = 0; i < cantidadDeDatos; i++){
+            datosGrafica.setValue(retirados.get(i).getCantidad(), retirados.get(i).getNombre(), "");
+            }
+        }
+        
+        
         //Acá se crea la gráfica (datos estáticos en la gráfica y se añaden los datos para cada barra al agregar datosGrafica)
         JFreeChart grafica = ChartFactory.createBarChart("" , "Producto", "Cantidad", datosGrafica);
         
@@ -158,15 +168,15 @@ public class ReporteProductos extends javax.swing.JFrame {
         //Acá se indica la posición y el tamaño de la gráfica dentro del JPanel
         panelGrafica.setBounds(5, 5, 660, 240);       
         
-        productosMasVendidos();
+        
     }//GEN-LAST:event_bGenerarActionPerformed
 
-    private class ProductoMasVendido
+    private class ProductoFinalizado
     {
         private String nombre;
         private int cantidad;
         
-        public ProductoMasVendido(String nombre, int cantidad)
+        public ProductoFinalizado(String nombre, int cantidad)
         {
             this.nombre = nombre;
             this.cantidad = cantidad;
@@ -198,10 +208,14 @@ public class ReporteProductos extends javax.swing.JFrame {
         }
     }
        
-    private void productosMasVendidos()
+    private ArrayList<ProductoFinalizado> productosMasVendidos()
     {
-        ArrayList<Pedido> pedidos = almacen.getPedidos();
-        ArrayList<ProductoMasVendido> diezProductos = new ArrayList<ProductoMasVendido>();
+        System.out.println(almacen.getPedidos().size());
+        for(int i=0;i<almacen.getPedidos().size();i++){
+            pedidos.add(almacen.getPedidos().get(i));
+        } 
+        System.out.println(pedidos.size());
+        ArrayList<ProductoFinalizado> finalizados = new ArrayList<ProductoFinalizado>();
         System.out.println(pedidos.size());
         for(int i = 0; i < pedidos.size(); i++)
         {
@@ -214,12 +228,12 @@ public class ReporteProductos extends javax.swing.JFrame {
                     int cantidad = entry.getValue();
                     Producto producto = entry.getKey();
                     String nombre = producto.getNombre();
-                    //System.out.println(nombre+" "+cantidad);
+                    System.out.println(nombre+" "+cantidad);
                     boolean loEncontro = false;
                     
-                    for(int j = 0; j < diezProductos.size(); j++)
+                    for(int j = 0; j < finalizados.size(); j++)
                     {
-                        ProductoMasVendido producto2 =  diezProductos.get(j);
+                        ProductoFinalizado producto2 =  finalizados.get(j);
                         if(nombre.equals(producto2.getNombre()))
                         {
                             loEncontro = true;
@@ -229,17 +243,24 @@ public class ReporteProductos extends javax.swing.JFrame {
                     
                     if(loEncontro == false)
                     {
-                        diezProductos.add(new ProductoMasVendido(nombre, cantidad));
+                        finalizados.add(new ProductoFinalizado(nombre, cantidad));
                     }
                 }
             }
         }
+        System.out.println("acaaaa"); 
+        System.out.println(finalizados.size());
         
-        for(int j = 0; j < diezProductos.size(); j++)
+        for(int i = 0; i < finalizados.size(); i++)
         {
-            ProductoMasVendido producto2 =  diezProductos.get(j);
-            System.out.println(producto2.getNombre()+" "+producto2.getCantidad());
+            for(int j=0; j<finalizados.size();j++){
+                ProductoFinalizado aux=  finalizados.get(j);
+                finalizados.remove(j);
+                finalizados.add(i, aux);
+            }
+    
         }
+        return finalizados;
     }
     /**
      * @param args the command line arguments

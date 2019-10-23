@@ -3,12 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/jaavi/Documents/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/ReporteVentas.java</file>
             <file>file:/C:/Users/jaavi/Documents/laCartaDeNanaYRene/Nana&amp;Rene/src/Main.java</file>
             <file>file:/C:/Users/jaavi/Documents/laCartaDeNanaYRene/Nana&amp;Rene/src/BaseDeDatos/GestionExcel.java</file>
             <file>file:/C:/Users/jaavi/Documents/laCartaDeNanaYRene/Nana&amp;Rene/src/logica/ControladorInterfaces.java</file>
             <file>file:/C:/Users/jaavi/Documents/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/ReporteProductos.java</file>
             <file>file:/C:/Users/jaavi/Documents/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaEditarMateriaPrima.java</file>
+=======
+            <file>file:/C:/Users/MarceloPablo/Documents/NetBeansProjects/laCartaDeNanaYRene/Nana&amp;Rene/src/logica/Pedido.java</file>
+            <file>file:/C:/Users/MarceloPablo/Documents/NetBeansProjects/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/VistaPedidos.java</file>
+            <file>file:/C:/Users/MarceloPablo/Documents/NetBeansProjects/laCartaDeNanaYRene/Nana&amp;Rene/src/logica/MateriaPrima.java</file>
+            <file>file:/C:/Users/MarceloPablo/Documents/NetBeansProjects/laCartaDeNanaYRene/Nana&amp;Rene/src/logica/Almacen.java</file>
+            <file>file:/C:/Users/MarceloPablo/Documents/NetBeansProjects/laCartaDeNanaYRene/Nana&amp;Rene/test/logica/MateriaPrimaTest.java</file>
+            <file>file:/C:/Users/MarceloPablo/Documents/NetBeansProjects/laCartaDeNanaYRene/Nana&amp;Rene/src/Main.java</file>
+            <file>file:/C:/Users/MarceloPablo/Documents/NetBeansProjects/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/ReporteProductos.java</file>
+            <file>file:/C:/Users/MarceloPablo/Documents/NetBeansProjects/laCartaDeNanaYRene/Nana&amp;Rene/src/InterfazGrafica/ReporteVentas.java</file>
+            <file>file:/C:/Users/MarceloPablo/Documents/NetBeansProjects/laCartaDeNanaYRene/Nana&amp;Rene/src/logica/Producto.java</file>
+>>>>>>> master
         </group>
     </open-files>
 </project-private>
