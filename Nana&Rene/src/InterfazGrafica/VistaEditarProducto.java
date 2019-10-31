@@ -108,12 +108,14 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         cantidad = new javax.swing.JTextField();
         boxMateriaPrima = new javax.swing.JComboBox<>();
         bVolver = new javax.swing.JButton();
+        horas = new javax.swing.JLabel();
         bGuardar = new javax.swing.JButton();
         btnAgregarMPrima = new javax.swing.JButton();
         nombre = new javax.swing.JTextField();
         actualizaMatPrima = new javax.swing.JButton();
         materiasPrimas = new javax.swing.JLabel();
         borrarMatPrima = new javax.swing.JButton();
+        signoPesos = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaMaterias = new javax.swing.JList<>();
         panelSuperior = new javax.swing.JPanel();
@@ -134,8 +136,9 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         getContentPane().add(txtPrecioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, 20));
 
         txtTiempoElab.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        txtTiempoElab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtTiempoElab.setText("Tiempo de Elaboración:");
-        getContentPane().add(txtTiempoElab, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, 20));
+        getContentPane().add(txtTiempoElab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 196, 170, 20));
 
         txtCantidad.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         txtCantidad.setText("Cantidad:");
@@ -175,6 +178,11 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         });
         getContentPane().add(bVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 100, 50));
 
+        horas.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        horas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        horas.setText("(horas): ");
+        getContentPane().add(horas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 70, 20));
+
         bGuardar.setText("Guardar");
         bGuardar.setToolTipText("Guardar este producto");
         bGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -205,8 +213,9 @@ public class VistaEditarProducto extends javax.swing.JFrame {
         });
         getContentPane().add(actualizaMatPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 320, -1, -1));
 
+        materiasPrimas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         materiasPrimas.setText("Materias Primas");
-        getContentPane().add(materiasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 80, -1, -1));
+        getContentPane().add(materiasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 80, 190, -1));
 
         borrarMatPrima.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/basurero16.png"))); // NOI18N
         borrarMatPrima.setToolTipText("Eliminar materia prima");
@@ -216,6 +225,9 @@ public class VistaEditarProducto extends javax.swing.JFrame {
             }
         });
         getContentPane().add(borrarMatPrima, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, 40, 30));
+
+        signoPesos.setText("$");
+        getContentPane().add(signoPesos, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 155, -1, -1));
 
         listaMaterias.setBackground(new java.awt.Color(242, 242, 242));
         listaMaterias.setModel(new javax.swing.AbstractListModel<String>() {
@@ -533,6 +545,7 @@ public class VistaEditarProducto extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> boxMateriaPrima;
     private javax.swing.JButton btnAgregarMPrima;
     private javax.swing.JTextField cantidad;
+    private javax.swing.JLabel horas;
     private javax.swing.JLabel icon;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listaMaterias;
@@ -540,6 +553,7 @@ public class VistaEditarProducto extends javax.swing.JFrame {
     private javax.swing.JTextField nombre;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JTextField precioVenta;
+    private javax.swing.JLabel signoPesos;
     private javax.swing.JTextField tiempoElab;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel txtCantidad;

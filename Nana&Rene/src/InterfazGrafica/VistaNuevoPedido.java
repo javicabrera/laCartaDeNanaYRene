@@ -32,6 +32,7 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
     private int total;
     private Almacen almacen;
     private int contador;
+    private int dcto;
     private Cliente cliente;
 
     /**
@@ -109,6 +110,7 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         txtPorcentaje = new javax.swing.JLabel();
         btnAplicarDscto = new javax.swing.JButton();
         resumenPedido = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaProductos = new javax.swing.JList<>();
         panelSuperior = new javax.swing.JPanel();
@@ -263,6 +265,9 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         resumenPedido.setText("Resumen Pedido");
         getContentPane().add(resumenPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 80, -1, -1));
 
+        jLabel1.setText("$");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(133, 195, -1, -1));
+
         listaProductos.setBackground(new java.awt.Color(242, 242, 242));
         listaProductos.setModel(new javax.swing.AbstractListModel<String>() {
 
@@ -401,11 +406,9 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         Date DateSolicitud = null;
         Date DateRetiro = null;
         int abono = 0;
-        int dcto = 0;
         
         try{
             abono = Integer.parseInt(precioAbonado.getText());
-            dcto = Integer.parseInt(descuento.getText());
             flag = true;
         } catch(NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Debe ingresar un numero válido",
@@ -442,15 +445,11 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
             flag6 =false;
         }
         try {
-            Date fSolicitud = new SimpleDateFormat("dd/MM/yyyy").parse(this.fSolicitud.getText());
-            Date fRetiro =  new SimpleDateFormat("dd/MM/yyyy").parse(this.fRetiro.getText());
             Date fActual = new Date();
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
             String strDate = dateFormat.format(fActual);  
             fActual = new SimpleDateFormat("dd/MM/yyyy").parse(strDate);
-            
-            
-            if(fRetiro.before(fActual))
+            if(DateRetiro.before(fActual))
             {
                 JOptionPane.showMessageDialog(this, "La fecha de retiro es anterior a la actual.",
                     "Error", JOptionPane.ERROR_MESSAGE);
@@ -521,16 +520,22 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         if(contador==0){
-            double dcto = Double.parseDouble(descuento.getText());
-            if(dcto<0 || dcto>100){
-                JOptionPane.showMessageDialog(this, "El descuento debe estar entre 0 y 100",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            else{
-                double precioDescontado = total*(1-(dcto/100));
-                total = (int) precioDescontado;
-                precioTotal.setText(String.valueOf(total));
-                contador++;
+            try{
+                int dcto = Integer.parseInt(descuento.getText());
+                if(dcto<=0 || dcto>100){
+                    JOptionPane.showMessageDialog(this, "El descuento debe estar entre 1 y 100",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
+                    this.dcto = dcto;
+                    double precioDescontado = total*(1-(dcto/100));
+                    total = (int) precioDescontado;
+                    precioTotal.setText(String.valueOf(total));
+                    contador++;
+                } 
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(this, "Ingrese un número entre 1 y 100",
+                            "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         else{
@@ -625,6 +630,7 @@ public class VistaNuevoPedido extends javax.swing.JFrame {
     private javax.swing.JTextField fRetiro;
     private javax.swing.JTextField fSolicitud;
     private javax.swing.JLabel icon;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listaProductos;
     private javax.swing.JTextField nombre;

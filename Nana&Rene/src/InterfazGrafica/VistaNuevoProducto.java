@@ -72,6 +72,9 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         btnAgregarMPrima = new javax.swing.JButton();
         nombre = new javax.swing.JTextField();
         materiasPrimas = new javax.swing.JLabel();
+        signoPesos = new javax.swing.JLabel();
+        horas = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaMaterias = new javax.swing.JList<>();
         panelSuperior = new javax.swing.JPanel();
@@ -92,8 +95,9 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         getContentPane().add(txtPrecioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, 20));
 
         txtTiempoElab.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        txtTiempoElab.setText("Tiempo de Elaboración:");
-        getContentPane().add(txtTiempoElab, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, 20));
+        txtTiempoElab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtTiempoElab.setText("Tiempo de Elaboración");
+        getContentPane().add(txtTiempoElab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 196, 170, 20));
 
         txtCantidad.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         txtCantidad.setText("Cantidad:");
@@ -159,8 +163,18 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         nombre.setToolTipText("Ingrese nombre");
         getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 350, -1));
 
+        materiasPrimas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         materiasPrimas.setText("Materias Primas");
-        getContentPane().add(materiasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 80, -1, -1));
+        getContentPane().add(materiasPrimas, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 80, 190, -1));
+
+        signoPesos.setText("$");
+        getContentPane().add(signoPesos, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 155, -1, -1));
+
+        horas.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        horas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        horas.setText("(horas): ");
+        getContentPane().add(horas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 213, 70, -1));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
 
         listaMaterias.setBackground(new java.awt.Color(242, 242, 242));
         listaMaterias.setModel(new javax.swing.AbstractListModel<String>() {
@@ -209,7 +223,7 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
         getContentPane().add(panelSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 70));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/fondoLargo.jpg"))); // NOI18N
-        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 780, 360));
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(-70, 70, 780, 360));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -396,13 +410,16 @@ public class VistaNuevoProducto extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> boxMateriaPrima;
     private javax.swing.JButton btnAgregarMPrima;
     private javax.swing.JTextField cantidad;
+    private javax.swing.JLabel horas;
     private javax.swing.JLabel icon;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> listaMaterias;
     private javax.swing.JLabel materiasPrimas;
     private javax.swing.JTextField nombre;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JTextField precioVenta;
+    private javax.swing.JLabel signoPesos;
     private javax.swing.JTextField tiempoElab;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel txtCantidad;
