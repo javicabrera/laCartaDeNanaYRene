@@ -31,6 +31,12 @@ public class ReporteProductos extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.pedidos= new ArrayList<Pedido>();
+        
+        botonBloqueo.setOpaque(false);
+        botonBloqueo.setContentAreaFilled(false);
+        botonBloqueo.setBorderPainted(false);
+        botonBloqueo.setEnabled(false);
+        
     }
 
     public void setAlmacen(Almacen almacen) 
@@ -49,7 +55,8 @@ public class ReporteProductos extends javax.swing.JFrame {
         bVolver = new javax.swing.JButton();
         bGenerar = new javax.swing.JButton();
         txtSelecPeriodo = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        panelGrafico = new javax.swing.JPanel();
+        botonBloqueo = new javax.swing.JButton();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -80,21 +87,23 @@ public class ReporteProductos extends javax.swing.JFrame {
         txtSelecPeriodo.setText("Reporte de los 10 Productos más vendidos en la última semana:");
         getContentPane().add(txtSelecPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, 20));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelGrafico.setBackground(new java.awt.Color(255, 255, 255));
+        panelGrafico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 668, Short.MAX_VALUE)
+        botonBloqueo.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelGraficoLayout = new javax.swing.GroupLayout(panelGrafico);
+        panelGrafico.setLayout(panelGraficoLayout);
+        panelGraficoLayout.setHorizontalGroup(
+            panelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(botonBloqueo, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 248, Short.MAX_VALUE)
+        panelGraficoLayout.setVerticalGroup(
+            panelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(botonBloqueo, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 670, 250));
+        getContentPane().add(panelGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 670, 250));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
 
@@ -163,7 +172,7 @@ public class ReporteProductos extends javax.swing.JFrame {
         JFreeChart grafica = ChartFactory.createBarChart("" , "Producto", "Cantidad", datosGrafica);
         
         ChartPanel panelGrafica = new ChartPanel(grafica);
-        jPanel1.add(panelGrafica);
+        panelGrafico.add(panelGrafica);
         
         //Acá se indica la posición y el tamaño de la gráfica dentro del JPanel
         panelGrafica.setBounds(5, 5, 660, 240);       
@@ -299,8 +308,9 @@ public class ReporteProductos extends javax.swing.JFrame {
     private javax.swing.JButton bGenerar;
     private javax.swing.JButton bVolver;
     private javax.swing.JLabel background;
+    private javax.swing.JButton botonBloqueo;
     private javax.swing.JLabel icon;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel panelGrafico;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel txtSelecPeriodo;
