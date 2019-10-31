@@ -29,6 +29,11 @@ public class ReporteVentas extends javax.swing.JFrame {
     public ReporteVentas() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        botonBloqueo.setOpaque(false);
+        botonBloqueo.setContentAreaFilled(false);
+        botonBloqueo.setBorderPainted(false);
+        botonBloqueo.setEnabled(false);
     }
 
     /**
@@ -54,7 +59,8 @@ public class ReporteVentas extends javax.swing.JFrame {
         periodo = new javax.swing.JComboBox<>();
         seleccionPeriodo = new javax.swing.JComboBox<>();
         txtIngresAno = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        panelGrafico = new javax.swing.JPanel();
+        botonBloqueo = new javax.swing.JButton();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -108,21 +114,23 @@ public class ReporteVentas extends javax.swing.JFrame {
         txtIngresAno.setText("Ingrese año:");
         getContentPane().add(txtIngresAno, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, 20));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelGrafico.setBackground(new java.awt.Color(255, 255, 255));
+        panelGrafico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+        botonBloqueo.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelGraficoLayout = new javax.swing.GroupLayout(panelGrafico);
+        panelGrafico.setLayout(panelGraficoLayout);
+        panelGraficoLayout.setHorizontalGroup(
+            panelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(botonBloqueo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 238, Short.MAX_VALUE)
+        panelGraficoLayout.setVerticalGroup(
+            panelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(botonBloqueo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 490, 240));
+        getContentPane().add(panelGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 490, 240));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
 
@@ -222,7 +230,7 @@ public class ReporteVentas extends javax.swing.JFrame {
             int mes = fecha.getMonth();
             int anoPedido = fecha.getYear()+1900;
             //System.out.println("año pedido: "+anoPedido);
-            if(anoOficial == anoPedido)
+            if((anoOficial == anoPedido) && (p.getEstado().equals("Retirado")))
             {  
                 switch (mes) 
                 {
@@ -284,7 +292,7 @@ public class ReporteVentas extends javax.swing.JFrame {
  
         JFreeChart grafica = ChartFactory.createBarChart("Ventas "+anoConsulta.getText() , "Mes", "Pesos Chilenos", datosGrafica);
         ChartPanel panelGrafica = new ChartPanel(grafica);
-        jPanel1.add(panelGrafica);
+        panelGrafico.add(panelGrafica);
         panelGrafica.setBounds(5, 5, 480, 230);
     }
     
@@ -305,7 +313,7 @@ public class ReporteVentas extends javax.swing.JFrame {
             int mesPedido = fecha.getMonth();
             int anoPedido = fecha.getYear()+1900;
             //System.out.println("año pedido: "+anoPedido);
-            if((anoOficial == anoPedido) && (mesOficial == mesPedido))
+            if((anoOficial == anoPedido) && (mesOficial == mesPedido) && (p.getEstado().equals("Retirado")))
             {  
                 ventaMensual +=  p.getPrecioTotal();
             }  
@@ -317,7 +325,7 @@ public class ReporteVentas extends javax.swing.JFrame {
  
         JFreeChart grafica = ChartFactory.createBarChart("Ventas "+anoConsulta.getText()+ " "+seleccionPeriodo.getItemAt(seleccionPeriodo.getSelectedIndex()) , "Mes", "Pesos Chilenos", datosGrafica);
         ChartPanel panelGrafica = new ChartPanel(grafica);
-        jPanel1.add(panelGrafica);
+        panelGrafico.add(panelGrafica);
         panelGrafica.setBounds(5, 5, 480, 230);
     }
     
@@ -337,7 +345,7 @@ public class ReporteVentas extends javax.swing.JFrame {
             int mes = fecha.getMonth();
             int anoPedido = fecha.getYear()+1900;
 
-            if(anoOficial == anoPedido)
+            if((anoOficial == anoPedido) && (p.getEstado().equals("Retirado")))
             {  
                 switch (mes) 
                 {
@@ -405,7 +413,7 @@ public class ReporteVentas extends javax.swing.JFrame {
  
         JFreeChart grafica = ChartFactory.createBarChart("Ventas "+anoConsulta.getText()+ " "+seleccionPeriodo.getItemAt(seleccionPeriodo.getSelectedIndex()) , "Mes", "Pesos Chilenos", datosGrafica);
         ChartPanel panelGrafica = new ChartPanel(grafica);
-        jPanel1.add(panelGrafica);
+        panelGrafico.add(panelGrafica);
         panelGrafica.setBounds(5, 5, 480, 230);
     }
 
@@ -474,8 +482,9 @@ public class ReporteVentas extends javax.swing.JFrame {
     private javax.swing.JButton bGenerar;
     private javax.swing.JButton bVolver;
     private javax.swing.JLabel background;
+    private javax.swing.JButton botonBloqueo;
     private javax.swing.JLabel icon;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel panelGrafico;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JComboBox<String> periodo;
     private javax.swing.JComboBox<String> seleccionPeriodo;

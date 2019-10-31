@@ -23,12 +23,20 @@ import logica.Producto;
  */
 public class ReporteProductos extends javax.swing.JFrame {
     private Almacen almacen;
+    private ArrayList<Pedido> pedidos;
     /**
      * Creates new form PaginaPrincipalFX
      */
     public ReporteProductos() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.pedidos= new ArrayList<Pedido>();
+        
+        botonBloqueo.setOpaque(false);
+        botonBloqueo.setContentAreaFilled(false);
+        botonBloqueo.setBorderPainted(false);
+        botonBloqueo.setEnabled(false);
+        
     }
 
     public void setAlmacen(Almacen almacen) 
@@ -47,7 +55,8 @@ public class ReporteProductos extends javax.swing.JFrame {
         bVolver = new javax.swing.JButton();
         bGenerar = new javax.swing.JButton();
         txtSelecPeriodo = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        panelGrafico = new javax.swing.JPanel();
+        botonBloqueo = new javax.swing.JButton();
         panelSuperior = new javax.swing.JPanel();
         icon = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -78,21 +87,23 @@ public class ReporteProductos extends javax.swing.JFrame {
         txtSelecPeriodo.setText("Reporte de los 10 Productos más vendidos en la última semana:");
         getContentPane().add(txtSelecPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, 20));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelGrafico.setBackground(new java.awt.Color(255, 255, 255));
+        panelGrafico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 668, Short.MAX_VALUE)
+        botonBloqueo.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelGraficoLayout = new javax.swing.GroupLayout(panelGrafico);
+        panelGrafico.setLayout(panelGraficoLayout);
+        panelGraficoLayout.setHorizontalGroup(
+            panelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(botonBloqueo, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 248, Short.MAX_VALUE)
+        panelGraficoLayout.setVerticalGroup(
+            panelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(botonBloqueo, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 670, 250));
+        getContentPane().add(panelGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 670, 250));
 
         panelSuperior.setBackground(new java.awt.Color(153, 197, 175));
 
@@ -140,33 +151,41 @@ public class ReporteProductos extends javax.swing.JFrame {
 
     private void bGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGenerarActionPerformed
         DefaultCategoryDataset datosGrafica = new DefaultCategoryDataset();
+        ArrayList<ProductoFinalizado> retirados=productosMasVendidos();
         
         //Falta agregar datos a datosGrafica de la siguiente manera
         
-        int cantidadDeDatos=1; //Meses, Productos, etc
-        
-        for (int i = 0; i < cantidadDeDatos; i++){
-            datosGrafica.setValue(1000, "Panesito de Alfombra", "");
+        int cantidadDeDatos=retirados.size(); //Meses, Productos, etc
+        if(cantidadDeDatos>=10){
+            for (int i = 0; i < 10; i++){
+            datosGrafica.setValue(retirados.get(i).getCantidad(), retirados.get(i).getNombre(), "");
+            }   
         }
-
+        else{
+            for (int i = 0; i < cantidadDeDatos; i++){
+            datosGrafica.setValue(retirados.get(i).getCantidad(), retirados.get(i).getNombre(), "");
+            }
+        }
+        
+        
         //Acá se crea la gráfica (datos estáticos en la gráfica y se añaden los datos para cada barra al agregar datosGrafica)
         JFreeChart grafica = ChartFactory.createBarChart("" , "Producto", "Cantidad", datosGrafica);
         
         ChartPanel panelGrafica = new ChartPanel(grafica);
-        jPanel1.add(panelGrafica);
+        panelGrafico.add(panelGrafica);
         
         //Acá se indica la posición y el tamaño de la gráfica dentro del JPanel
         panelGrafica.setBounds(5, 5, 660, 240);       
         
-        productosMasVendidos();
+        
     }//GEN-LAST:event_bGenerarActionPerformed
 
-    private class ProductoMasVendido
+    private class ProductoFinalizado
     {
         private String nombre;
         private int cantidad;
         
-        public ProductoMasVendido(String nombre, int cantidad)
+        public ProductoFinalizado(String nombre, int cantidad)
         {
             this.nombre = nombre;
             this.cantidad = cantidad;
@@ -198,10 +217,14 @@ public class ReporteProductos extends javax.swing.JFrame {
         }
     }
        
-    private void productosMasVendidos()
+    private ArrayList<ProductoFinalizado> productosMasVendidos()
     {
-        ArrayList<Pedido> pedidos = almacen.getPedidos();
-        ArrayList<ProductoMasVendido> diezProductos = new ArrayList<ProductoMasVendido>();
+        System.out.println(almacen.getPedidos().size());
+        for(int i=0;i<almacen.getPedidos().size();i++){
+            pedidos.add(almacen.getPedidos().get(i));
+        } 
+        System.out.println(pedidos.size());
+        ArrayList<ProductoFinalizado> finalizados = new ArrayList<ProductoFinalizado>();
         System.out.println(pedidos.size());
         for(int i = 0; i < pedidos.size(); i++)
         {
@@ -214,12 +237,12 @@ public class ReporteProductos extends javax.swing.JFrame {
                     int cantidad = entry.getValue();
                     Producto producto = entry.getKey();
                     String nombre = producto.getNombre();
-                    //System.out.println(nombre+" "+cantidad);
+                    System.out.println(nombre+" "+cantidad);
                     boolean loEncontro = false;
                     
-                    for(int j = 0; j < diezProductos.size(); j++)
+                    for(int j = 0; j < finalizados.size(); j++)
                     {
-                        ProductoMasVendido producto2 =  diezProductos.get(j);
+                        ProductoFinalizado producto2 =  finalizados.get(j);
                         if(nombre.equals(producto2.getNombre()))
                         {
                             loEncontro = true;
@@ -229,17 +252,24 @@ public class ReporteProductos extends javax.swing.JFrame {
                     
                     if(loEncontro == false)
                     {
-                        diezProductos.add(new ProductoMasVendido(nombre, cantidad));
+                        finalizados.add(new ProductoFinalizado(nombre, cantidad));
                     }
                 }
             }
         }
+        System.out.println("acaaaa"); 
+        System.out.println(finalizados.size());
         
-        for(int j = 0; j < diezProductos.size(); j++)
+        for(int i = 0; i < finalizados.size(); i++)
         {
-            ProductoMasVendido producto2 =  diezProductos.get(j);
-            System.out.println(producto2.getNombre()+" "+producto2.getCantidad());
+            for(int j=0; j<finalizados.size();j++){
+                ProductoFinalizado aux=  finalizados.get(j);
+                finalizados.remove(j);
+                finalizados.add(i, aux);
+            }
+    
         }
+        return finalizados;
     }
     /**
      * @param args the command line arguments
@@ -278,8 +308,9 @@ public class ReporteProductos extends javax.swing.JFrame {
     private javax.swing.JButton bGenerar;
     private javax.swing.JButton bVolver;
     private javax.swing.JLabel background;
+    private javax.swing.JButton botonBloqueo;
     private javax.swing.JLabel icon;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel panelGrafico;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel txtSelecPeriodo;
