@@ -104,6 +104,8 @@ public class ControladorPedido {
     public boolean retirarPedido(Pedido p){
         if(p.getPrecioAbonado()==p.getPrecioTotal()){
             p.setEstado("Retirado");
+            Date actual = new Date();
+            p.setFechaRetiro(actual);
             return true;
         }
         else{

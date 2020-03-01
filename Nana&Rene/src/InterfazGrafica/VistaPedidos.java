@@ -249,6 +249,11 @@ public class VistaPedidos extends javax.swing.JFrame {
                         "Error", JOptionPane.ERROR_MESSAGE);
                     }
                     break;
+                case "Cancelado":
+                    JOptionPane.showMessageDialog(this, "El pedido se encuentra "
+                            + "cancelado.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
             }
             setAlmacen(almacen);
         }
@@ -264,12 +269,11 @@ public class VistaPedidos extends javax.swing.JFrame {
      */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         if(obtieneFilaSeleccionada()>=0){
-            if(JOptionPane.showConfirmDialog(this, "¿Desea cancelar el pedido?", 
-                    "Cancelar Pedido", 0)==0){
-                cancelarPedido();
-                cp = new ControladorPedido(almacen);
-
-                    Pedido pedido = almacen.getPedidos().get(obtieneFilaSeleccionada());
+            Pedido pedido = almacen.getPedidos().get(obtieneFilaSeleccionada());
+            if(!pedido.getEstado().equals("Cancelado")){
+                if(JOptionPane.showConfirmDialog(this, "¿Desea cancelar el pedido?", 
+                        "Cancelar Pedido", 0)==0){
+                    cp = new ControladorPedido(almacen);
                     boolean abono = cp.cancelarPedido(pedido);
                     int abonado = pedido.getPrecioAbonado();
                     if (abono){
@@ -280,15 +284,20 @@ public class VistaPedidos extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this,"No se devuelve abono.",""
                                 + "Cancelar Pedido", JOptionPane.INFORMATION_MESSAGE);
                     }
-                    ArrayList<Pedido> aux = almacen.getPedidos();
-                    
-                    almacen.setPedidos(aux);
+                    setAlmacen(almacen);
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "El pedido ya se encuentra "
+                        + "cancelado.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         else{
                 JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido",
                     "Error", JOptionPane.ERROR_MESSAGE);
             }
+        
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
@@ -314,29 +323,38 @@ public class VistaPedidos extends javax.swing.JFrame {
      */
     private void btnAbonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbonoActionPerformed
         if(obtieneFilaSeleccionada()>=0){
-            try{
-                int abono = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese valor a abonar: ", 
-                    "Abonar", JOptionPane.QUESTION_MESSAGE));
-                int totalAbono = this.almacen.getPedidos().get(obtieneFilaSeleccionada()).getPrecioAbonado()+abono;
-                if(abono<0){
-                    JOptionPane.showMessageDialog(this, "El abono no puede ser negativo",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                else{
-                    if(totalAbono<=this.almacen.getPedidos().get(obtieneFilaSeleccionada()).getPrecioTotal()){
-                        ArrayList<Pedido> pedidos = this.almacen.getPedidos();
-                        pedidos.get(obtieneFilaSeleccionada()).setPrecioAbonado(totalAbono);
-                        this.almacen.setPedidos(pedidos);
-
+            ArrayList<Pedido> pedidos = this.almacen.getPedidos();
+            Pedido pedido = pedidos.get(obtieneFilaSeleccionada());
+            if(!pedido.getEstado().equals("Cancelado")){
+                try{
+                    int abono = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese valor a abonar: ", 
+                        "Abonar", JOptionPane.QUESTION_MESSAGE));
+                    int totalAbono = this.almacen.getPedidos().get(
+                            obtieneFilaSeleccionada()).getPrecioAbonado()+abono;
+                    if(abono<0){
+                        JOptionPane.showMessageDialog(this, "El abono no puede ser negativo",
+                            "Error", JOptionPane.ERROR_MESSAGE);
                     }
                     else{
-                        JOptionPane.showMessageDialog(this, "El abono no puede ser mayor al total",
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                        if(totalAbono<=this.almacen.getPedidos().get(obtieneFilaSeleccionada())
+                                .getPrecioTotal()){
+                            pedido.setPrecioAbonado(totalAbono);
+                            this.almacen.setPedidos(pedidos);
+
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(this, "El abono no puede ser mayor al total",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
+                } catch(NumberFormatException e){
+                    JOptionPane.showMessageDialog(this, "Debe ingresar un número válido.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } catch(NumberFormatException e){
-                JOptionPane.showMessageDialog(this, "Debe ingresar un número válido.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "El pedido se encuentra cancelado.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         else{
@@ -403,49 +421,6 @@ public class VistaPedidos extends javax.swing.JFrame {
         
         return tablaPedidos.getSelectedRow();
     }
-    
-    /**
-     * Cambia el estado de pedido de una tabla.
-     */
-    public void aumentarEstadoPedido(){
-        
-        int fila = tablaPedidos.getSelectedRow();
-        
-        if (fila==-1) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        else{
-            if (modeloTabla.getValueAt(fila, 3).equals("Pendiente")) {
-                modeloTabla.setValueAt("En Proceso", fila, 3);
-            }
-
-            else if (modeloTabla.getValueAt(fila, 3).equals("En Proceso")) {
-                modeloTabla.setValueAt("Finalizado", fila, 3);
-            }
-            else if (modeloTabla.getValueAt(fila, 3).equals("Finalizado")) {
-                modeloTabla.setValueAt("Retirado", fila, 3);
-            }
-        }
-    }
-    
-    /**
-     * Borra un pedido de una tabla
-     */
-    private void cancelarPedido(){
-        DefaultTableModel modeloTabla = (DefaultTableModel) tablaPedidos.getModel();
-        
-        int fila = tablaPedidos.getSelectedRow();
-        
-        if (fila==-1) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        modeloTabla.setValueAt("Cancelado", fila, 3);
-    }
 
     /**
      * Obtiene el almacen actual
@@ -472,7 +447,8 @@ public class VistaPedidos extends javax.swing.JFrame {
             if (porPagar==0)
                 textoPorPagar="Pagado";
                 
-            anadirFila(p.getNombreCliente(), simpleDateFormat.format(p.getFechaRetiro()),p.getPrecioTotal(), textoPorPagar, p.getEstado());
+            anadirFila(p.getNombreCliente(), simpleDateFormat.format(p.getFechaRetiro()),
+                    p.getPrecioTotal(), textoPorPagar, p.getEstado());
         }
         
     }

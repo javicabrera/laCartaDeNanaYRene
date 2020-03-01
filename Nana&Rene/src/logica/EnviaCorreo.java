@@ -87,7 +87,7 @@ public class EnviaCorreo
 "								</tr>\n" +
 "								<tr>\n" +
 "									<td style=\"padding: 20px 0 20px 0; color: #153643; font-family: Arial, sans-serif; font-size: 12px; line-height: 10px;\">\n" +
-"                                        <p>Total a pagar:"+ valorAPagar+ "</p>                                        \n" +
+"                                        <p>Total a pagar: $"+ valorAPagar+ "</p>                                        \n" +
 "                                        <p>Fecha retiro:" + fechaRetiro+ "</p>\n" +
 "                                        <p>Horario de atencion: 10hrs. - 20hrs.</p>\n" +
 "                                        <p>Dirección: Calle Todo El Sazon Esquina Sabrozonga #69</p>\n" +
